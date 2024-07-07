@@ -34,4 +34,4 @@ func _on_animated_sprite_2d_frame_changed():
 	pass # Replace with function body.
 
 func attack(target: Mob, damage: int = 1):
-	target.take_damage(3)
+	target.take_damage(Data.attack_value(Data.attack_level))

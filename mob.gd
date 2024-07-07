@@ -3,7 +3,6 @@ class_name Mob
 extends Area2D
 
 @export var damage_taken_label_scene: PackedScene
-@export var on_kill_callback: Callable
 
 var main = null
 
@@ -38,5 +37,5 @@ func take_damage(damage = 1):
 	$HealthBar.value = health
 	
 	if (health <= 0):
-		on_kill_callback.call(gold_value)
+		Data.gold_add(gold_value)
 		queue_free()

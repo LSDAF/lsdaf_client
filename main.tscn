@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://gi8wsmn7nljk"]
+[gd_scene load_steps=16 format=3 uid="uid://gi8wsmn7nljk"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_1h0lx"]
 [ext_resource type="Texture2D" uid="uid://gn35ecf4b57k" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/1.png" id="1_3iy02"]
 [ext_resource type="Script" path="res://Parallax.gd" id="1_icju0"]
 [ext_resource type="Texture2D" uid="uid://c0b840d4jqqqc" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/2.png" id="2_o5nf7"]
 [ext_resource type="Texture2D" uid="uid://xlh5yxrtkywp" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/3.png" id="3_os5bm"]
+[ext_resource type="Script" path="res://data.gd" id="3_yvdwb"]
 [ext_resource type="Texture2D" uid="uid://dwhhydtp4spth" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/4.png" id="4_jsubv"]
 [ext_resource type="Texture2D" uid="uid://w78ev5du1xds" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/5.png" id="5_y6x5f"]
 [ext_resource type="Texture2D" uid="uid://b11v2sthp51nh" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/6.png" id="6_sjsoc"]
@@ -18,6 +19,9 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_1h0lx")
 mob_scene = ExtResource("11_sw181")
+
+[node name="DataNode" type="Node" parent="."]
+script = ExtResource("3_yvdwb")
 
 [node name="Parallax" type="ParallaxBackground" parent="."]
 scale = Vector2(2, 2)
