@@ -12,5 +12,4 @@ func _process(delta):
 
 
 func _on_hud_gold_update():
-	print('hud_gold_update')
 	text = str(Data.gold)

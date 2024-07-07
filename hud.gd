@@ -15,5 +15,4 @@ func _process(delta):
 	pass
 		
 func _on_data_gold_update():
-	print('data_gold_update')
 	gold_update.emit()

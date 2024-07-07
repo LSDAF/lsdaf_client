@@ -4,6 +4,8 @@ extends Area2D
 
 @export var damage_taken_label_scene: PackedScene
 
+signal mob_death
+
 var main = null
 
 var max_health = 10
@@ -38,4 +40,4 @@ func take_damage(damage = 1):
 	
 	if (health <= 0):
 		Data.gold_add(gold_value)
-		queue_free()
+		mob_death.emit(self)

@@ -105,7 +105,7 @@ centered = false
 position = Vector2(137, 478)
 
 [node name="MobSpawner" type="Node2D" parent="."]
-position = Vector2(502, 536)
+position = Vector2(700, 536)
 script = ExtResource("11_wl2rb")
 
 [node name="HUD" parent="." instance=ExtResource("14_f2ujl")]
