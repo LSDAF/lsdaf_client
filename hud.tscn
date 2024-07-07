@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3hnnim8xc56f"]
+
+[ext_resource type="Texture2D" uid="uid://b8njntyvsuobq" path="res://assets/__Homework/gold_bar.png" id="1_bbxjr"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="TopSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_bbxjr")
+centered = false
+
+[node name="GoldLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.5
+offset_top = 10.0
+offset_right = 75.5
+offset_bottom = 55.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.951518, 0.65804, 0.00143198, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats" type="Node2D" parent="."]
+
+[node name="Attack" type="Node2D" parent="Stats"]
+position = Vector2(0, 840)
+metadata/_edit_group_ = true
+
+[node name="Buy" type="Button" parent="Stats/Attack"]
+offset_right = 73.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 32
+text = "Buy"
+
+[node name="Cost" type="Label" parent="Stats/Attack"]
+offset_left = 93.0
+offset_right = 338.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 32
+text = "Cost"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="Stats/Attack"]
+offset_left = 400.0
+offset_right = 629.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 32
+text = "Level"
+horizontal_alignment = 1
+vertical_alignment = 1

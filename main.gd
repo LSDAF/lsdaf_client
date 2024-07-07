@@ -25,4 +25,4 @@ func _process(delta):
 
 func add_gold(income: int = 1):
 	gold += income
-	$GoldLabel.text = str(gold)
+	$HUD/GoldLabel.text = str(gold)
