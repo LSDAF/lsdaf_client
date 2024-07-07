@@ -15,7 +15,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	$HealthBar.max_value = Data.hp_value(Data.hp_level)
+	$HealthBar.value = Data.current_hp
 
 func _on_area_entered(area):
 	currentEncounter = area

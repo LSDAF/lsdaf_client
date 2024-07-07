@@ -165,7 +165,6 @@ size = Vector2(75, 121)
 [node name="Player" type="Area2D"]
 script = ExtResource("1_mrfv1")
 player_attack = 3
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -178,6 +177,12 @@ frame_progress = 0.287669
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.5, 39.5)
 shape = SubResource("RectangleShape2D_72pny")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -30.0
+offset_top = 106.0
+offset_right = 37.0
+offset_bottom = 134.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

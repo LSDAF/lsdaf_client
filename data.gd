@@ -7,6 +7,7 @@ signal spawn_mobs
 @export var hp_level := 1
 @export var gold: int = 0
 @export var current_mobs: Array[Mob] = []
+@export var current_hp := 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
