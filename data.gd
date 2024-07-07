@@ -4,6 +4,7 @@ signal gold_update
 signal spawn_mobs
 
 @export var attack_level := 1
+@export var hp_level := 1
 @export var gold: int = 0
 @export var current_mobs: Array[Mob] = []
 
@@ -29,9 +30,13 @@ func gold_use(cost = 0):
 	gold -= cost
 	gold_update.emit()
 
+func hp_level_up_price():
+	return hp_level + 1
+
+func hp_value(level = 1):
+	return level
+
 func on_mob_death(mob: Mob):
-	print('mob death')
-	print(current_mobs)
 	mob.queue_free()
 	var mob_index = current_mobs.find(mob)
 	current_mobs.remove_at(mob_index)

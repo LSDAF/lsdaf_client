@@ -1,12 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3hnnim8xc56f"]
+[gd_scene load_steps=12 format=3 uid="uid://d3hnnim8xc56f"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_78gn2"]
 [ext_resource type="Texture2D" uid="uid://b8njntyvsuobq" path="res://assets/__Homework/gold_bar.png" id="1_bbxjr"]
 [ext_resource type="Script" path="res://attack.gd" id="2_abqpm"]
 [ext_resource type="Script" path="res://AttackValue.gd" id="3_38ct4"]
-[ext_resource type="Script" path="res://level.gd" id="3_350jv"]
-[ext_resource type="Script" path="res://Buy.gd" id="3_m2loa"]
+[ext_resource type="Script" path="res://AttackLevel.gd" id="3_350jv"]
+[ext_resource type="Script" path="res://AttackBuy.gd" id="3_m2loa"]
 [ext_resource type="Script" path="res://GoldLabel.gd" id="3_purlr"]
+[ext_resource type="Script" path="res://hp.gd" id="8_pb456"]
+[ext_resource type="Script" path="res://HPBuy.gd" id="9_sstwp"]
+[ext_resource type="Script" path="res://HPValue.gd" id="10_b2qtf"]
+[ext_resource type="Script" path="res://HPLevel.gd" id="11_nhqns"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_78gn2")
@@ -38,6 +42,7 @@ script = ExtResource("3_purlr")
 [node name="Attack" type="Node2D" parent="Stats"]
 position = Vector2(0, 840)
 script = ExtResource("2_abqpm")
+metadata/_edit_group_ = true
 
 [node name="Title" type="Label" parent="Stats/Attack"]
 offset_right = 648.0
@@ -77,9 +82,57 @@ text = "Level"
 vertical_alignment = 1
 script = ExtResource("3_350jv")
 
+[node name="HP" type="Node2D" parent="Stats"]
+position = Vector2(0, 969)
+script = ExtResource("8_pb456")
+metadata/_edit_group_ = true
+
+[node name="Title" type="Label" parent="Stats/HP"]
+offset_right = 648.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 24
+text = "HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buy" type="Button" parent="Stats/HP"]
+offset_left = 500.0
+offset_top = 38.0
+offset_right = 646.0
+offset_bottom = 109.0
+theme_override_font_sizes/font_size = 24
+text = "123,456,789"
+script = ExtResource("9_sstwp")
+
+[node name="Value" type="Label" parent="Stats/HP"]
+offset_left = 203.0
+offset_top = 38.0
+offset_right = 487.0
+offset_bottom = 109.0
+theme_override_font_sizes/font_size = 32
+text = "X -> X+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("10_b2qtf")
+
+[node name="Level" type="Label" parent="Stats/HP"]
+offset_left = 14.0
+offset_top = 38.0
+offset_right = 189.0
+offset_bottom = 109.0
+theme_override_font_sizes/font_size = 32
+text = "Level"
+vertical_alignment = 1
+script = ExtResource("11_nhqns")
+
 [connection signal="gold_update" from="." to="GoldLabel" method="_on_hud_gold_update"]
 [connection signal="attack_level_updated" from="Stats/Attack" to="Stats/Attack/Buy" method="_on_attack_attack_level_updated"]
 [connection signal="attack_level_updated" from="Stats/Attack" to="Stats/Attack/Value" method="_on_attack_attack_level_updated"]
 [connection signal="attack_level_updated" from="Stats/Attack" to="Stats/Attack/Level" method="_on_attack_attack_level_updated"]
 [connection signal="button_down" from="Stats/Attack/Buy" to="Stats/Attack" method="_on_buy_button_down"]
 [connection signal="pressed" from="Stats/Attack/Buy" to="Stats/Attack" method="_on_buy_pressed"]
+[connection signal="hp_level_updated" from="Stats/HP" to="Stats/HP/Buy" method="_on_hp_hp_level_updated"]
+[connection signal="hp_level_updated" from="Stats/HP" to="Stats/HP/Value" method="_on_hp_hp_level_updated"]
+[connection signal="hp_level_updated" from="Stats/HP" to="Stats/HP/Level" method="_on_hp_hp_level_updated"]
+[connection signal="button_down" from="Stats/HP/Buy" to="Stats/HP" method="_on_buy_button_down"]
+[connection signal="pressed" from="Stats/HP/Buy" to="Stats/HP" method="_on_buy_pressed"]
