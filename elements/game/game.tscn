@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://crxr0dj0kh4x0"]
+
+[ext_resource type="PackedScene" uid="uid://dy2d32en3nu8u" path="res://elements/parallax/parallax.tscn" id="1_kh35t"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Parallax" parent="." instance=ExtResource("1_kh35t")]

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dqdsdwfufbwdg"]
+
+[node name="Hud" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CurrenciesContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="CurrenciesContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiamondsLabel" type="Label" parent="CurrenciesContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EmeraldsLabel" type="Label" parent="CurrenciesContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmethystLabel" type="Label" parent="CurrenciesContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameContainer" type="BoxContainer" parent="."]
+custom_minimum_size = Vector2(2.08165e-12, 288)
+layout_mode = 2
+
+[node name="TabsContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
