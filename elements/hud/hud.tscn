@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=3 format=3 uid="uid://dqdsdwfufbwdg"]
+
+[ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
+[ext_resource type="Resource" uid="uid://d5p6dnxhx6h" path="res://resources/game_runtime_data/game_runtime_data.tres" id="2_r4ckb"]
 
 [node name="Hud" type="VBoxContainer"]
 anchors_preset = 15
@@ -6,6 +9,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lmgif")
+game_runtime_data = ExtResource("2_r4ckb")
 
 [node name="CurrenciesContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -43,9 +48,12 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GameContainer" type="BoxContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 288)
 layout_mode = 2
 
 [node name="TabsContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
+
+[connection signal="resized" from="GameContainer" to="." method="_on_game_container_resized"]
