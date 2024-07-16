@@ -33,7 +33,7 @@ func _on_login_user_success(result: int, response_code: int, headers: PackedStri
 	
 	_access_token = json["data"]["access_token"]
 
-func login_user(email: String, password: String):
+func login_user(email: String, password: String) -> Signal:
 	# Create an HTTP request node and connect its completion signal.
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
@@ -50,6 +50,7 @@ func login_user(email: String, password: String):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	
+	return http_request.request_completed
 
 func register_user():
 	pass
