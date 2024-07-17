@@ -85,6 +85,8 @@ func generate_game_save():
 	var error = http_request.request(url, ['Content-Type: application/json', 'Authentication: Bearer' + _access_token], HTTPClient.METHOD_POST)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
+		
+	return http_request.request_completed
 	
 func update_game_save():
 	pass

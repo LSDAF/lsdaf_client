@@ -4,7 +4,7 @@ extends Node
 func _ready():
 	# TODO: handle async
 	await HttpClient.login_user("toto@toto.fr", "k127F978")
-	HttpClient.generate_game_save()
+	await HttpClient.generate_game_save()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
