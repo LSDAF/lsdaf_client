@@ -1,4 +1,4 @@
-extends AspectRatioContainer
+extends Control
 
 @export var game_runtime_data: GameRuntimeData
 

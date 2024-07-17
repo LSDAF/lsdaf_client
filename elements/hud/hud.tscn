@@ -4,19 +4,25 @@
 [ext_resource type="Resource" uid="uid://d5p6dnxhx6h" path="res://resources/game_runtime_data/game_runtime_data.tres" id="2_r4ckb"]
 [ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
 
-[node name="Hud" type="AspectRatioContainer"]
+[node name="Hud" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment_horizontal = 0
-alignment_vertical = 0
 script = ExtResource("1_lmgif")
 game_runtime_data = ExtResource("2_r4ckb")
+metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="CurrenciesContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -66,5 +72,19 @@ layout_mode = 2
 [node name="TabsContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+
+[node name="StageLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = 128.0
+offset_right = 72.0
+offset_bottom = 179.0
+grow_horizontal = 2
+text = "Stage:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="resized" from="VBoxContainer/GameContainer" to="." method="_on_game_container_resized"]
