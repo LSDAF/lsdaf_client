@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=4 format=3 uid="uid://dqdsdwfufbwdg"]
 
 [ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
 [ext_resource type="Resource" uid="uid://d5p6dnxhx6h" path="res://resources/game_runtime_data/game_runtime_data.tres" id="2_r4ckb"]
+[ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
 
 [node name="Hud" type="VBoxContainer"]
 anchors_preset = 15
@@ -16,14 +17,17 @@ game_runtime_data = ExtResource("2_r4ckb")
 layout_mode = 2
 
 [node name="GoldLabel" type="Label" parent="CurrenciesContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("3_e8p0k")
 
 [node name="DiamondsLabel" type="Label" parent="CurrenciesContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -32,6 +36,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EmeraldsLabel" type="Label" parent="CurrenciesContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -40,6 +45,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AmethystLabel" type="Label" parent="CurrenciesContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
 size_flags_horizontal = 3

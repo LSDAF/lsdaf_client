@@ -1,2 +1,3 @@
-var gold: Currency = Currency.new()
+extends Node
 
+var gold: Currency = Currency.new()
