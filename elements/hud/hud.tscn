@@ -4,19 +4,24 @@
 [ext_resource type="Resource" uid="uid://d5p6dnxhx6h" path="res://resources/game_runtime_data/game_runtime_data.tres" id="2_r4ckb"]
 [ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
 
-[node name="Hud" type="VBoxContainer"]
+[node name="Hud" type="AspectRatioContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment_horizontal = 0
+alignment_vertical = 0
 script = ExtResource("1_lmgif")
 game_runtime_data = ExtResource("2_r4ckb")
 
-[node name="CurrenciesContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="GoldLabel" type="Label" parent="CurrenciesContainer"]
+[node name="CurrenciesContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -26,7 +31,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_e8p0k")
 
-[node name="DiamondsLabel" type="Label" parent="CurrenciesContainer"]
+[node name="DiamondsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -35,7 +40,7 @@ text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EmeraldsLabel" type="Label" parent="CurrenciesContainer"]
+[node name="EmeraldsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -44,7 +49,7 @@ text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AmethystLabel" type="Label" parent="CurrenciesContainer"]
+[node name="AmethystLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -53,13 +58,13 @@ text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameContainer" type="BoxContainer" parent="."]
+[node name="GameContainer" type="BoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 288)
 layout_mode = 2
 
-[node name="TabsContainer" type="HBoxContainer" parent="."]
+[node name="TabsContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[connection signal="resized" from="GameContainer" to="." method="_on_game_container_resized"]
+[connection signal="resized" from="VBoxContainer/GameContainer" to="." method="_on_game_container_resized"]

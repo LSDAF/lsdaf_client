@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dy2d32en3nu8u"]
 
-[ext_resource type="Script" path="res://elements/game/parallax/parallax.gd" id="1_y1k61"]
+[ext_resource type="Script" path="res://elements/game/parallax/parallax.gd" id="1_giiyk"]
 [ext_resource type="Resource" uid="uid://d5p6dnxhx6h" path="res://resources/game_runtime_data/game_runtime_data.tres" id="2_2nypj"]
 [ext_resource type="Texture2D" uid="uid://gn35ecf4b57k" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/1.png" id="3_crels"]
 [ext_resource type="Texture2D" uid="uid://c0b840d4jqqqc" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/2.png" id="4_snj2u"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://d3p6gxkfldqh4" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/8.png" id="10_660te"]
 
 [node name="Parallax" type="ParallaxBackground"]
-script = ExtResource("1_y1k61")
+script = ExtResource("1_giiyk")
 game_runtime_data = ExtResource("2_2nypj")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]

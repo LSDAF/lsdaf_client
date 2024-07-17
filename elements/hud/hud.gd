@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends AspectRatioContainer
 
 @export var game_runtime_data: GameRuntimeData
 
