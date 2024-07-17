@@ -12,5 +12,7 @@ func _process(delta):
 
 func _on_game_container_resized():
 	game_runtime_data.set_game_node_position(%GameContainer.position)
-	game_runtime_data.set_game_node_size(%GameContainer.size)
+	# TODO: No magic number ! Comes from the mirroring of the parralax layers, which come from the size of the sprite (texture)
+	var new_scale = %GameContainer.size.x / 576
+	game_runtime_data.set_game_node_scale(Vector2(new_scale, new_scale))
 	pass # Replace with function body.

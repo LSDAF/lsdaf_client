@@ -1,6 +1,9 @@
 class_name Characteristic
 
-var level: int
+var _level: int
 
-func level_cost_at_level(level: int):
-	pass
+func next_level_cost() -> int:
+	return 1
+
+func current_value() -> int:
+	return _level
