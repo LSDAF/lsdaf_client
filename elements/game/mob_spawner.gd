@@ -38,6 +38,7 @@ func on_mob_death(mob: Mob):
 	current_mobs.remove_at(mob_index)
 	
 	if (current_mobs.size() < 1):
+		Stage.beat_current_stage()
 		spawn_mobs()
 
 func spawn_mobs():

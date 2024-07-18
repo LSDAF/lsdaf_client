@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=5 format=3 uid="uid://dqdsdwfufbwdg"]
 
 [ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
 [ext_resource type="Resource" uid="uid://d5p6dnxhx6h" path="res://resources/game_runtime_data/game_runtime_data.tres" id="2_r4ckb"]
 [ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
+[ext_resource type="Script" path="res://elements/hud/stage_label.gd" id="4_r1pv3"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -64,27 +65,27 @@ text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameContainer" type="BoxContainer" parent="VBoxContainer"]
+[node name="GameContainer" type="Control" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 288)
 layout_mode = 2
 
-[node name="TabsContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="StageLabel" type="Label" parent="."]
+[node name="StageLabel" type="Label" parent="VBoxContainer/GameContainer"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -72.0
-offset_top = 128.0
-offset_right = 72.0
-offset_bottom = 179.0
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.05
+anchor_right = 0.65
+anchor_bottom = 0.15
 grow_horizontal = 2
 text = "Stage:"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("4_r1pv3")
+metadata/_edit_use_anchors_ = true
+
+[node name="TabsContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
 
 [connection signal="resized" from="VBoxContainer/GameContainer" to="." method="_on_game_container_resized"]
