@@ -21,12 +21,6 @@ Characteristics="*res://autoload/data/characteristics.gd"
 Currencies="*res://autoload/data/currencies.gd"
 Stage="*res://autoload/data/stage.gd"
 
-[display]
-
-window/size/viewport_width=648
-window/size/viewport_height=1152
-window/handheld/orientation=1
-
 [rendering]
 
 renderer/rendering_method="mobile"

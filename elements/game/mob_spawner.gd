@@ -1,7 +1,6 @@
 extends Marker2D
 
 @export var current_mobs: Array[Mob] = []
-@export var game_runtime_data: GameRuntimeData
 @export var mob_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
@@ -19,7 +18,7 @@ func generate_mobs():
 		var mob = mob_scene.instantiate()
 		
 		mob.position = position
-		mob.position.x += i * 100 * game_runtime_data.game_node_scale.x
+		mob.position.x += i * 100
 		mob.rotation = TAU
 		
 		mob.mob_death.connect(on_mob_death)
