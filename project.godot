@@ -20,6 +20,7 @@ HttpClient="*res://autoload/services/http_client/http_client.gd"
 Currencies="*res://autoload/data/currencies.gd"
 Stage="*res://autoload/data/stage.gd"
 Characteristics="*res://autoload/data/characteristics/characteristics.tscn"
+Difficulty="*res://autoload/data/difficulty/difficulty.tscn"
 
 [debug]
 

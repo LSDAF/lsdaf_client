@@ -8,9 +8,14 @@ var _max_stage := 1
 func get_current_stage() -> int:
 	return _current_stage
 	
+func set_current_difficulty() -> void:
+	Difficulty.set_current_difficulty(_current_stage)
+	
 func set_current_stage(new_current_stage: int) -> void:
 	_current_stage = new_current_stage
+	
 	current_stage_updated.emit(new_current_stage)
+	set_current_difficulty()
 
 func beat_current_stage() -> void:
 	if (_current_stage == _max_stage):
