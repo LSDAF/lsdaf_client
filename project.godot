@@ -17,9 +17,9 @@ config/features=PackedStringArray("4.2", "Mobile")
 [autoload]
 
 HttpClient="*res://autoload/services/http_client/http_client.gd"
-Characteristics="*res://autoload/data/characteristics.gd"
 Currencies="*res://autoload/data/currencies.gd"
 Stage="*res://autoload/data/stage.gd"
+Characteristics="*res://autoload/data/characteristics/characteristics.tscn"
 
 [debug]
 
