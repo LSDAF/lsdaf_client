@@ -225,7 +225,7 @@ flip_h = true
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -54)
+position = Vector2(2.08165e-12, -54)
 shape = SubResource("RectangleShape2D_rn3he")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
