@@ -16,10 +16,22 @@ config/features=PackedStringArray("4.2", "Mobile")
 
 [autoload]
 
-HttpClient="*res://autoload/services/http_client.gd"
+HttpClient="*res://autoload/services/http_client/http_client.gd"
 Characteristics="*res://autoload/data/characteristics.gd"
 Currencies="*res://autoload/data/currencies.gd"
 Stage="*res://autoload/data/stage.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/initial_position_type=3
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 
 [rendering]
 

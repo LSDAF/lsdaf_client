@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://d3p6gxkfldqh4" path="res://assets/Nature Landscapes Free Pixel Art/nature_1/8.png" id="10_660te"]
 
 [node name="Parallax" type="ParallaxBackground"]
+scale = Vector2(2.22, 2.22)
+transform = Transform2D(2.22, 0, 0, 2.22, 0, 0)
 script = ExtResource("1_giiyk")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="."]
