@@ -4,18 +4,18 @@ extends Marker2D
 @export var mob_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	spawn_mobs()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	pass
 
-func generate_mobs():
+func generate_mobs() -> Array[Mob]:
 	var mobs: Array[Mob] = []
 	
 	for i in range(10):
-		var mob = mob_scene.instantiate()
+		var mob := mob_scene.instantiate()
 		
 		mob.position = position
 		mob.position.x += i * 100
@@ -27,19 +27,19 @@ func generate_mobs():
 		
 	return mobs
 
-func instanciate_mobs(mobs: Array[Mob]):
+func instanciate_mobs(mobs: Array[Mob]) -> void:
 	for i in range(mobs.size()):
 		owner.call_deferred('add_child', mobs[i])
 
-func on_mob_death(mob: Mob):
+func on_mob_death(mob: Mob) -> void:
 	mob.queue_free()
-	var mob_index = current_mobs.find(mob)
+	var mob_index := current_mobs.find(mob)
 	current_mobs.remove_at(mob_index)
 	
 	if (current_mobs.size() < 1):
 		Stage.beat_current_stage()
 		spawn_mobs()
 
-func spawn_mobs():
+func spawn_mobs() -> void:
 	current_mobs = generate_mobs()
 	instanciate_mobs(current_mobs)

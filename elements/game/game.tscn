@@ -12,10 +12,11 @@ script = ExtResource("1_x2aq4")
 [node name="Parallax" parent="." instance=ExtResource("3_7p3p6")]
 
 [node name="Player" parent="." instance=ExtResource("4_lnc1r")]
-position = Vector2(56, 300)
-scale = Vector2(0.5, 0.5)
+position = Vector2(72, 665)
 
 [node name="MobSpawner" type="Marker2D" parent="."]
-position = Vector2(643, 300)
+position = Vector2(1426, 665)
 script = ExtResource("5_4ng5o")
 mob_scene = ExtResource("6_uqgv6")
+
+[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]

@@ -12,7 +12,7 @@ func set_current_stage(new_current_stage: int) -> void:
 	_current_stage = new_current_stage
 	current_stage_updated.emit(new_current_stage)
 
-func beat_current_stage():
+func beat_current_stage() -> void:
 	if (_current_stage == _max_stage):
 		_max_stage += 1
 	set_current_stage(_current_stage + 1)
