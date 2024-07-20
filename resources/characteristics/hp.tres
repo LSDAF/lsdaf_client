@@ -5,3 +5,6 @@
 [resource]
 script = ExtResource("1_e866r")
 name = "HP"
+cost_exponent = 1.2
+cost_coef = 0.5
+cost_base = 2
