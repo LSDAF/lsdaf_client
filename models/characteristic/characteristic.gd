@@ -6,14 +6,12 @@ signal upgraded
 @export var name: String
 
 # From this idea https://stackoverflow.com/questions/76700683/what-formulas-to-use-for-clicker-incremental-games
-@export var cost_exponent: float
-@export var cost_coef: float
-@export var cost_base: int
+@export var cost_scaler: CostScaler
 
 var _level: int = 1
 
 func next_level_cost() -> int:
-	return cost_coef * (_level ** cost_exponent) + cost_base
+	return cost_scaler.cost_from_level(_level)
 
 func current_value() -> int:
 	return _level * 2

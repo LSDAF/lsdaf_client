@@ -8,7 +8,7 @@ var BASE_DAMAGE_LABEL_DISTANCE: int = 150
 var BASE_DAMAGE_LABEL_X_OFFSET: int = 22
 
 @export var damage_taken_label_scene: PackedScene
-@export var scaler: Scaler
+@export var scaler: MobScaler
 
 signal mob_death
 
