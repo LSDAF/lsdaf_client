@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://crxr0dj0kh4x0"]
+[gd_scene load_steps=7 format=3 uid="uid://crxr0dj0kh4x0"]
 
 [ext_resource type="Script" path="res://elements/game/game.gd" id="1_x2aq4"]
 [ext_resource type="PackedScene" uid="uid://dy2d32en3nu8u" path="res://elements/game/parallax/parallax.tscn" id="3_7p3p6"]
 [ext_resource type="PackedScene" uid="uid://djnl2hbwe8of5" path="res://elements/player/player.tscn" id="4_lnc1r"]
 [ext_resource type="Script" path="res://elements/game/mob_spawner.gd" id="5_4ng5o"]
+[ext_resource type="PackedScene" uid="uid://d2ntybb3rn0ni" path="res://elements/mobs/boss/boss.tscn" id="6_6w02d"]
 [ext_resource type="PackedScene" uid="uid://bxg3qpsweykjl" path="res://elements/mobs/mob/mob.tscn" id="6_uqgv6"]
 
 [node name="Game" type="Node2D"]
@@ -18,5 +19,6 @@ position = Vector2(72, 665)
 position = Vector2(1426, 665)
 script = ExtResource("5_4ng5o")
 mob_scene = ExtResource("6_uqgv6")
+boss_scene = ExtResource("6_6w02d")
 
 [connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="MobScaler" load_steps=2 format=3 uid="uid://iiadi4jdlrgk"]
+[gd_resource type="Resource" script_class="MobScaler" load_steps=2 format=3 uid="uid://dsw42wgdo4a45"]
 
-[ext_resource type="Script" path="res://models/scalers/mob_scaler.gd" id="1_mots2"]
+[ext_resource type="Script" path="res://models/scalers/mob_scaler.gd" id="1_rs243"]
 
 [resource]
-script = ExtResource("1_mots2")
+script = ExtResource("1_rs243")
 attack_poln_coef_2 = 0.125
 attack_poln_coef_1 = 50.0
 attack_poln_coef_0 = 20

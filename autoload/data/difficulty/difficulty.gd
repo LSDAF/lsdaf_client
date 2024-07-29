@@ -1,6 +1,6 @@
 extends Node
 
-var _current_difficulty: float
+var _current_difficulty := 1.0
 
 func set_current_difficulty(new_difficulty: float) -> void:
 	_current_difficulty = new_difficulty

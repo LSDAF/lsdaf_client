@@ -11,7 +11,10 @@ extends Resource
 @export var hp_poln_coef_0: int
 
 func attack_from_difficulty(difficulty: float) -> int:
-	return attack_poln_coef_2 * (pow(difficulty, 2)) + attack_poln_coef_1 * difficulty + attack_poln_coef_0
+	var result: float = attack_poln_coef_2 * (pow(difficulty, 2)) + attack_poln_coef_1 * difficulty + attack_poln_coef_0
+	return result
 	
 func hp_from_difficulty(difficulty: float) -> int:
-	return hp_poln_coef_2 * (pow(difficulty, 2)) + hp_poln_coef_1 * difficulty + hp_poln_coef_0
+	var result: float =  hp_poln_coef_2 * (pow(difficulty, 2)) + hp_poln_coef_1 * difficulty + hp_poln_coef_0
+	return result
+	

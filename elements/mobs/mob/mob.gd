@@ -25,7 +25,7 @@ func _ready() -> void:
 	$HealthBar.max_value = max_health
 	$HealthBar.value = health
 	scale = BASE_SCALE
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var overlapping_areas := get_overlapping_areas()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=7 format=3 uid="uid://dqdsdwfufbwdg"]
 
 [ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
 [ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
+[ext_resource type="Script" path="res://elements/hud/wave_label.gd" id="4_inuje"]
 [ext_resource type="Script" path="res://elements/hud/stage_label.gd" id="4_r1pv3"]
 [ext_resource type="Script" path="res://elements/hud/characteristics_button.gd" id="4_r7avi"]
 [ext_resource type="PackedScene" uid="uid://cvlpyerw0cjjq" path="res://elements/characteristics_menu/characteristics_menu.tscn" id="5_836lv"]
@@ -71,6 +72,14 @@ text = "Stage:"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("4_r1pv3")
+metadata/_edit_use_anchors_ = true
+
+[node name="WaveLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Stage:"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_inuje")
 metadata/_edit_use_anchors_ = true
 
 [node name="MenuButtons" type="Control" parent="VBoxContainer"]

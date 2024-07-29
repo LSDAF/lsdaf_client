@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MobScaler" load_steps=2 format=3 uid="uid://iiadi4jdlrgk"]
+
+[ext_resource type="Script" path="res://models/scalers/mob_scaler.gd" id="1_mots2"]
+
+[resource]
+script = ExtResource("1_mots2")
+attack_poln_coef_2 = 0.125
+attack_poln_coef_1 = 500.0
+attack_poln_coef_0 = 20
+hp_poln_coef_2 = 0.15
+hp_poln_coef_1 = 50.0
+hp_poln_coef_0 = 20
