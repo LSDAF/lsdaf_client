@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://v6la7jdotftm"]
+
+[ext_resource type="Script" path="res://autoload/data/quests/current_quest.gd" id="1_5sjr0"]
+[ext_resource type="Resource" uid="uid://ch6b6sp6dmj88" path="res://resources/quests/mob_quest.tres" id="2_4w7gf"]
+[ext_resource type="Resource" uid="uid://djqpipuuxwhtc" path="res://resources/quests/stage_quest.tres" id="3_6al4g"]
+
+[node name="CurrentQuest" type="Node"]
+script = ExtResource("1_5sjr0")
+mob_quest_blueprint = ExtResource("2_4w7gf")
+stage_quest_blueprint = ExtResource("3_6al4g")

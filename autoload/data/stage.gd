@@ -14,6 +14,9 @@ func get_current_stage() -> int:
 func get_current_wave() -> int:
 	return _current_wave
 	
+func get_max_stage() -> int:
+	return _max_stage
+	
 func get_max_wave() -> int:
 	return _max_wave
 	
@@ -35,10 +38,11 @@ func set_current_wave(new_current_wave: int) -> void:
 	current_wave_updated.emit(new_current_wave)
 
 func beat_current_stage() -> void:
-	set_current_stage(_current_stage + 1)
-		
 	if (_current_stage == _max_stage):
 		_max_stage += 1
+		CurrentQuest.on_progress_stage()
+	
+	set_current_stage(_current_stage + 1)
 
 func beat_current_wave() -> void:
 	set_current_wave(_current_wave + 1)
