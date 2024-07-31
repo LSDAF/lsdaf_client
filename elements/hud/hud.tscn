@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=11 format=3 uid="uid://dqdsdwfufbwdg"]
 
 [ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
 [ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
@@ -6,8 +6,10 @@
 [ext_resource type="Script" path="res://elements/hud/wave_label.gd" id="4_inuje"]
 [ext_resource type="Script" path="res://elements/hud/stage_label.gd" id="4_r1pv3"]
 [ext_resource type="Script" path="res://elements/hud/characteristics_button.gd" id="4_r7avi"]
-[ext_resource type="PackedScene" uid="uid://cvlpyerw0cjjq" path="res://elements/characteristics_menu/characteristics_menu.tscn" id="5_836lv"]
+[ext_resource type="PackedScene" uid="uid://cvlpyerw0cjjq" path="res://elements/hud/menu/characteristics_menu/characteristics_menu.tscn" id="5_836lv"]
+[ext_resource type="Script" path="res://elements/hud/inventory_button.gd" id="8_akmgw"]
 [ext_resource type="Script" path="res://elements/hud/quest_button.gd" id="8_lxsct"]
+[ext_resource type="PackedScene" uid="uid://356xmrmd0wes" path="res://elements/hud/menu/inventory_menu/inventory_menu.tscn" id="9_6kf0p"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -104,6 +106,12 @@ text = "Characteristics"
 script = ExtResource("4_r7avi")
 characteristics_menu = ExtResource("5_836lv")
 
+[node name="InventoryButton" type="Button" parent="VBoxContainer/MenuButtons/GridContainer"]
+layout_mode = 2
+text = "Inventory"
+script = ExtResource("8_akmgw")
+inventory_menu = ExtResource("9_6kf0p")
+
 [node name="QuestButton" type="Button" parent="VBoxContainer/MenuButtons"]
 layout_mode = 1
 offset_left = 16.0
@@ -116,4 +124,5 @@ text = "<CURRENT_QUEST_NAME>
 script = ExtResource("8_lxsct")
 
 [connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/CharacteristicsButton" to="VBoxContainer/MenuButtons/GridContainer/CharacteristicsButton" method="_on_button_down"]
+[connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/InventoryButton" to="VBoxContainer/MenuButtons/GridContainer/InventoryButton" method="_on_button_down"]
 [connection signal="pressed" from="VBoxContainer/MenuButtons/QuestButton" to="VBoxContainer/MenuButtons/QuestButton" method="_on_pressed"]

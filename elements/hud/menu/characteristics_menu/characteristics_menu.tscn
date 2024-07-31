@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvlpyerw0cjjq"]
 
-[ext_resource type="PackedScene" uid="uid://bdgi2a1ok72ij" path="res://elements/characteristics_menu/characteristics_menu_item/characteristic_menu_item.tscn" id="1_7c138"]
-[ext_resource type="Script" path="res://elements/characteristics_menu/characteristics_menu.gd" id="1_7kkxu"]
-[ext_resource type="Resource" uid="uid://dbxfgb5kqnunr" path="res://resources/characteristics/attack.tres" id="2_obsgu"]
-[ext_resource type="Resource" uid="uid://bbxu7eidptypv" path="res://resources/characteristics/hp.tres" id="3_p0s3h"]
+[ext_resource type="Script" path="res://elements/hud/menu/characteristics_menu/characteristics_menu.gd" id="1_jsdnl"]
+[ext_resource type="PackedScene" uid="uid://bdgi2a1ok72ij" path="res://elements/hud/menu/characteristics_menu/characteristics_menu_item/characteristic_menu_item.tscn" id="2_djyer"]
+[ext_resource type="Resource" uid="uid://dbxfgb5kqnunr" path="res://resources/characteristics/attack.tres" id="3_jdlcf"]
+[ext_resource type="Resource" uid="uid://bbxu7eidptypv" path="res://resources/characteristics/hp.tres" id="4_8qx25"]
 
 [node name="CharacteristicsMenu" type="Control"]
 layout_mode = 3
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_7kkxu")
+script = ExtResource("1_jsdnl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -45,13 +45,13 @@ metadata/_edit_group_ = true
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="AttackMenuItem" parent="MarginContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_7c138")]
+[node name="AttackMenuItem" parent="MarginContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_djyer")]
 layout_mode = 2
-characteristic = ExtResource("2_obsgu")
+characteristic = ExtResource("3_jdlcf")
 
-[node name="HpMenuItem" parent="MarginContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("1_7c138")]
+[node name="HpMenuItem" parent="MarginContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("2_djyer")]
 layout_mode = 2
-characteristic = ExtResource("3_p0s3h")
+characteristic = ExtResource("4_8qx25")
 
 [node name="CloseButton" type="Button" parent="MarginContainer/Panel"]
 unique_name_in_owner = true
