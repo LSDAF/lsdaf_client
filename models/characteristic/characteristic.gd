@@ -10,15 +10,19 @@ signal upgraded
 
 var _level: int = 1
 
+
 func next_level_cost() -> int:
 	return cost_scaler.cost_from_level(_level)
 
+
 func current_value() -> int:
 	return _level * 2
-	
+
+
 func get_level() -> int:
 	return _level
 
-func upgrade() -> void: 
+
+func upgrade() -> void:
 	_level += 1
 	upgraded.emit()
