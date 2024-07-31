@@ -39,7 +39,7 @@ theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="MarginContainer/Panel"]

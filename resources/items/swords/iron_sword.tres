@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Sword" load_steps=3 format=3 uid="uid://b2iv1js87wqe"]
+
+[ext_resource type="Script" path="res://models/inventory/items/sword.gd" id="1_gammj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd3se"]
+
+[resource]
+script = ExtResource("1_gammj")
+atlas = SubResource("AtlasTexture_bd3se")
+atlas_sprite_height = 32
+atlas_sprite_width = 32
+index_x = 0
+index_y = 0
