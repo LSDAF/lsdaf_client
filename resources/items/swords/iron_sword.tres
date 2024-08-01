@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="Sword" load_steps=3 format=3 uid="uid://b2iv1js87wqe"]
+[gd_resource type="Resource" script_class="Sword" load_steps=4 format=3 uid="uid://b2iv1js87wqe"]
 
-[ext_resource type="Script" path="res://models/inventory/items/sword.gd" id="1_gammj"]
+[ext_resource type="Script" path="res://models/inventory/item/items_types/sword.gd" id="1_gammj"]
+[ext_resource type="Texture2D" uid="uid://wl6swg4rebq8" path="res://assets/Admurin/Icons/Freebies_Icons_Armory.png" id="1_q7cf6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bd3se"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4oui"]
+atlas = ExtResource("1_q7cf6")
+region = Rect2(128, 64, 32, 32)
 
 [resource]
 script = ExtResource("1_gammj")
-atlas = SubResource("AtlasTexture_bd3se")
-atlas_sprite_height = 32
-atlas_sprite_width = 32
-index_x = 0
-index_y = 0
+atlas_texture = SubResource("AtlasTexture_d4oui")

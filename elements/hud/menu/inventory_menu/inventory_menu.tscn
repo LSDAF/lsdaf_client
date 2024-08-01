@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://356xmrmd0wes"]
+[gd_scene load_steps=4 format=3 uid="uid://356xmrmd0wes"]
 
 [ext_resource type="Script" path="res://elements/hud/menu/inventory_menu/inventory_menu.gd" id="1_n1s58"]
+[ext_resource type="Texture2D" uid="uid://wl6swg4rebq8" path="res://assets/Admurin/Icons/Freebies_Icons_Armory.png" id="2_skmhp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cm58t"]
+atlas = ExtResource("2_skmhp")
+region = Rect2(32, 2.08165e-12, 32, 32)
 
 [node name="InventoryMenu" type="Control"]
 layout_mode = 3
@@ -55,5 +60,11 @@ offset_bottom = 48.0
 grow_horizontal = 0
 text = "X"
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_cm58t")
 
 [connection signal="pressed" from="MarginContainer/Panel/CloseButton" to="." method="_on_close_button_pressed"]

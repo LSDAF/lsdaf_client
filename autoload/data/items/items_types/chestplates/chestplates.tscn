@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ati5a6w3mec"]
+
+[ext_resource type="Script" path="res://autoload/data/items/items_types/chestplates/chestplates.gd" id="1_llla2"]
+
+[node name="Chestplates" type="Node"]
+script = ExtResource("1_llla2")
