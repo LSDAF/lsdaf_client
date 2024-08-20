@@ -54,7 +54,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-columns = 16
+columns = 12
 
 [node name="CloseButton" type="Button" parent="MarginContainer/Panel"]
 unique_name_in_owner = true

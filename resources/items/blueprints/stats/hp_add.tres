@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_srlag")
-statistic = 2
+statistic = 4
 base_value_min = 10.0
 base_value_max = 1000.0
 base_value_step = 1.0

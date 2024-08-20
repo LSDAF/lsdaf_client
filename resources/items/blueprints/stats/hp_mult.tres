@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_apbdo")
-statistic = 3
+statistic = 5
 base_value_min = 10.0
 base_value_max = 100.0
 base_value_step = 1.0
