@@ -3,10 +3,11 @@ extends Node
 @export var item_stats_pools: ItemStatsPools
 @export var item_pools: ItemPools
 
+
 func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> Item:
-	print('|__________________________CREATING ITEM__________________________|')
-	print(' - Type ', item_type)
-	print(' - Rarity ', item_rarity)
+	print("|__________________________CREATING ITEM__________________________|")
+	print(" - Type ", item_type)
+	print(" - Rarity ", item_rarity)
 	var item := Item.new()
 
 	# Fixed
@@ -25,9 +26,10 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 	item.name = item_blueprint.name
 	item.texture = item_blueprint.texture
 
-	print(' - Name ', item.name)
+	print(" - Name ", item.name)
 
 	return item
+
 
 func create_random_item() -> Item:
 	var item_type: ItemType.ItemType = ItemType.ItemType.values().pick_random()
@@ -35,9 +37,11 @@ func create_random_item() -> Item:
 
 	return create_item(item_type, item_rarity)
 
+
 func loot_random_item() -> void:
 	var new_item := create_random_item()
 	Inventory.items.push_back(new_item)
+
 
 func _get_additionnal_stats(item_stats_pool: ItemStatsPool) -> Array[ItemStat]:
 	var item_additionnal_stats_blueprints: Array[ItemStatBlueprint] = []
@@ -57,10 +61,13 @@ func _get_additionnal_stats(item_stats_pool: ItemStatsPool) -> Array[ItemStat]:
 func _get_main_stat(item_stats_pool: ItemStatsPool) -> ItemStat:
 	return _roll_stat_value(item_stats_pool.main_stat)
 
-func _get_blueprint_from_pools(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> ItemBlueprint:
-	match(item_type):
+
+func _get_blueprint_from_pools(
+	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
+) -> ItemBlueprint:
+	match item_type:
 		ItemType.ItemType.SWORD:
-			match(item_rarity):
+			match item_rarity:
 				ItemRarity.ItemRarity.NORMAL:
 					return item_pools.swords.normal.pick_random()
 
@@ -68,16 +75,20 @@ func _get_blueprint_from_pools(item_type: ItemType.ItemType, item_rarity: ItemRa
 	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] blueprint pool not found")
 	return item_pools.swords.normal[0]
 
-func _get_stats_pool_from_pools(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> ItemStatsPool:
-	match(item_type):
+
+func _get_stats_pool_from_pools(
+	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
+) -> ItemStatsPool:
+	match item_type:
 		ItemType.ItemType.SWORD:
-			match(item_rarity):
+			match item_rarity:
 				ItemRarity.ItemRarity.NORMAL:
 					return item_stats_pools.sword_normal
 
 	# WIP
 	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] stats pool not found")
 	return item_stats_pools.sword_normal
+
 
 func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:
 	var item_stat := ItemStat.new()
@@ -91,9 +102,14 @@ func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:
 	var base_value_num_step := base_value_range / item_stat_blueprint.base_value_step
 
 	var base_value_rolled_steps := ceili(base_value_dice_roll / base_value_num_step)
-	item_stat_base_value = item_stat_blueprint.base_value_min + base_value_rolled_steps * item_stat_blueprint.base_value_step
+	item_stat_base_value = (
+		item_stat_blueprint.base_value_min
+		+ base_value_rolled_steps * item_stat_blueprint.base_value_step
+	)
 
 	# Security, useless ?
-	item_stat.base_value = clamp(item_stat_base_value, item_stat_blueprint.base_value_min, item_stat_blueprint.base_value_max)
+	item_stat.base_value = clamp(
+		item_stat_base_value, item_stat_blueprint.base_value_min, item_stat_blueprint.base_value_max
+	)
 
 	return item_stat

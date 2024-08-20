@@ -2,42 +2,45 @@ extends Control
 
 var _item: Item = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+
 func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
-	match(item_rarity):
+	match item_rarity:
 		ItemRarity.ItemRarity.NORMAL:
-			return 'Normal'
+			return "Normal"
 		_:
-			return 'NO_RARITY'
+			return "NO_RARITY"
+
 
 func _prettify_statistic(item_stat: ItemStat, level: int) -> String:
-	var prettified_statistic := ''
+	var prettified_statistic := ""
 
 	var current_value := item_stat.base_value * (level / 100)
 
-	match(item_stat.statistic):
+	match item_stat.statistic:
 		ItemStatistics.ItemStatistics.ATTACK_ADD:
-			prettified_statistic = "+{0} {1}".format([current_value, 'Attack'])
+			prettified_statistic = "+{0} {1}".format([current_value, "Attack"])
 		ItemStatistics.ItemStatistics.ATTACK_MULT:
-			prettified_statistic = "+{0}% {1}".format([current_value, 'Attack'])
+			prettified_statistic = "+{0}% {1}".format([current_value, "Attack"])
 		ItemStatistics.ItemStatistics.HP_ADD:
-			prettified_statistic = "+{0} {1}".format([current_value, 'HP'])
+			prettified_statistic = "+{0} {1}".format([current_value, "HP"])
 		ItemStatistics.ItemStatistics.HP_MULT:
-			prettified_statistic = "+{0}% {1}".format([current_value, 'HP'])
+			prettified_statistic = "+{0}% {1}".format([current_value, "HP"])
 
 	return prettified_statistic
 
 
 func _update_item_details_menu() -> void:
-	if (_item == null):
+	if _item == null:
 		return
 
 	%ItemNameLabel.text = _item.name
@@ -50,15 +53,16 @@ func _update_item_details_menu() -> void:
 	%AdditionnalStat3Label.text = _prettify_statistic(_item.additional_stats[2], _item.level)
 	%AdditionnalStat4Label.text = _prettify_statistic(_item.additional_stats[3], _item.level)
 
+
 func update_selected_item(item: Item) -> void:
 	_item = item
-	
-	if (_item == null):
+
+	if _item == null:
 		%NoItemSelectedLabel.show()
 		%ItemsDetailVBoxContainer.hide()
-		
+
 		return
-	
+
 	%ItemsDetailVBoxContainer.show()
 	%NoItemSelectedLabel.hide()
 
