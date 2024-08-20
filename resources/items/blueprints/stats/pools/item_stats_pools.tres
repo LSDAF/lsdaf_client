@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemStatsPools" load_steps=3 format=3 uid="uid://cbc6td0mylmks"]
+
+[ext_resource type="Script" path="res://models/items/item_blueprint/stats/pools/item_stats_pools.gd" id="1_p4iqg"]
+[ext_resource type="Resource" uid="uid://cif3lpq1csqs4" path="res://resources/items/blueprints/stats/pools/sword/sword_normal_pool.tres" id="2_r7big"]
+
+[resource]
+script = ExtResource("1_p4iqg")
+sword_normal = ExtResource("2_r7big")

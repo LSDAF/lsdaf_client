@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemStatsPool" load_steps=5 format=3 uid="uid://cif3lpq1csqs4"]
+
+[ext_resource type="Script" path="res://models/items/item_blueprint/stats/item_stat_blueprint.gd" id="1_m8qb4"]
+[ext_resource type="Resource" uid="uid://kpye4nvbsorv" path="res://resources/items/blueprints/stats/attack_add.tres" id="2_mh4vg"]
+[ext_resource type="Resource" uid="uid://d1emsfxy4lokp" path="res://resources/items/blueprints/stats/attack_mult.tres" id="3_fi1ga"]
+[ext_resource type="Script" path="res://models/items/item_blueprint/stats/pools/item_stats_pool.gd" id="4_f6iek"]
+
+[resource]
+script = ExtResource("4_f6iek")
+potential_stats = Array[ExtResource("1_m8qb4")]([ExtResource("2_mh4vg"), ExtResource("3_fi1ga")])
