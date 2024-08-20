@@ -2,6 +2,8 @@ extends Node
 
 class_name InventoryItem
 
+signal on_item_selected
+
 var _level: int
 var _rarity: ItemRarity.ItemRarity
 var _texture: Texture2D
@@ -23,3 +25,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_pressed() -> void:
+	on_item_selected.emit()
