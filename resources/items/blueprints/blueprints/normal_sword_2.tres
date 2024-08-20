@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=3 format=3 uid="uid://bwkxuy7k5og4q"]
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=5 format=3 uid="uid://bwkxuy7k5og4q"]
 
 [ext_resource type="Resource" uid="uid://kpye4nvbsorv" path="res://resources/items/blueprints/stats/attack_add.tres" id="1_ihyvt"]
 [ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="2_wnq25"]
+[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/32x32_PixelWeapons_Premium.png" id="3_6tli3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an83e"]
+atlas = ExtResource("3_6tli3")
+region = Rect2(96, 0, 32, 32)
 
 [resource]
 script = ExtResource("2_wnq25")
@@ -10,3 +15,4 @@ rarity = 0
 level = 0
 type = 0
 name = "Normal 2"
+texture = SubResource("AtlasTexture_an83e")

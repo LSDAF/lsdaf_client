@@ -6,3 +6,6 @@
 
 # Python
 .venv
+
+# IDEs
+.idea

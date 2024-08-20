@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemPool" load_steps=5 format=3 uid="uid://d22pht4qhcjmn"]
+
+[ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="1_pf6aa"]
+[ext_resource type="Resource" uid="uid://bc7kwmobqerc" path="res://resources/items/blueprints/blueprints/normal_sword_1.tres" id="2_whflr"]
+[ext_resource type="Script" path="res://models/items/item_blueprint/pools/item_pool.gd" id="2_wq71j"]
+[ext_resource type="Resource" uid="uid://bwkxuy7k5og4q" path="res://resources/items/blueprints/blueprints/normal_sword_2.tres" id="3_lnaxd"]
+
+[resource]
+script = ExtResource("2_wq71j")
+normal = Array[ExtResource("1_pf6aa")]([ExtResource("2_whflr"), ExtResource("3_lnaxd")])
+rare = Array[ExtResource("1_pf6aa")]([])

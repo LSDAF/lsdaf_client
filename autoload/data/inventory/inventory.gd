@@ -1,1 +1,3 @@
-var items: Array[Item]
+extends Node
+
+var items: Array[Item] = []

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemPools" load_steps=3 format=3 uid="uid://bpf8eg5y2yd34"]
+
+[ext_resource type="Script" path="res://models/items/item_blueprint/pools/item_pools.gd" id="1_bqujo"]
+[ext_resource type="Resource" uid="uid://d22pht4qhcjmn" path="res://resources/items/item_type_pools/pools/swords.tres" id="2_07fw2"]
+
+[resource]
+script = ExtResource("1_bqujo")
+swords = ExtResource("2_07fw2")

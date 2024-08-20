@@ -7,4 +7,5 @@
 
 [resource]
 script = ExtResource("4_f6iek")
+main_stat = ExtResource("2_mh4vg")
 potential_stats = Array[ExtResource("1_m8qb4")]([ExtResource("2_mh4vg"), ExtResource("3_fi1ga")])
