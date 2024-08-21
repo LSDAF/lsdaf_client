@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemBlueprint" load_steps=5 format=3 uid="uid://bwkxuy7k5og4q"]
 
-[ext_resource type="Resource" uid="uid://kpye4nvbsorv" path="res://resources/items/blueprints/stats/attack_add.tres" id="1_ihyvt"]
+[ext_resource type="Resource" uid="uid://kpye4nvbsorv" path="res://resources/items/stats/attack_add.tres" id="1_ihyvt"]
 [ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="2_wnq25"]
 [ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/32x32_PixelWeapons_Premium.png" id="3_6tli3"]
 
