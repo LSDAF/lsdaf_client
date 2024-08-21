@@ -83,11 +83,11 @@ func _get_stats_pool_from_pools(
 		ItemType.ItemType.SWORD:
 			match item_rarity:
 				ItemRarity.ItemRarity.NORMAL:
-					return item_stats_pools.sword_normal
+					return item_stats_pools.swords.normal
 
 	# WIP
 	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] stats pool not found")
-	return item_stats_pools.sword_normal
+	return item_stats_pools.swords.normal
 
 
 func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:

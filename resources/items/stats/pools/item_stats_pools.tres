@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="ItemStatsPools" load_steps=3 format=3 uid="uid://cbc6td0mylmks"]
+[gd_resource type="Resource" script_class="ItemStatsPools" load_steps=3 format=3 uid="uid://cis55y3bxvuh1"]
 
-[ext_resource type="Script" path="res://models/items/item_blueprint/stats/pools/item_stats_pools.gd" id="1_p4iqg"]
-[ext_resource type="Resource" uid="uid://cif3lpq1csqs4" path="res://resources/items/stats/pools/sword/sword_normal_pool.tres" id="2_r7big"]
+[ext_resource type="Script" path="res://models/items/item_blueprint/stats/pools/item_stats_pools.gd" id="1_fp0y0"]
+[ext_resource type="Resource" uid="uid://b05ghcjc8i8vy" path="res://resources/items/stats/pools/item_rarity_stats_pools/swords/swords.tres" id="2_inw1d"]
 
 [resource]
-script = ExtResource("1_p4iqg")
-sword_normal = ExtResource("2_r7big")
+script = ExtResource("1_fp0y0")
+swords = ExtResource("2_inw1d")

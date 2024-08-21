@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crtcxygwiuiwu"]
 
 [ext_resource type="Script" path="res://autoload/services/items/items_service.gd" id="1_bajhc"]
-[ext_resource type="Resource" uid="uid://cbc6td0mylmks" path="res://resources/items/stats/pools/item_stats_pools.tres" id="2_qs1ys"]
+[ext_resource type="Resource" uid="uid://cis55y3bxvuh1" path="res://resources/items/stats/pools/item_stats_pools.tres" id="2_qs1ys"]
 [ext_resource type="Resource" uid="uid://bpf8eg5y2yd34" path="res://resources/items/item_pools/item_pools.tres" id="3_hqlc4"]
 
 [node name="ItemsService" type="Node"]

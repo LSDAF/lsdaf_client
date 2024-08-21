@@ -35,6 +35,8 @@ func _prettify_statistic(item_stat: ItemStat, level: int) -> String:
 			prettified_statistic = "+{0} {1}".format([current_value, "HP"])
 		ItemStatistics.ItemStatistics.HP_MULT:
 			prettified_statistic = "+{0}% {1}".format([current_value, "HP"])
+		_:
+			prettified_statistic = "UNSUPPORTED"
 
 	return prettified_statistic
 
