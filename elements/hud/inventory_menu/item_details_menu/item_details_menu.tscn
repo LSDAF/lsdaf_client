@@ -84,3 +84,5 @@ grow_vertical = 2
 text = "No item selected"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="ItemsDetailVBoxContainer/LevelUpButton" to="." method="_on_level_up_button_pressed"]

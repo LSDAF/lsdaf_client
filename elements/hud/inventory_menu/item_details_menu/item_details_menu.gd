@@ -31,10 +31,18 @@ func _prettify_statistic(item_stat: ItemStat, level: int) -> String:
 			prettified_statistic = "+{0} {1}".format([current_value, "Attack"])
 		ItemStatistics.ItemStatistics.ATTACK_MULT:
 			prettified_statistic = "+{0}% {1}".format([current_value, "Attack"])
+		ItemStatistics.ItemStatistics.CRIT_CHANCE:
+			prettified_statistic = "+{0}% {1}".format([current_value, "Crit. Chance"])
+		ItemStatistics.ItemStatistics.CRIT_DAMAGE:
+			prettified_statistic = "+{0}% {1}".format([current_value, "Crit. Damage"])
 		ItemStatistics.ItemStatistics.HP_ADD:
 			prettified_statistic = "+{0} {1}".format([current_value, "HP"])
 		ItemStatistics.ItemStatistics.HP_MULT:
 			prettified_statistic = "+{0}% {1}".format([current_value, "HP"])
+		ItemStatistics.ItemStatistics.RESISTANCE_ADD:
+			prettified_statistic = "+{0} {1}".format([current_value, "Resistance"])
+		ItemStatistics.ItemStatistics.RESISTANCE_MULT:
+			prettified_statistic = "+{0}% {1}".format([current_value, "Resistance"])
 		_:
 			prettified_statistic = "UNSUPPORTED"
 
@@ -56,7 +64,7 @@ func _update_item_details_menu() -> void:
 	%AdditionnalStat4Label.text = _prettify_statistic(_item.additional_stats[3], _item.level)
 
 
-func update_selected_item(item: Item) -> void:
+func open_for_item(item: Item) -> void:
 	_item = item
 
 	if _item == null:
@@ -69,3 +77,7 @@ func update_selected_item(item: Item) -> void:
 	%NoItemSelectedLabel.hide()
 
 	_update_item_details_menu()
+
+
+func _on_level_up_button_pressed() -> void:
+	pass
