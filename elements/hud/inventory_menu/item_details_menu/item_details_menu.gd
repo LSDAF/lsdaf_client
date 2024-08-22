@@ -86,3 +86,7 @@ func _on_level_up_button_pressed() -> void:
 	Inventory.level_up_item_at_index(_item_index)
 
 	_update_item_details_menu()
+
+
+func _on_salvage_button_pressed() -> void:
+	pass # Replace with function body.

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dilg0e5h66qys"]
+[gd_scene load_steps=3 format=3 uid="uid://dilg0e5h66qys"]
 
 [ext_resource type="Script" path="res://elements/hud/inventory_menu/item_details_menu/item_details_menu.gd" id="1_jvtpm"]
+[ext_resource type="Texture2D" uid="uid://dl0fyacx1bv8i" path="res://asset/items/currencies/amethyst.png" id="2_w28rc"]
 
 [node name="ItemDetailsMenu" type="Control"]
 layout_mode = 3
@@ -77,7 +78,28 @@ text = "AdditionnalStat4Label"
 
 [node name="LevelUpButton" type="Button" parent="ItemsDetailVBoxContainer"]
 layout_mode = 2
-text = "Level Up"
+text = "Level Up
+"
+
+[node name="LevelUpCostBoxContainer" type="HBoxContainer" parent="ItemsDetailVBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LevelUpCostLabel" type="Label" parent="ItemsDetailVBoxContainer/LevelUpCostBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cost"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmethystTextureRect" type="TextureRect" parent="ItemsDetailVBoxContainer/LevelUpCostBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_w28rc")
+expand_mode = 3
+
+[node name="SalvageButton" type="Button" parent="ItemsDetailVBoxContainer"]
+layout_mode = 2
+text = "Salvage"
 
 [node name="NoItemSelectedLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -93,3 +115,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="ItemsDetailVBoxContainer/LevelUpButton" to="." method="_on_level_up_button_pressed"]
+[connection signal="pressed" from="ItemsDetailVBoxContainer/SalvageButton" to="." method="_on_salvage_button_pressed"]
