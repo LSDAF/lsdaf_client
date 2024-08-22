@@ -25,6 +25,7 @@ func _on_give_random_button_pressed() -> void:
 
 func _on_select_item(item: Item) -> void:
 	%ItemDetailsMenu.open_for_item(item)
+	%ItemDetailsMenu.on_level_up.connect(update_inventory)
 
 
 func get_inventory_items_scenes() -> Array[InventoryItem]:

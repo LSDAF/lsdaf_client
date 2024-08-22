@@ -2,6 +2,7 @@ extends Control
 
 var _item: Item = null
 
+signal on_level_up
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +13,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func _prettify_level(level: int) -> String:
+	return "Lv. {0}".format([level])
 
 func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
 	match item_rarity:
@@ -24,7 +27,7 @@ func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
 func _prettify_statistic(item_stat: ItemStat, level: int) -> String:
 	var prettified_statistic := ""
 
-	var current_value := item_stat.base_value * (level / 100)
+	var current_value := item_stat.base_value * (level / 100.0)
 
 	match item_stat.statistic:
 		ItemStatistics.ItemStatistics.ATTACK_ADD:
@@ -56,6 +59,7 @@ func _update_item_details_menu() -> void:
 	%ItemNameLabel.text = _item.name
 	%ItemTexture.texture = _item.texture
 	%ItemRarityLabel.text = _prettify_rarity(_item.rarity)
+	%ItemLevelLabel.text = _prettify_level(_item.level)
 
 	%MainStatLabel.text = _prettify_statistic(_item.main_stat, _item.level)
 	%AdditionnalStat1Label.text = _prettify_statistic(_item.additional_stats[0], _item.level)
@@ -80,4 +84,7 @@ func open_for_item(item: Item) -> void:
 
 
 func _on_level_up_button_pressed() -> void:
-	pass
+	_item.level += 1
+
+	on_level_up.emit()
+	_update_item_details_menu()

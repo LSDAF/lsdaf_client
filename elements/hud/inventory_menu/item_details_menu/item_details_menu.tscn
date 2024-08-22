@@ -40,6 +40,13 @@ text = "Rarity"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ItemLevelLabel" type="Label" parent="ItemsDetailVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lv. 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StatsVBoxContainer" type="VBoxContainer" parent="ItemsDetailVBoxContainer"]
 layout_mode = 2
 
