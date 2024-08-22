@@ -2,7 +2,7 @@ extends Node
 
 func loot_random_item() -> void:
 	var new_item := ItemsService.create_random_item()
-	Inventory.items.push_back(new_item)
+	Inventory.add_item(new_item)
 
 func try_loot_item() -> void:
 	var difficulty := Difficulty.get_current_difficulty()
@@ -19,7 +19,7 @@ func try_loot_item() -> void:
 
 	print("LOOT ! - Rate: {0} | Rolled: {1}".format([drop_rate, roll]))
 	var new_item := ItemsService.create_item(type, rarity)
-	Inventory.items.push_back(new_item)
+	Inventory.add_item(new_item)
 
 
 func _get_rarity_for_difficulty(difficulty: int) -> ItemRarity.ItemRarity:

@@ -1,13 +1,11 @@
 extends Control
 
 var _item: Item = null
-
-signal on_level_up
+var _item_index: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass  # Replace with function body.
-
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -68,8 +66,9 @@ func _update_item_details_menu() -> void:
 	%AdditionnalStat4Label.text = _prettify_statistic(_item.additional_stats[3], _item.level)
 
 
-func open_for_item(item: Item) -> void:
-	_item = item
+func open_for_item(item_index: int) -> void:
+	_item_index = item_index
+	_item = Inventory.get_item_at_index(item_index)
 
 	if _item == null:
 		%NoItemSelectedLabel.show()
@@ -84,7 +83,6 @@ func open_for_item(item: Item) -> void:
 
 
 func _on_level_up_button_pressed() -> void:
-	_item.level += 1
+	Inventory.level_up_item_at_index(_item_index)
 
-	on_level_up.emit()
 	_update_item_details_menu()
