@@ -6,6 +6,7 @@ signal on_item_selected(item_index: int)
 
 var _item_index: int
 
+
 # See https://www.reddit.com/r/godot/comments/13pm5o5/instantiating_a_scene_with_constructor_parameters/
 func with_data(item_index: int) -> InventoryItem:
 	_item_index = item_index

@@ -93,7 +93,9 @@ func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:
 	var item_stat_base_value := 0.0
 
 	var base_value_dice_roll := randf()
-	var base_value_range: float = item_stat_blueprint.base_value_max - item_stat_blueprint.base_value_min
+	var base_value_range: float = (
+		item_stat_blueprint.base_value_max - item_stat_blueprint.base_value_min
+	)
 	var base_value_num_step: float = base_value_range / item_stat_blueprint.base_value_step
 
 	var base_value_rolled_steps := ceili(base_value_dice_roll * base_value_num_step)

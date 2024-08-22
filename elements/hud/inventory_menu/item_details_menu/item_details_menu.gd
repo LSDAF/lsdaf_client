@@ -3,16 +3,20 @@ extends Control
 var _item: Item = null
 var _item_index: int
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+
 func _prettify_level(level: int) -> String:
 	return "Lv. {0}".format([level])
+
 
 func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
 	match item_rarity:
@@ -89,4 +93,4 @@ func _on_level_up_button_pressed() -> void:
 
 
 func _on_salvage_button_pressed() -> void:
-	pass # Replace with function body.
+	pass  # Replace with function body.
