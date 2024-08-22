@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://kpye4nvbsorv" path="res://resources/items/stats/attack_add.tres" id="1_rsj4y"]
 [ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="2_dkkfm"]
-[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/32x32_PixelWeapons_Premium.png" id="3_xkkyj"]
+[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="3_xkkyj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o134b"]
 atlas = ExtResource("3_xkkyj")

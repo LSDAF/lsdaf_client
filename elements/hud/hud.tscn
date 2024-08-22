@@ -1,12 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=16 format=3 uid="uid://dqdsdwfufbwdg"]
 
 [ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
+[ext_resource type="Texture2D" uid="uid://noaec1uwwokm" path="res://asset/items/currencies/gold.png" id="2_jrthv"]
 [ext_resource type="Script" path="res://elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
 [ext_resource type="Script" path="res://elements/hud/currencies/diamonds_label.gd" id="3_jc3ly"]
 [ext_resource type="Script" path="res://elements/hud/wave_label.gd" id="4_inuje"]
+[ext_resource type="Texture2D" uid="uid://c6jv7rbq1wlay" path="res://asset/items/currencies/diamond.png" id="4_p73r7"]
+[ext_resource type="Script" path="res://elements/hud/amethyst_label.gd" id="4_q2gc5"]
 [ext_resource type="Script" path="res://elements/hud/stage_label.gd" id="4_r1pv3"]
 [ext_resource type="Script" path="res://elements/hud/characteristics_button.gd" id="4_r7avi"]
 [ext_resource type="PackedScene" uid="uid://cvlpyerw0cjjq" path="res://elements/hud/characteristics_menu/characteristics_menu.tscn" id="5_836lv"]
+[ext_resource type="Texture2D" uid="uid://0xi6oohvn7pe" path="res://asset/items/currencies/emerald.png" id="6_qnpem"]
+[ext_resource type="Texture2D" uid="uid://dl0fyacx1bv8i" path="res://asset/items/currencies/amethyst.png" id="7_tl67l"]
 [ext_resource type="PackedScene" uid="uid://du1yiy20l36da" path="res://elements/hud/inventory_menu/inventory_menu.tscn" id="7_x71an"]
 [ext_resource type="Script" path="res://elements/hud/inventory_button.gd" id="8_fowqm"]
 [ext_resource type="Script" path="res://elements/hud/quest_button.gd" id="8_lxsct"]
@@ -33,7 +38,17 @@ metadata/_edit_use_anchors_ = true
 [node name="CurrenciesContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="GoldLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
+[node name="Gold" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Gold"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_jrthv")
+expand_mode = 3
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Gold"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -43,7 +58,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_e8p0k")
 
-[node name="DiamondsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
+[node name="Diamonds" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Diamonds"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_p73r7")
+expand_mode = 3
+
+[node name="DiamondsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Diamonds"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -53,7 +78,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_jc3ly")
 
-[node name="EmeraldsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
+[node name="Emeralds" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Emeralds"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("6_qnpem")
+expand_mode = 3
+
+[node name="EmeraldsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Emeralds"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -62,7 +97,17 @@ text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AmethystLabel" type="Label" parent="VBoxContainer/CurrenciesContainer"]
+[node name="Amethysts" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Amethysts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("7_tl67l")
+expand_mode = 3
+
+[node name="AmethystLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Amethysts"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
@@ -70,6 +115,7 @@ size_flags_horizontal = 3
 text = "123,456,789"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("4_q2gc5")
 
 [node name="StageLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2

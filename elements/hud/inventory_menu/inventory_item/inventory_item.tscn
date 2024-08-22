@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b2arfnoe585sm"]
 
 [ext_resource type="Script" path="res://elements/hud/inventory_menu/inventory_item/inventory_item.gd" id="1_pftji"]
-[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/32x32_PixelWeapons_Premium.png" id="2_13756"]
+[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="2_13756"]
 [ext_resource type="Texture2D" uid="uid://dtc5j5acibygw" path="res://asset/ui/wood/Shadow/UI_Wood_A_NoBorder.png" id="2_hm3w1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kdlx"]

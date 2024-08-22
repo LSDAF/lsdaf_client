@@ -2,6 +2,7 @@ extends Node
 
 var gold: Currency = Currency.new()
 var diamond: Currency = Currency.new()
+var amethyst: Currency = Currency.new()
 
 
 # DEFAULT FOR DEV
