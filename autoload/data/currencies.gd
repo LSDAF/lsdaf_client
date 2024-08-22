@@ -6,4 +6,4 @@ var diamond: Currency = Currency.new()
 
 # DEFAULT FOR DEV
 func _ready() -> void:
-	gold.update_value(1000)
+	gold.update_value(10000)

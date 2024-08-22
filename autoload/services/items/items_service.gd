@@ -38,11 +38,6 @@ func create_random_item() -> Item:
 	return create_item(item_type, item_rarity)
 
 
-func loot_random_item() -> void:
-	var new_item := create_random_item()
-	Inventory.items.push_back(new_item)
-
-
 func _get_additionnal_stats(item_stats_pool: ItemStatsPool) -> Array[ItemStat]:
 	var item_additionnal_stats_blueprints: Array[ItemStatBlueprint] = []
 	var potential_stats_blueprints := item_stats_pool.potential_stats

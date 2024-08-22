@@ -19,7 +19,7 @@ func _on_close_button_pressed() -> void:
 
 
 func _on_give_random_button_pressed() -> void:
-	ItemsService.loot_random_item()
+	Loot.loot_random_item()
 	update_inventory()
 
 
@@ -39,6 +39,7 @@ func get_inventory_items_scenes() -> Array[InventoryItem]:
 
 		inventory_items.push_back(new_item_scene)
 
+	print(inventory_items)
 	return inventory_items
 
 
