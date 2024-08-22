@@ -25,3 +25,11 @@ func add_item(item: Item) -> void:
 	items.push_back(item)
 
 	on_inventory_update.emit()
+	
+func delete_item_at_index(item_index: int) -> void:
+	if item_index < 0 or item_index >= len(items):
+		return
+		
+	items.pop_at(item_index)
+	
+	on_inventory_update.emit()

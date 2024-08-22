@@ -69,6 +69,10 @@ func _update_item_details_menu() -> void:
 	%AdditionnalStat3Label.text = _prettify_statistic(_item.additional_stats[2], _item.level)
 	%AdditionnalStat4Label.text = _prettify_statistic(_item.additional_stats[3], _item.level)
 
+	%SalvagePriceLabel.text = str(_item.item_salvage_price())
+	%LevelUpCostLabel.text = str(_item.level_up_cost())
+	
+	%LevelUpButton.disabled = (_item.level_up_cost() > Currencies.amethyst.get_value())
 
 func open_for_item(item_index: int) -> void:
 	_item_index = item_index
@@ -87,10 +91,16 @@ func open_for_item(item_index: int) -> void:
 
 
 func _on_level_up_button_pressed() -> void:
+	Currencies.amethyst.update_value(-_item.level_up_cost())
 	Inventory.level_up_item_at_index(_item_index)
 
 	_update_item_details_menu()
 
 
 func _on_salvage_button_pressed() -> void:
-	pass  # Replace with function body.
+	Currencies.amethyst.update_value(_item.item_salvage_price())
+	Inventory.delete_item_at_index(_item_index)
+	
+	open_for_item(-1)
+	
+	_update_item_details_menu()

@@ -77,22 +77,23 @@ layout_mode = 2
 text = "AdditionnalStat4Label"
 
 [node name="LevelUpButton" type="Button" parent="ItemsDetailVBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Level Up
 "
 
-[node name="LevelUpCostBoxContainer" type="HBoxContainer" parent="ItemsDetailVBoxContainer"]
+[node name="LevelUpBoxContainer" type="HBoxContainer" parent="ItemsDetailVBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LevelUpCostLabel" type="Label" parent="ItemsDetailVBoxContainer/LevelUpCostBoxContainer"]
+[node name="LevelUpCostLabel" type="Label" parent="ItemsDetailVBoxContainer/LevelUpBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Cost"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AmethystTextureRect" type="TextureRect" parent="ItemsDetailVBoxContainer/LevelUpCostBoxContainer"]
+[node name="AmethystTextureRect" type="TextureRect" parent="ItemsDetailVBoxContainer/LevelUpBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_w28rc")
 expand_mode = 3
@@ -100,6 +101,22 @@ expand_mode = 3
 [node name="SalvageButton" type="Button" parent="ItemsDetailVBoxContainer"]
 layout_mode = 2
 text = "Salvage"
+
+[node name="SalvageBoxContainer" type="HBoxContainer" parent="ItemsDetailVBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SalvagePriceLabel" type="Label" parent="ItemsDetailVBoxContainer/SalvageBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Price"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AmethystTextureRect" type="TextureRect" parent="ItemsDetailVBoxContainer/SalvageBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_w28rc")
+expand_mode = 3
 
 [node name="NoItemSelectedLabel" type="Label" parent="."]
 unique_name_in_owner = true
