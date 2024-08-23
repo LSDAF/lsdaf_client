@@ -1,8 +1,9 @@
 extends Control
 
+signal on_salvage_item(item_index: int)
+
 var _item: Item = null
 var _item_index: int
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -101,6 +102,5 @@ func _on_salvage_button_pressed() -> void:
 	Currencies.amethyst.update_value(_item.item_salvage_price())
 	Inventory.delete_item_at_index(_item_index)
 	
-	open_for_item(-1)
-	
-	_update_item_details_menu()
+	on_salvage_item.emit(_item_index)
+	#_update_item_details_menu()

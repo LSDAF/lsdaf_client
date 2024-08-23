@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2arfnoe585sm"]
+[gd_scene load_steps=7 format=3 uid="uid://b2arfnoe585sm"]
 
 [ext_resource type="Script" path="res://elements/hud/inventory_menu/inventory_item/inventory_item.gd" id="1_pftji"]
 [ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="2_13756"]
 [ext_resource type="Texture2D" uid="uid://dtc5j5acibygw" path="res://asset/ui/wood/Shadow/UI_Wood_A_NoBorder.png" id="2_hm3w1"]
+[ext_resource type="Texture2D" uid="uid://2ba3docwbyc4" path="res://asset/ui/selection_box_item.png" id="3_234bb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kdlx"]
 atlas = ExtResource("2_hm3w1")
@@ -33,6 +34,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_1kdlx")
+
+[node name="SelectedTextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_234bb")
+expand_mode = 3
 
 [node name="ItemTextureRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
