@@ -25,6 +25,7 @@ CurrentQuest="*res://autoload/data/quests/current_quest.tscn"
 ItemsService="*res://autoload/services/items/items_service.tscn"
 Inventory="*res://autoload/data/inventory/inventory.gd"
 Loot="*res://autoload/services/loot/loot.gd"
+PlayerStats="*res://autoload/data/player_stats/player_stats.gd"
 
 [debug]
 

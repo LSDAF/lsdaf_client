@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dudewyx47j3qa"]
+[gd_scene load_steps=7 format=3 uid="uid://dudewyx47j3qa"]
 
 [ext_resource type="Script" path="res://autoload/data/characteristics/characteristics.gd" id="1_od0c7"]
 [ext_resource type="Resource" uid="uid://dbxfgb5kqnunr" path="res://resources/characteristics/attack.tres" id="2_yfnu4"]
+[ext_resource type="Resource" uid="uid://dq3yp50svw41e" path="res://resources/characteristics/crit_chance.tres" id="3_hsbky"]
 [ext_resource type="Resource" uid="uid://bbxu7eidptypv" path="res://resources/characteristics/hp.tres" id="3_iowlp"]
+[ext_resource type="Resource" uid="uid://brr0ylrd5ovfc" path="res://resources/characteristics/crit_damage.tres" id="4_dt0t8"]
+[ext_resource type="Resource" uid="uid://bs527hme7vlc8" path="res://resources/characteristics/resistance.tres" id="6_su06g"]
 
 [node name="Characteristics" type="Node"]
 script = ExtResource("1_od0c7")
 attack = ExtResource("2_yfnu4")
+crit_chance = ExtResource("3_hsbky")
+crit_damage = ExtResource("4_dt0t8")
 hp = ExtResource("3_iowlp")
+resistance = ExtResource("6_su06g")
