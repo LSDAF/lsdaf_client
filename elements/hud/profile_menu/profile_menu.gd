@@ -12,14 +12,10 @@ func _ready() -> void:
 	%HpLabel.text = "HP: {0} ({1}%)".format([hp_stat.value, hp_stat.multiplier * 100])
 
 	var crit_chance_stat := PlayerStats.get_crit_chance()
-	%CritChanceLabel.text = "Crit. Chance: {0} ({1}%)".format(
-		[crit_chance_stat.value, crit_chance_stat.multiplier * 100]
-	)
+	%CritChanceLabel.text = "Crit. Chance: {0}%".format([crit_chance_stat.value])
 
 	var crit_damage_stat := PlayerStats.get_crit_damage()
-	%CritDamageLabel.text = "Crit. Damage: {0} ({1}%)".format(
-		[crit_damage_stat.value, crit_damage_stat.multiplier * 100]
-	)
+	%CritDamageLabel.text = "Crit. Damage: {0}%".format([crit_damage_stat.value])
 
 	var resistance_stat := PlayerStats.get_resistance()
 	%ResistanceLabel.text = "Resistance: {0} ({1}%)".format(

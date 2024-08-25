@@ -31,7 +31,8 @@ func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
 func _prettify_statistic(item_stat: ItemStat, level: int) -> String:
 	var prettified_statistic := ""
 
-	var current_value := item_stat.base_value * (level / 100.0)
+	var current_value := item_stat.base_value * level
+	#var current_value_percent := item_stat.base_value * (level / 100.0)
 
 	match item_stat.statistic:
 		ItemStatistics.ItemStatistics.ATTACK_ADD:
