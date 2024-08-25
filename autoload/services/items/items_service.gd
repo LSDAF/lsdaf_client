@@ -86,7 +86,6 @@ func _get_blueprint_from_pools(
 				ItemRarity.ItemRarity.NORMAL:
 					return item_pools.swords.normal.pick_random()
 
-
 	# WIP
 	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] blueprint pool not found")
 	return item_pools.swords.normal[0]

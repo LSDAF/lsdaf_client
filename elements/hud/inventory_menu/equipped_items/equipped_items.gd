@@ -6,47 +6,50 @@ signal on_item_selected(item_index: int)
 @export var empty_item_scene: PackedScene
 
 var _equipped_items := {
-						  "boots": null,
-						  "chestplate": null,
-						  "gloves": null,
-						  "helmet": null,
-						  "shield": null,
-						  "sword": null,
-					  }
+	"boots": null,
+	"chestplate": null,
+	"gloves": null,
+	"helmet": null,
+	"shield": null,
+	"sword": null,
+}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	update_equipped_items()
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+
 func _on_item_selected(item_index: int) -> void:
 	on_item_selected.emit(item_index)
+
 
 func _remove_children(slot: Node) -> void:
 	slot.get_children().reduce(func(child: Node) -> void: child.queue_free())
 
+
 func _update_corresponding_slot_child(slot: Node, inventory_item: InventoryItem) -> void:
 	_remove_children(slot)
 
-	if (inventory_item == null):
+	if inventory_item == null:
 		print(inventory_item)
 		var a := empty_item_scene.instantiate()
 		print(a)
 		slot.add_child(a)
 
-	if (inventory_item != null):
+	if inventory_item != null:
 		print(inventory_item)
 		slot.add_child(inventory_item)
-
-	
 
 
 func _update_corresponding_slots() -> void:
 	print(_equipped_items)
-	
+
 	_update_corresponding_slot_child(%BootsSlot, _equipped_items.boots)
 	_update_corresponding_slot_child(%ChestplateSlot, _equipped_items.chestplate)
 	_update_corresponding_slot_child(%GlovesSlot, _equipped_items.gloves)
@@ -54,8 +57,11 @@ func _update_corresponding_slots() -> void:
 	_update_corresponding_slot_child(%ShieldSlot, _equipped_items.shield)
 	_update_corresponding_slot_child(%SwordSlot, _equipped_items.sword)
 
-func _update_corresponding_equipped_item(inventory_item: InventoryItem, item_type: ItemType.ItemType) -> void:
-	match(item_type):
+
+func _update_corresponding_equipped_item(
+	inventory_item: InventoryItem, item_type: ItemType.ItemType
+) -> void:
+	match item_type:
 		ItemType.ItemType.BOOTS:
 			_equipped_items.boots = inventory_item
 		ItemType.ItemType.CHESTPLATE:
@@ -68,6 +74,7 @@ func _update_corresponding_equipped_item(inventory_item: InventoryItem, item_typ
 			_equipped_items.shield = inventory_item
 		ItemType.ItemType.SWORD:
 			_equipped_items.sword = inventory_item
+
 
 func update_equipped_items() -> void:
 	var equipped_items_index := Inventory.get_equipped_items_index()

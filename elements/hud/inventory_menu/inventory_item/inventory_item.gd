@@ -25,17 +25,19 @@ func _ready() -> void:
 	%SelectedTextureRect.visible = is_selected
 	%ItemEquippedLabel.visible = inventory_item.is_equipped
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 
 func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
-	match(item_rarity):
+	match item_rarity:
 		ItemRarity.ItemRarity.NORMAL:
-			return 'N'
+			return "N"
 		_:
-			return '?'
+			return "?"
+
 
 func _on_pressed() -> void:
 	on_item_selected.emit(_item_index)
