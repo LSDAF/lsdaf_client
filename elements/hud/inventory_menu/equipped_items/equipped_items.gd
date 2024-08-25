@@ -3,6 +3,16 @@ extends Control
 signal on_item_selected(item_index: int)
 
 @export var item_scene: PackedScene
+@export var empty_item_scene: PackedScene
+
+var _equipped_items := {
+						  "boots": null,
+						  "chestplate": null,
+						  "gloves": null,
+						  "helmet": null,
+						  "shield": null,
+						  "sword": null,
+					  }
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,27 +28,46 @@ func _on_item_selected(item_index: int) -> void:
 func _remove_children(slot: Node) -> void:
 	slot.get_children().reduce(func(child: Node) -> void: child.queue_free())
 
-func _update_corresponding_slot(inventory_item: InventoryItem, item_type: ItemType.ItemType) -> void:
-	_remove_children(%BootsSlot)
-	_remove_children(%ChestplateSlot)
-	_remove_children(%GlovesSlot)
-	_remove_children(%HelmetSlot)
-	_remove_children(%ShieldSlot)
-	_remove_children(%SwordSlot)
+func _update_corresponding_slot_child(slot: Node, inventory_item: InventoryItem) -> void:
+	_remove_children(slot)
+
+	if (inventory_item == null):
+		print(inventory_item)
+		var a := empty_item_scene.instantiate()
+		print(a)
+		slot.add_child(a)
+
+	if (inventory_item != null):
+		print(inventory_item)
+		slot.add_child(inventory_item)
+
 	
+
+
+func _update_corresponding_slots() -> void:
+	print(_equipped_items)
+	
+	_update_corresponding_slot_child(%BootsSlot, _equipped_items.boots)
+	_update_corresponding_slot_child(%ChestplateSlot, _equipped_items.chestplate)
+	_update_corresponding_slot_child(%GlovesSlot, _equipped_items.gloves)
+	_update_corresponding_slot_child(%HelmetSlot, _equipped_items.helmet)
+	_update_corresponding_slot_child(%ShieldSlot, _equipped_items.shield)
+	_update_corresponding_slot_child(%SwordSlot, _equipped_items.sword)
+
+func _update_corresponding_equipped_item(inventory_item: InventoryItem, item_type: ItemType.ItemType) -> void:
 	match(item_type):
 		ItemType.ItemType.BOOTS:
-			%BootsSlot.add_child(inventory_item)
+			_equipped_items.boots = inventory_item
 		ItemType.ItemType.CHESTPLATE:
-			%ChestplateSlot.add_child(inventory_item)
+			_equipped_items.chestplate = inventory_item
 		ItemType.ItemType.GLOVES:
-			%GlovesSlot.add_child(inventory_item)
+			_equipped_items.gloves = inventory_item
 		ItemType.ItemType.HELMET:
-			%HelmetSlot.add_child(inventory_item)
+			_equipped_items.helmet = inventory_item
 		ItemType.ItemType.SHIELD:
-			%ShieldSlot.add_child(inventory_item)
+			_equipped_items.shield = inventory_item
 		ItemType.ItemType.SWORD:
-			%SwordSlot.add_child(inventory_item)
+			_equipped_items.sword = inventory_item
 
 func update_equipped_items() -> void:
 	var equipped_items_index := Inventory.get_equipped_items_index()
@@ -47,4 +76,6 @@ func update_equipped_items() -> void:
 		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
 		new_item_scene.on_item_selected.connect(_on_item_selected)
 
-		_update_corresponding_slot(new_item_scene, Inventory.items[item_index].type)
+		_update_corresponding_equipped_item(new_item_scene, Inventory.items[item_index].type)
+
+	_update_corresponding_slots()
