@@ -27,19 +27,22 @@ func _on_give_random_button_pressed() -> void:
 	Loot.loot_random_item()
 	update_inventory()
 
+
 func _on_salvage_item(item_index: int) -> void:
 	_open_details_for_item(0)
+
 
 func _open_details_for_item(item_index: int) -> void:
 	_selected_item_index = item_index
 	update_inventory()
+
 
 func get_inventory_items_scenes() -> Array[InventoryItem]:
 	var inventory_items: Array[InventoryItem] = []
 
 	for item_index in len(Inventory.items):
 		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
-		
+
 		new_item_scene.on_item_selected.connect(_open_details_for_item)
 		new_item_scene.is_selected = item_index == _selected_item_index
 
@@ -56,5 +59,5 @@ func update_inventory() -> void:
 
 	for scene in _current_item_scenes:
 		%InventoryGridContainer.add_child(scene)
-		
+
 	%ItemDetailsMenu.open_for_item(_selected_item_index)

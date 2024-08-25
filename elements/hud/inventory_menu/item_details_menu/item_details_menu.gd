@@ -5,6 +5,7 @@ signal on_salvage_item(item_index: int)
 var _item: Item = null
 var _item_index: int
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -72,8 +73,9 @@ func _update_item_details_menu() -> void:
 
 	%SalvagePriceLabel.text = str(_item.item_salvage_price())
 	%LevelUpCostLabel.text = str(_item.level_up_cost())
-	
+
 	%LevelUpButton.disabled = (_item.level_up_cost() > Currencies.amethyst.get_value())
+
 
 func open_for_item(item_index: int) -> void:
 	_item_index = item_index
@@ -101,6 +103,6 @@ func _on_level_up_button_pressed() -> void:
 func _on_salvage_button_pressed() -> void:
 	Currencies.amethyst.update_value(_item.item_salvage_price())
 	Inventory.delete_item_at_index(_item_index)
-	
+
 	on_salvage_item.emit(_item_index)
 	#_update_item_details_menu()
