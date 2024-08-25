@@ -51,7 +51,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="InventoryGridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryGridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

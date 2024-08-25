@@ -37,13 +37,10 @@ func _update_corresponding_slot_child(slot: Node, inventory_item: InventoryItem)
 	_remove_children(slot)
 
 	if inventory_item == null:
-		print(inventory_item)
 		var a := empty_item_scene.instantiate()
-		print(a)
 		slot.add_child(a)
 
 	if inventory_item != null:
-		print(inventory_item)
 		slot.add_child(inventory_item)
 
 
