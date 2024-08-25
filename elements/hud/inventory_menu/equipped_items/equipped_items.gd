@@ -80,7 +80,7 @@ func update_equipped_items() -> void:
 		"shield": null,
 		"sword": null,
 	}
-	
+
 	var equipped_items_index := Inventory.get_equipped_items_index()
 
 	for item_index in equipped_items_index:

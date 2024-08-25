@@ -37,37 +37,44 @@ func _on_item_selected(item_index: int) -> void:
 	_selected_item_index = item_index
 	update_inventory()
 
+
 # From https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom
 # func is called as many times as necessary, receiving two array elements as arguments.
 # The function should return true if the first element should be moved behind the second one,
 # otherwise it should return false.
-func _sort_inventory_custom_sort(inventory_item_a: InventoryItem, inventory_item_b: InventoryItem) -> bool:
+func _sort_inventory_custom_sort(
+	inventory_item_a: InventoryItem, inventory_item_b: InventoryItem
+) -> bool:
 	var item_a := Inventory.get_item_at_index(inventory_item_a.item_index)
 	var item_b := Inventory.get_item_at_index(inventory_item_b.item_index)
 
-	if (item_a.type != item_b.type):
+	if item_a.type != item_b.type:
 		return item_a.type > item_b.type
 
-	if (item_a.rarity != item_b.rarity):
+	if item_a.rarity != item_b.rarity:
 		return item_a.rarity > item_b.rarity
 
-	if (item_a.level != item_b.level):
+	if item_a.level != item_b.level:
 		return item_a.level > item_b.level
 
 	return false
 
+
 # From https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom
 # func is called as many times as necessary, receiving two array elements as arguments.
 # The function should return true if the first element should be moved behind the second one,
 # otherwise it should return false.
-func _sort_inventory_custom_sort_equipped_items(inventory_item_a: InventoryItem, inventory_item_b: InventoryItem) -> bool:
+func _sort_inventory_custom_sort_equipped_items(
+	inventory_item_a: InventoryItem, inventory_item_b: InventoryItem
+) -> bool:
 	var item_a := Inventory.get_item_at_index(inventory_item_a.item_index)
 	var item_b := Inventory.get_item_at_index(inventory_item_b.item_index)
 
-	if (item_a.is_equipped and not item_b.is_equipped):
+	if item_a.is_equipped and not item_b.is_equipped:
 		return true
 
 	return false
+
 
 func get_inventory_items_scenes() -> Array[InventoryItem]:
 	var inventory_items: Array[InventoryItem] = []

@@ -7,6 +7,7 @@ signal on_item_selected(item_index: int)
 var item_index: int
 var is_selected: bool = false
 
+
 # See https://www.reddit.com/r/godot/comments/13pm5o5/instantiating_a_scene_with_constructor_parameters/
 func with_data(item_to_load_index: int) -> InventoryItem:
 	item_index = item_to_load_index

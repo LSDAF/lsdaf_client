@@ -44,6 +44,7 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 func _on_hp_upgraded() -> void:
 	%HealthBar.max_value = Characteristics.hp.current_value()
 
+
 func _get_player_damage() -> float:
 	var attack := PlayerStats.get_attack()
 	var crit_chance := PlayerStats.get_crit_chance()
@@ -56,10 +57,11 @@ func _get_player_damage() -> float:
 	var roll := randf()
 
 	var is_critical_strike: bool = roll <= crit_chance.value * crit_chance.multiplier
-	if (is_critical_strike):
+	if is_critical_strike:
 		return base_damage * (crit_damage.value * crit_damage.multiplier)
 
 	return base_damage
+
 
 func attack(target: Mob) -> void:
 	target.take_damage(_get_player_damage())

@@ -17,13 +17,16 @@ func level_up_cost() -> int:
 func item_salvage_price() -> int:
 	return pow(level, 1.5)
 
+
 func total_stat_value(item_statistic: ItemStatistics.ItemStatistics) -> float:
 	var total_value := 0.0
 
-	if (main_stat.statistic == item_statistic):
+	if main_stat.statistic == item_statistic:
 		total_value += main_stat.base_value * level
 
-	var corresponding_additional_stats: Array[ItemStat] = additional_stats.filter(func(additional_stat: ItemStat) -> bool: return additional_stat.statistic == item_statistic)
+	var corresponding_additional_stats: Array[ItemStat] = additional_stats.filter(
+		func(additional_stat: ItemStat) -> bool: return additional_stat.statistic == item_statistic
+	)
 	print(corresponding_additional_stats)
 	for additional_stat in corresponding_additional_stats:
 		total_value += additional_stat.base_value * level
