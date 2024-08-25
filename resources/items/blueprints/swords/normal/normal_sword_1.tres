@@ -6,13 +6,13 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o134b"]
 atlas = ExtResource("3_xkkyj")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(5, 7, 21, 21)
 
 [resource]
 script = ExtResource("2_dkkfm")
 main_stat = ExtResource("1_rsj4y")
 rarity = 0
 level = 0
-type = 0
+type = 5
 name = "Normal 1"
 texture = SubResource("AtlasTexture_o134b")

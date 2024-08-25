@@ -1,10 +1,18 @@
-[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=2 format=3 uid="uid://dao5ux4wpgx2l"]
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=5 format=3 uid="uid://dao5ux4wpgx2l"]
 
+[ext_resource type="Resource" uid="uid://dsx7nyutj0qvy" path="res://resources/items/stats/resistance_add.tres" id="1_5vyof"]
 [ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="1_r6wuy"]
+[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="3_l4ou1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlpsy"]
+atlas = ExtResource("3_l4ou1")
+region = Rect2(5, 515, 21, 26)
 
 [resource]
 script = ExtResource("1_r6wuy")
+main_stat = ExtResource("1_5vyof")
 rarity = 0
 level = 0
-type = 0
-name = ""
+type = 4
+name = "Shield 1"
+texture = SubResource("AtlasTexture_vlpsy")

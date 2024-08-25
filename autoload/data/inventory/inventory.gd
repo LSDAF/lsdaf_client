@@ -29,7 +29,6 @@ func equip_item_at_index(item_index: int) -> void:
 		if (items[index].type != item_type):
 			continue
 
-		print("Cur Index: {0} | Eq. Index: {1} | Type: {2}".format([index, item_index, item_type]))
 		items[index].is_equipped = index == item_index
 
 	on_inventory_update.emit()

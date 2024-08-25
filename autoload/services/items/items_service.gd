@@ -61,10 +61,31 @@ func _get_blueprint_from_pools(
 	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
 ) -> ItemBlueprint:
 	match item_type:
+		ItemType.ItemType.BOOTS:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_pools.boots.normal.pick_random()
+		ItemType.ItemType.CHESTPLATE:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_pools.chestplates.normal.pick_random()
+		ItemType.ItemType.GLOVES:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_pools.gloves.normal.pick_random()
+		ItemType.ItemType.HELMET:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_pools.helmets.normal.pick_random()
+		ItemType.ItemType.SHIELD:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_pools.shields.normal.pick_random()
 		ItemType.ItemType.SWORD:
 			match item_rarity:
 				ItemRarity.ItemRarity.NORMAL:
 					return item_pools.swords.normal.pick_random()
+
 
 	# WIP
 	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] blueprint pool not found")
@@ -75,6 +96,26 @@ func _get_stats_pool_from_pools(
 	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
 ) -> ItemStatsPool:
 	match item_type:
+		ItemType.ItemType.BOOTS:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_stats_pools.boots.normal
+		ItemType.ItemType.CHESTPLATE:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_stats_pools.chestplates.normal
+		ItemType.ItemType.GLOVES:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_stats_pools.gloves.normal
+		ItemType.ItemType.HELMET:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_stats_pools.helmets.normal
+		ItemType.ItemType.SHIELD:
+			match item_rarity:
+				ItemRarity.ItemRarity.NORMAL:
+					return item_stats_pools.shields.normal
 		ItemType.ItemType.SWORD:
 			match item_rarity:
 				ItemRarity.ItemRarity.NORMAL:

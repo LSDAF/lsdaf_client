@@ -1,10 +1,18 @@
-[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=2 format=3 uid="uid://j1tedhy1y3qx"]
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=5 format=3 uid="uid://j1tedhy1y3qx"]
 
+[ext_resource type="Resource" uid="uid://dsx7nyutj0qvy" path="res://resources/items/stats/resistance_add.tres" id="1_5xh4m"]
 [ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="1_xn4c3"]
+[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="3_sdxgu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rwpx7"]
+atlas = ExtResource("3_sdxgu")
+region = Rect2(262, 7, 21, 17)
 
 [resource]
 script = ExtResource("1_xn4c3")
+main_stat = ExtResource("1_5xh4m")
 rarity = 0
 level = 0
-type = 0
-name = ""
+type = 1
+name = "Chestplate"
+texture = SubResource("AtlasTexture_rwpx7")

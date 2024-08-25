@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=3 uid="uid://b2arfnoe585sm"]
 
 [ext_resource type="Script" path="res://elements/hud/inventory_menu/inventory_item/inventory_item.gd" id="1_pftji"]
-[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="2_13756"]
 [ext_resource type="Texture2D" uid="uid://dtc5j5acibygw" path="res://asset/ui/wood/Shadow/UI_Wood_A_NoBorder.png" id="2_hm3w1"]
 [ext_resource type="Texture2D" uid="uid://2ba3docwbyc4" path="res://asset/ui/selection_box_item.png" id="3_234bb"]
+[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="4_w5ilh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kdlx"]
 atlas = ExtResource("2_hm3w1")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pe8o1"]
-atlas = ExtResource("2_13756")
-region = Rect2(0, 0, 32, 32)
+atlas = ExtResource("4_w5ilh")
+region = Rect2(291, 43, 25, 15)
 
 [node name="InventoryItem" type="Button"]
 custom_minimum_size = Vector2(64, 64)
@@ -47,16 +47,24 @@ grow_vertical = 2
 texture = ExtResource("3_234bb")
 expand_mode = 3
 
-[node name="ItemTextureRect" type="TextureRect" parent="."]
-unique_name_in_owner = true
-texture_filter = 1
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ItemTextureRect" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
 texture = SubResource("AtlasTexture_pe8o1")
+stretch_mode = 5
 
 [node name="ItemLevelLabel" type="Label" parent="."]
 unique_name_in_owner = true

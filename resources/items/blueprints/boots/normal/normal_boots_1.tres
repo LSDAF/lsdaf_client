@@ -1,10 +1,18 @@
-[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=2 format=3 uid="uid://b7iuepc1s4s81"]
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=5 format=3 uid="uid://b7iuepc1s4s81"]
 
 [ext_resource type="Script" path="res://models/items/item_blueprint/item_blueprint.gd" id="1_fcv54"]
+[ext_resource type="Resource" uid="uid://2ll40nljb5u3" path="res://resources/items/stats/crit_chance.tres" id="1_w5cxx"]
+[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="3_8ahdn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdojb"]
+atlas = ExtResource("3_8ahdn")
+region = Rect2(259, 43, 25, 15)
 
 [resource]
 script = ExtResource("1_fcv54")
+main_stat = ExtResource("1_w5cxx")
 rarity = 0
 level = 0
 type = 0
-name = ""
+name = "Boots 1"
+texture = SubResource("AtlasTexture_jdojb")
