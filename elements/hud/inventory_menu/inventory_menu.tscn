@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://du1yiy20l36da"]
+[gd_scene load_steps=5 format=3 uid="uid://du1yiy20l36da"]
 
 [ext_resource type="Script" path="res://elements/hud/inventory_menu/inventory_menu.gd" id="1_5bvax"]
 [ext_resource type="PackedScene" uid="uid://b2arfnoe585sm" path="res://elements/hud/inventory_menu/inventory_item/inventory_item.tscn" id="2_d5uob"]
 [ext_resource type="PackedScene" uid="uid://dilg0e5h66qys" path="res://elements/hud/inventory_menu/item_details_menu/item_details_menu.tscn" id="3_rvolm"]
+[ext_resource type="PackedScene" uid="uid://7ax2al4pms1y" path="res://elements/hud/inventory_menu/equipped_items/equipped_items.tscn" id="4_rj5ns"]
 
 [node name="InventoryMenu" type="Control"]
 layout_mode = 3
@@ -54,7 +55,15 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-columns = 12
+columns = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="EquippedItems" parent="MarginContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_rj5ns")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="MarginContainer/Panel"]
 unique_name_in_owner = true

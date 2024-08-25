@@ -33,6 +33,15 @@ func equip_item_at_index(item_index: int) -> void:
 
 	on_inventory_update.emit()
 
+func get_equipped_items_index() -> Array[int]:
+	var equipped_items_index: Array[int] = []
+
+	for item_index in len(items):
+		if (items[item_index].is_equipped):
+			equipped_items_index.push_back(item_index)
+
+	return equipped_items_index
+
 func get_item_at_index(item_index: int) -> Item:
 	if item_index < 0 or item_index >= len(items):
 		return null

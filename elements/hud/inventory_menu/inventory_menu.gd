@@ -10,8 +10,9 @@ var _selected_item_index: int = -1
 func _ready() -> void:
 	Inventory.on_inventory_update.connect(update_inventory)
 	%ItemDetailsMenu.on_salvage_item.connect(_on_salvage_item)
+	%EquippedItems.on_item_selected.connect(_on_item_selected)
 
-	_open_details_for_item(0)
+	_on_item_selected(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,10 +30,10 @@ func _on_give_random_button_pressed() -> void:
 
 
 func _on_salvage_item(item_index: int) -> void:
-	_open_details_for_item(0)
+	_on_item_selected(0)
 
 
-func _open_details_for_item(item_index: int) -> void:
+func _on_item_selected(item_index: int) -> void:
 	_selected_item_index = item_index
 	update_inventory()
 
@@ -43,7 +44,7 @@ func get_inventory_items_scenes() -> Array[InventoryItem]:
 	for item_index in len(Inventory.items):
 		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
 
-		new_item_scene.on_item_selected.connect(_open_details_for_item)
+		new_item_scene.on_item_selected.connect(_on_item_selected)
 		new_item_scene.is_selected = item_index == _selected_item_index
 
 		inventory_items.push_back(new_item_scene)
@@ -61,3 +62,4 @@ func update_inventory() -> void:
 		%InventoryGridContainer.add_child(scene)
 
 	%ItemDetailsMenu.open_for_item(_selected_item_index)
+	%EquippedItems.update_equipped_items()

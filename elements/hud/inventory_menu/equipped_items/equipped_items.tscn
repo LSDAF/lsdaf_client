@@ -1,0 +1,159 @@
+[gd_scene load_steps=3 format=3 uid="uid://7ax2al4pms1y"]
+
+[ext_resource type="Script" path="res://elements/hud/inventory_menu/equipped_items/equipped_items.gd" id="1_je4kx"]
+[ext_resource type="PackedScene" uid="uid://b2arfnoe585sm" path="res://elements/hud/inventory_menu/inventory_item/inventory_item.tscn" id="2_c6uyl"]
+
+[node name="EquippedItems" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+script = ExtResource("1_je4kx")
+item_scene = ExtResource("2_c6uyl")
+
+[node name="Helmet" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -192.0
+offset_right = 48.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Helmet"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Helmet"
+
+[node name="HelmetSlot" type="AspectRatioContainer" parent="Helmet"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Gloves" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -96.0
+offset_right = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Gloves"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Gloves"
+
+[node name="GlovesSlot" type="AspectRatioContainer" parent="Gloves"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Shield" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Shield"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Shield"
+
+[node name="ShieldSlot" type="AspectRatioContainer" parent="Shield"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Sword" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Sword"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Sword"
+
+[node name="SwordSlot" type="AspectRatioContainer" parent="Sword"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Boots" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = 96.0
+offset_right = 48.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Boots"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Boots"
+
+[node name="BootsSlot" type="AspectRatioContainer" parent="Boots"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Chestplate" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Chestplate"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Chestplate"
+
+[node name="ChestplateSlot" type="AspectRatioContainer" parent="Chestplate"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
