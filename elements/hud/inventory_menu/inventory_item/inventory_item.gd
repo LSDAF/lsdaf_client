@@ -20,7 +20,7 @@ func _ready() -> void:
 	var inventory_item := Inventory.get_item_at_index(_item_index)
 	%ItemTextureRect.texture = inventory_item.texture
 	%ItemLevelLabel.text = str(inventory_item.level)
-	%ItemRarityLabel.text = str(inventory_item.rarity)
+	%ItemRarityLabel.text = _prettify_rarity(inventory_item.rarity)
 
 	%SelectedTextureRect.visible = is_selected
 	%ItemEquippedLabel.visible = inventory_item.is_equipped
@@ -29,6 +29,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+
+func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
+	match(item_rarity):
+		ItemRarity.ItemRarity.NORMAL:
+			return 'N'
+		_:
+			return '?'
 
 func _on_pressed() -> void:
 	on_item_selected.emit(_item_index)

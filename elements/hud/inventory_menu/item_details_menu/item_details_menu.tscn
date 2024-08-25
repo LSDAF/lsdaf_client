@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dilg0e5h66qys"]
+[gd_scene load_steps=5 format=3 uid="uid://dilg0e5h66qys"]
 
 [ext_resource type="Script" path="res://elements/hud/inventory_menu/item_details_menu/item_details_menu.gd" id="1_jvtpm"]
 [ext_resource type="Texture2D" uid="uid://dl0fyacx1bv8i" path="res://asset/items/currencies/amethyst.png" id="2_w28rc"]
+[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="2_yq722"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jikcy"]
+atlas = ExtResource("2_yq722")
+region = Rect2(291, 43, 25, 15)
 
 [node name="ItemDetailsMenu" type="Control"]
 layout_mode = 3
@@ -33,6 +38,8 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+texture = SubResource("AtlasTexture_jikcy")
+stretch_mode = 5
 
 [node name="ItemRarityLabel" type="Label" parent="ItemsDetailVBoxContainer"]
 unique_name_in_owner = true
