@@ -38,29 +38,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Gloves" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = -96.0
-offset_right = 96.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_group_ = true
-
-[node name="NameLabel" type="Label" parent="Gloves"]
+[node name="EmptyEquippedItem" parent="Helmet/HelmetSlot" instance=ExtResource("3_0vca8")]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Gloves"
-
-[node name="GlovesSlot" type="AspectRatioContainer" parent="Gloves"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
 
 [node name="Shield" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(96, 96)
@@ -86,6 +65,36 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="EmptyEquippedItem" parent="Shield/ShieldSlot" instance=ExtResource("3_0vca8")]
+layout_mode = 2
+
+[node name="Gloves" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -96.0
+offset_right = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Gloves"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Gloves"
+
+[node name="GlovesSlot" type="AspectRatioContainer" parent="Gloves"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EmptyEquippedItem" parent="Gloves/GlovesSlot" instance=ExtResource("3_0vca8")]
+layout_mode = 2
+
 [node name="Sword" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
@@ -109,6 +118,36 @@ text = "Sword"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="EmptyEquippedItem" parent="Sword/SwordSlot" instance=ExtResource("3_0vca8")]
+layout_mode = 2
+
+[node name="Chestplate" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="NameLabel" type="Label" parent="Chestplate"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Chestplate"
+
+[node name="ChestplateSlot" type="AspectRatioContainer" parent="Chestplate"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EmptyEquippedItem" parent="Chestplate/ChestplateSlot" instance=ExtResource("3_0vca8")]
+layout_mode = 2
 
 [node name="Boots" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(96, 96)
@@ -136,26 +175,5 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Chestplate" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 96.0
-offset_bottom = 96.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_group_ = true
-
-[node name="NameLabel" type="Label" parent="Chestplate"]
+[node name="EmptyEquippedItem" parent="Boots/BootsSlot" instance=ExtResource("3_0vca8")]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Chestplate"
-
-[node name="ChestplateSlot" type="AspectRatioContainer" parent="Chestplate"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3

@@ -48,8 +48,6 @@ func _update_corresponding_slot_child(slot: Node, inventory_item: InventoryItem)
 
 
 func _update_corresponding_slots() -> void:
-	print(_equipped_items)
-
 	_update_corresponding_slot_child(%BootsSlot, _equipped_items.boots)
 	_update_corresponding_slot_child(%ChestplateSlot, _equipped_items.chestplate)
 	_update_corresponding_slot_child(%GlovesSlot, _equipped_items.gloves)
@@ -77,6 +75,15 @@ func _update_corresponding_equipped_item(
 
 
 func update_equipped_items() -> void:
+	_equipped_items = {
+		"boots": null,
+		"chestplate": null,
+		"gloves": null,
+		"helmet": null,
+		"shield": null,
+		"sword": null,
+	}
+	
 	var equipped_items_index := Inventory.get_equipped_items_index()
 
 	for item_index in equipped_items_index:

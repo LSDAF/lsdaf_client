@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://ud4ehh83xpng"]
 
-[ext_resource type="Texture2D" uid="uid://buut3gtyqb7oc" path="res://asset/ui/wood/UI_Wood_Flat.png" id="1_mpgwv"]
+[ext_resource type="Texture2D" uid="uid://bq51n35i870js" path="res://asset/ui/wood/NoShadow/UI_Wood_A_NoBorder.png" id="1_qwsdj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jvqqx"]
-atlas = ExtResource("1_mpgwv")
-region = Rect2(164, 196, 40, 39)
+atlas = ExtResource("1_qwsdj")
+region = Rect2(0, 0, 32, 32)
 
 [node name="EmptyEquippedItem" type="TextureRect"]
 texture_filter = 1
