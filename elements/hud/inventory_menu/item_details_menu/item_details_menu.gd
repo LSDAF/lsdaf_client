@@ -75,7 +75,11 @@ func _update_item_details_menu() -> void:
 	%LevelUpCostLabel.text = str(_item.level_up_cost())
 
 	%LevelUpButton.disabled = (_item.level_up_cost() > Currencies.amethyst.get_value())
-
+	
+	if (_item.is_equipped):
+		%EquipButton.text = "Unequip"
+	else:
+		%EquipButton.text = "Equip"
 
 func open_for_item(item_index: int) -> void:
 	_item_index = item_index
@@ -106,3 +110,12 @@ func _on_salvage_button_pressed() -> void:
 
 	on_salvage_item.emit(_item_index)
 	#_update_item_details_menu()
+
+
+func _on_equip_button_pressed() -> void:
+	if (_item.is_equipped):
+		Inventory.unequip_item_at_index(_item_index)
+	else:
+		Inventory.equip_item_at_index(_item_index)
+
+	_update_item_details_menu()

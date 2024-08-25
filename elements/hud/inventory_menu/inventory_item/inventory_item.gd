@@ -23,7 +23,7 @@ func _ready() -> void:
 	%ItemRarityLabel.text = str(inventory_item.rarity)
 
 	%SelectedTextureRect.visible = is_selected
-
+	%ItemEquippedLabel.visible = inventory_item.is_equipped
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

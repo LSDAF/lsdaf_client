@@ -7,6 +7,7 @@ var level: int
 var type: ItemType.ItemType
 var name: String
 var texture: Texture2D
+var is_equipped: bool = false
 
 
 func level_up_cost() -> int:

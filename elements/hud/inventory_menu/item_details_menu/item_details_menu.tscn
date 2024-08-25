@@ -118,6 +118,11 @@ layout_mode = 2
 texture = ExtResource("2_w28rc")
 expand_mode = 3
 
+[node name="EquipButton" type="Button" parent="ItemsDetailVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Equip"
+
 [node name="NoItemSelectedLabel" type="Label" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -133,3 +138,4 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="ItemsDetailVBoxContainer/LevelUpButton" to="." method="_on_level_up_button_pressed"]
 [connection signal="pressed" from="ItemsDetailVBoxContainer/SalvageButton" to="." method="_on_salvage_button_pressed"]
+[connection signal="pressed" from="ItemsDetailVBoxContainer/EquipButton" to="." method="_on_equip_button_pressed"]
