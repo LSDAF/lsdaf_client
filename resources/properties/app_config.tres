@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="Urls" load_steps=2 format=3 uid="uid://sjqnvxoach4p"]
-
-[ext_resource type="Script" path="res://models/properties/app_config.gd" id="1_o7ki3"]
-
-[resource]
-script = ExtResource("1_o7ki3")
-backend_url = "http://localhost"
-port = "8080"

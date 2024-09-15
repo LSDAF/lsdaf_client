@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://25unft0l44b6"]
+[gd_scene load_steps=2 format=3 uid="uid://ta77vra7rvp0"]
 
-[ext_resource type="Script" path="res://elements/main/main.gd" id="1_i4mnk"]
-[ext_resource type="PackedScene" uid="uid://crxr0dj0kh4x0" path="res://elements/game/game.tscn" id="2_bjvhv"]
-[ext_resource type="PackedScene" uid="uid://dqdsdwfufbwdg" path="res://elements/hud/hud.tscn" id="3_j7pyv"]
+[ext_resource type="PackedScene" uid="uid://sv2hctgcy3li" path="res://elements/launcher/launcher.tscn" id="2_rppxg"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_i4mnk")
 
-[node name="Game" parent="." instance=ExtResource("2_bjvhv")]
-
-[node name="Hud" parent="." instance=ExtResource("3_j7pyv")]
+[node name="Launcher" parent="." instance=ExtResource("2_rppxg")]
