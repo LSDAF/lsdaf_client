@@ -16,7 +16,6 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 [autoload]
 
-HttpClient="*res://autoload/services/http_client/http_client.gd"
 Currencies="*res://autoload/data/currencies.gd"
 Stage="*res://autoload/data/stage.gd"
 Characteristics="*res://autoload/data/characteristics/characteristics.tscn"
@@ -26,6 +25,11 @@ ItemsService="*res://autoload/services/items/items_service.tscn"
 Inventory="*res://autoload/data/inventory/inventory.gd"
 Loot="*res://autoload/services/loot/loot.gd"
 PlayerStats="*res://autoload/services/player_stats/player_stats.gd"
+ApiClient="*res://autoload/services/http_old/api_client.gd"
+Api="*res://autoload/services/http/api.gd"
+ApiRoutes="*res://autoload/services/http/api_routes.gd"
+ResponseService="*res://autoload/services/http/response_service.gd"
+Http="*res://autoload/services/http/http.tscn"
 
 [debug]
 
@@ -38,6 +42,10 @@ window/size/viewport_height=720
 window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/HTTPManager/plugin.cfg", "res://addons/awaitable_http_request/plugin.cfg")
 
 [rendering]
 

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://clfk3ev3go1y7"]
+
+[node name="HttpManager" type="Node"]
