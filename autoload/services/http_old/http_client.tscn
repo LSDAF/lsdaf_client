@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dw1s072behr2j"]
-
-[ext_resource type="Script" path="res://autoload/services/http_old/http_client.gd" id="1_qa5s3"]
-
-[node name="HttpClient" type="Node"]
-script = ExtResource("1_qa5s3")

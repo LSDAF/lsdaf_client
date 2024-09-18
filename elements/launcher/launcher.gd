@@ -11,11 +11,9 @@ func _process(delta: float) -> void:
 	pass
 
 func login() -> void:
-	Api.auth.login("admin@admin.com", "admin", generate_game_save, error, callback)
-#	await ApiClient.login_user("admin@admin.com", "admin")
+	var loginResponse := await Api.auth.login("admin@admin.com", "admin", generate_game_save, error, callback)
 
-#	var response := await ApiClient.get_game_save()
-#	print(response)
+	print('TOKEN: ', loginResponse.access_token)
 
 	%LoginRegisterMarginContainer.hide()
 	%GameSavesCenterContainer.show()
