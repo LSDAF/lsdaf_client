@@ -1,6 +1,6 @@
 class_name Auth
 
-func login(email: String, password: String, on_success: Callable, on_failure: Callable, callback: Callable) -> Dictionary:
+func login(email: String, password: String, on_success: Callable, on_failure: Callable, callback: Callable) -> LoginResponseDto:
 	var body := JSON.stringify({
 		"email": email,
 		"password": password,
@@ -15,14 +15,15 @@ func login(email: String, password: String, on_success: Callable, on_failure: Ca
 
 	if !response.success() or response.status_err():
 		push_error("Request failed.")
-		return {}
+		return null
 
 	print("Status code: ", response.status)
 	print("Content-Type:", response.headers["content-type"])
 
 	var json: Dictionary = response.body_as_json()
-	if not json:
-		push_error("JSON invalid.")
-		return {}
 
-	return json as Dictionary
+	if not json or not json['data']:
+		push_error("JSON invalid.")
+		return null
+
+	return LoginResponseDto.new(json['data'])
