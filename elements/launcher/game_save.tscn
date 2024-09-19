@@ -1,18 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://fwvt5ili38r3"]
+[gd_scene load_steps=4 format=3 uid="uid://fwvt5ili38r3"]
 
 [ext_resource type="Texture2D" uid="uid://buut3gtyqb7oc" path="res://asset/ui/wood/UI_Wood_Flat.png" id="1_fhdmv"]
+[ext_resource type="Script" path="res://elements/launcher/game_save.gd" id="1_wvbl2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k46ue"]
 atlas = ExtResource("1_fhdmv")
 region = Rect2(0, 224, 160, 160)
 
 [node name="GameSave" type="Control"]
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wvbl2")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
@@ -28,14 +31,34 @@ patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "NEW"
+
+[node name="GameIdLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "Game ID"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameGoldLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "Gold"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameCreatedAtLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "Created"
 horizontal_alignment = 1
 vertical_alignment = 1

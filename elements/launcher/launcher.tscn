@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://sv2hctgcy3li"]
+[gd_scene load_steps=5 format=3 uid="uid://sv2hctgcy3li"]
 
 [ext_resource type="Texture2D" uid="uid://buut3gtyqb7oc" path="res://asset/ui/wood/UI_Wood_Flat.png" id="1_1rwln"]
 [ext_resource type="Script" path="res://elements/launcher/launcher.gd" id="1_72agk"]
+[ext_resource type="PackedScene" uid="uid://fwvt5ili38r3" path="res://elements/launcher/game_save.tscn" id="2_vepi3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nr1t5"]
 atlas = ExtResource("1_1rwln")
@@ -15,6 +16,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_72agk")
+game_save_scene = ExtResource("2_vepi3")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 texture_filter = 1
@@ -66,8 +68,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameSavesCenterContainer"]
-custom_minimum_size = Vector2(256, 0)
+[node name="ScrollContainer" type="ScrollContainer" parent="GameSavesCenterContainer"]
+custom_minimum_size = Vector2(0, 256)
 layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GameSavesVBoxContainer" type="VBoxContainer" parent="GameSavesCenterContainer/ScrollContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 3
 
 [connection signal="pressed" from="LoginRegisterMarginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]

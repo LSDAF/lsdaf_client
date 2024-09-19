@@ -1,5 +1,6 @@
 extends Control
 
+@export var game_save_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,15 +13,25 @@ func _process(delta: float) -> void:
 
 func login() -> void:
 	var loginResponse: LoginResponseDto = await Api.auth.login("admin@admin.com", "admin", error)
-	print('TOKEN: ', loginResponse.access_token)
 
 	Api.access_token = loginResponse.access_token
 
 	%LoginRegisterMarginContainer.hide()
 	%GameSavesCenterContainer.show()
 
-	await Api.user.fetch_game_saves(error)
-	
+	var game_saves: FetchGameSavesDto = await Api.user.fetch_game_saves(error)
+
+	for game_save in game_saves.game_saves:
+		var game_save_node: GameSaveNode = game_save_scene.instantiate()
+		game_save_node.initialize(
+			game_save.id,
+			game_save.gold,
+			game_save.created_at
+		)
+		
+		%GameSavesVBoxContainer.add_child(game_save_node)
+		
+
 func callback(response: Variant) -> void:
 	print("CALLBACK | ", response)
 

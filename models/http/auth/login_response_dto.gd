@@ -1,5 +1,6 @@
 class_name LoginResponseDto
 
+#region UserInfo class
 class UserInfo:
 	var id: String
 	var name: String
@@ -10,6 +11,7 @@ class UserInfo:
 		# This is a ternary operation
 		name = dictionary['name'] if dictionary['name'] else ''
 		email = dictionary['email']
+#endregion
 
 var access_token: String
 var user_info: UserInfo
