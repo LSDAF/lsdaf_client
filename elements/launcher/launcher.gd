@@ -11,13 +11,16 @@ func _process(delta: float) -> void:
 	pass
 
 func login() -> void:
-	var loginResponse := await Api.auth.login("admin@admin.com", "admin", generate_game_save, error, callback)
-
+	var loginResponse: LoginResponseDto = await Api.auth.login("admin@admin.com", "admin", error)
 	print('TOKEN: ', loginResponse.access_token)
+
+	Api.access_token = loginResponse.access_token
 
 	%LoginRegisterMarginContainer.hide()
 	%GameSavesCenterContainer.show()
 
+	await Api.user.fetch_game_saves(error)
+	
 func callback(response: Variant) -> void:
 	print("CALLBACK | ", response)
 
