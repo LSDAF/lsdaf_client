@@ -17,9 +17,6 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 		push_error("Request failed.")
 		return null
 
-	print("Status code: ", response.status)
-	print("Content-Type:", response.headers["content-type"])
-
 	var json: Dictionary = response.body_as_json()
 
 	if not json or not json['data']:
