@@ -27,9 +27,7 @@ func total_stat_value(item_statistic: ItemStatistics.ItemStatistics) -> float:
 	var corresponding_additional_stats: Array[ItemStat] = additional_stats.filter(
 		func(additional_stat: ItemStat) -> bool: return additional_stat.statistic == item_statistic
 	)
-	print(corresponding_additional_stats)
 	for additional_stat in corresponding_additional_stats:
 		total_value += additional_stat.base_value * level
 
-	print(total_value)
 	return total_value

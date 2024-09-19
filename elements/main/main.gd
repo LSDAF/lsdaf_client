@@ -5,9 +5,11 @@ extends Node
 func _ready() -> void:
 	login()
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
 
 func login() -> void:
 	await HttpClient.login_user("admin@admin.com", "admin")

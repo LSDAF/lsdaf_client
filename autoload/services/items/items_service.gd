@@ -5,9 +5,6 @@ extends Node
 
 
 func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> Item:
-	print("|__________________________CREATING ITEM__________________________|")
-	print(" - Type ", item_type)
-	print(" - Rarity ", item_rarity)
 	var item := Item.new()
 
 	# Fixed
@@ -25,8 +22,6 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 	var item_blueprint: ItemBlueprint = _get_blueprint_from_pools(item_type, item_rarity)
 	item.name = item_blueprint.name
 	item.texture = item_blueprint.texture
-
-	print(" - Name ", item.name)
 
 	return item
 
@@ -87,7 +82,6 @@ func _get_blueprint_from_pools(
 					return item_pools.swords.normal.pick_random()
 
 	# WIP
-	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] blueprint pool not found")
 	return item_pools.swords.normal[0]
 
 
@@ -121,7 +115,6 @@ func _get_stats_pool_from_pools(
 					return item_stats_pools.swords.normal
 
 	# WIP
-	print("> for [Type ", item_type, "] ", "of [Rarity ", item_rarity, "] stats pool not found")
 	return item_stats_pools.swords.normal
 
 

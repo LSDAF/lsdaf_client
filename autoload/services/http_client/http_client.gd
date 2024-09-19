@@ -27,12 +27,7 @@ static func build_login_user_request(email: String, password: String) -> String:
 func _on_login_user_success(
 	result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray
 ) -> void:
-#	print("result:" + str(result))
-#	print("response_code:" + str(response_code))
-#	print("headers:" + str(headers))
-
 	var json: Variant = JSON.parse_string(body.get_string_from_utf8())
-#	print("body:" + str(json))
 
 	if json and json["data"]["access_token"]:
 		_access_token = json["data"]["access_token"]
@@ -75,12 +70,7 @@ func get_game_save() -> void:
 func _on_generate_game_save_success(
 	result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray
 ) -> void:
-#	print("result:" + str(result))
-	print("_on_generate_game_save_success | response_code:" + str(response_code))
-#	print("headers:" + str(headers))
-
 	var json: Variant = JSON.parse_string(body.get_string_from_utf8())
-#	print("body:" + str(json))
 
 
 func generate_game_save() -> Signal:
@@ -94,8 +84,6 @@ func generate_game_save() -> Signal:
 	# The snippet below is provided for reference only.
 
 	var url := _app_config.backend_url + ":" + _app_config.port + "/api/v1/game_save/generate"
-
-	print("generate_game_save | access_token " + _access_token)
 
 	var error := http_request.request(
 		url,

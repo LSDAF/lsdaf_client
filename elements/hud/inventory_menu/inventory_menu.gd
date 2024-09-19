@@ -98,8 +98,6 @@ func update_inventory() -> void:
 	_current_item_scenes.sort_custom(_sort_inventory_custom_sort)
 	_current_item_scenes.sort_custom(_sort_inventory_custom_sort_equipped_items)
 
-	print(_current_item_scenes)
-
 	for scene in _current_item_scenes:
 		%InventoryGridContainer.add_child(scene)
 

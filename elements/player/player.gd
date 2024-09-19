@@ -50,8 +50,6 @@ func _get_player_damage() -> float:
 	var crit_chance := PlayerStats.get_crit_chance()
 	var crit_damage := PlayerStats.get_crit_damage()
 
-	print(attack.value, attack.multiplier)
-
 	var base_damage := attack.value * attack.multiplier
 
 	var roll := randf()
