@@ -32,17 +32,11 @@ func login() -> void:
 		%GameSavesVBoxContainer.add_child(game_save)
 
 
-func callback(response: Variant) -> void:
-	print("CALLBACK | ", response)
-
-
 func error(response: Variant) -> void:
-#	var json_http_response: JsonHttpResponse = response
 	print("ERROR | ", response)
 
 
 func _on_game_loaded() -> void:
-	print("game load on launcher")
 	game_loaded.emit()
 
 

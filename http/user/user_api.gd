@@ -18,8 +18,6 @@ func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
 
 	var json: Dictionary = response.body_as_json()
 
-	print(json)
-
 	if not json:
 		push_error("JSON invalid.")
 		return null

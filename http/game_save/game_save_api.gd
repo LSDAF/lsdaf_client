@@ -18,8 +18,6 @@ func generate_game_save(on_failure: Callable) -> GameSaveDto:
 
 	var json: Dictionary = response.body_as_json()
 
-	print(json)
-
 	if not json:
 		push_error("JSON invalid.")
 		return null
