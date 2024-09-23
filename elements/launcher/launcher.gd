@@ -4,6 +4,7 @@ signal game_loaded
 
 @export var game_save_scene: PackedScene
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%LoginRegister.login_pressed.connect(login)
@@ -12,6 +13,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
 
 func login() -> void:
 	var loginResponse: LoginResponseDto = await Api.auth.login("admin@admin.com", "admin", error)
@@ -26,20 +28,23 @@ func login() -> void:
 	for game_save_dto in game_saves.game_saves:
 		var game_save: GameSave = game_save_scene.instantiate()
 		game_save.initialize(game_save_dto, _on_game_loaded)
-		
+
 		%GameSavesVBoxContainer.add_child(game_save)
-		
+
 
 func callback(response: Variant) -> void:
 	print("CALLBACK | ", response)
+
 
 func error(response: Variant) -> void:
 #	var json_http_response: JsonHttpResponse = response
 	print("ERROR | ", response)
 
+
 func _on_game_loaded() -> void:
-	print('game load on launcher')
+	print("game load on launcher")
 	game_loaded.emit()
+
 
 func _on_create_new_game_button_pressed() -> void:
 	var game_save_dto: GameSaveDto = await Api.game_save.generate_game_save(error)

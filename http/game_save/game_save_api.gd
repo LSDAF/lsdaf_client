@@ -1,10 +1,15 @@
 class_name GameSaveApi
 
+
 func generate_game_save(on_failure: Callable) -> GameSaveDto:
-	var response: HTTPResult = await Http.http.async_request(
-		ApiRoutes.GENERATE_GAME_SAVE,
-			['Authorization: Bearer {0}'.format([Api.access_token])],
-		HTTPClient.METHOD_POST,
+	var response: HTTPResult = await (
+		Http
+		. http
+		. async_request(
+			ApiRoutes.GENERATE_GAME_SAVE,
+			["Authorization: Bearer {0}".format([Api.access_token])],
+			HTTPClient.METHOD_POST,
+		)
 	)
 
 	if !response.success() or response.status_err():
@@ -19,4 +24,4 @@ func generate_game_save(on_failure: Callable) -> GameSaveDto:
 		push_error("JSON invalid.")
 		return null
 
-	return GameSaveDto.new(json['data'])
+	return GameSaveDto.new(json["data"])
