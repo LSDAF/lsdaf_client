@@ -5,6 +5,7 @@ var diamond: Currency = Currency.new()
 var amethyst: Currency = Currency.new()
 
 
-# DEFAULT FOR DEV
+# Init a custom start here (overrides loading of game save for nom)
 func _ready() -> void:
-	gold.update_value(10000)
+	#gold.update_value(10000)
+	return

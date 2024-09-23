@@ -1,5 +1,7 @@
 extends Control
 
+signal game_loaded
+
 @export var game_save_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
@@ -21,15 +23,11 @@ func login() -> void:
 
 	var game_saves: FetchGameSavesDto = await Api.user.fetch_game_saves(error)
 
-	for game_save in game_saves.game_saves:
-		var game_save_node: GameSaveNode = game_save_scene.instantiate()
-		game_save_node.initialize(
-			game_save.id,
-			game_save.gold,
-			game_save.created_at
-		)
+	for game_save_dto in game_saves.game_saves:
+		var game_save: GameSave = game_save_scene.instantiate()
+		game_save.initialize(game_save_dto, _on_game_loaded)
 		
-		%GameSavesVBoxContainer.add_child(game_save_node)
+		%GameSavesVBoxContainer.add_child(game_save)
 		
 
 func callback(response: Variant) -> void:
@@ -39,19 +37,14 @@ func error(response: Variant) -> void:
 #	var json_http_response: JsonHttpResponse = response
 	print("ERROR | ", response)
 
-func generate_game_save(response: Variant) -> void:
-#	await ApiClient.generate_game_save()
-	print("GEN GAME SAVE |", response)
-
+func _on_game_loaded() -> void:
+	print('game load on launcher')
+	game_loaded.emit()
 
 func _on_create_new_game_button_pressed() -> void:
-	var game_save: GameSaveDto = await Api.game_save.generate_game_save(error)
+	var game_save_dto: GameSaveDto = await Api.game_save.generate_game_save(error)
 
-	var game_save_node: GameSaveNode = game_save_scene.instantiate()
-	game_save_node.initialize(
-		game_save.id,
-		game_save.gold,
-		game_save.created_at
-	)
-	
-	%GameSavesVBoxContainer.add_child(game_save_node)
+	var game_save: GameSave = game_save_scene.instantiate()
+	game_save.initialize(game_save_dto, _on_game_loaded)
+
+	%GameSavesVBoxContainer.add_child(game_save)
