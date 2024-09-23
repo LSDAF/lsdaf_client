@@ -14,6 +14,5 @@ func _process(delta: float) -> void:
 
 
 func _on_launcher_game_loaded() -> void:
-	print("load on main")
 	%Launcher.queue_free()
 	add_child(game_main_scene.instantiate())
