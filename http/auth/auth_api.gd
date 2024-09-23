@@ -1,16 +1,19 @@
 class_name AuthApi
 
+
 func login(email: String, password: String, on_failure: Callable) -> LoginResponseDto:
-	var body := JSON.stringify({
-		"email": email,
-		"password": password,
-	})
+	var body := (
+		JSON
+		. stringify(
+			{
+				"email": email,
+				"password": password,
+			}
+		)
+	)
 
 	var response: HTTPResult = await Http.http.async_request(
-		ApiRoutes.LOGIN,
-		['Content-Type: application/json'],
-		HTTPClient.METHOD_POST,
-		body
+		ApiRoutes.LOGIN, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body
 	)
 
 	if !response.success() or response.status_err():
@@ -23,4 +26,4 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 		push_error("JSON invalid.")
 		return null
 
-	return LoginResponseDto.new(json['data'])
+	return LoginResponseDto.new(json["data"])

@@ -3,8 +3,9 @@ extends HTTPRequest
 ## [img width=64]res://addons/awaitable_http_request/icon.png[/img]   [url=https://github.com/Swarkin/Godot-AwaitableHTTPRequest]AwaitableHTTPRequest[/url] 2.0.0 by Swarkin & [url=https://github.com/Swarkin/Godot-AwaitableHTTPRequest/graphs/contributors]contributors[/url].
 # View the formatted documentation in Godot by pressing F1 and typing "AwaitableHTTPRequest"!
 
-signal request_finished     ## Emits once the current request finishes, right after [member is_requesting] is set to false.
+signal request_finished  ## Emits once the current request finishes, right after [member is_requesting] is set to false.
 var is_requesting := false  ## Whether the node is busy performing a request. This variable is read-only.
+
 
 ## Performs an awaitable HTTP request.[br]
 ## Take a look at the [code]examples.tscn[/code] scene in the addon directory for inspiration![br]
@@ -24,7 +25,12 @@ var is_requesting := false  ## Whether the node is busy performing a request. Th
 ##         var json := resp.body_as_json()
 ##         print(json["login"])                 # Swarkin
 ## [/codeblock]
-func async_request(url: String, custom_headers := PackedStringArray(), method := HTTPClient.Method.METHOD_GET, request_data := "") -> HTTPResult:
+func async_request(
+	url: String,
+	custom_headers := PackedStringArray(),
+	method := HTTPClient.Method.METHOD_GET,
+	request_data := ""
+) -> HTTPResult:
 	if is_requesting:
 		push_warning("AwaitableHTTPRequest is busy performing a request.")
 		return HTTPResult._from_error(Error.ERR_BUSY)

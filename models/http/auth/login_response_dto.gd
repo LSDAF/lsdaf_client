@@ -1,5 +1,6 @@
 class_name LoginResponseDto
 
+
 #region UserInfo class
 class UserInfo:
 	var id: String
@@ -7,15 +8,18 @@ class UserInfo:
 	var email: String
 
 	func _init(dictionary: Dictionary) -> void:
-		id = dictionary['id']
+		id = dictionary["id"]
 		# This is a ternary operation
-		name = dictionary['name'] if dictionary['name'] else ''
-		email = dictionary['email']
+		name = dictionary["name"] if dictionary["name"] else ""
+		email = dictionary["email"]
+
+
 #endregion
 
 var access_token: String
 var user_info: UserInfo
 
+
 func _init(dictionary: Dictionary) -> void:
-	access_token = dictionary['access_token']
-	user_info = UserInfo.new(dictionary['user_info'])
+	access_token = dictionary["access_token"]
+	user_info = UserInfo.new(dictionary["user_info"])
