@@ -16,3 +16,7 @@ func initialize(game_id: String, gold: int, created_at: int) -> void:
 	_game_id = game_id
 	_gold = gold
 	_created_at = created_at
+
+
+func _on_pressed() -> void:
+	pass # Replace with function body.

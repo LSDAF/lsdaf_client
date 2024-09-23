@@ -1,4 +1,4 @@
-class_name User
+class_name UserApi
 
 func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
 	var response: HTTPResult = await Http.http.async_request(
@@ -15,7 +15,7 @@ func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
 
 	print(json)
 
-	if not json or not json['data']:
+	if not json:
 		push_error("JSON invalid.")
 		return null
 

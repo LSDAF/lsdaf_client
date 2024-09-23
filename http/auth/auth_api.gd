@@ -1,4 +1,4 @@
-class_name Auth
+class_name AuthApi
 
 func login(email: String, password: String, on_failure: Callable) -> LoginResponseDto:
 	var body := JSON.stringify({
@@ -19,7 +19,7 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 
 	var json: Dictionary = response.body_as_json()
 
-	if not json or not json['data']:
+	if not json:
 		push_error("JSON invalid.")
 		return null
 
