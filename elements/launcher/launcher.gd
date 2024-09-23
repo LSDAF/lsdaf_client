@@ -4,7 +4,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass  # Replace with function body.
+	%LoginRegister.login_pressed.connect(login)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,7 +16,7 @@ func login() -> void:
 
 	Api.access_token = loginResponse.access_token
 
-	%LoginRegisterMarginContainer.hide()
+	%LoginRegister.hide()
 	%GameSavesCenterContainer.show()
 
 	var game_saves: FetchGameSavesDto = await Api.user.fetch_game_saves(error)
@@ -44,5 +44,14 @@ func generate_game_save(response: Variant) -> void:
 	print("GEN GAME SAVE |", response)
 
 
-func _on_login_button_pressed() -> void:
-	login()
+func _on_create_new_game_button_pressed() -> void:
+	var game_save: GameSaveDto = await Api.game_save.generate_game_save(error)
+
+	var game_save_node: GameSaveNode = game_save_scene.instantiate()
+	game_save_node.initialize(
+		game_save.id,
+		game_save.gold,
+		game_save.created_at
+	)
+	
+	%GameSavesVBoxContainer.add_child(game_save_node)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://sv2hctgcy3li"]
+[gd_scene load_steps=6 format=3 uid="uid://sv2hctgcy3li"]
 
 [ext_resource type="Texture2D" uid="uid://buut3gtyqb7oc" path="res://asset/ui/wood/UI_Wood_Flat.png" id="1_1rwln"]
 [ext_resource type="Script" path="res://elements/launcher/launcher.gd" id="1_72agk"]
 [ext_resource type="PackedScene" uid="uid://fwvt5ili38r3" path="res://elements/launcher/game_save.tscn" id="2_vepi3"]
+[ext_resource type="PackedScene" uid="uid://c1einsb6nyd1r" path="res://elements/launcher/login_register/login_register.tscn" id="4_j8w3q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nr1t5"]
 atlas = ExtResource("1_1rwln")
@@ -32,31 +33,9 @@ patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 
-[node name="LoginRegisterMarginContainer" type="MarginContainer" parent="."]
+[node name="LoginRegister" parent="." instance=ExtResource("4_j8w3q")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -82.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="LoginRegisterMarginContainer"]
-layout_mode = 2
-
-[node name="RegisterButton" type="Button" parent="LoginRegisterMarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-disabled = true
-text = "Register (TODO)"
-
-[node name="LoginButton" type="Button" parent="LoginRegisterMarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Login"
 
 [node name="GameSavesCenterContainer" type="CenterContainer" parent="."]
 unique_name_in_owner = true
@@ -68,15 +47,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="GameSavesCenterContainer"]
-custom_minimum_size = Vector2(0, 256)
+[node name="HBoxContainer" type="HBoxContainer" parent="GameSavesCenterContainer"]
+layout_mode = 2
+
+[node name="CreateNewGameButton" type="Button" parent="GameSavesCenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+text = "New Game"
+
+[node name="GameSavesScrollContainer" type="ScrollContainer" parent="GameSavesCenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="GameSavesVBoxContainer" type="VBoxContainer" parent="GameSavesCenterContainer/ScrollContainer"]
+[node name="GameSavesVBoxContainer" type="VBoxContainer" parent="GameSavesCenterContainer/HBoxContainer/GameSavesScrollContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="LoginRegisterMarginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="GameSavesCenterContainer/HBoxContainer/CreateNewGameButton" to="." method="_on_create_new_game_button_pressed"]

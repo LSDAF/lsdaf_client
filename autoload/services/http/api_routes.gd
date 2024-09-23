@@ -8,3 +8,4 @@ var LOGIN := APP_URL + "/api/v1/auth/login"
 
 # Private routes
 var FETCH_GAME_SAVES := APP_URL + "/api/v1/user/me/game_saves"
+var GENERATE_GAME_SAVE := APP_URL + "/api/v1/game_save/generate"

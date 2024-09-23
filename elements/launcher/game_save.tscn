@@ -7,9 +7,8 @@
 atlas = ExtResource("1_fhdmv")
 region = Rect2(0, 224, 160, 160)
 
-[node name="GameSave" type="Control"]
+[node name="GameSave" type="Button"]
 custom_minimum_size = Vector2(0, 128)
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -62,3 +61,5 @@ size_flags_vertical = 6
 text = "Created"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
