@@ -10,3 +10,4 @@ script = ExtResource("1_288nr")
 [node name="Game" parent="." instance=ExtResource("2_mntll")]
 
 [node name="Hud" parent="." instance=ExtResource("3_i8676")]
+unique_name_in_owner = true

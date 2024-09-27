@@ -163,6 +163,7 @@ script = ExtResource("4_r7avi")
 characteristics_menu = ExtResource("5_836lv")
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer/MenuButtons/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
 script = ExtResource("15_0oafs")
