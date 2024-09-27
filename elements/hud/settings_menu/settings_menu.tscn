@@ -1,0 +1,202 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3trj3p71tnns"]
+
+[ext_resource type="Script" path="res://elements/hud/settings_menu/settings_menu.gd" id="1_wopc2"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wopc2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+metadata/_edit_group_ = true
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 96
+theme_override_constants/v_separation = 96
+columns = 5
+
+[node name="LogoutButton" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Logout"
+
+[node name="WipButton2" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton3" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton4" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton5" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton6" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton7" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton8" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton9" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton10" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton11" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton12" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton13" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton14" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton15" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton16" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton17" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton18" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton19" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="WipButton20" type="Button" parent="MarginContainer/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+text = "WIP (disabled)"
+
+[node name="CloseButton" type="Button" parent="MarginContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 48.0
+grow_horizontal = 0
+text = "X"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/GridContainer/LogoutButton" to="." method="_on_logout_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/CloseButton" to="." method="_on_close_button_pressed"]
