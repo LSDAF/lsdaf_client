@@ -1,5 +1,7 @@
 extends Control
 
+class_name Launcher
+
 signal game_loaded
 
 @export var game_save_scene: PackedScene

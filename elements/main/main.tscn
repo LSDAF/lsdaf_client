@@ -7,8 +7,4 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_x3ey6")
 game_main_scene = ExtResource("2_rfro1")
-
-[node name="Launcher" parent="." instance=ExtResource("2_rppxg")]
-unique_name_in_owner = true
-
-[connection signal="game_loaded" from="Launcher" to="." method="_on_launcher_game_loaded"]
+launcher_scene = ExtResource("2_rppxg")
