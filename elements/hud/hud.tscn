@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dqdsdwfufbwdg"]
+[gd_scene load_steps=20 format=3 uid="uid://dqdsdwfufbwdg"]
 
 [ext_resource type="Script" path="res://elements/hud/hud.gd" id="1_lmgif"]
 [ext_resource type="Texture2D" uid="uid://noaec1uwwokm" path="res://asset/items/currencies/gold.png" id="2_jrthv"]
@@ -15,8 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://du1yiy20l36da" path="res://elements/hud/inventory_menu/inventory_menu.tscn" id="7_x71an"]
 [ext_resource type="Script" path="res://elements/hud/inventory_button.gd" id="8_fowqm"]
 [ext_resource type="Script" path="res://elements/hud/quest_button.gd" id="8_lxsct"]
+[ext_resource type="Script" path="res://elements/hud/settings_button.gd" id="15_0oafs"]
 [ext_resource type="Script" path="res://elements/hud/profile_button.gd" id="15_insbh"]
 [ext_resource type="PackedScene" uid="uid://cepdmakkbod5u" path="res://elements/hud/profile_menu/profile_menu.tscn" id="16_ajch4"]
+[ext_resource type="PackedScene" uid="uid://b3trj3p71tnns" path="res://elements/hud/settings_menu/settings_menu.tscn" id="16_vjwpm"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -160,6 +162,12 @@ text = "Characteristics"
 script = ExtResource("4_r7avi")
 characteristics_menu = ExtResource("5_836lv")
 
+[node name="SettingsButton" type="Button" parent="VBoxContainer/MenuButtons/GridContainer"]
+layout_mode = 2
+text = "Settings"
+script = ExtResource("15_0oafs")
+settings_menu = ExtResource("16_vjwpm")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MenuButtons"]
 layout_mode = 0
 offset_right = 40.0
@@ -180,5 +188,6 @@ script = ExtResource("8_lxsct")
 
 [connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/InventoryButton" to="VBoxContainer/MenuButtons/GridContainer/InventoryButton" method="_on_button_down"]
 [connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/CharacteristicsButton" to="VBoxContainer/MenuButtons/GridContainer/CharacteristicsButton" method="_on_button_down"]
+[connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/SettingsButton" to="VBoxContainer/MenuButtons/GridContainer/SettingsButton" method="_on_button_down"]
 [connection signal="button_down" from="VBoxContainer/MenuButtons/VBoxContainer/ProfileButton" to="VBoxContainer/MenuButtons/VBoxContainer/ProfileButton" method="_on_button_down"]
 [connection signal="pressed" from="VBoxContainer/MenuButtons/VBoxContainer/QuestButton" to="VBoxContainer/MenuButtons/VBoxContainer/QuestButton" method="_on_pressed"]
