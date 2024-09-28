@@ -10,7 +10,7 @@ var launcher_scene_instance: Launcher
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_instanciate_launcher()
-	
+
 	pass  # Replace with function body.
 
 
