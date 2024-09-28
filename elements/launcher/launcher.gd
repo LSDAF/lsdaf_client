@@ -16,6 +16,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+
 func login(email: String, password: String) -> void:
 	var loginResponse: LoginResponseDto = await Api.auth.login(email, password, error)
 
