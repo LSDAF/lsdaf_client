@@ -17,8 +17,8 @@ func _process(delta: float) -> void:
 	pass
 
 
-func login() -> void:
-	var loginResponse: LoginResponseDto = await Api.auth.login("admin@admin.com", "admin", error)
+func login(email: String, password: String) -> void:
+	var loginResponse: LoginResponseDto = await Api.auth.login(email, password, error)
 
 	Api.access_token = loginResponse.access_token
 
