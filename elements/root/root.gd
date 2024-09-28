@@ -9,8 +9,8 @@ var launcher_scene_instance: Launcher
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	UserDataService.load()
 	_instanciate_launcher()
-
 	pass  # Replace with function body.
 
 
@@ -32,6 +32,8 @@ func _instanciate_launcher() -> void:
 
 
 func _on_logout() -> void:
+	UserDataService.save_access_token("")
+
 	game_main_scene_instance.queue_free()
 	_instanciate_launcher()
 

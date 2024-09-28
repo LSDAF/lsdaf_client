@@ -4,6 +4,7 @@ var id: String
 var name: String
 var email: String
 
+
 func _init(dictionary: Dictionary) -> void:
 	id = dictionary["id"]
 	# This is a ternary operation

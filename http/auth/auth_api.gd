@@ -31,7 +31,9 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 	return LoginResponseDto.new(json["data"])
 
 
-func register(name: String, email: String, password: String, on_failure: Callable) -> RegisterResponseDto:
+func register(
+	name: String, email: String, password: String, on_failure: Callable
+) -> RegisterResponseDto:
 	var body := (
 		JSON
 		. stringify(
