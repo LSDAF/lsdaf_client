@@ -37,7 +37,7 @@ func login(email: String, password: String) -> void:
 		%GameSavesVBoxContainer.add_child(game_save)
 
 func error(response: Variant) -> void:
-	print("ERROR when login in | ", response)
+	ToasterService.toast("Error when logging in")
 
 
 func _on_game_loaded() -> void:
