@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://ta77vra7rvp0"]
+
+[ext_resource type="Script" path="res://elements/root/root.gd" id="1_380t4"]
+[ext_resource type="PackedScene" uid="uid://25unft0l44b6" path="res://elements/game_main/game_main.tscn" id="2_hgjan"]
+[ext_resource type="PackedScene" uid="uid://sv2hctgcy3li" path="res://elements/launcher/launcher.tscn" id="3_jy1gy"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_380t4")
+game_main_scene = ExtResource("2_hgjan")
+launcher_scene = ExtResource("3_jy1gy")
