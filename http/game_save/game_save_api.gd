@@ -7,7 +7,7 @@ func generate_game_save(on_failure: Callable) -> GameSaveDto:
 		. http
 		. async_request(
 			ApiRoutes.GENERATE_GAME_SAVE,
-			["Authorization: Bearer {0}".format([Api.access_token])],
+			["Authorization: Bearer {0}".format([UserDataService.get_access_token()])],
 			HTTPClient.METHOD_POST,
 		)
 	)

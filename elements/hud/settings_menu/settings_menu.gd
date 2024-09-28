@@ -20,6 +20,5 @@ func _on_close_button_pressed() -> void:
 
 
 func _on_logout_button_pressed() -> void:
-	print("Click logout")
 	on_logout.emit()
 	pass  # Replace with function body.

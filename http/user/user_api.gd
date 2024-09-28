@@ -7,7 +7,7 @@ func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
 		. http
 		. async_request(
 			ApiRoutes.FETCH_GAME_SAVES,
-			["Authorization: Bearer {0}".format([Api.access_token])],
+			["Authorization: Bearer {0}".format([UserDataService.get_access_token()])],
 			HTTPClient.METHOD_GET,
 		)
 	)
