@@ -4,6 +4,7 @@ class_name Toaster
 
 @export var toast_scene: PackedScene
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ToasterService.on_toast.connect(add_toast)
