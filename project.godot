@@ -29,6 +29,7 @@ Api="*res://autoload/services/http/api.gd"
 ApiRoutes="*res://autoload/services/http/api_routes.gd"
 Http="*res://autoload/services/http/http.tscn"
 GameSaveService="*res://autoload/services/game_save/game_save_service.gd"
+ToasterService="*res://autoload/services/toaster/toaster_service.gd"
 
 [debug]
 
