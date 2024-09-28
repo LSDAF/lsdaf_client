@@ -41,7 +41,7 @@ func register(name: String, email: String, password: String) -> void:
 	on_login.emit(email, password)
 
 func error(response: Variant) -> void:
-	print("ERROR when registering | ", response)
+	ToasterService.toast("Error when registering")
 
 
 func _on_login_button_pressed() -> void:
