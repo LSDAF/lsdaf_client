@@ -1,25 +1,9 @@
 class_name LoginResponseDto
 
-
-#region UserInfo class
-class UserInfo:
-	var id: String
-	var name: String
-	var email: String
-
-	func _init(dictionary: Dictionary) -> void:
-		id = dictionary["id"]
-		# This is a ternary operation
-		name = dictionary["name"] if dictionary["name"] else ""
-		email = dictionary["email"]
-
-
-#endregion
-
 var access_token: String
-var user_info: UserInfo
+var user_info: RegisterResponseDto
 
 
 func _init(dictionary: Dictionary) -> void:
 	access_token = dictionary["access_token"]
-	user_info = UserInfo.new(dictionary["user_info"])
+	user_info = RegisterResponseDto.new(dictionary["user_info"])

@@ -9,7 +9,7 @@ signal game_loaded
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%LoginRegister.login_pressed.connect(login)
+	%LoginRegister.on_login.connect(login)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -19,6 +19,9 @@ func _process(delta: float) -> void:
 
 func login(email: String, password: String) -> void:
 	var loginResponse: LoginResponseDto = await Api.auth.login(email, password, error)
+
+	if (loginResponse == null):
+		return
 
 	Api.access_token = loginResponse.access_token
 
@@ -33,9 +36,8 @@ func login(email: String, password: String) -> void:
 
 		%GameSavesVBoxContainer.add_child(game_save)
 
-
 func error(response: Variant) -> void:
-	print("ERROR | ", response)
+	print("ERROR when login in | ", response)
 
 
 func _on_game_loaded() -> void:
