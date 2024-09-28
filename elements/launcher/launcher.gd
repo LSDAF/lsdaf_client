@@ -11,7 +11,7 @@ signal game_loaded
 func _ready() -> void:
 	%LoginRegister.on_login.connect(login)
 
-	if UserDataService.get_access_token() != "":
+	if await UserDataService.relog_user() == true:
 		fetch_game_saves()
 
 
@@ -40,6 +40,8 @@ func login(email: String, password: String) -> void:
 		return
 
 	UserDataService.save_access_token(loginResponse.access_token)
+	UserDataService.save_refresh_token(loginResponse.refresh_token)
+	UserDataService.save_email(loginResponse.user_info.email)
 
 	fetch_game_saves()
 

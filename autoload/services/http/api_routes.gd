@@ -5,6 +5,7 @@ var APP_URL: String = "http://localhost:" + str(APP_PORT)
 
 # Public routes
 var LOGIN := APP_URL + "/api/v1/auth/login"
+var REFRESH_LOGIN := APP_URL + "/api/v1/auth/refresh_login"
 var REGISTER := APP_URL + "/api/v1/auth/register"
 
 # Private routes

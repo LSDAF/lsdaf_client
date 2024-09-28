@@ -31,6 +31,36 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 	return LoginResponseDto.new(json["data"])
 
 
+func refresh_login(email: String, refresh_token: String, on_failure: Callable) -> LoginResponseDto:
+	var body := (
+		JSON
+		. stringify(
+			{
+				"email": email,
+				"refresh_token": refresh_token,
+			}
+		)
+	)
+
+	var response: HTTPResult = await Http.http.async_request(
+		ApiRoutes.REFRESH_LOGIN, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body
+	)
+
+	if !response.success() or response.status_err():
+		push_error("Request failed.")
+		on_failure.call(response)
+		return null
+
+	var json: Dictionary = response.body_as_json()
+
+	if not json:
+		push_error("JSON invalid.")
+		on_failure.call(response)
+		return null
+
+	return LoginResponseDto.new(json["data"])
+
+
 func register(
 	name: String, email: String, password: String, on_failure: Callable
 ) -> RegisterResponseDto:
