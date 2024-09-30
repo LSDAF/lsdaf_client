@@ -1,5 +1,7 @@
 extends Node
 
+class_name ApiRoutes
+
 var APP_PORT: int = 8080
 var APP_URL: String = "http://localhost:" + str(APP_PORT)
 

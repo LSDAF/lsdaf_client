@@ -19,7 +19,6 @@ config/features=PackedStringArray("4.3", "Mobile")
 Api="*res://autoload/api/api.gd"
 Data="*res://autoload/data/data.gd"
 Http="*res://autoload/http/http.gd"
-ApiRoutes="*res://autoload/http/api_routes.gd"
 Services="*res://autoload/services/services.gd"
 
 [debug]
