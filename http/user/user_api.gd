@@ -2,17 +2,10 @@ class_name UserApi
 
 
 func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
-	var response: HTTPResult = await (
-		Http
-		. http
-		. async_request(
-			ApiRoutes.FETCH_GAME_SAVES,
-			["Authorization: Bearer {0}".format([UserDataService.get_access_token()])],
-			HTTPClient.METHOD_GET,
-		)
-	)
+	var response: HTTPResult = await ApiClient.fetch(ApiRoutes.FETCH_GAME_SAVES, true)
 
 	if !response.success() or response.status_err():
+		on_failure.call(response)
 		push_error("Request failed.")
 		return null
 
