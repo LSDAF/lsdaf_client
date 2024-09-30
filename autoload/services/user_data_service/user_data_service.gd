@@ -1,5 +1,7 @@
 extends Node
 
+class_name UserDataService
+
 var _user_data: UserData = null
 
 const USER_DATA_PATH = "user://user_data.res"
@@ -34,9 +36,9 @@ func relog_user() -> bool:
 	if refreshLoginResponse == null:
 		return false
 
-	UserDataService.save_access_token(refreshLoginResponse.access_token)
-	UserDataService.save_refresh_token(refreshLoginResponse.refresh_token)
-	UserDataService.save_email(refreshLoginResponse.user_info.email)
+	Services.user_data_service.save_access_token(refreshLoginResponse.access_token)
+	Services.user_data_service.save_refresh_token(refreshLoginResponse.refresh_token)
+	Services.user_data_service.save_email(refreshLoginResponse.user_info.email)
 
 	return true
 
