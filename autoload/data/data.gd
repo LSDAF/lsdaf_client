@@ -3,6 +3,7 @@ extends Node
 # Scripts
 var currencies: Currencies = preload("res://autoload/data/currencies/currencies.gd").new()
 var inventory: Inventory = preload("res://autoload/data/inventory/inventory.gd").new()
+var stage: Stage = preload("res://autoload/data/stage/stage.gd").new()
 
 # Scenes (CAUTION: The scenes need to be instanced in the _ready function)
 var characteristics: Characteristics = preload("res://autoload/data/characteristics/characteristics.tscn").instantiate()

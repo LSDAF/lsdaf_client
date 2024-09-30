@@ -58,8 +58,8 @@ func on_mob_death(mob: Mob) -> void:
 	current_mobs.remove_at(mob_index)
 
 	if current_mobs.size() < 1:
-		Stage.beat_current_wave()
-		if Stage.is_boss_wave():
+		Data.stage.beat_current_wave()
+		if Data.stage.is_boss_wave():
 			spawn_boss()
 		else:
 			spawn_mobs()
