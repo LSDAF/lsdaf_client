@@ -4,7 +4,7 @@ extends Node
 var game_save_service: GameSaveService = preload("res://autoload/services/game_save/game_save_service.gd").new()
 
 # Scenes (CAUTION: The scenes need to be instanced in the _ready function)
-
+var items_service: ItemsService = preload("res://autoload/services/items/items_service.tscn").instantiate()
 
 func _ready() -> void:
-	pass
+	add_child(items_service)
