@@ -8,7 +8,7 @@ var _selected_item_index: int = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Inventory.on_inventory_update.connect(update_inventory)
+	Data.inventory.on_inventory_update.connect(update_inventory)
 	%ItemDetailsMenu.on_salvage_item.connect(_on_salvage_item)
 	%EquippedItems.on_item_selected.connect(_on_item_selected)
 
@@ -45,8 +45,8 @@ func _on_item_selected(item_index: int) -> void:
 func _sort_inventory_custom_sort(
 	inventory_item_a: InventoryItem, inventory_item_b: InventoryItem
 ) -> bool:
-	var item_a := Inventory.get_item_at_index(inventory_item_a.item_index)
-	var item_b := Inventory.get_item_at_index(inventory_item_b.item_index)
+	var item_a := Data.inventory.get_item_at_index(inventory_item_a.item_index)
+	var item_b := Data.inventory.get_item_at_index(inventory_item_b.item_index)
 
 	if item_a.type != item_b.type:
 		return item_a.type > item_b.type
@@ -67,8 +67,8 @@ func _sort_inventory_custom_sort(
 func _sort_inventory_custom_sort_equipped_items(
 	inventory_item_a: InventoryItem, inventory_item_b: InventoryItem
 ) -> bool:
-	var item_a := Inventory.get_item_at_index(inventory_item_a.item_index)
-	var item_b := Inventory.get_item_at_index(inventory_item_b.item_index)
+	var item_a := Data.inventory.get_item_at_index(inventory_item_a.item_index)
+	var item_b := Data.inventory.get_item_at_index(inventory_item_b.item_index)
 
 	if item_a.is_equipped and not item_b.is_equipped:
 		return true
@@ -79,7 +79,7 @@ func _sort_inventory_custom_sort_equipped_items(
 func get_inventory_items_scenes() -> Array[InventoryItem]:
 	var inventory_items: Array[InventoryItem] = []
 
-	for item_index in len(Inventory.items):
+	for item_index in len(Data.inventory.items):
 		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
 
 		new_item_scene.on_item_selected.connect(_on_item_selected)

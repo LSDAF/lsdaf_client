@@ -3,7 +3,7 @@ extends Node
 
 func loot_random_item() -> void:
 	var new_item := ItemsService.create_random_item()
-	Inventory.add_item(new_item)
+	Data.inventory.add_item(new_item)
 
 
 func try_loot_item() -> void:
@@ -17,7 +17,7 @@ func try_loot_item() -> void:
 		return
 
 	var new_item := ItemsService.create_item(type, rarity)
-	Inventory.add_item(new_item)
+	Data.inventory.add_item(new_item)
 
 
 func _get_rarity_for_difficulty(difficulty: int) -> ItemRarity.ItemRarity:
