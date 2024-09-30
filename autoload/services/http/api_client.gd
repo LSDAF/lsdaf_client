@@ -19,14 +19,14 @@ func _generate_headers(upsert_headers: Dictionary, auth: bool, method := HTTPCli
 
 	return headers
 
-func fetch(url: String, auth: bool = false, upsert_headers: Dictionary = {}) -> HTTPResult:
+func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth)
 
 	var response: HTTPResult = await Http.http.async_request(url, headers, HTTPClient.METHOD_GET)
 
 	return response
 
-func post(url: String, auth: bool, body: Dictionary, upsert_headers: Dictionary = {}) -> HTTPResult:
+func post(url: String, auth: bool, body: Dictionary = {}, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth, HTTPClient.METHOD_POST)
 	var request_data := JSON.stringify(body)
 
