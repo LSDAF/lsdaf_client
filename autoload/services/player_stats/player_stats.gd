@@ -1,6 +1,8 @@
 extends Node
 
 
+class_name PlayerStats
+
 #####   Attack   #####
 func _get_attack_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
