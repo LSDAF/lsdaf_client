@@ -25,7 +25,7 @@ func _on_close_button_pressed() -> void:
 
 
 func _on_give_random_button_pressed() -> void:
-	Loot.loot_random_item()
+	Services.loot.loot_random_item()
 	update_inventory()
 
 
