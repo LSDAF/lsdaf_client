@@ -1,5 +1,7 @@
 extends Node
 
+class_name GameSaveService
+
 var _game_save_id: String = ""
 
 
