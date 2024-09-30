@@ -1,5 +1,7 @@
 extends Node
 
+class_name Inventory
+
 signal on_inventory_update
 
 var items: Array[Item] = []

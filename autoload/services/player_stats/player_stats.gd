@@ -5,8 +5,8 @@ extends Node
 func _get_attack_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
 			item.total_stat_value(ItemStatistics.ItemStatistics.ATTACK_MULT) / 100.0
 		)
@@ -17,8 +17,8 @@ func _get_attack_multiplier() -> float:
 func _get_attack_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.ATTACK_ADD
 		)
@@ -39,8 +39,8 @@ func get_attack() -> PlayerStat:
 func _get_crit_chance_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.CRIT_CHANCE
 		)
@@ -61,8 +61,8 @@ func get_crit_chance() -> PlayerStat:
 func _get_crit_damage_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.CRIT_DAMAGE
 		)
@@ -83,8 +83,8 @@ func get_crit_damage() -> PlayerStat:
 func _get_hp_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
 			item.total_stat_value(ItemStatistics.ItemStatistics.HP_MULT) / 100.0
 		)
@@ -95,8 +95,8 @@ func _get_hp_multiplier() -> float:
 func _get_hp_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(ItemStatistics.ItemStatistics.HP_ADD)
 
 	return equipped_items_total_value + Data.characteristics.hp.current_value()
@@ -115,8 +115,8 @@ func get_hp() -> PlayerStat:
 func _get_resistance_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
 			item.total_stat_value(ItemStatistics.ItemStatistics.RESISTANCE_MULT) / 100.0
 		)
@@ -127,8 +127,8 @@ func _get_resistance_multiplier() -> float:
 func _get_resistance_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in Inventory.get_equipped_items_index():
-		var item := Inventory.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Data.inventory.get_equipped_items_index():
+		var item := Data.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.RESISTANCE_ADD
 		)
