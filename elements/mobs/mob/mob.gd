@@ -52,6 +52,6 @@ func take_damage(damage: int = 1) -> void:
 	$HealthBar.value = health
 
 	if health <= 0:
-		Currencies.gold.update_value(gold_value)
+		Data.currencies.gold.update_value(gold_value)
 		mob_death.emit(self)
 		Loot.try_loot_item()

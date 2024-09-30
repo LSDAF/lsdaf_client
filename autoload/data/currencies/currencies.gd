@@ -1,5 +1,7 @@
 extends Node
 
+class_name Currencies
+
 var gold: Currency = Currency.new()
 var diamond: Currency = Currency.new()
 var amethyst: Currency = Currency.new()
