@@ -1,10 +1,15 @@
 extends Node
 
-func _generate_headers(upsert_headers: Dictionary, auth: bool, method := HTTPClient.METHOD_GET) -> PackedStringArray:
+
+func _generate_headers(
+	upsert_headers: Dictionary, auth: bool, method := HTTPClient.METHOD_GET
+) -> PackedStringArray:
 	var building_headers: Dictionary
 
 	if auth:
-		building_headers["Authorization"] = "Bearer {0}".format([UserDataService.get_access_token()])
+		building_headers["Authorization"] = "Bearer {0}".format(
+			[UserDataService.get_access_token()]
+		)
 
 	if method == HTTPClient.METHOD_POST:
 		building_headers["Content-Type"] = "application/json"
@@ -19,6 +24,7 @@ func _generate_headers(upsert_headers: Dictionary, auth: bool, method := HTTPCli
 
 	return headers
 
+
 func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth)
 
@@ -26,10 +32,15 @@ func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResu
 
 	return response
 
-func post(url: String, auth: bool, body: Dictionary = {}, upsert_headers: Dictionary = {}) -> HTTPResult:
+
+func post(
+	url: String, auth: bool, body: Dictionary = {}, upsert_headers: Dictionary = {}
+) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth, HTTPClient.METHOD_POST)
 	var request_data := JSON.stringify(body)
 
-	var response: HTTPResult = await Http.http.async_request(url, headers, HTTPClient.METHOD_POST, request_data)
+	var response: HTTPResult = await Http.http.async_request(
+		url, headers, HTTPClient.METHOD_POST, request_data
+	)
 
 	return response

@@ -27,9 +27,7 @@ func update_game_save_nickname(
 	}
 
 	var response: HTTPResult = await ApiClient.post(
-		ApiRoutes.UPDATE_GAME_SAVE_NICKNAME.format({"game_save_id": game_save_id}),
-		true,
-		body
+		ApiRoutes.UPDATE_GAME_SAVE_NICKNAME.format({"game_save_id": game_save_id}), true, body
 	)
 
 	if !response.success() or response.status_err():
