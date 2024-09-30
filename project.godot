@@ -18,10 +18,10 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 Api="*res://autoload/http/api.gd"
 ApiRoutes="*res://autoload/http/api_routes.gd"
-Http="*res://autoload/http/http.tscn"
 ApiClient="*res://autoload/http/api_client.gd"
 Services="*res://autoload/services/services.gd"
 Data="*res://autoload/data/data.gd"
+Http="*res://autoload/http/http.gd"
 
 [debug]
 

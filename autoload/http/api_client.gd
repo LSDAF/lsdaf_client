@@ -28,7 +28,7 @@ func _generate_headers(
 func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth)
 
-	var response: HTTPResult = await Http.http.async_request(url, headers, HTTPClient.METHOD_GET)
+	var response: HTTPResult = await Http.http_client.http.async_request(url, headers, HTTPClient.METHOD_GET)
 
 	return response
 
@@ -39,7 +39,7 @@ func post(
 	var headers := _generate_headers(upsert_headers, auth, HTTPClient.METHOD_POST)
 	var request_data := JSON.stringify(body)
 
-	var response: HTTPResult = await Http.http.async_request(
+	var response: HTTPResult = await Http.http_client.http.async_request(
 		url, headers, HTTPClient.METHOD_POST, request_data
 	)
 
