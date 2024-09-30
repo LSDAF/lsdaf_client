@@ -1,5 +1,7 @@
 extends Node
 
+class_name ToasterService
+
 signal on_toast(message: String)
 
 

@@ -75,4 +75,4 @@ func save_email(email: String) -> bool:
 
 
 func _on_relog_failed(response: Variant) -> void:
-	ToasterService.toast("Error when relogging")
+	Services.toaster_service.toast("Error when relogging")
