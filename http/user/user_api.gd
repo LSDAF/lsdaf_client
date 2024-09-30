@@ -20,6 +20,7 @@ func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
 
 	if not json:
 		push_error("JSON invalid.")
+		on_failure.call(response)
 		return null
 
 	return FetchGameSavesDto.new(json["data"])
