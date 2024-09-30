@@ -52,7 +52,7 @@ func instanciate_mobs(mobs: Array[Mob]) -> void:
 
 func on_mob_death(mob: Mob) -> void:
 	mob.queue_free()
-	CurrentQuest.on_mob_death()
+	Data.current_quest.on_mob_death()
 
 	var mob_index := current_mobs.find(mob)
 	current_mobs.remove_at(mob_index)
