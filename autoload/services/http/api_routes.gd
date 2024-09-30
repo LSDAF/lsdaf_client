@@ -11,3 +11,4 @@ var REGISTER := APP_URL + "/api/v1/auth/register"
 # Private routes
 var FETCH_GAME_SAVES := APP_URL + "/api/v1/user/me/game_saves"
 var GENERATE_GAME_SAVE := APP_URL + "/api/v1/game_save/generate"
+var UPDATE_GAME_SAVE_NICKNAME := APP_URL + "/api/v1/game_save/{game_save_id}/nickname"
