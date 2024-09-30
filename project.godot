@@ -16,21 +16,9 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 [autoload]
 
-Currencies="res://autoload/data/currencies/currencies.gd"
-Stage="res://autoload/data/stage/stage.gd"
-Characteristics="res://autoload/data/characteristics/characteristics.tscn"
-Difficulty="res://autoload/data/difficulty/difficulty.tscn"
-CurrentQuest="res://autoload/data/quests/current_quest.tscn"
-ItemsService="res://autoload/services/items/items_service.tscn"
-Inventory="res://autoload/data/inventory/inventory.gd"
-Loot="res://autoload/services/loot/loot.gd"
-PlayerStats="res://autoload/services/player_stats/player_stats.gd"
 Api="*res://autoload/http/api.gd"
 ApiRoutes="*res://autoload/http/api_routes.gd"
 Http="*res://autoload/http/http.tscn"
-GameSaveService="res://autoload/services/game_save/game_save_service.gd"
-ToasterService="res://autoload/services/toaster/toaster_service.gd"
-UserDataService="res://autoload/services/user_data_service/user_data_service.gd"
 ApiClient="*res://autoload/http/api_client.gd"
 Services="*res://autoload/services/services.gd"
 Data="*res://autoload/data/data.gd"
