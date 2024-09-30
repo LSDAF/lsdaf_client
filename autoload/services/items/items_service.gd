@@ -1,5 +1,7 @@
 extends Node
 
+class_name ItemsService
+
 @export var item_stats_pools: ItemStatsPools
 @export var item_pools: ItemPools
 
