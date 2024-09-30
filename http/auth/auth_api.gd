@@ -2,19 +2,12 @@ class_name AuthApi
 
 
 func login(email: String, password: String, on_failure: Callable) -> LoginResponseDto:
-	var body := (
-		JSON
-		. stringify(
-			{
-				"email": email,
-				"password": password,
-			}
-		)
-	)
+	var body: Dictionary = {
+		"email": email,
+		"password": password,
+	}
 
-	var response: HTTPResult = await Http.http.async_request(
-		ApiRoutes.LOGIN, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body
-	)
+	var response: HTTPResult = await ApiClient.post(ApiRoutes.LOGIN, false, body)
 
 	if !response.success() or response.status_err():
 		push_error("Request failed.")
@@ -32,19 +25,12 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 
 
 func refresh_login(email: String, refresh_token: String, on_failure: Callable) -> LoginResponseDto:
-	var body := (
-		JSON
-		. stringify(
-			{
-				"email": email,
-				"refresh_token": refresh_token,
-			}
-		)
-	)
+	var body: Dictionary = {
+		"email": email,
+		"refresh_token": refresh_token,
+	}
 
-	var response: HTTPResult = await Http.http.async_request(
-		ApiRoutes.REFRESH_LOGIN, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body
-	)
+	var response: HTTPResult = await ApiClient.post(ApiRoutes.REFRESH_LOGIN, false, body)
 
 	if !response.success() or response.status_err():
 		push_error("Request failed.")
@@ -64,20 +50,13 @@ func refresh_login(email: String, refresh_token: String, on_failure: Callable) -
 func register(
 	name: String, email: String, password: String, on_failure: Callable
 ) -> RegisterResponseDto:
-	var body := (
-		JSON
-		. stringify(
-			{
-				"email": email,
-				"password": password,
-				"name": name,
-			}
-		)
-	)
+	var body: Dictionary = {
+		"email": email,
+		"password": password,
+		"name": name,
+	}
 
-	var response: HTTPResult = await Http.http.async_request(
-		ApiRoutes.REGISTER, ["Content-Type: application/json"], HTTPClient.METHOD_POST, body
-	)
+	var response: HTTPResult = await ApiClient.post(ApiRoutes.REGISTER, false, body)
 
 	if !response.success() or response.status_err():
 		push_error("Request failed.")
