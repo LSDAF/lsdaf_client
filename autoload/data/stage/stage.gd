@@ -1,5 +1,7 @@
 extends Node
 
+class_name Stage
+
 signal current_stage_updated(new_stage: int)
 signal current_wave_updated(new_wave: int)
 
