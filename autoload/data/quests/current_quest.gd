@@ -73,4 +73,4 @@ func _init_stage_quest() -> Quest:
 
 
 func _reward_player() -> void:
-	Currencies.diamond.update_value(_quest.reward)
+	Data.currencies.diamond.update_value(_quest.reward)

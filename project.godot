@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 [autoload]
 
-Currencies="*res://autoload/data/currencies/currencies.gd"
+Currencies="res://autoload/data/currencies/currencies.gd"
 Stage="*res://autoload/data/stage/stage.gd"
 Characteristics="res://autoload/data/characteristics/characteristics.tscn"
 Difficulty="*res://autoload/data/difficulty/difficulty.tscn"
