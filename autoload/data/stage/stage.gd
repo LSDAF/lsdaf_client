@@ -30,7 +30,7 @@ func is_boss_wave() -> bool:
 
 
 func set_current_difficulty() -> void:
-	Difficulty.set_current_difficulty(_current_stage)
+	Data.difficulty.set_current_difficulty(_current_stage)
 
 
 func set_current_stage(new_current_stage: int) -> void:
