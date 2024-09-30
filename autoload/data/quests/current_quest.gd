@@ -1,5 +1,7 @@
 extends Node
 
+class_name CurrentQuest
+
 signal quest_update
 
 @export var mob_quest_blueprint: MobQuest
