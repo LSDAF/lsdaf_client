@@ -46,9 +46,9 @@ func _on_hp_upgraded() -> void:
 
 
 func _get_player_damage() -> float:
-	var attack := PlayerStats.get_attack()
-	var crit_chance := PlayerStats.get_crit_chance()
-	var crit_damage := PlayerStats.get_crit_damage()
+	var attack := Services.player_stats.get_attack()
+	var crit_chance := Services.player_stats.get_crit_chance()
+	var crit_damage := Services.player_stats.get_crit_damage()
 
 	var base_damage := attack.value * attack.multiplier
 
