@@ -2,7 +2,7 @@ class_name UserApi
 
 
 func fetch_game_saves(on_failure: Callable) -> FetchGameSavesDto:
-	var response: HTTPResult = await Http.api_client.fetch(ApiRoutes.FETCH_GAME_SAVES, true)
+	var response: HTTPResult = await Http.api_client.fetch(Http.api_routes.FETCH_GAME_SAVES, true)
 
 	if !response.success() or response.status_err():
 		on_failure.call(response)
