@@ -2,7 +2,7 @@ class_name GameSaveApi
 
 
 func generate_game_save(on_failure: Callable) -> GameSaveDto:
-	var response: HTTPResult = await ApiClient.post(ApiRoutes.GENERATE_GAME_SAVE, true)
+	var response: HTTPResult = await Http.api_client.post(ApiRoutes.GENERATE_GAME_SAVE, true)
 
 	if !response.success() or response.status_err():
 		push_error("Request failed.")
@@ -26,7 +26,7 @@ func update_game_save_nickname(
 		"nickname": nickname,
 	}
 
-	var response: HTTPResult = await ApiClient.post(
+	var response: HTTPResult = await Http.api_client.post(
 		ApiRoutes.UPDATE_GAME_SAVE_NICKNAME.format({"game_save_id": game_save_id}), true, body
 	)
 
