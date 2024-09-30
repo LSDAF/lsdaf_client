@@ -20,7 +20,6 @@ Api="*res://autoload/api/api.gd"
 Data="*res://autoload/data/data.gd"
 Http="*res://autoload/http/http.gd"
 ApiRoutes="*res://autoload/http/api_routes.gd"
-ApiClient="*res://autoload/http/api_client.gd"
 Services="*res://autoload/services/services.gd"
 
 [debug]

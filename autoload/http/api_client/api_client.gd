@@ -1,5 +1,6 @@
 extends Node
 
+class_name ApiClient
 
 func _generate_headers(
 	upsert_headers: Dictionary, auth: bool, method := HTTPClient.METHOD_GET
