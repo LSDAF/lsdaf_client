@@ -2,6 +2,7 @@ extends Node
 
 class_name Loot
 
+
 func loot_random_item() -> void:
 	var new_item := Services.items_service.create_random_item()
 	Data.inventory.add_item(new_item)

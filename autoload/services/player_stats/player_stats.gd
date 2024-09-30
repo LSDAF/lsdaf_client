@@ -1,7 +1,7 @@
 extends Node
 
-
 class_name PlayerStats
+
 
 #####   Attack   #####
 func _get_attack_multiplier() -> float:
