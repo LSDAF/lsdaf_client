@@ -30,7 +30,9 @@ func refresh_login(email: String, refresh_token: String, on_failure: Callable) -
 		"refresh_token": refresh_token,
 	}
 
-	var response: HTTPResult = await Http.api_client.post(Http.api_routes.REFRESH_LOGIN, false, body)
+	var response: HTTPResult = await Http.api_client.post(
+		Http.api_routes.REFRESH_LOGIN, false, body
+	)
 
 	if !response.success() or response.status_err():
 		push_error("Request failed.")

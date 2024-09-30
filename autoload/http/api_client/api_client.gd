@@ -2,6 +2,7 @@ extends Node
 
 class_name ApiClient
 
+
 func _generate_headers(
 	upsert_headers: Dictionary, auth: bool, method := HTTPClient.METHOD_GET
 ) -> PackedStringArray:
@@ -29,7 +30,9 @@ func _generate_headers(
 func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth)
 
-	var response: HTTPResult = await Http.http_client.http.async_request(url, headers, HTTPClient.METHOD_GET)
+	var response: HTTPResult = await Http.http_client.http.async_request(
+		url, headers, HTTPClient.METHOD_GET
+	)
 
 	return response
 
