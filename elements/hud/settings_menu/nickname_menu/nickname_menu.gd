@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 
 
 func _on_error(response: Variant) -> void:
-	ToasterService.toast("Error when updating your nickname")
+	Services.toaster_service.toast("Error when updating your nickname")
 
 
 func _on_line_edit_text_changed(new_text: String) -> void:

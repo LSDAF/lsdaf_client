@@ -55,15 +55,15 @@ func return_to_login_form() -> void:
 
 
 func _on_generate_game_save_error(response: Variant) -> void:
-	ToasterService.toast("Error when generating save")
+	Services.toaster_service.toast("Error when generating save")
 
 
 func _on_login_error(response: Variant) -> void:
-	ToasterService.toast("Error when logging in")
+	Services.toaster_service.toast("Error when logging in")
 
 
 func _on_fetch_game_saves_error(response: Variant) -> void:
-	ToasterService.toast("Error when fetching games")
+	Services.toaster_service.toast("Error when fetching games")
 
 	UserDataService.create_new_user_data()
 	return_to_login_form()
