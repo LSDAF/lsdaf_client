@@ -46,7 +46,7 @@ func register(name: String, email: String, password: String) -> void:
 
 
 func error(response: Variant) -> void:
-	Services.toaster_service.toast("Error when registering")
+	Services.toaster.toast("Error when registering")
 
 
 func _on_login_button_pressed() -> void:

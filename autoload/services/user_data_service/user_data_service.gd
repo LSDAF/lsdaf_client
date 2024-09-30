@@ -36,9 +36,9 @@ func relog_user() -> bool:
 	if refreshLoginResponse == null:
 		return false
 
-	Services.user_data_service.save_access_token(refreshLoginResponse.access_token)
-	Services.user_data_service.save_refresh_token(refreshLoginResponse.refresh_token)
-	Services.user_data_service.save_email(refreshLoginResponse.user_info.email)
+	Services.user_data.save_access_token(refreshLoginResponse.access_token)
+	Services.user_data.save_refresh_token(refreshLoginResponse.refresh_token)
+	Services.user_data.save_email(refreshLoginResponse.user_info.email)
 
 	return true
 
@@ -77,4 +77,4 @@ func save_email(email: String) -> bool:
 
 
 func _on_relog_failed(response: Variant) -> void:
-	Services.toaster_service.toast("Error when relogging")
+	Services.toaster.toast("Error when relogging")
