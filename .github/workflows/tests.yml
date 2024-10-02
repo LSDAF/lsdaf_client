@@ -41,3 +41,26 @@ jobs:
                         res://tests/
                     timeout: 5
                     report-name: tests_report.xml
+
+            # download the artifact
+            -   name: Download test report artifact
+                uses: actions/download-artifact@v3
+                with:
+                    name: artifact_test_report.xml
+                    path: ./test-report
+
+            # unzip the artifact
+            -   name: Unzip test report artifact
+                run: unzip ./test-report/artifact_test_report.xml.zip -d ./test-report
+
+            # serve the folder with HTML files
+            -   name: Serve test report
+                run: |
+                    sudo apt-get install -y python3
+                    python3 -m http.server --directory ./test-report 8080 &
+                continue-on-error: true
+
+            # print the URL to access the report
+            -   name: Print report URL
+                run:
+                    echo "Report URL: http://localhost:8080/report.html"
