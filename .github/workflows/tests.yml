@@ -53,18 +53,18 @@ jobs:
 
             -   name: List files
                 run: |
-                    ls .
-                    echo ----------------
-                    ls ./reports/
-                    echo ----------------
-                    ls ./reports/report_1
-                    echo ----------------
-                    ls ./reports/report_1/css
-                    echo ----------------
-                    ls ./reports/report_1/path
-                    echo ----------------
-                    ls ./reports/report_1/test_suites
-                    echo ----------------
+                    ls -la .
+                    echo ---------------- .
+                    ls -la ./reports/
+                    echo ---------------- ./reports/
+                    ls -la ./reports/report_1
+                    echo ---------------- ./reports/report_1
+                    ls -la ./reports/report_1/css
+                    echo ---------------- ./reports/report_1/css
+                    ls -la ./reports/report_1/path
+                    echo ---------------- ./reports/report_1/path
+                    ls -la ./reports/report_1/test_suites
+                    echo ---------------- ./reports/report_1/test_suites
                     
 
 #            # unzip the artifact
