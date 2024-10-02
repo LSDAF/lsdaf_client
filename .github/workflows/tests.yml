@@ -67,9 +67,9 @@ jobs:
                     echo ----------------
                     
 
-            # unzip the artifact
-            -   name: Unzip test report artifact
-                run: unzip ./reports/report_1//artifact_tests_report.xml.zip -d ./reports
+#            # unzip the artifact
+#            -   name: Unzip test report artifact
+#                run: unzip ./reports/report_1//artifact_tests_report.xml.zip -d ./reports
 
                 # deploy to GitHub Pages
             -   name: Deploy to GitHub Pages
@@ -77,7 +77,7 @@ jobs:
                     git config --global user.name 'github-actions'
                     git config --global user.email 'github-actions@github.com'
                     git checkout -b gh-pages
-                    cp -r ./test-report/* .
+                    cp -r ./reports/report_1/* .
                     git add .
                     git commit -m 'Deploy test report to GitHub Pages'
                     git push --force --set-upstream origin gh-pages
