@@ -51,9 +51,25 @@ jobs:
                     name: artifact_tests_report.xml
                     path: ./reports
 
+            -   name: List files
+                run: |
+                    ls .
+                    echo ----------------
+                    ls ./reports/
+                    echo ----------------
+                    ls ./reports/report_1
+                    echo ----------------
+                    ls ./reports/report_1/css
+                    echo ----------------
+                    ls ./reports/report_1/path
+                    echo ----------------
+                    ls ./reports/report_1/test_suites
+                    echo ----------------
+                    
+
             # unzip the artifact
             -   name: Unzip test report artifact
-                run: unzip ./reports/artifact_tests_report.xml.zip -d ./reports
+                run: unzip ./reports/report_1//artifact_tests_report.xml.zip -d ./reports
 
                 # deploy to GitHub Pages
             -   name: Deploy to GitHub Pages
