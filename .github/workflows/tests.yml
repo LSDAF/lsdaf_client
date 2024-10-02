@@ -42,25 +42,26 @@ jobs:
                     timeout: 5
                     report-name: tests_report.xml
 
+
+
             # download the artifact
             -   name: Download test report artifact
                 uses: actions/download-artifact@v3
                 with:
-                    name: artifact_test_report.xml
-                    path: ./test-report
+                    name: artifact_tests_report.xml
+                    path: ./reports
 
             # unzip the artifact
             -   name: Unzip test report artifact
-                run: unzip ./test-report/artifact_test_report.xml.zip -d ./test-report
+                run: unzip ./reports/artifact_tests_report.xml.zip -d ./reports
 
-            # serve the folder with HTML files
-            -   name: Serve test report
+                # deploy to GitHub Pages
+            -   name: Deploy to GitHub Pages
                 run: |
-                    sudo apt-get install -y python3
-                    python3 -m http.server --directory ./test-report 8080 &
-                continue-on-error: true
-
-            # print the URL to access the report
-            -   name: Print report URL
-                run:
-                    echo "Report URL: http://localhost:8080/report.html"
+                    git config --global user.name 'github-actions'
+                    git config --global user.email 'github-actions@github.com'
+                    git checkout -b gh-pages
+                    cp -r ./test-report/* .
+                    git add .
+                    git commit -m 'Deploy test report to GitHub Pages'
+                    git push --force --set-upstream origin gh-pages
