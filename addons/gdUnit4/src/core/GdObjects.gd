@@ -4,17 +4,20 @@ extends Resource
 
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
 
-const TYPE_VOID 	= TYPE_MAX + 1000
-const TYPE_VARARG 	= TYPE_MAX + 1001
-const TYPE_VARIANT	= TYPE_MAX + 1002
-const TYPE_FUNC 	= TYPE_MAX + 1003
-const TYPE_FUZZER 	= TYPE_MAX + 1004
 
-const TYPE_NODE 	= TYPE_MAX + 2001
+# introduced with Godot 4.3.beta1
+const TYPE_PACKED_VECTOR4_ARRAY = 38 #TYPE_PACKED_VECTOR4_ARRAY
+
+const TYPE_VOID 	= 1000
+const TYPE_VARARG 	= 1001
+const TYPE_VARIANT	= 1002
+const TYPE_FUNC 	= 1003
+const TYPE_FUZZER 	= 1004
 # missing Godot types
-const TYPE_CONTROL	= TYPE_MAX + 2002
-const TYPE_CANVAS	= TYPE_MAX + 2003
-const TYPE_ENUM		= TYPE_MAX + 2004
+const TYPE_NODE 	= 2001
+const TYPE_CONTROL	= 2002
+const TYPE_CANVAS	= 2003
+const TYPE_ENUM		= 2004
 
 
 # used as default value for varargs
@@ -59,6 +62,7 @@ const TYPE_AS_STRING_MAPPINGS := {
 	TYPE_PACKED_STRING_ARRAY: "PackedStringArray",
 	TYPE_PACKED_VECTOR2_ARRAY: "PackedVector2Array",
 	TYPE_PACKED_VECTOR3_ARRAY: "PackedVector3Array",
+	TYPE_PACKED_VECTOR4_ARRAY: "PackedVector4Array",
 	TYPE_PACKED_COLOR_ARRAY: "PackedColorArray",
 	TYPE_VOID: "void",
 	TYPE_VARARG: "VarArg",
@@ -141,7 +145,7 @@ enum COMPARE_MODE {
 
 
 # prototype of better object to dictionary
-static func obj2dict(obj :Object, hashed_objects := Dictionary()) -> Dictionary:
+static func obj2dict(obj: Object, hashed_objects := Dictionary()) -> Dictionary:
 	if obj == null:
 		return {}
 	var clazz_name := obj.get_class()
@@ -149,13 +153,20 @@ static func obj2dict(obj :Object, hashed_objects := Dictionary()) -> Dictionary:
 	var clazz_path := ""
 
 	if is_instance_valid(obj) and obj.get_script() != null:
-		var d := inst_to_dict(obj)
-		clazz_path = d["@path"]
-		if d["@subpath"] != NodePath(""):
-			clazz_name = d["@subpath"]
-			dict["@inner_class"] = true
+		var script: Script = obj.get_script()
+		# handle build-in scripts
+		if script.resource_path != null and script.resource_path.contains(".tscn"):
+			var path_elements := script.resource_path.split(".tscn")
+			clazz_name = path_elements[0].get_file()
+			clazz_path = script.resource_path
 		else:
-			clazz_name = clazz_path.get_file().replace(".gd", "")
+			var d := inst_to_dict(obj)
+			clazz_path = d["@path"]
+			if d["@subpath"] != NodePath(""):
+				clazz_name = d["@subpath"]
+				dict["@inner_class"] = true
+			else:
+				clazz_name = clazz_path.get_file().replace(".gd", "")
 	dict["@path"] = clazz_path
 
 	for property in obj.get_property_list():
@@ -313,6 +324,8 @@ static func is_snake_case(value :String) -> bool:
 
 
 static func type_as_string(type :int) -> String:
+	if type < TYPE_MAX:
+		return type_string(type)
 	return TYPE_AS_STRING_MAPPINGS.get(type, "Variant")
 
 
@@ -359,7 +372,7 @@ static func is_type(value :Variant) -> bool:
 	if is_engine_type(value):
 		return true
 	# is a custom class type
-	if value is GDScript and value.can_instantiate():
+	if value is GDScript and (value as GDScript).can_instantiate():
 		return true
 	return false
 
@@ -434,7 +447,7 @@ static func is_singleton(value :Variant) -> bool:
 static func is_instance(value :Variant) -> bool:
 	if not is_instance_valid(value) or is_native_class(value):
 		return false
-	if is_script(value) and value.get_instance_base_type() == "":
+	if is_script(value) and (value as Script).get_instance_base_type() == "":
 		return true
 	if is_scene(value):
 		return true
@@ -532,7 +545,7 @@ static func extract_class_name(clazz :Variant) -> GdUnitResult:
 		var script := clazz.script as GDScript
 		if script != null:
 			return extract_class_name(script)
-		return GdUnitResult.success(clazz.get_class())
+		return GdUnitResult.success((clazz as Object).get_class())
 
 	# extract name form full qualified class path
 	if clazz is String:
@@ -649,6 +662,7 @@ static func default_value_by_type(type :int) -> Variant:
 		TYPE_NODE_PATH: return NodePath()
 		TYPE_RID: return RID()
 		TYPE_OBJECT: return null
+		TYPE_CALLABLE: return Callable()
 		TYPE_ARRAY: return []
 		TYPE_DICTIONARY: return {}
 		TYPE_PACKED_BYTE_ARRAY: return PackedByteArray()
