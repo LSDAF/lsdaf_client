@@ -1,0 +1,99 @@
+name: Run tests
+
+run-name: ${{ github.head_ref || github.ref_name }}-run-tests
+
+on:
+    pull_request:
+        paths-ignore:
+            - '**.yml'
+            - '**.md'
+    workflow_dispatch:
+
+
+concurrency:
+    group: run-tests-${{ github.event.number }}
+    cancel-in-progress: true
+
+
+jobs:
+    unit-test:
+        name: "Run Unit Tests"
+        runs-on: 'ubuntu-22.04'
+        timeout-minutes: 10 # The overall timeout
+        permissions:
+            actions: write
+            checks: write
+            contents: write
+            pull-requests: write
+            statuses: write
+
+        steps:
+            # checkout your repository
+            -   uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            # run tests by using the gdUnit4-action with Godot version 4.2.1 and the latest GdUnit4 release
+            -   uses: MikeSchulze/gdUnit4-action@v1.1.1
+                with:
+                    godot-version: '4.3'
+                    paths: |
+                        res://tests/
+                    timeout: 5
+                    report-name: tests_report.xml
+
+
+
+            # download the artifact
+            -   name: Download test report artifact
+                uses: actions/download-artifact@v4
+                with:
+                    name: artifact_tests_report.xml
+                    path: ./reports
+
+            # deploy to GitHub Pages
+            -   name: Deploy to GitHub Pages
+                run: |
+                    git config --global user.name 'github-actions'
+                    git config --global user.email 'github-actions@github.com'
+                    if git ls-remote --exit-code --heads origin gh-pages; then
+                        git fetch origin gh-pages
+                        echo "Branch gh-pages already exists, stash the changes"
+                        git stash
+                        echo "Switching to branch gh-pages"
+                        git checkout gh-pages
+                        echo "Pulling the latest changes"
+                        git pull origin gh-pages
+                        echo "Applying the stashed changes"
+                        git restore --source=stash@{0} -- .gitignore
+                        git restore --source=stash@{0} -- .github
+                        git restore --source=stash@{0} -- reports
+                    else
+                        git checkout --orphan gh-pages
+                        git rm --cached -rfq .
+                        git add .gitignore
+                        git add .github/
+                        git commit -q --allow-empty -m "Initial commit on gh-pages"
+                        git push --set-upstream origin gh-pages
+                    fi
+                    mv ./reports/report_1/ ./reports/report_$GITHUB_SHA/
+                    git add .gitignore
+                    git add .github/
+                    git add reports/report_$GITHUB_SHA/
+                    git commit -m "Add test report for commit $GITHUB_SHA"
+                    git push
+
+                # checkout your repository
+            -   uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            # comment the link of the test report
+            -   name: Comment the link of the test report
+                uses: actions/github-script@v7
+                with:
+                    github-token: ${{ secrets.GITHUB_TOKEN }}
+                    script: |
+                        // const { context, github } = require('@actions/github');
+                        const script = require('./.github/workflows/tests/comment.js');
+                        script({context, github});
