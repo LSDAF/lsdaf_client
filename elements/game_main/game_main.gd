@@ -17,3 +17,7 @@ func _process(delta: float) -> void:
 
 func _on_logout() -> void:
 	on_logout.emit()
+
+
+func _on_game_save_timer_timeout() -> void:
+	Services.game_save.save_game()
