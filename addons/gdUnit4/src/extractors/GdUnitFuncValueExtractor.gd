@@ -1,10 +1,11 @@
 # This class defines a value extractor by given function name and args
 extends GdUnitValueExtractor
 
-var _func_names :PackedStringArray
-var _args :Array
+var _func_names: PackedStringArray
+var _args: Array
 
-func _init(func_name :String, p_args :Array) -> void:
+
+func _init(func_name: String, p_args: Array) -> void:
 	_func_names = func_name.split(".")
 	_args = p_args
 
@@ -27,13 +28,13 @@ func args() -> Array:
 #
 # if the value not a Object or not accesible be `func_name` the value is converted to `"n.a."`
 # expecing null values
-func extract_value(value :Variant) -> Variant:
+func extract_value(value: Variant) -> Variant:
 	if value == null:
 		return null
 	for func_name in func_names():
 		if GdArrayTools.is_array_type(value):
 			var values := Array()
-			for element :Variant in Array(value):
+			for element: Variant in Array(value):
 				values.append(_call_func(element, func_name))
 			value = values
 		else:
@@ -46,7 +47,7 @@ func extract_value(value :Variant) -> Variant:
 	return value
 
 
-func _call_func(value :Variant, func_name :String) -> Variant:
+func _call_func(value: Variant, func_name: String) -> Variant:
 	# for array types we need to call explicit by function name, using funcref is only supported for Objects
 	# TODO extend to all array functions
 	if GdArrayTools.is_array_type(value) and func_name == "empty":
@@ -57,13 +58,20 @@ func _call_func(value :Variant, func_name :String) -> Variant:
 		if value.has_method(func_name):
 			var extract := Callable(value, func_name)
 			if extract.is_valid():
-				return value.call(func_name) if args().is_empty() else value.callv(func_name, args())
+				return (
+					value.call(func_name) if args().is_empty() else value.callv(func_name, args())
+				)
 		else:
 			# if no function exists than try to extract form parmeters
-			var parameter :Variant = value.get(func_name)
+			var parameter: Variant = value.get(func_name)
 			if parameter != null:
 				return parameter
 	# nothing found than return 'n.a.'
 	if GdUnitSettings.is_verbose_assert_warnings():
-		push_warning("Extracting value from element '%s' by func '%s' failed! Converting to \"n.a.\"" % [value, func_name])
+		push_warning(
+			(
+				"Extracting value from element '%s' by func '%s' failed! Converting to \"n.a.\""
+				% [value, func_name]
+			)
+		)
 	return "n.a."

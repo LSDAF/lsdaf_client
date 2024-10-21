@@ -1,7 +1,7 @@
 class_name _TestCase
 extends Node
 
-signal completed()
+signal completed
 
 # default timeout 5min
 const DEFAULT_TIMEOUT := -1
@@ -33,9 +33,18 @@ var timeout: int = DEFAULT_TIMEOUT:
 			timeout = GdUnitSettings.test_timeout()
 		return timeout
 
-
 @warning_ignore("shadowed_variable_base_class")
-func configure(p_name: String, p_line_number: int, p_script_path: String, p_timeout: int=DEFAULT_TIMEOUT, p_fuzzers: Array[GdFunctionArgument]=[], p_iterations: int=1, p_seed: int=-1) -> _TestCase:
+
+
+func configure(
+	p_name: String,
+	p_line_number: int,
+	p_script_path: String,
+	p_timeout: int = DEFAULT_TIMEOUT,
+	p_fuzzers: Array[GdFunctionArgument] = [],
+	p_iterations: int = 1,
+	p_seed: int = -1
+) -> _TestCase:
 	set_name(p_name)
 	_line_number = p_line_number
 	_fuzzers = p_fuzzers
@@ -49,7 +58,7 @@ func configure(p_name: String, p_line_number: int, p_script_path: String, p_time
 func execute(p_test_parameter := Array(), p_iteration := 0) -> void:
 	_failure_received(false)
 	_current_iteration = p_iteration - 1
-	if _current_iteration == - 1:
+	if _current_iteration == -1:
 		_set_failure_handler()
 		set_timeout()
 	if not p_test_parameter.is_empty():
@@ -65,7 +74,7 @@ func execute_paramaterized(p_test_parameter: Array) -> void:
 	set_timeout()
 	# We need here to add a empty array to override the `test_parameters` to prevent initial "default" parameters from being used.
 	# This prevents objects in the argument list from being unnecessarily re-instantiated.
-	var test_parameters := p_test_parameter.duplicate() # is strictly need to duplicate the paramters before extend
+	var test_parameters := p_test_parameter.duplicate()  # is strictly need to duplicate the paramters before extend
 	test_parameters.append([])
 	_execute_test_case(name, test_parameters)
 	await completed
@@ -82,6 +91,8 @@ func dispose() -> void:
 
 
 @warning_ignore("shadowed_variable_base_class", "redundant_await")
+
+
 func _execute_test_case(name: String, test_parameter: Array) -> void:
 	# needs at least on await otherwise it breaks the awaiting chain
 	await get_parent().callv(name, test_parameter)
@@ -90,7 +101,7 @@ func _execute_test_case(name: String, test_parameter: Array) -> void:
 
 
 func update_fuzzers(input_values: Array, iteration: int) -> void:
-	for fuzzer :Variant in input_values:
+	for fuzzer: Variant in input_values:
 		if fuzzer is Fuzzer:
 			fuzzer._iteration_index = iteration + 1
 
@@ -112,13 +123,21 @@ func set_timeout() -> void:
 func do_interrupt() -> void:
 	_interupted = true
 	if not is_expect_interupted():
-		var execution_context:= GdUnitThreadManager.get_current_context().get_execution_context()
+		var execution_context := GdUnitThreadManager.get_current_context().get_execution_context()
 		if is_fuzzed():
-			execution_context.add_report(GdUnitReport.new()\
-				.create(GdUnitReport.INTERUPTED, line_number(), GdAssertMessages.fuzzer_interuped(_current_iteration, "timedout")))
+			execution_context.add_report(
+				GdUnitReport.new().create(
+					GdUnitReport.INTERUPTED,
+					line_number(),
+					GdAssertMessages.fuzzer_interuped(_current_iteration, "timedout")
+				)
+			)
 		else:
-			execution_context.add_report(GdUnitReport.new()\
-				.create(GdUnitReport.INTERUPTED, line_number(), GdAssertMessages.test_timeout(timeout)))
+			execution_context.add_report(
+				GdUnitReport.new().create(
+					GdUnitReport.INTERUPTED, line_number(), GdAssertMessages.test_timeout(timeout)
+				)
+			)
 	completed.emit()
 
 
@@ -205,7 +224,7 @@ func generate_seed() -> void:
 		seed(_seed)
 
 
-func skip(skipped: bool, reason: String="") -> void:
+func skip(skipped: bool, reason: String = "") -> void:
 	_skipped = skipped
 	_skip_reason = reason
 

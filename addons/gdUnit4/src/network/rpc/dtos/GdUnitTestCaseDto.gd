@@ -1,12 +1,12 @@
 class_name GdUnitTestCaseDto
 extends GdUnitResourceDto
 
-var _line_number :int = -1
+var _line_number: int = -1
 var _script_path: String
-var _test_case_names :PackedStringArray = []
+var _test_case_names: PackedStringArray = []
 
 
-func serialize(test_case :Node) -> Dictionary:
+func serialize(test_case: Node) -> Dictionary:
 	var serialized := super.serialize(test_case)
 	if test_case.has_method("line_number"):
 		serialized["line_number"] = test_case.line_number()
@@ -25,7 +25,7 @@ func serialize(test_case :Node) -> Dictionary:
 	return serialized
 
 
-func deserialize(data :Dictionary) -> GdUnitResourceDto:
+func deserialize(data: Dictionary) -> GdUnitResourceDto:
 	super.deserialize(data)
 	_line_number = data.get("line_number", -1)
 	_script_path = data.get("script_path", data.get("resource_path", ""))

@@ -2,24 +2,24 @@ class_name GdUnitSignals
 extends RefCounted
 
 @warning_ignore("unused_signal")
-signal gdunit_client_connected(client_id :int)
+signal gdunit_client_connected(client_id: int)
 @warning_ignore("unused_signal")
-signal gdunit_client_disconnected(client_id :int)
+signal gdunit_client_disconnected(client_id: int)
 @warning_ignore("unused_signal")
-signal gdunit_client_terminated()
+signal gdunit_client_terminated
 
 @warning_ignore("unused_signal")
-signal gdunit_event(event :GdUnitEvent)
+signal gdunit_event(event: GdUnitEvent)
 @warning_ignore("unused_signal")
-signal gdunit_event_debug(event :GdUnitEvent)
+signal gdunit_event_debug(event: GdUnitEvent)
 @warning_ignore("unused_signal")
-signal gdunit_add_test_suite(test_suite :GdUnitTestSuiteDto)
+signal gdunit_add_test_suite(test_suite: GdUnitTestSuiteDto)
 @warning_ignore("unused_signal")
-signal gdunit_message(message :String)
+signal gdunit_message(message: String)
 @warning_ignore("unused_signal")
-signal gdunit_set_test_failed(is_failed :bool)
+signal gdunit_set_test_failed(is_failed: bool)
 @warning_ignore("unused_signal")
-signal gdunit_settings_changed(property :GdUnitProperty)
+signal gdunit_settings_changed(property: GdUnitProperty)
 
 const META_KEY := "GdUnitSignals"
 

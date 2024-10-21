@@ -1,18 +1,25 @@
 @tool
 extends EditorPlugin
 
-const GdUnitTools := preload ("res://addons/gdUnit4/src/core/GdUnitTools.gd")
-const GdUnitTestDiscoverGuard := preload ("res://addons/gdUnit4/src/core/discovery/GdUnitTestDiscoverGuard.gd")
+const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
+const GdUnitTestDiscoverGuard := preload(
+	"res://addons/gdUnit4/src/core/discovery/GdUnitTestDiscoverGuard.gd"
+)
 
-
-var _gd_inspector :Node
-var _gd_console :Node
+var _gd_inspector: Node
+var _gd_console: Node
 var _guard: GdUnitTestDiscoverGuard
 
 
 func _enter_tree() -> void:
 	if check_running_in_test_env():
-		CmdConsole.new().prints_warning("It was recognized that GdUnit4 is running in a test environment, therefore the GdUnit4 plugin will not be executed!")
+		(
+			CmdConsole
+			. new()
+			. prints_warning(
+				"It was recognized that GdUnit4 is running in a test environment, therefore the GdUnit4 plugin will not be executed!"
+			)
+		)
 		return
 	if Engine.get_version_info().hex < 0x40200:
 		prints("GdUnit4 plugin requires a minimum of Godot 4.2.x Version!")
@@ -26,7 +33,9 @@ func _enter_tree() -> void:
 	add_control_to_bottom_panel(_gd_console, "gdUnitConsole")
 	prints("Loading GdUnit4 Plugin success")
 	if GdUnitSettings.is_update_notification_enabled():
-		var update_tool: Node = load("res://addons/gdUnit4/src/update/GdUnitUpdateNotify.tscn").instantiate()
+		var update_tool: Node = (
+			load("res://addons/gdUnit4/src/update/GdUnitUpdateNotify.tscn").instantiate()
+		)
 		Engine.get_main_loop().root.add_child.call_deferred(update_tool)
 	if GdUnit4CSharpApiLoader.is_mono_supported():
 		prints("GdUnit4Net version '%s' loaded." % GdUnit4CSharpApiLoader.version())
@@ -51,7 +60,14 @@ func _exit_tree() -> void:
 func check_running_in_test_env() -> bool:
 	var args := OS.get_cmdline_args()
 	args.append_array(OS.get_cmdline_user_args())
-	return DisplayServer.get_name() == "headless" or args.has("--selftest") or args.has("--add") or args.has("-a") or args.has("--quit-after") or args.has("--import")
+	return (
+		DisplayServer.get_name() == "headless"
+		or args.has("--selftest")
+		or args.has("--add")
+		or args.has("-a")
+		or args.has("--quit-after")
+		or args.has("--import")
+	)
 
 
 func _on_resource_saved(resource: Resource) -> void:

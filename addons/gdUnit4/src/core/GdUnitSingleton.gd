@@ -7,34 +7,38 @@
 class_name GdUnitSingleton
 extends Object
 
-
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
 const MEATA_KEY := "GdUnitSingletons"
 
 
-static func instance(name :String, clazz :Callable) -> Variant:
+static func instance(name: String, clazz: Callable) -> Variant:
 	if Engine.has_meta(name):
 		return Engine.get_meta(name)
-	var singleton :Variant = clazz.call()
-	if  is_instance_of(singleton, RefCounted):
-		push_error("Invalid singleton implementation detected for '%s' is `%s`!" % [name, singleton.get_class()])
+	var singleton: Variant = clazz.call()
+	if is_instance_of(singleton, RefCounted):
+		push_error(
+			(
+				"Invalid singleton implementation detected for '%s' is `%s`!"
+				% [name, singleton.get_class()]
+			)
+		)
 		return
 
 	Engine.set_meta(name, singleton)
 	GdUnitTools.prints_verbose("Register singleton '%s:%s'" % [name, singleton])
-	var singletons :PackedStringArray = Engine.get_meta(MEATA_KEY, PackedStringArray())
+	var singletons: PackedStringArray = Engine.get_meta(MEATA_KEY, PackedStringArray())
 	singletons.append(name)
 	Engine.set_meta(MEATA_KEY, singletons)
 	return singleton
 
 
-static func unregister(p_singleton :String, use_call_deferred :bool = false) -> void:
-	var singletons :PackedStringArray = Engine.get_meta(MEATA_KEY, PackedStringArray())
+static func unregister(p_singleton: String, use_call_deferred: bool = false) -> void:
+	var singletons: PackedStringArray = Engine.get_meta(MEATA_KEY, PackedStringArray())
 	if singletons.has(p_singleton):
-		GdUnitTools.prints_verbose("\n	Unregister singleton '%s'" % p_singleton);
+		GdUnitTools.prints_verbose("\n	Unregister singleton '%s'" % p_singleton)
 		var index := singletons.find(p_singleton)
 		singletons.remove_at(index)
-		var instance_ :Object = Engine.get_meta(p_singleton)
+		var instance_: Object = Engine.get_meta(p_singleton)
 		GdUnitTools.prints_verbose("	Free singleton instance '%s:%s'" % [p_singleton, instance_])
 		GdUnitTools.free_instance(instance_, use_call_deferred)
 		Engine.remove_meta(p_singleton)
@@ -42,7 +46,7 @@ static func unregister(p_singleton :String, use_call_deferred :bool = false) -> 
 	Engine.set_meta(MEATA_KEY, singletons)
 
 
-static func dispose(use_call_deferred :bool = false) -> void:
+static func dispose(use_call_deferred: bool = false) -> void:
 	# use a copy because unregister is modify the singletons array
 	var singletons := PackedStringArray(Engine.get_meta(MEATA_KEY, PackedStringArray()))
 	GdUnitTools.prints_verbose("----------------------------------------------------------------")
