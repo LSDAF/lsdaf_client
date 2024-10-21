@@ -3,13 +3,10 @@ extends RefCounted
 
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
 
-const CHARACTERS_TO_ENCODE := {
-	'<' : '&lt;',
-	'>' : '&gt;'
-}
+const CHARACTERS_TO_ENCODE := {"<": "&lt;", ">": "&gt;"}
 
-var _resource_path :String
-var _name :String
+var _resource_path: String
+var _name: String
 var _test_count := 0
 var _failure_count := 0
 var _error_count := 0
@@ -17,7 +14,8 @@ var _orphan_count := 0
 var _skipped_count := 0
 var _flaky_count := 0
 var _duration := 0
-var _reports :Array[GdUnitReportSummary] = []
+var _reports: Array[GdUnitReportSummary] = []
+
 
 func name() -> String:
 	return _name
@@ -90,7 +88,7 @@ func get_reports() -> Array:
 	return _reports
 
 
-func add_report(report :GdUnitReportSummary) -> void:
+func add_report(report: GdUnitReportSummary) -> void:
 	_reports.append(report)
 
 
@@ -102,7 +100,9 @@ func succes_rate() -> String:
 	return calculate_succes_rate(test_count(), error_count(), failure_count())
 
 
-func calculate_state(p_error_count :int, p_failure_count :int, p_orphan_count :int, p_flaky_count: int) -> String:
+func calculate_state(
+	p_error_count: int, p_failure_count: int, p_orphan_count: int, p_flaky_count: int
+) -> String:
 	if p_error_count > 0:
 		return "ERROR"
 	if p_failure_count > 0:
@@ -114,24 +114,24 @@ func calculate_state(p_error_count :int, p_failure_count :int, p_orphan_count :i
 	return "PASSED"
 
 
-func calculate_succes_rate(p_test_count :int, p_error_count :int, p_failure_count :int) -> String:
+func calculate_succes_rate(p_test_count: int, p_error_count: int, p_failure_count: int) -> String:
 	if p_failure_count == 0:
 		return "100%"
-	var count := p_test_count-p_failure_count-p_error_count
+	var count := p_test_count - p_failure_count - p_error_count
 	if count < 0:
 		return "0%"
-	return "%d" % (( 0 if count < 0 else count) * 100.0 / p_test_count) + "%"
+	return "%d" % ((0 if count < 0 else count) * 100.0 / p_test_count) + "%"
 
 
-func create_summary(_report_dir :String) -> String:
+func create_summary(_report_dir: String) -> String:
 	return ""
 
 
-func html_encode(value :String) -> String:
+func html_encode(value: String) -> String:
 	for key in CHARACTERS_TO_ENCODE.keys() as Array[String]:
-		value =value.replace(key, CHARACTERS_TO_ENCODE[key])
+		value = value.replace(key, CHARACTERS_TO_ENCODE[key])
 	return value
 
 
-func convert_rtf_to_html(bbcode :String) -> String:
+func convert_rtf_to_html(bbcode: String) -> String:
 	return GdUnitTools.richtext_normalize(bbcode)

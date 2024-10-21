@@ -2,7 +2,7 @@ class_name GdUnitSpyBuilder
 extends GdUnitClassDoubler
 
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
-const SPY_TEMPLATE :GDScript = preload("res://addons/gdUnit4/src/spy/GdUnitSpyImpl.gd")
+const SPY_TEMPLATE: GDScript = preload("res://addons/gdUnit4/src/spy/GdUnitSpyImpl.gd")
 const EXCLUDE_PROPERTIES_TO_COPY = ["script", "type"]
 
 
@@ -31,43 +31,57 @@ static func build(to_spy: Variant, debug_write := false) -> Variant:
 	var spy := spy_on_script(to_spy, excluded_functions, debug_write)
 	if spy == null:
 		return null
-	var spy_instance :Variant = spy.new()
+	var spy_instance: Variant = spy.new()
 	copy_properties(to_spy, spy_instance)
 	GdUnitObjectInteractions.reset(spy_instance)
 	spy_instance.__set_singleton(to_spy)
 	# we do not call the original implementation for _ready and all input function, this is actualy done by the engine
-	spy_instance.__exclude_method_call([ "_input", "_gui_input", "_input_event", "_unhandled_input"])
+	spy_instance.__exclude_method_call(["_input", "_gui_input", "_input_event", "_unhandled_input"])
 	return register_auto_free(spy_instance)
 
 
-static func get_class_info(clazz :Variant) -> Dictionary:
+static func get_class_info(clazz: Variant) -> Dictionary:
 	var clazz_path := GdObjects.extract_class_path(clazz)
-	var clazz_name :String = GdObjects.extract_class_name(clazz).value()
-	return {
-		"class_name" : clazz_name,
-		"class_path" : clazz_path
-	}
+	var clazz_name: String = GdObjects.extract_class_name(clazz).value()
+	return {"class_name": clazz_name, "class_path": clazz_path}
 
 
-static func spy_on_script(instance :Variant, function_excludes :PackedStringArray, debug_write :bool) -> GDScript:
+static func spy_on_script(
+	instance: Variant, function_excludes: PackedStringArray, debug_write: bool
+) -> GDScript:
 	if GdArrayTools.is_array_type(instance):
 		if GdUnitSettings.is_verbose_assert_errors():
-			push_error("Can't build spy checked type '%s'! Spy checked Container Built-In Type not supported!" % instance.get_class())
+			push_error(
+				(
+					"Can't build spy checked type '%s'! Spy checked Container Built-In Type not supported!"
+					% instance.get_class()
+				)
+			)
 		return null
 	var class_info := get_class_info(instance)
-	var clazz_name :String = class_info.get("class_name")
-	var clazz_path :PackedStringArray = class_info.get("class_path", [clazz_name])
+	var clazz_name: String = class_info.get("class_name")
+	var clazz_path: PackedStringArray = class_info.get("class_path", [clazz_name])
 	if not GdObjects.is_instance(instance):
 		if GdUnitSettings.is_verbose_assert_errors():
-			push_error("Can't build spy for class type '%s'! Using an instance instead e.g. 'spy(<instance>)'" % [clazz_name])
+			push_error(
+				(
+					"Can't build spy for class type '%s'! Using an instance instead e.g. 'spy(<instance>)'"
+					% [clazz_name]
+				)
+			)
 		return null
 	var lines := load_template(SPY_TEMPLATE.source_code, class_info, instance)
-	lines += double_functions(instance, clazz_name, clazz_path, GdUnitSpyFunctionDoubler.new(), function_excludes)
+	lines += double_functions(
+		instance, clazz_name, clazz_path, GdUnitSpyFunctionDoubler.new(), function_excludes
+	)
 
 	var spy := GDScript.new()
 	spy.source_code = "\n".join(lines)
 	spy.resource_name = "Spy%s.gd" % clazz_name
-	spy.resource_path = GdUnitFileAccess.create_temp_dir("spy") + "/Spy%s_%d.gd" % [clazz_name, Time.get_ticks_msec()]
+	spy.resource_path = (
+		GdUnitFileAccess.create_temp_dir("spy")
+		+ "/Spy%s_%d.gd" % [clazz_name, Time.get_ticks_msec()]
+	)
 
 	if debug_write:
 		DirAccess.remove_absolute(spy.resource_path)
@@ -79,13 +93,18 @@ static func spy_on_script(instance :Variant, function_excludes :PackedStringArra
 	return spy
 
 
-static func spy_on_scene(scene :Node, debug_write :bool) -> Object:
+static func spy_on_scene(scene: Node, debug_write: bool) -> Object:
 	if scene.get_script() == null:
 		if GdUnitSettings.is_verbose_assert_errors():
-			push_error("Can't create a spy checked a scene without script '%s'" % scene.get_scene_file_path())
+			push_error(
+				(
+					"Can't create a spy checked a scene without script '%s'"
+					% scene.get_scene_file_path()
+				)
+			)
 		return null
 	# buils spy checked original script
-	var scene_script :Object = scene.get_script().new()
+	var scene_script: Object = scene.get_script().new()
 	var spy := spy_on_script(scene_script, GdUnitClassDoubler.EXLCUDE_SCENE_FUNCTIONS, debug_write)
 	scene_script.free()
 	if spy == null:
@@ -95,10 +114,10 @@ static func spy_on_scene(scene :Node, debug_write :bool) -> Object:
 	return register_auto_free(scene)
 
 
-static func copy_properties(source :Object, dest :Object) -> void:
+static func copy_properties(source: Object, dest: Object) -> void:
 	for property in source.get_property_list():
-		var property_name :String = property["name"]
-		var property_value :Variant = source.get(property_name)
+		var property_name: String = property["name"]
+		var property_value: Variant = source.get(property_name)
 		if EXCLUDE_PROPERTIES_TO_COPY.has(property_name):
 			continue
 		#if dest.get(property_name) == null:
@@ -106,10 +125,10 @@ static func copy_properties(source :Object, dest :Object) -> void:
 
 		# check for invalid name property
 		if property_name == "name" and property_value == "":
-			dest.set(property_name, "<empty>");
+			dest.set(property_name, "<empty>")
 			continue
 		dest.set(property_name, property_value)
 
 
-static func register_auto_free(obj :Variant) -> Variant:
+static func register_auto_free(obj: Variant) -> Variant:
 	return GdUnitThreadManager.get_current_context().get_execution_context().register_auto_free(obj)

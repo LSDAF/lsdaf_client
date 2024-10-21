@@ -42,7 +42,7 @@ enum {
 # Saves the given script and closes if requested by <close=true>
 # The script is saved when is opened in the editor.
 # The script is closed when <close> is set to true.
-static func save_an_open_script(script_path: String, close:=false) -> bool:
+static func save_an_open_script(script_path: String, close := false) -> bool:
 	#prints("save_an_open_script", script_path, close)
 	if !Engine.is_editor_hint():
 		return false
@@ -52,7 +52,7 @@ static func save_an_open_script(script_path: String, close:=false) -> bool:
 	for open_script in editor.get_open_scripts():
 		if open_script.resource_path == script_path:
 			# select the script in the editor
-			EditorInterface.edit_script(open_script, 0);
+			EditorInterface.edit_script(open_script, 0)
 			# save and close
 			editor_popup.id_pressed.emit(FILE_SAVE)
 			if close:
@@ -76,7 +76,7 @@ static func close_open_editor_scripts() -> void:
 # The script is openend in the current editor and selected in the file system dock.
 # The line and column on which to open the script can also be specified.
 # The script will be open with the user-configured editor for the script's language which may be an external editor.
-static func edit_script(script_path: String, line_number:=-1) -> void:
+static func edit_script(script_path: String, line_number := -1) -> void:
 	var file_system := EditorInterface.get_resource_filesystem()
 	file_system.update_file(script_path)
 	var file_system_dock := EditorInterface.get_file_system_dock()

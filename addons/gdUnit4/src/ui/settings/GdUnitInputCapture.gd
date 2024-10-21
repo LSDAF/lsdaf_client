@@ -4,7 +4,6 @@ extends Control
 
 signal input_completed(input_event: InputEventKey)
 
-
 var _tween: Tween
 var _input_event: InputEventKey
 
@@ -14,7 +13,13 @@ func _ready() -> void:
 	self_modulate = Color.WHITE
 	_tween = create_tween()
 	_tween.set_loops()
-	_tween.tween_property(%Label, "self_modulate", Color(1, 1, 1, .8), 1.0).from_current().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
+	(
+		_tween
+		. tween_property(%Label, "self_modulate", Color(1, 1, 1, .8), 1.0)
+		. from_current()
+		. set_trans(Tween.TRANS_BACK)
+		. set_ease(Tween.EASE_IN_OUT)
+	)
 
 
 func reset() -> void:

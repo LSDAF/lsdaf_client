@@ -3,7 +3,7 @@ extends PanelContainer
 
 signal run_overall_pressed(debug: bool)
 signal run_pressed(debug: bool)
-signal stop_pressed()
+signal stop_pressed
 
 @onready var _version_label := %version
 @onready var _button_wiki := %help
@@ -12,8 +12,9 @@ signal stop_pressed()
 @onready var _button_run := %run
 @onready var _button_run_debug := %debug
 @onready var _button_stop := %stop
-@onready var settings_dlg := preload("res://addons/gdUnit4/src/ui/settings/GdUnitSettingsDialog.tscn").instantiate()
-
+@onready var settings_dlg := (
+	preload("res://addons/gdUnit4/src/ui/settings/GdUnitSettingsDialog.tscn").instantiate()
+)
 
 const SETTINGS_SHORTCUT_MAPPING := {
 	GdUnitSettings.SHORTCUT_INSPECTOR_RERUN_TEST: GdUnitShortcut.ShortCut.RERUN_TESTS,
@@ -49,14 +50,20 @@ func init_buttons() -> void:
 
 func init_shortcuts(command_handler: GdUnitCommandHandler) -> void:
 	_button_run.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.RERUN_TESTS)
-	_button_run_overall.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.RUN_TESTS_OVERALL)
-	_button_run_debug.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.RERUN_TESTS_DEBUG)
+	_button_run_overall.shortcut = command_handler.get_shortcut(
+		GdUnitShortcut.ShortCut.RUN_TESTS_OVERALL
+	)
+	_button_run_debug.shortcut = command_handler.get_shortcut(
+		GdUnitShortcut.ShortCut.RERUN_TESTS_DEBUG
+	)
 	_button_stop.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.STOP_TEST_RUN)
 	# register for shortcut changes
-	GdUnitSignals.instance().gdunit_settings_changed.connect(_on_settings_changed.bind(command_handler))
+	GdUnitSignals.instance().gdunit_settings_changed.connect(
+		_on_settings_changed.bind(command_handler)
+	)
 
 
-func _on_runoverall_pressed(debug:=false) -> void:
+func _on_runoverall_pressed(debug := false) -> void:
 	run_overall_pressed.emit(debug)
 
 
@@ -98,7 +105,9 @@ func _on_settings_changed(property: GdUnitProperty, command_handler: GdUnitComma
 	# needs to wait a frame to be command handler notified first for settings changes
 	await get_tree().process_frame
 	if SETTINGS_SHORTCUT_MAPPING.has(property.name()):
-		var shortcut: GdUnitShortcut.ShortCut = SETTINGS_SHORTCUT_MAPPING.get(property.name(), GdUnitShortcut.ShortCut.NONE)
+		var shortcut: GdUnitShortcut.ShortCut = SETTINGS_SHORTCUT_MAPPING.get(
+			property.name(), GdUnitShortcut.ShortCut.NONE
+		)
 		match shortcut:
 			GdUnitShortcut.ShortCut.RERUN_TESTS:
 				_button_run.shortcut = command_handler.get_shortcut(shortcut)

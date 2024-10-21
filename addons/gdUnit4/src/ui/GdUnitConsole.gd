@@ -84,7 +84,7 @@ func update_statistics(event: GdUnitEvent) -> void:
 	_summary["orphan_nodes"] += event.orphan_nodes()
 
 
-func print_message(message: String, color: Color=_text_color, indent:=0) -> void:
+func print_message(message: String, color: Color = _text_color, indent := 0) -> void:
 	for i in indent:
 		output.push_indent(1)
 	output.push_color(color)
@@ -94,7 +94,7 @@ func print_message(message: String, color: Color=_text_color, indent:=0) -> void
 		output.pop()
 
 
-func println_message(message: String, color: Color=_text_color, indent:=-1) -> void:
+func println_message(message: String, color: Color = _text_color, indent := -1) -> void:
 	print_message(message, color, indent)
 	output.newline()
 
@@ -110,14 +110,21 @@ func _on_gdunit_event(event: GdUnitEvent) -> void:
 
 		GdUnitEvent.STOP:
 			print_message("Summary:", Color.DODGER_BLUE)
-			println_message("| %d total | %d error | %d failed | %d flaky | %d skipped | %d orphans |" %\
-				[_summary["total_count"],
-				_summary["error_count"],
-				_summary["failed_count"],
-				_summary["flaky_count"],
-				_summary["skipped_count"],
-				_summary["orphan_nodes"]],
-				_text_color, 1)
+			println_message(
+				(
+					"| %d total | %d error | %d failed | %d flaky | %d skipped | %d orphans |"
+					% [
+						_summary["total_count"],
+						_summary["error_count"],
+						_summary["failed_count"],
+						_summary["flaky_count"],
+						_summary["skipped_count"],
+						_summary["orphan_nodes"]
+					]
+				),
+				_text_color,
+				1
+			)
 			print_message("[wave][/wave]")
 
 		GdUnitEvent.TESTSUITE_BEFORE:
@@ -129,23 +136,30 @@ func _on_gdunit_event(event: GdUnitEvent) -> void:
 			if not event.reports().is_empty():
 				println_message("\t" + event._suite_name, _engine_type_color)
 				for report: GdUnitReport in event.reports():
-					println_message("line %s: %s" % [line_number(report), report._message], _text_color, 2)
+					println_message(
+						"line %s: %s" % [line_number(report), report._message], _text_color, 2
+					)
 			if event.is_success() and event.is_flaky():
 				print_message("[wave]FLAKY[/wave]", Color.GREEN_YELLOW)
 			elif event.is_success():
 				print_message("[wave]PASSED[/wave]", Color.LIGHT_GREEN)
 			else:
 				print_message("[shake rate=5 level=10][b]FAILED[/b][/shake]", Color.FIREBRICK)
-			print_message(" | %d total | %d error | %d failed | %d flaky | %d skipped | %d orphans |" %\
-				[_statistics["total_count"],
-				_statistics["error_count"],
-				_statistics["failed_count"],
-				_statistics["flaky_count"],
-				_statistics["skipped_count"],
-				_statistics["orphan_nodes"]])
+			print_message(
+				(
+					" | %d total | %d error | %d failed | %d flaky | %d skipped | %d orphans |"
+					% [
+						_statistics["total_count"],
+						_statistics["error_count"],
+						_statistics["failed_count"],
+						_statistics["flaky_count"],
+						_statistics["skipped_count"],
+						_statistics["orphan_nodes"]
+					]
+				)
+			)
 			println_message("%+12s" % LocalTime.elapsed(event.elapsed_time()))
 			println_message(" ")
-
 
 		GdUnitEvent.TESTCASE_BEFORE:
 			var spaces := "-%d" % (80 - event._suite_name.length())
@@ -156,14 +170,14 @@ func _on_gdunit_event(event: GdUnitEvent) -> void:
 		GdUnitEvent.TESTCASE_AFTER:
 			var reports := event.reports()
 			if event.is_flaky() and event.is_success():
-				var retries :int = event.statistic(GdUnitEvent.RETRY_COUNT)
+				var retries: int = event.statistic(GdUnitEvent.RETRY_COUNT)
 				print_message("[wave]FLAKY[/wave] (%d retries)" % retries, Color.GREEN_YELLOW)
 			elif event.is_success():
 				print_message("PASSED", Color.LIGHT_GREEN)
 			elif event.is_skipped():
 				print_message("SKIPPED", Color.GOLDENROD)
 			elif event.is_error() or event.is_failed():
-				var retries :int = event.statistic(GdUnitEvent.RETRY_COUNT)
+				var retries: int = event.statistic(GdUnitEvent.RETRY_COUNT)
 				if retries > 1:
 					print_message("[wave]FAILED[/wave] (retry %d)" % retries, Color.FIREBRICK)
 				else:
@@ -173,7 +187,9 @@ func _on_gdunit_event(event: GdUnitEvent) -> void:
 			println_message(" %+12s" % LocalTime.elapsed(event.elapsed_time()))
 
 			for report: GdUnitReport in event.reports():
-				println_message("line %s: %s" % [line_number(report), report._message], _text_color, 2)
+				println_message(
+					"line %s: %s" % [line_number(report), report._message], _text_color, 2
+				)
 
 		GdUnitEvent.TESTCASE_STATISTICS:
 			update_statistics(event)
@@ -181,12 +197,16 @@ func _on_gdunit_event(event: GdUnitEvent) -> void:
 
 func _on_gdunit_client_connected(client_id: int) -> void:
 	output.clear()
-	output.append_text("[color=#9887c4]GdUnit Test Client connected with id %d[/color]\n" % client_id)
+	output.append_text(
+		"[color=#9887c4]GdUnit Test Client connected with id %d[/color]\n" % client_id
+	)
 	output.newline()
 
 
 func _on_gdunit_client_disconnected(client_id: int) -> void:
-	output.append_text("[color=#9887c4]GdUnit Test Client disconnected with id %d[/color]\n" % client_id)
+	output.append_text(
+		"[color=#9887c4]GdUnit Test Client disconnected with id %d[/color]\n" % client_id
+	)
 	output.newline()
 
 

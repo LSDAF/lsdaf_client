@@ -6,7 +6,7 @@ const CS := "cs"
 const GD := "gd"
 
 
-static func type_of(script :Script) -> String:
+static func type_of(script: Script) -> String:
 	if script == null:
 		return UNKNOWN
 	if GdObjects.is_gd_script(script):
