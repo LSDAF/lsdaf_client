@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html style="display: inline-grid;">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Godot Logging</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body style="background-color: #eee;">
+	<div class="godot-report-frame"">
+<pre>Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+USER WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+   at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:360)
+OpenGL API 4.5 (Core Profile) Mesa 23.2.1-1ubuntu3.1~22.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 15.0.7, 256 bits)
+
+ERROR: 'Narrowing conversion (float is converted to int and loses precision).'
+ERROR: 'Narrowing conversion (float is converted to int and loses precision).'
+ERROR: 'The parameter "delta" is never used in the function "_process()". If this is intended, prefix it with an underscore: "_delta".'
+ERROR: 'The parameter "response" is never used in the function "_on_relog_failed()". If this is intended, prefix it with an underscore: "_response".'
+ERROR: 'Narrowing conversion (float is converted to int and loses precision).'
+ERROR: 'The parameter "response" is never used in the function "_on_save_currencies_error()". If this is intended, prefix it with an underscore: "_response".'
+ERROR: 'Narrowing conversion (float is converted to int and loses precision).'
+ERROR: 'Narrowing conversion (float is converted to int and loses precision).'
+ERROR: 'Narrowing conversion (float is converted to int and loses precision).'
+ERROR: 'The parameter "difficulty" is never used in the function "_get_rarity_for_difficulty()". If this is intended, prefix it with an underscore: "_difficulty".'
+ERROR: 'The parameter "difficulty" is never used in the function "_get_type_for_difficulty()". If this is intended, prefix it with an underscore: "_difficulty".'
+
+--------------------------------------------------------------------------------------------------
+GdUnit4 Comandline Tool
+--------------------------------------------------------------------------------------------------
+
+Disabled fail fast!
+Scanning for test suites in: res://tests/
+Scanning for test suites in: res://tests/unit
+Run Test Suite res://tests/unit/test_example.gd 
+	Run Test: res://tests/unit/test_example.gd > test_string_to_lower :STARTED
+	Run Test: res://tests/unit/test_example.gd > test_string_to_lower :PASSED 18ms
+
+
+PASSED 37ms
+Statistics: | 1 tests cases | 0 error | 0 failed | 0 flaky | 0 skipped | 0 orphans |
+
+Executed test suites: (1/1)
+Executed test cases: (1/1)
+Total time:        37ms
+Open Report at: file:///home/runner/work/lsdaf_client/lsdaf_client/reports/report_1/index.html
+Exit code: 0
+Finallize .. done
+USER WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2284)
+USER ERROR: 13 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:604)
+</pre>
+	</div>
+</body>
+</html>
