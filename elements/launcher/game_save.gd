@@ -9,7 +9,6 @@ var _game_save_dto: GameSaveDto
 
 func _ready() -> void:
 	%GameNameLabel.text = _game_save_dto.nickname
-	%GameGoldLabel.text = "Gold: {0}".format([str(_game_save_dto.gold)])
 	%GameCreatedAtLabel.text = "Created: {0}".format(
 		[Time.get_datetime_string_from_unix_time(_game_save_dto.created_at)]
 	)

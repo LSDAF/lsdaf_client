@@ -42,6 +42,11 @@ enabled=PackedStringArray("res://addons/awaitable_http_request/plugin.cfg", "res
 
 settings/test/test_discovery=true
 ui/toolbar/run_overall=true
+settings/test/test_lookup_folder="tests"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [rendering]
 

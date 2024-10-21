@@ -11,3 +11,10 @@ script = ExtResource("1_288nr")
 
 [node name="Hud" parent="." instance=ExtResource("3_i8676")]
 unique_name_in_owner = true
+
+[node name="GameSaveTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 15.0
+autostart = true
+
+[connection signal="timeout" from="GameSaveTimer" to="." method="_on_game_save_timer_timeout"]
