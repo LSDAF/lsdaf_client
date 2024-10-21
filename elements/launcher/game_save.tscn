@@ -46,14 +46,6 @@ text = "Game Nickname"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameGoldLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 6
-text = "Gold"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="GameCreatedAtLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
