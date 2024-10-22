@@ -22,7 +22,7 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 	)
 
 func save_game() -> void:
-	var success := await _save_currencies()  # and save_nickname() and ...
+	var success := await _save_currencies() and await _save_stage()
 
 	if success:
 		_last_save_time = Time.get_unix_time_from_system()
@@ -45,9 +45,25 @@ func _save_currencies() -> bool:
 		_on_save_currencies_error
 	)
 
+func _save_stage() -> bool:
+	var update_stage_dto := UpdateStageDto.new({
+		"current_stage": Data.stage.get_current_stage(),
+		"max_stage": Data.stage.get_max_stage(),
+	})
+
+	return await Api.stage.update_game_save_stage(
+		_game_save_id,
+		update_stage_dto,
+		_on_save_stage_error
+	)
+
+
 func _on_fetch_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch currencies.")
 
 
 func _on_save_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to save currencies.")
+
+func _on_save_stage_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save stage.")
