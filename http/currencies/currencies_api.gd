@@ -22,30 +22,13 @@ func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> F
 
 func update_game_save_currencies(
 	game_save_id: String,
-	gold: int,
-	diamond: int,
-	emerald: int,
-	amethyst: int,
+	update_currencies_dto: UpdateCurrenciesDto,
 	on_failure: Callable
 ) -> bool:
-	var body: Dictionary = {}
-
-	if gold != null:
-		body["gold"] = gold
-
-	if diamond != null:
-		body["diamond"] = diamond
-
-	if emerald != null:
-		body["emerald"] = emerald
-
-	if amethyst != null:
-		body["amethyst"] = amethyst
-
 	var response: HTTPResult = await Http.api_client.post(
 		Http.api_routes.UPDATE_GAME_SAVE_CURRENCIES.format({"game_save_id": game_save_id}),
 		true,
-		body
+		update_currencies_dto.to_dictionary()
 	)
 
 	if !response.success() or response.status_err():
