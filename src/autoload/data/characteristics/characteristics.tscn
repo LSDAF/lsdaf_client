@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dudewyx47j3qa"]
 
-[ext_resource type="Script" path="res://autoload/data/characteristics/characteristics.gd" id="1_od0c7"]
+[ext_resource type="Script" path="res://src/autoload/data/characteristics/characteristics.gd" id="1_od0c7"]
 [ext_resource type="Resource" uid="uid://dbxfgb5kqnunr" path="res://resources/characteristics/attack.tres" id="2_yfnu4"]
 [ext_resource type="Resource" uid="uid://dq3yp50svw41e" path="res://resources/characteristics/crit_chance.tres" id="3_hsbky"]
 [ext_resource type="Resource" uid="uid://bbxu7eidptypv" path="res://resources/characteristics/hp.tres" id="3_iowlp"]

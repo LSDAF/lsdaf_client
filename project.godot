@@ -16,10 +16,10 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 [autoload]
 
-Api="*res://autoload/api/api.gd"
-Data="*res://autoload/data/data.gd"
-Http="*res://autoload/http/http.gd"
-Services="*res://autoload/services/services.gd"
+Api="*res://src/autoload/api/api.gd"
+Data="*res://src/autoload/data/data.gd"
+Http="*res://src/autoload/http/http.gd"
+Services="*res://src/autoload/services/services.gd"
 
 [debug]
 
