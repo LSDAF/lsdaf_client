@@ -2,7 +2,6 @@ extends Node
 
 class_name UserLocalDataService
 
-
 const USER_DATA_PATH = "user://user_data.res"
 
 
@@ -25,11 +24,16 @@ func load() -> UserData:
 
 
 func relog_user() -> bool:
-	if Data.user_local_data._user_data.refresh_token == "" or Data.user_local_data._user_data.email == "":
+	if (
+		Data.user_local_data._user_data.refresh_token == ""
+		or Data.user_local_data._user_data.email == ""
+	):
 		return false
 
 	var refreshLoginResponse := await Api.auth.refresh_login(
-		Data.user_local_data._user_data.email, Data.user_local_data._user_data.refresh_token, _on_relog_failed
+		Data.user_local_data._user_data.email,
+		Data.user_local_data._user_data.refresh_token,
+		_on_relog_failed
 	)
 
 	if refreshLoginResponse == null:

@@ -2,6 +2,7 @@ class_name InventoryService
 
 signal on_inventory_update
 
+
 func add_item(item: Item) -> void:
 	Data.inventory.items.push_back(item)
 
@@ -36,6 +37,7 @@ func equip_item_at_index(item_index: int) -> void:
 
 func get_items() -> Array[Item]:
 	return Data.inventory.items
+
 
 func get_equipped_items_index() -> Array[int]:
 	var items := Data.inventory.items

@@ -3,7 +3,6 @@ extends Node
 class_name GameSaveService
 
 
-
 func get_game_save_id() -> String:
 	return Data.game_save._game_save_id
 
@@ -11,7 +10,9 @@ func get_game_save_id() -> String:
 func load_game_save(game_save_dto: GameSaveDto) -> void:
 	Data.game_save._game_save_id = game_save_dto.id
 
-	var fetched_currencies := await Api.currency.fetch_game_save_currencies(Data.game_save._game_save_id, _on_fetch_currencies_error)
+	var fetched_currencies := await Api.currency.fetch_game_save_currencies(
+		Data.game_save._game_save_id, _on_fetch_currencies_error
+	)
 	Services.currencies._set_currencies(
 		fetched_currencies.gold,
 		fetched_currencies.diamond,
@@ -19,9 +20,12 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 		fetched_currencies.amethyst
 	)
 
-	var fetched_stage := await Api.stage.fetch_game_save_stage(Data.game_save._game_save_id, _on_fetch_stage_error)
+	var fetched_stage := await Api.stage.fetch_game_save_stage(
+		Data.game_save._game_save_id, _on_fetch_stage_error
+	)
 	Services.stage.set_current_stage(fetched_stage.current_stage)
 	Services.stage.set_max_stage(fetched_stage.max_stage)
+
 
 func save_game() -> void:
 	var success := await _save_currencies() and await _save_stage()
@@ -34,29 +38,36 @@ func save_game() -> void:
 
 
 func _save_currencies() -> bool:
-	var update_currencies_dto := UpdateCurrenciesDto.new({
-		"gold": Data.currencies.gold.get_value(),
-		"diamond": Data.currencies.diamond.get_value(),
-		"emerald": Data.currencies.emerald.get_value(),
-		"amethyst": Data.currencies.amethyst.get_value(),
-	})
-
-	return await Api.currency.update_game_save_currencies(
-		Data.game_save._game_save_id,
-		update_currencies_dto,
-		_on_save_currencies_error
+	var update_currencies_dto := (
+		UpdateCurrenciesDto
+		. new(
+			{
+				"gold": Data.currencies.gold.get_value(),
+				"diamond": Data.currencies.diamond.get_value(),
+				"emerald": Data.currencies.emerald.get_value(),
+				"amethyst": Data.currencies.amethyst.get_value(),
+			}
+		)
 	)
 
+	return await Api.currency.update_game_save_currencies(
+		Data.game_save._game_save_id, update_currencies_dto, _on_save_currencies_error
+	)
+
+
 func _save_stage() -> bool:
-	var update_stage_dto := UpdateStageDto.new({
-		"current_stage": Services.stage.get_current_stage(),
-		"max_stage": Services.stage.get_max_stage(),
-	})
+	var update_stage_dto := (
+		UpdateStageDto
+		. new(
+			{
+				"current_stage": Services.stage.get_current_stage(),
+				"max_stage": Services.stage.get_max_stage(),
+			}
+		)
+	)
 
 	return await Api.stage.update_game_save_stage(
-		Data.game_save._game_save_id,
-		update_stage_dto,
-		_on_save_stage_error
+		Data.game_save._game_save_id, update_stage_dto, _on_save_stage_error
 	)
 
 
@@ -70,6 +81,7 @@ func _on_fetch_stage_error(response: Variant) -> void:
 
 func _on_save_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to save currencies.")
+
 
 func _on_save_stage_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to save stage.")

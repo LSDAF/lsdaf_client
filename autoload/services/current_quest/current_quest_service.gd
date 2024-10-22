@@ -2,6 +2,7 @@ class_name CurrentQuestService
 
 signal quest_update
 
+
 func _init_mob_quest() -> Quest:
 	var quest := Data.current_quest.mob_quest_blueprint
 

@@ -2,7 +2,6 @@ extends Node
 
 class_name CurrentQuest
 
-
 @export var mob_quest_blueprint: MobQuest
 @export var stage_quest_blueprint: StageQuest
 
