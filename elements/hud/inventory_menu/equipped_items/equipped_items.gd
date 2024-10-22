@@ -87,6 +87,8 @@ func update_equipped_items() -> void:
 		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
 		new_item_scene.on_item_selected.connect(_on_item_selected)
 
-		_update_corresponding_equipped_item(new_item_scene, Services.inventory.get_item_at_index(item_index).type)
+		_update_corresponding_equipped_item(
+			new_item_scene, Services.inventory.get_item_at_index(item_index).type
+		)
 
 	_update_corresponding_slots()
