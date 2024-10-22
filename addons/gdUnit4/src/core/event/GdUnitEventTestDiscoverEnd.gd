@@ -1,6 +1,7 @@
 class_name GdUnitEventTestDiscoverEnd
 extends GdUnitEvent
 
+
 var _total_testsuites: int
 
 

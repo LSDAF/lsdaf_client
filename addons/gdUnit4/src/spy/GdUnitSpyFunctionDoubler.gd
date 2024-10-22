@@ -1,6 +1,7 @@
 class_name GdUnitSpyFunctionDoubler
 extends GdFunctionDoubler
 
+
 const TEMPLATE_RETURN_VARIANT = """
 	var args__: Array = ["$(func_name)", $(arguments)]
 
@@ -16,6 +17,7 @@ const TEMPLATE_RETURN_VARIANT = """
 
 """
 
+
 const TEMPLATE_RETURN_VOID = """
 	var args__: Array = ["$(func_name)", $(arguments)]
 
@@ -29,6 +31,7 @@ const TEMPLATE_RETURN_VOID = """
 		$(await)super($(arguments))
 
 """
+
 
 const TEMPLATE_RETURN_VOID_VARARG = """
 	var varargs__: Array = __filter_vargs([$(varargs)])
@@ -44,6 +47,7 @@ const TEMPLATE_RETURN_VOID_VARARG = """
 
 """
 
+
 const TEMPLATE_RETURN_VARIANT_VARARG = """
 	var varargs__: Array = __filter_vargs([$(varargs)])
 	var args__: Array = ["$(func_name)", $(arguments)] + varargs__
@@ -57,6 +61,7 @@ const TEMPLATE_RETURN_VARIANT_VARARG = """
 	return $(await)$(instance)__call_func("$(func_name)", [$(arguments)] + varargs__)
 
 """
+
 
 const TEMPLATE_CALLABLE_CALL = """
 	var used_arguments__ := __filter_vargs([$(arguments)])
@@ -77,24 +82,16 @@ const TEMPLATE_CALLABLE_CALL = """
 """
 
 
-func _init(push_errors: bool = false) -> void:
+func _init(push_errors :bool = false) -> void:
 	super._init(push_errors)
 
 
 func get_template(fd: GdFunctionDescriptor, is_callable: bool) -> String:
-	if is_callable and fd.name() == "call":
+	if is_callable and  fd.name() == "call":
 		return TEMPLATE_CALLABLE_CALL
-	if fd.is_vararg():
-		return (
-			TEMPLATE_RETURN_VOID_VARARG
-			if fd.return_type() == TYPE_NIL
-			else TEMPLATE_RETURN_VARIANT_VARARG
-		)
-	var return_type: Variant = fd.return_type()
+	if  fd.is_vararg():
+		return TEMPLATE_RETURN_VOID_VARARG if fd.return_type() == TYPE_NIL else TEMPLATE_RETURN_VARIANT_VARARG
+	var return_type :Variant = fd.return_type()
 	if return_type is StringName:
 		return TEMPLATE_RETURN_VARIANT
-	return (
-		TEMPLATE_RETURN_VOID
-		if (return_type == TYPE_NIL or return_type == GdObjects.TYPE_VOID)
-		else TEMPLATE_RETURN_VARIANT
-	)
+	return TEMPLATE_RETURN_VOID if (return_type == TYPE_NIL or return_type == GdObjects.TYPE_VOID) else TEMPLATE_RETURN_VARIANT

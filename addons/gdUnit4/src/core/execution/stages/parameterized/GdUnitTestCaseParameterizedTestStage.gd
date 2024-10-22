@@ -17,7 +17,7 @@ func _execute(context: GdUnitExecutionContext) -> void:
 	var test_names := parameter_set_resolver.build_test_case_names(test_case)
 
 	# if all parameter sets has static values we can preload and reuse it for better performance
-	var parameter_sets: Array = []
+	var parameter_sets :Array = []
 	if parameter_set_resolver.is_parameter_sets_static():
 		parameter_sets = parameter_set_resolver.load_parameter_sets(test_case, true)
 
@@ -42,18 +42,10 @@ func _execute(context: GdUnitExecutionContext) -> void:
 				# we need to load paramater set at execution level after the before stage to get the actual variables from the current test
 				if not parameter_set_resolver.is_parameter_set_static(parameter_set_index):
 					test_case_parameter_set = _load_parameter_set(context, parameter_set_index)
-				await _stage_test.execute(
-					GdUnitExecutionContext.of_parameterized_test(
-						retry_test_context, current_test_case_name, test_case_parameter_set
-					)
-				)
+				await _stage_test.execute(GdUnitExecutionContext.of_parameterized_test(retry_test_context, current_test_case_name, test_case_parameter_set))
 			await _stage_after.execute(retry_test_context)
 			has_errors = retry_test_context.has_errors()
-			if (
-				retry_test_context.is_success()
-				or retry_test_context.is_skipped()
-				or retry_test_context.is_interupted()
-			):
+			if retry_test_context.is_success() or retry_test_context.is_skipped() or retry_test_context.is_interupted():
 				break
 
 		var is_success := test_context.evaluate_test_retry_status()
@@ -64,30 +56,13 @@ func _execute(context: GdUnitExecutionContext) -> void:
 	await context.gc()
 
 
-func report_test_failure(
-	test_context: GdUnitExecutionContext,
-	is_failed: bool,
-	has_errors: bool,
-	parameter_set_index: int
-) -> void:
+func report_test_failure(test_context: GdUnitExecutionContext, is_failed: bool, has_errors: bool, parameter_set_index: int) -> void:
 	var test_case := test_context.test_case
 
 	if is_failed:
-		test_context.add_report(
-			GdUnitReport.new().create(
-				GdUnitReport.FAILURE,
-				test_case.line_number(),
-				"Test failed at parameterized index %d." % parameter_set_index
-			)
-		)
+		test_context.add_report(GdUnitReport.new().create(GdUnitReport.FAILURE, test_case.line_number(), "Test failed at parameterized index %d." % parameter_set_index))
 	if has_errors:
-		test_context.add_report(
-			GdUnitReport.new().create(
-				GdUnitReport.ABORT,
-				test_case.line_number(),
-				"Test aborted at parameterized index %d." % parameter_set_index
-			)
-		)
+		test_context.add_report(GdUnitReport.new().create(GdUnitReport.ABORT, test_case.line_number(), "Test aborted at parameterized index %d." % parameter_set_index))
 
 
 func _load_parameter_set(context: GdUnitExecutionContext, parameter_set_index: int) -> Array:
@@ -104,7 +79,7 @@ func _load_parameter_set(context: GdUnitExecutionContext, parameter_set_index: i
 	return parameters[parameter_set_index]
 
 
-func set_debug_mode(debug_mode: bool = false) -> void:
+func set_debug_mode(debug_mode: bool=false) -> void:
 	super.set_debug_mode(debug_mode)
 	_stage_before.set_debug_mode(debug_mode)
 	_stage_after.set_debug_mode(debug_mode)

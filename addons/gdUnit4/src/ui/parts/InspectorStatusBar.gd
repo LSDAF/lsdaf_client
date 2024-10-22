@@ -1,50 +1,48 @@
 @tool
 extends PanelContainer
 
-signal select_failure_next
-signal select_failure_prevous
-signal select_error_next
-signal select_error_prevous
-signal select_flaky_next
-signal select_flaky_prevous
-signal request_discover_tests
+signal select_failure_next()
+signal select_failure_prevous()
+signal select_error_next()
+signal select_error_prevous()
+signal select_flaky_next()
+signal select_flaky_prevous()
+signal request_discover_tests()
 
 @warning_ignore("unused_signal")
-signal tree_view_mode_changed(flat: bool)
+signal tree_view_mode_changed(flat :bool)
 
-@onready var _errors := %error_value
-@onready var _failures := %failure_value
-@onready var _flaky_value := %flaky_value
-@onready var _button_failure_up := %btn_failure_up
-@onready var _button_failure_down := %btn_failure_down
-@onready var _button_sync := %btn_tree_sync
-@onready var _button_view_mode := %btn_tree_mode
-@onready var _button_sort_mode := %btn_tree_sort
+@onready var _errors: Label = %error_value
+@onready var _failures: Label = %failure_value
+@onready var _flaky_value: Label = %flaky_value
+@onready var _button_failure_up: Button = %btn_failure_up
+@onready var _button_failure_down: Button = %btn_failure_down
+@onready var _button_sync: Button = %btn_tree_sync
+@onready var _button_view_mode: Button = %btn_tree_mode
+@onready var _button_sort_mode: Button = %btn_tree_sort
 
-@onready var _icon_errors := %icon_errors
-@onready var _icon_failures := %icon_failures
-@onready var _icon_flaky := %icon_flaky
+@onready var _icon_errors: TextureRect = %icon_errors
+@onready var _icon_failures: TextureRect = %icon_failures
+@onready var _icon_flaky: TextureRect = %icon_flaky
 
 var total_failed := 0
 var total_errors := 0
 var total_flaky := 0
 
+
 var icon_mappings := {
 	# tree sort modes
-	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.UNSORTED: GdUnitUiTools.get_icon("TripleBar"),
-	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.NAME_ASCENDING: GdUnitUiTools.get_icon("Sort"),
-	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.NAME_DESCENDING:
-	GdUnitUiTools.get_flipped_icon("Sort"),
-	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.EXECUTION_TIME:
-	GdUnitUiTools.get_icon("History"),
+	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.UNSORTED : GdUnitUiTools.get_icon("TripleBar"),
+	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.NAME_ASCENDING : GdUnitUiTools.get_icon("Sort"),
+	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.NAME_DESCENDING : GdUnitUiTools.get_flipped_icon("Sort"),
+	0x100 + GdUnitInspectorTreeConstants.SORT_MODE.EXECUTION_TIME : GdUnitUiTools.get_icon("History"),
 	# tree view modes
-	0x200 + GdUnitInspectorTreeConstants.TREE_VIEW_MODE.TREE:
-	GdUnitUiTools.get_icon("Tree", Color.GHOST_WHITE),
-	0x200 + GdUnitInspectorTreeConstants.TREE_VIEW_MODE.FLAT:
-	GdUnitUiTools.get_icon("AnimationTrackGroup", Color.GHOST_WHITE)
+	0x200 + GdUnitInspectorTreeConstants.TREE_VIEW_MODE.TREE : GdUnitUiTools.get_icon("Tree", Color.GHOST_WHITE),
+	0x200 + GdUnitInspectorTreeConstants.TREE_VIEW_MODE.FLAT : GdUnitUiTools.get_icon("AnimationTrackGroup", Color.GHOST_WHITE)
 }
 
 
+@warning_ignore("return_value_discarded")
 func _ready() -> void:
 	_failures.text = "0"
 	_errors.text = "0"
@@ -64,19 +62,21 @@ func _ready() -> void:
 	command_handler.gdunit_runner_stop.connect(_on_gdunit_runner_stop)
 
 
+
 func _set_sort_mode_menu_options() -> void:
 	_button_sort_mode.icon = GdUnitUiTools.get_icon("Sort")
 	# construct context sort menu according to the available modes
-	var context_menu: PopupMenu = _button_sort_mode.get_popup()
+	var context_menu :PopupMenu = _button_sort_mode.get_popup()
 	context_menu.clear()
 
 	if not context_menu.index_pressed.is_connected(_on_sort_mode_changed):
+		@warning_ignore("return_value_discarded")
 		context_menu.index_pressed.connect(_on_sort_mode_changed)
 
 	var configured_sort_mode := GdUnitSettings.get_inspector_tree_sort_mode()
 	for sort_mode: String in GdUnitInspectorTreeConstants.SORT_MODE.keys():
-		var enum_value: int = GdUnitInspectorTreeConstants.SORT_MODE.get(sort_mode)
-		var icon: Texture2D = icon_mappings[0x100 + enum_value]
+		var enum_value :int =  GdUnitInspectorTreeConstants.SORT_MODE.get(sort_mode)
+		var icon :Texture2D = icon_mappings[0x100 + enum_value]
 		context_menu.add_icon_check_item(icon, normalise(sort_mode), enum_value)
 		context_menu.set_item_checked(enum_value, configured_sort_mode == enum_value)
 
@@ -84,16 +84,17 @@ func _set_sort_mode_menu_options() -> void:
 func _set_view_mode_menu_options() -> void:
 	_button_view_mode.icon = GdUnitUiTools.get_icon("Tree", Color.GHOST_WHITE)
 	# construct context tree view menu according to the available modes
-	var context_menu: PopupMenu = _button_view_mode.get_popup()
+	var context_menu :PopupMenu = _button_view_mode.get_popup()
 	context_menu.clear()
 
 	if not context_menu.index_pressed.is_connected(_on_tree_view_mode_changed):
+		@warning_ignore("return_value_discarded")
 		context_menu.index_pressed.connect(_on_tree_view_mode_changed)
 
 	var configured_tree_view_mode := GdUnitSettings.get_inspector_tree_view_mode()
 	for tree_view_mode: String in GdUnitInspectorTreeConstants.TREE_VIEW_MODE.keys():
-		var enum_value: int = GdUnitInspectorTreeConstants.TREE_VIEW_MODE.get(tree_view_mode)
-		var icon: Texture2D = icon_mappings[0x200 + enum_value]
+		var enum_value :int =  GdUnitInspectorTreeConstants.TREE_VIEW_MODE.get(tree_view_mode)
+		var icon :Texture2D = icon_mappings[0x200 + enum_value]
 		context_menu.add_icon_check_item(icon, normalise(tree_view_mode), enum_value)
 		context_menu.set_item_checked(enum_value, configured_tree_view_mode == enum_value)
 
@@ -113,7 +114,7 @@ func status_changed(errors: int, failed: int, flaky: int) -> void:
 	_flaky_value.text = str(total_flaky)
 
 
-func disable_buttons(value: bool) -> void:
+func disable_buttons(value :bool) -> void:
 	_button_sync.set_disabled(value)
 	_button_sort_mode.set_disabled(value)
 	_button_view_mode.set_disabled(value)
@@ -177,16 +178,12 @@ func _on_tree_sync_pressed() -> void:
 
 
 func _on_sort_mode_changed(index: int) -> void:
-	var selected_sort_mode: GdUnitInspectorTreeConstants.SORT_MODE = (
-		GdUnitInspectorTreeConstants.SORT_MODE.values()[index]
-	)
+	var selected_sort_mode :GdUnitInspectorTreeConstants.SORT_MODE = GdUnitInspectorTreeConstants.SORT_MODE.values()[index]
 	GdUnitSettings.set_inspector_tree_sort_mode(selected_sort_mode)
 
 
-func _on_tree_view_mode_changed(index: int) -> void:
-	var selected_tree_mode: GdUnitInspectorTreeConstants.TREE_VIEW_MODE = (
-		GdUnitInspectorTreeConstants.TREE_VIEW_MODE.values()[index]
-	)
+func _on_tree_view_mode_changed(index: int) ->void:
+	var selected_tree_mode :GdUnitInspectorTreeConstants.TREE_VIEW_MODE = GdUnitInspectorTreeConstants.TREE_VIEW_MODE.values()[index]
 	GdUnitSettings.set_inspector_tree_view_mode(selected_tree_mode)
 
 
@@ -201,7 +198,7 @@ func _on_gdunit_runner_stop(_client_id: int) -> void:
 	disable_buttons(false)
 
 
-func _on_settings_changed(property: GdUnitProperty) -> void:
+func _on_settings_changed(property :GdUnitProperty) -> void:
 	if property.name() == GdUnitSettings.INSPECTOR_TREE_SORT_MODE:
 		_set_sort_mode_menu_options()
 	if property.name() == GdUnitSettings.INSPECTOR_TREE_VIEW_MODE:

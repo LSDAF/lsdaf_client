@@ -1,19 +1,20 @@
 extends RefCounted
 
+
 static var _richtext_normalize: RegEx
 
 
-static func normalize_text(text: String) -> String:
-	return text.replace("\r", "")
+static func normalize_text(text :String) -> String:
+	return text.replace("\r", "");
 
 
-static func richtext_normalize(input: String) -> String:
+static func richtext_normalize(input :String) -> String:
 	if _richtext_normalize == null:
 		_richtext_normalize = to_regex("\\[/?(b|color|bgcolor|right|table|cell).*?\\]")
 	return _richtext_normalize.sub(input, "", true).replace("\r", "")
 
 
-static func to_regex(pattern: String) -> RegEx:
+static func to_regex(pattern :String) -> RegEx:
 	var regex := RegEx.new()
 	var err := regex.compile(pattern)
 	if err != OK:
@@ -21,18 +22,18 @@ static func to_regex(pattern: String) -> RegEx:
 	return regex
 
 
-static func prints_verbose(message: String) -> void:
+static func prints_verbose(message :String) -> void:
 	if OS.is_stdout_verbose():
 		prints(message)
 
 
-static func free_instance(
-	instance: Variant, use_call_deferred: bool = false, is_stdout_verbose := false
-) -> bool:
+@warning_ignore("unsafe_cast")
+static func free_instance(instance :Variant, use_call_deferred :bool = false, is_stdout_verbose := false) -> bool:
 	if instance is Array:
-		for element: Variant in instance:
+		for element :Variant in instance:
+			@warning_ignore("return_value_discarded")
 			free_instance(element)
-		instance.clear()
+		(instance as Array).clear()
 		return true
 	# do not free an already freed instance
 	if not is_instance_valid(instance):
@@ -42,55 +43,52 @@ static func free_instance(
 		return false
 	if is_stdout_verbose:
 		print_verbose("GdUnit4:gc():free instance ", instance)
-	release_double(instance)
+	release_double(instance as Object)
 	if instance is RefCounted:
 		(instance as RefCounted).notification(Object.NOTIFICATION_PREDELETE)
 		# If scene runner freed we explicit await all inputs are processed
 		if instance is GdUnitSceneRunnerImpl:
-			await instance.await_input_processed()
+			await (instance as GdUnitSceneRunnerImpl).await_input_processed()
 		return true
 	else:
 		if instance is Timer:
-			instance.stop()
+			var timer := instance as Timer
+			timer.stop()
 			if use_call_deferred:
-				instance.call_deferred("free")
+				timer.call_deferred("free")
 			else:
-				instance.free()
-				await Engine.get_main_loop().process_frame
+				timer.free()
+				await (Engine.get_main_loop() as SceneTree).process_frame
 			return true
 
-		if instance is Node and instance.get_parent() != null:
+		if instance is Node and (instance as Node).get_parent() != null:
+			var node := instance as Node
 			if is_stdout_verbose:
-				print_verbose(
-					"GdUnit4:gc():remove node from parent ", instance.get_parent(), instance
-				)
+				print_verbose("GdUnit4:gc():remove node from parent ", node.get_parent(), node)
 			if use_call_deferred:
-				instance.get_parent().remove_child.call_deferred(instance)
+				node.get_parent().remove_child.call_deferred(node)
 				#instance.call_deferred("set_owner", null)
 			else:
-				instance.get_parent().remove_child(instance)
+				node.get_parent().remove_child(node)
 		if is_stdout_verbose:
 			print_verbose("GdUnit4:gc():freeing `free()` the instance ", instance)
 		if use_call_deferred:
-			instance.call_deferred("free")
+			(instance as Object).call_deferred("free")
 		else:
-			instance.free()
+			(instance as Object).free()
 		return !is_instance_valid(instance)
 
 
-static func _release_connections(instance: Object) -> void:
+static func _release_connections(instance :Object) -> void:
 	if is_instance_valid(instance):
 		# disconnect from all connected signals to force freeing, otherwise it ends up in orphans
 		for connection in instance.get_incoming_connections():
-			var signal_: Signal = connection["signal"]
-			var callable_: Callable = connection["callable"]
+			var signal_ :Signal = connection["signal"]
+			var callable_ :Callable = connection["callable"]
 			#prints(instance, connection)
 			#prints("signal", signal_.get_name(), signal_.get_object())
 			#prints("callable", callable_.get_object())
-			if (
-				instance.has_signal(signal_.get_name())
-				and instance.is_connected(signal_.get_name(), callable_)
-			):
+			if instance.has_signal(signal_.get_name()) and instance.is_connected(signal_.get_name(), callable_):
 				#prints("disconnect signal", signal_.get_name(), callable_)
 				instance.disconnect(signal_.get_name(), callable_)
 	release_timers()
@@ -98,35 +96,30 @@ static func _release_connections(instance: Object) -> void:
 
 static func release_timers() -> void:
 	# we go the new way to hold all gdunit timers in group 'GdUnitTimers'
-	if Engine.get_main_loop().root == null:
+	var scene_tree := Engine.get_main_loop() as SceneTree
+	if scene_tree.root == null:
 		return
-	for node: Node in Engine.get_main_loop().root.get_children():
+	for node :Node in scene_tree.root.get_children():
 		if is_instance_valid(node) and node.is_in_group("GdUnitTimers"):
 			if is_instance_valid(node):
-				Engine.get_main_loop().root.remove_child.call_deferred(node)
-				node.stop()
+				scene_tree.root.remove_child.call_deferred(node)
+				(node as Timer).stop()
 				node.queue_free()
 
 
 # the finally cleaup unfreed resources and singletons
-static func dispose_all(use_call_deferred: bool = false) -> void:
+static func dispose_all(use_call_deferred :bool = false) -> void:
 	release_timers()
 	GdUnitSingleton.dispose(use_call_deferred)
 	GdUnitSignals.dispose()
 
 
 # if instance an mock or spy we need manually freeing the self reference
-static func release_double(instance: Object) -> void:
+static func release_double(instance :Object) -> void:
 	if instance.has_method("__release_double"):
 		instance.call("__release_double")
 
 
-static func clear_push_errors() -> void:
-	var runner: Node = Engine.get_meta("GdUnitRunner")
-	if runner != null:
-		runner.clear_push_errors()
-
-
-static func register_expect_interupted_by_timeout(test_suite: Node, test_case_name: String) -> void:
-	var test_case: Node = test_suite.find_child(test_case_name, false, false)
+static func register_expect_interupted_by_timeout(test_suite :Node, test_case_name :String) -> void:
+	var test_case: _TestCase = test_suite.find_child(test_case_name, false, false)
 	test_case.expect_to_interupt()

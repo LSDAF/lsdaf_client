@@ -45,6 +45,7 @@ const TABLE_RECORD_PATH = """
 								</tr>
 """
 
+
 const TABLE_REPORT_TESTSUITE = """
 								<tr class="${report_state}">
 									<td>TestSuite hooks</td>
@@ -58,6 +59,7 @@ ${failure-report}
 									</td>
 								</tr>
 """
+
 
 const TABLE_RECORD_TESTCASE = """
 								<tr class="testcase-group">
@@ -111,46 +113,31 @@ static func current_date() -> String:
 
 
 static func build(template: String, report: GdUnitReportSummary, report_link: String) -> String:
-	return (
-		template
-		. replace(PATH, get_report_path(report))
-		. replace(BREADCRUMP_PATH_LINK, get_path_as_link(report))
-		. replace(RESOURCE_PATH, report.resource_path())
-		. replace(TESTSUITE_NAME, report.name_html_encoded())
-		. replace(TESTSUITE_COUNT, str(report.suite_count()))
-		. replace(TESTCASE_COUNT, str(report.test_count()))
-		. replace(FAILURE_COUNT, str(report.error_count() + report.failure_count()))
-		. replace(FLAKY_COUNT, str(report.flaky_count()))
-		. replace(SKIPPED_COUNT, str(report.skipped_count()))
-		. replace(ORPHAN_COUNT, str(report.orphan_count()))
-		. replace(DURATION, LocalTime.elapsed(report.duration()))
-		. replace(
-			SUCCESS_PERCENT,
-			report.calculate_succes_rate(
-				report.test_count(), report.error_count(), report.failure_count()
-			)
-		)
-		. replace(REPORT_STATE, report.report_state().to_lower())
-		. replace(REPORT_STATE_LABEL, report.report_state())
-		. replace(
-			QUICK_STATE_PASSED, calculate_percentage(report.test_count(), report.success_count())
-		)
-		. replace(
-			QUICK_STATE_FLAKY, calculate_percentage(report.test_count(), report.flaky_count())
-		)
-		. replace(
-			QUICK_STATE_ERROR, calculate_percentage(report.test_count(), report.error_count())
-		)
-		. replace(
-			QUICK_STATE_FAILED, calculate_percentage(report.test_count(), report.failure_count())
-		)
-		. replace(QUICK_STATE_WARNING, calculate_percentage(report.test_count(), 0))
-		. replace(REPORT_LINK, report_link)
-		. replace(BUILD_DATE, current_date())
-	)
+	return template\
+		.replace(PATH, get_report_path(report))\
+		.replace(BREADCRUMP_PATH_LINK, get_path_as_link(report))\
+		.replace(RESOURCE_PATH, report.resource_path())\
+		.replace(TESTSUITE_NAME, report.name_html_encoded())\
+		.replace(TESTSUITE_COUNT, str(report.suite_count()))\
+		.replace(TESTCASE_COUNT, str(report.test_count()))\
+		.replace(FAILURE_COUNT, str(report.error_count() + report.failure_count()))\
+		.replace(FLAKY_COUNT, str(report.flaky_count()))\
+		.replace(SKIPPED_COUNT, str(report.skipped_count()))\
+		.replace(ORPHAN_COUNT, str(report.orphan_count()))\
+		.replace(DURATION, LocalTime.elapsed(report.duration()))\
+		.replace(SUCCESS_PERCENT, report.calculate_succes_rate(report.test_count(), report.error_count(), report.failure_count()))\
+		.replace(REPORT_STATE, report.report_state().to_lower())\
+		.replace(REPORT_STATE_LABEL, report.report_state())\
+		.replace(QUICK_STATE_PASSED, calculate_percentage(report.test_count(), report.success_count()))\
+		.replace(QUICK_STATE_FLAKY, calculate_percentage(report.test_count(), report.flaky_count()))\
+		.replace(QUICK_STATE_ERROR, calculate_percentage(report.test_count(), report.error_count()))\
+		.replace(QUICK_STATE_FAILED, calculate_percentage(report.test_count(), report.failure_count()))\
+		.replace(QUICK_STATE_WARNING, calculate_percentage(report.test_count(), 0))\
+		.replace(REPORT_LINK, report_link)\
+		.replace(BUILD_DATE, current_date())
 
 
-static func load_template(template_name: String) -> String:
+static func load_template(template_name :String) -> String:
 	return FileAccess.open(template_name, FileAccess.READ).get_as_text()
 
 
@@ -168,4 +155,4 @@ static func get_report_path(report: GdUnitReportSummary) -> String:
 static func calculate_percentage(p_test_count: int, count: int) -> String:
 	if count <= 0:
 		return "0%"
-	return "%d" % ((0 if count < 0 else count) * 100.0 / p_test_count) + "%"
+	return "%d" % (( 0 if count < 0 else count) * 100.0 / p_test_count) + "%"
