@@ -27,7 +27,7 @@ func fetch_game_saves() -> void:
 	var game_saves: FetchGameSavesDto = await Api.user.fetch_game_saves(_on_fetch_game_saves_error)
 
 	for game_save_dto in game_saves.game_saves:
-		var game_save: GameSave = game_save_scene.instantiate()
+		var game_save: GameSaveButton = game_save_scene.instantiate()
 		game_save.initialize(game_save_dto, _on_game_loaded)
 
 		%GameSavesVBoxContainer.add_child(game_save)
@@ -78,7 +78,7 @@ func _on_create_new_game_button_pressed() -> void:
 		_on_generate_game_save_error
 	)
 
-	var game_save: GameSave = game_save_scene.instantiate()
+	var game_save: GameSaveButton = game_save_scene.instantiate()
 	game_save.initialize(game_save_dto, _on_game_loaded)
 
 	%GameSavesVBoxContainer.add_child(game_save)

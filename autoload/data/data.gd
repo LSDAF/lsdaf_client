@@ -11,7 +11,7 @@ var characteristics: Characteristics = (
 	preload("res://autoload/data/characteristics/characteristics.tscn").instantiate()
 )
 var current_quest: CurrentQuest = (
-	preload("res://autoload/data/quests/current_quest.tscn").instantiate()
+	preload("res://autoload/data/current_quest/current_quest.tscn").instantiate()
 )
 
 func _ready() -> void:
