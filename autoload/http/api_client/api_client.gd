@@ -10,7 +10,7 @@ func _generate_headers(
 
 	if auth:
 		building_headers["Authorization"] = "Bearer {0}".format(
-			[Services.user_data.get_access_token()]
+			[Services.user_local_data.get_access_token()]
 		)
 
 	if method == HTTPClient.METHOD_POST:
