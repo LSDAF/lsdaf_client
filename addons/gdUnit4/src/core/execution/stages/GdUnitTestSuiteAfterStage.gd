@@ -3,10 +3,11 @@
 class_name GdUnitTestSuiteAfterStage
 extends IGdUnitExecutionStage
 
+
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
 
 
-func _execute(context: GdUnitExecutionContext) -> void:
+func _execute(context :GdUnitExecutionContext) -> void:
 	var test_suite := context.test_suite
 
 	@warning_ignore("redundant_await")
@@ -15,14 +16,11 @@ func _execute(context: GdUnitExecutionContext) -> void:
 	GdUnitThreadManager.get_current_context().set_assert(null)
 	await context.gc()
 	var reports := context.build_reports(false)
-	fire_event(
-		GdUnitEvent.new().suite_after(
-			test_suite.get_script().resource_path,
+	fire_event(GdUnitEvent.new()\
+		.suite_after(context.get_test_suite_path(),\
 			test_suite.get_name(),
 			context.get_execution_statistics(),
-			reports
-		)
-	)
+			reports))
 
 	GdUnitFileAccess.clear_tmp()
 	# Guard that checks if all doubled (spy/mock) objects are released

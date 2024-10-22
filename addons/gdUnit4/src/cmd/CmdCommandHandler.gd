@@ -5,10 +5,10 @@ const CB_SINGLE_ARG = 0
 const CB_MULTI_ARGS = 1
 const NO_CB := Callable()
 
-var _cmd_options: CmdOptions
+var _cmd_options :CmdOptions
 # holds the command callbacks by key:<cmd_name>:String and value: [<cb single arg>, <cb multible args>]:Array
 # Dictionary[String, Array[Callback]
-var _command_cbs: Dictionary
+var _command_cbs :Dictionary
 
 # we only able to check cb function name since Godot 3.3.x
 var _enhanced_fr_test := false
@@ -48,36 +48,27 @@ func register_cbv(cmd_name: String, cb: Callable) -> CmdCommandHandler:
 
 
 func _validate() -> GdUnitResult:
-	var errors := PackedStringArray()
+	var errors: = PackedStringArray()
 	# Dictionary[StringName, String]
-	var registered_cbs := Dictionary()
+	var registered_cbs: = Dictionary()
 
 	for cmd_name in _command_cbs.keys() as Array[String]:
-		var cb: Callable = (
-			_command_cbs[cmd_name][CB_SINGLE_ARG]
+		var cb: Callable = (_command_cbs[cmd_name][CB_SINGLE_ARG]
 			if _command_cbs[cmd_name][CB_SINGLE_ARG]
-			else _command_cbs[cmd_name][CB_MULTI_ARGS]
-		)
+			else _command_cbs[cmd_name][CB_MULTI_ARGS])
 		if cb != NO_CB and not cb.is_valid():
-			errors.append(
-				(
-					"Invalid function reference for command '%s', Check the function reference!"
-					% cmd_name
-				)
-			)
+			@warning_ignore("return_value_discarded")
+			errors.append("Invalid function reference for command '%s', Check the function reference!" % cmd_name)
 		if _cmd_options.get_option(cmd_name) == null:
+			@warning_ignore("return_value_discarded")
 			errors.append("The command '%s' is unknown, verify your CmdOptions!" % cmd_name)
 		# verify for multiple registered command callbacks
 		if _enhanced_fr_test and cb != NO_CB:
-			var cb_method := cb.get_method()
+			var cb_method: = cb.get_method()
 			if registered_cbs.has(cb_method):
-				var already_registered_cmd: String = registered_cbs[cb_method]
-				errors.append(
-					(
-						"The function reference '%s' already registerd for command '%s'!"
-						% [cb_method, already_registered_cmd]
-					)
-				)
+				var already_registered_cmd :String = registered_cbs[cb_method]
+				@warning_ignore("return_value_discarded")
+				errors.append("The function reference '%s' already registerd for command '%s'!" % [cb_method, already_registered_cmd])
 			else:
 				registered_cbs[cb_method] = cmd_name
 	if errors.is_empty():
@@ -85,14 +76,14 @@ func _validate() -> GdUnitResult:
 	return GdUnitResult.error("\n".join(errors))
 
 
-func execute(commands: Array[CmdCommand]) -> GdUnitResult:
+func execute(commands :Array[CmdCommand]) -> GdUnitResult:
 	var result := _validate()
 	if result.is_error():
 		return result
 	for cmd in commands:
 		var cmd_name := cmd.name()
 		if _command_cbs.has(cmd_name):
-			var cb_s: Callable = _command_cbs.get(cmd_name)[CB_SINGLE_ARG]
+			var cb_s :Callable = _command_cbs.get(cmd_name)[CB_SINGLE_ARG]
 			var arguments := cmd.arguments()
 			var cmd_option := _cmd_options.get_option(cmd_name)
 			if cb_s and arguments.size() == 0:
@@ -103,11 +94,12 @@ func execute(commands: Array[CmdCommand]) -> GdUnitResult:
 				else:
 					cb_s.call(arguments[0])
 			else:
-				var cb_m: Callable = _command_cbs.get(cmd_name)[CB_MULTI_ARGS]
+				var cb_m :Callable = _command_cbs.get(cmd_name)[CB_MULTI_ARGS]
 				# we need to find the method and determin the arguments to call the right function
 				for m in cb_m.get_object().get_method_list():
 					if m["name"] == cb_m.get_method():
-						if m["args"].size() > 1:
+						@warning_ignore("unsafe_cast")
+						if (m["args"] as Array).size() > 1:
 							cb_m.callv(arguments)
 							break
 						else:

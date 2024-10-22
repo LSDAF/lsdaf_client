@@ -4,9 +4,9 @@ extends IGdUnitExecutionStage
 
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
 
-var _stage_before: IGdUnitExecutionStage = GdUnitTestSuiteBeforeStage.new()
-var _stage_after: IGdUnitExecutionStage = GdUnitTestSuiteAfterStage.new()
-var _stage_test: IGdUnitExecutionStage = GdUnitTestCaseExecutionStage.new()
+var _stage_before :IGdUnitExecutionStage = GdUnitTestSuiteBeforeStage.new()
+var _stage_after :IGdUnitExecutionStage = GdUnitTestSuiteAfterStage.new()
+var _stage_test :IGdUnitExecutionStage = GdUnitTestCaseExecutionStage.new()
 var _fail_fast := false
 
 
@@ -15,10 +15,11 @@ var _fail_fast := false
 ##  -> before() [br]
 ##  -> run all test cases [br]
 ##  -> after() [br]
-func _execute(context: GdUnitExecutionContext) -> void:
+func _execute(context :GdUnitExecutionContext) -> void:
 	if context.test_suite.__is_skipped:
 		await fire_test_suite_skipped(context)
 	else:
+		@warning_ignore("return_value_discarded")
 		GdUnitMemoryObserver.guard_instance(context.test_suite.__awaiter)
 		await _stage_before.execute(context)
 		for test_case_index in context.test_suite.get_child_count():
@@ -38,14 +39,14 @@ func _execute(context: GdUnitExecutionContext) -> void:
 				context.test_suite = await clone_test_suite(context.test_suite)
 		await _stage_after.execute(context)
 		GdUnitMemoryObserver.unguard_instance(context.test_suite.__awaiter)
-	await Engine.get_main_loop().process_frame
+	await (Engine.get_main_loop() as SceneTree).process_frame
 	context.test_suite.free()
 	context.dispose()
 
 
 # clones a test suite and moves the test cases to new instance
-func clone_test_suite(test_suite: GdUnitTestSuite) -> GdUnitTestSuite:
-	await Engine.get_main_loop().process_frame
+func clone_test_suite(test_suite :GdUnitTestSuite) -> GdUnitTestSuite:
+	await (Engine.get_main_loop() as SceneTree).process_frame
 	dispose_timers(test_suite)
 	await GdUnitMemoryObserver.gc_guarded_instance("Manually free on awaiter", test_suite.__awaiter)
 	var parent := test_suite.get_parent()
@@ -56,40 +57,38 @@ func clone_test_suite(test_suite: GdUnitTestSuite) -> GdUnitTestSuite:
 		test_suite.remove_child(child)
 		_test_suite.add_child(child)
 	parent.add_child(_test_suite)
+	@warning_ignore("return_value_discarded")
 	GdUnitMemoryObserver.guard_instance(_test_suite.__awaiter)
 	# finally free current test suite instance
 	test_suite.free()
-	await Engine.get_main_loop().process_frame
+	await (Engine.get_main_loop() as SceneTree).process_frame
 	return _test_suite
 
 
-func dispose_timers(test_suite: GdUnitTestSuite) -> void:
+func dispose_timers(test_suite :GdUnitTestSuite) -> void:
 	GdUnitTools.release_timers()
 	for child in test_suite.get_children():
 		if child is Timer:
-			child.stop()
+			(child as Timer).stop()
 			test_suite.remove_child(child)
 			child.free()
 
 
-func copy_properties(source: Object, target: Object) -> void:
+func copy_properties(source :Object, target :Object) -> void:
 	if not source is _TestCase and not source is GdUnitTestSuite:
 		return
 	for property in source.get_property_list():
-		var property_name: String = property["name"]
+		var property_name :String = property["name"]
 		if property_name == "__awaiter":
 			continue
 		target.set(property_name, source.get(property_name))
 
 
-func fire_test_suite_skipped(context: GdUnitExecutionContext) -> void:
+func fire_test_suite_skipped(context :GdUnitExecutionContext) -> void:
 	var test_suite := context.test_suite
 	var skip_count := test_suite.get_child_count()
-	fire_event(
-		GdUnitEvent.new().suite_before(
-			test_suite.get_script().resource_path, test_suite.get_name(), skip_count
-		)
-	)
+	fire_event(GdUnitEvent.new()\
+		.suite_before(context.get_test_suite_path(), test_suite.get_name(), skip_count))
 	var statistics := {
 		GdUnitEvent.ORPHAN_NODES: 0,
 		GdUnitEvent.ELAPSED_TIME: 0,
@@ -101,25 +100,17 @@ func fire_test_suite_skipped(context: GdUnitExecutionContext) -> void:
 		GdUnitEvent.SKIPPED_COUNT: skip_count,
 		GdUnitEvent.SKIPPED: true
 	}
-	var report := GdUnitReport.new().create(
-		GdUnitReport.SKIPPED,
-		-1,
-		GdAssertMessages.test_suite_skipped(test_suite.__skip_reason, skip_count)
-	)
-	fire_event(
-		GdUnitEvent.new().suite_after(
-			test_suite.get_script().resource_path, test_suite.get_name(), statistics, [report]
-		)
-	)
-	await Engine.get_main_loop().process_frame
+	var report := GdUnitReport.new().create(GdUnitReport.SKIPPED, -1, GdAssertMessages.test_suite_skipped(test_suite.__skip_reason, skip_count))
+	fire_event(GdUnitEvent.new().suite_after(context.get_test_suite_path(), test_suite.get_name(), statistics, [report]))
+	await (Engine.get_main_loop() as SceneTree).process_frame
 
 
-func set_debug_mode(debug_mode: bool = false) -> void:
+func set_debug_mode(debug_mode :bool = false) -> void:
 	super.set_debug_mode(debug_mode)
 	_stage_before.set_debug_mode(debug_mode)
 	_stage_after.set_debug_mode(debug_mode)
 	_stage_test.set_debug_mode(debug_mode)
 
 
-func fail_fast(enabled: bool) -> void:
+func fail_fast(enabled :bool) -> void:
 	_fail_fast = enabled

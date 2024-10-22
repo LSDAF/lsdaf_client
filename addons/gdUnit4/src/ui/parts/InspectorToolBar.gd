@@ -3,18 +3,17 @@ extends PanelContainer
 
 signal run_overall_pressed(debug: bool)
 signal run_pressed(debug: bool)
-signal stop_pressed
+signal stop_pressed()
 
-@onready var _version_label := %version
-@onready var _button_wiki := %help
-@onready var _tool_button := %tool
-@onready var _button_run_overall := %run_overall
-@onready var _button_run := %run
-@onready var _button_run_debug := %debug
-@onready var _button_stop := %stop
-@onready var settings_dlg := (
-	preload("res://addons/gdUnit4/src/ui/settings/GdUnitSettingsDialog.tscn").instantiate()
-)
+@onready var _version_label: Control = %version
+@onready var _button_wiki: Button = %help
+@onready var _tool_button: Button = %tool
+@onready var _button_run_overall: Button = %run_overall
+@onready var _button_run: Button = %run
+@onready var _button_run_debug: Button = %debug
+@onready var _button_stop: Button = %stop
+@onready var settings_dlg := preload("res://addons/gdUnit4/src/ui/settings/GdUnitSettingsDialog.tscn").instantiate()
+
 
 const SETTINGS_SHORTCUT_MAPPING := {
 	GdUnitSettings.SHORTCUT_INSPECTOR_RERUN_TEST: GdUnitShortcut.ShortCut.RERUN_TESTS,
@@ -24,6 +23,7 @@ const SETTINGS_SHORTCUT_MAPPING := {
 }
 
 
+@warning_ignore("return_value_discarded")
 func _ready() -> void:
 	GdUnit4Version.init_version_label(_version_label)
 	var command_handler := GdUnitCommandHandler.instance()
@@ -50,20 +50,15 @@ func init_buttons() -> void:
 
 func init_shortcuts(command_handler: GdUnitCommandHandler) -> void:
 	_button_run.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.RERUN_TESTS)
-	_button_run_overall.shortcut = command_handler.get_shortcut(
-		GdUnitShortcut.ShortCut.RUN_TESTS_OVERALL
-	)
-	_button_run_debug.shortcut = command_handler.get_shortcut(
-		GdUnitShortcut.ShortCut.RERUN_TESTS_DEBUG
-	)
+	_button_run_overall.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.RUN_TESTS_OVERALL)
+	_button_run_debug.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.RERUN_TESTS_DEBUG)
 	_button_stop.shortcut = command_handler.get_shortcut(GdUnitShortcut.ShortCut.STOP_TEST_RUN)
 	# register for shortcut changes
-	GdUnitSignals.instance().gdunit_settings_changed.connect(
-		_on_settings_changed.bind(command_handler)
-	)
+	@warning_ignore("return_value_discarded")
+	GdUnitSignals.instance().gdunit_settings_changed.connect(_on_settings_changed.bind(command_handler))
 
 
-func _on_runoverall_pressed(debug := false) -> void:
+func _on_runoverall_pressed(debug:=false) -> void:
 	run_overall_pressed.emit(debug)
 
 
@@ -94,6 +89,7 @@ func _on_gdunit_settings_changed(_property: GdUnitProperty) -> void:
 
 
 func _on_wiki_pressed() -> void:
+	@warning_ignore("return_value_discarded")
 	OS.shell_open("https://mikeschulze.github.io/gdUnit4/")
 
 
@@ -105,9 +101,7 @@ func _on_settings_changed(property: GdUnitProperty, command_handler: GdUnitComma
 	# needs to wait a frame to be command handler notified first for settings changes
 	await get_tree().process_frame
 	if SETTINGS_SHORTCUT_MAPPING.has(property.name()):
-		var shortcut: GdUnitShortcut.ShortCut = SETTINGS_SHORTCUT_MAPPING.get(
-			property.name(), GdUnitShortcut.ShortCut.NONE
-		)
+		var shortcut: GdUnitShortcut.ShortCut = SETTINGS_SHORTCUT_MAPPING.get(property.name(), GdUnitShortcut.ShortCut.NONE)
 		match shortcut:
 			GdUnitShortcut.ShortCut.RERUN_TESTS:
 				_button_run.shortcut = command_handler.get_shortcut(shortcut)

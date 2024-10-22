@@ -1,8 +1,9 @@
 class_name Vector3Fuzzer
 extends Fuzzer
 
-var _from: Vector3
-var _to: Vector3
+
+var _from :Vector3
+var _to : Vector3
 
 
 func _init(from: Vector3, to: Vector3) -> void:

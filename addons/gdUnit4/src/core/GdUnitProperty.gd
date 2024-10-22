@@ -1,22 +1,16 @@
 class_name GdUnitProperty
 extends RefCounted
 
-var _name: String
-var _help: String
-var _type: int
-var _value: Variant
-var _value_set: PackedStringArray
-var _default: Variant
+
+var _name :String
+var _help :String
+var _type :int
+var _value :Variant
+var _value_set :PackedStringArray
+var _default :Variant
 
 
-func _init(
-	p_name: String,
-	p_type: int,
-	p_value: Variant,
-	p_default_value: Variant,
-	p_help := "",
-	p_value_set := PackedStringArray()
-) -> void:
+func _init(p_name :String, p_type :int, p_value :Variant, p_default_value :Variant, p_help :="", p_value_set := PackedStringArray()) -> void:
 	_name = p_name
 	_type = p_type
 	_value = p_value
@@ -37,6 +31,10 @@ func value() -> Variant:
 	return _value
 
 
+func value_as_string() -> String:
+	return _value
+
+
 func value_set() -> PackedStringArray:
 	return _value_set
 
@@ -45,16 +43,16 @@ func is_selectable_value() -> bool:
 	return not _value_set.is_empty()
 
 
-func set_value(p_value: Variant) -> void:
+func set_value(p_value :Variant) -> void:
 	match _type:
 		TYPE_STRING:
 			_value = str(p_value)
 		TYPE_BOOL:
-			_value = bool(p_value)
+			_value = convert(p_value, TYPE_BOOL)
 		TYPE_INT:
-			_value = int(p_value)
+			_value = convert(p_value, TYPE_INT)
 		TYPE_FLOAT:
-			_value = float(p_value)
+			_value = convert(p_value, TYPE_FLOAT)
 		_:
 			_value = p_value
 
@@ -75,7 +73,4 @@ func help() -> String:
 
 
 func _to_string() -> String:
-	return (
-		"%-64s %-10s %-10s (%s) help:%s set:%s"
-		% [name(), type(), value(), default(), help(), _value_set]
-	)
+	return "%-64s %-10s %-10s (%s) help:%s set:%s" % [name(), type(), value(), default(), help(), _value_set]
