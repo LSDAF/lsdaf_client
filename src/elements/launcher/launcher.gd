@@ -41,7 +41,6 @@ func login(email: String, password: String) -> void:
 
 	Services.user_local_data.save_access_token(loginResponse.access_token)
 	Services.user_local_data.save_refresh_token(loginResponse.refresh_token)
-	Services.user_local_data.save_email(loginResponse.user_info.email)
 
 	fetch_game_saves()
 

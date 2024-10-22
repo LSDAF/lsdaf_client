@@ -17,7 +17,6 @@ script = ExtResource("1_vkpn1")
 
 [node name="LoginVBoxContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="LoginVBoxContainer"]
@@ -44,13 +43,22 @@ secret = true
 layout_mode = 2
 theme_override_constants/margin_top = 16
 
-[node name="LoginButton" type="Button" parent="LoginVBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginVBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="LoginRememberMeCheckBox" type="CheckBox" parent="LoginVBoxContainer/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remember me"
+
+[node name="LoginButton" type="Button" parent="LoginVBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Login"
 
 [node name="RegisterVBoxContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="RegisterVBoxContainer"]
@@ -82,7 +90,15 @@ secret = true
 layout_mode = 2
 theme_override_constants/margin_top = 16
 
-[node name="RegisterButton" type="Button" parent="RegisterVBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RegisterVBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="RegisterRememberMeCheckBox" type="CheckBox" parent="RegisterVBoxContainer/MarginContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remember me"
+
+[node name="RegisterButton" type="Button" parent="RegisterVBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Register"
@@ -90,9 +106,11 @@ text = "Register"
 [connection signal="pressed" from="LoginVBoxContainer/MarginContainer/GoToRegisterButton" to="." method="_on_go_to_register_button_pressed"]
 [connection signal="text_changed" from="LoginVBoxContainer/LoginEmailLineEdit" to="." method="_on_login_email_line_edit_text_changed"]
 [connection signal="text_changed" from="LoginVBoxContainer/LoginPasswordLineEdit" to="." method="_on_login_password_line_edit_text_changed"]
-[connection signal="pressed" from="LoginVBoxContainer/MarginContainer2/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="toggled" from="LoginVBoxContainer/MarginContainer2/VBoxContainer/LoginRememberMeCheckBox" to="." method="_on_remember_me_check_box_toggled"]
+[connection signal="pressed" from="LoginVBoxContainer/MarginContainer2/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="RegisterVBoxContainer/MarginContainer/GoToLoginButton" to="." method="_on_go_to_login_button_pressed"]
 [connection signal="text_changed" from="RegisterVBoxContainer/RegisterNameLineEdit" to="." method="_on_register_name_line_edit_text_changed"]
 [connection signal="text_changed" from="RegisterVBoxContainer/RegisterEmailLineEdit" to="." method="_on_register_email_line_edit_text_changed"]
 [connection signal="text_changed" from="RegisterVBoxContainer/RegisterPasswordLineEdit" to="." method="_on_register_password_line_edit_text_changed"]
-[connection signal="pressed" from="RegisterVBoxContainer/MarginContainer2/RegisterButton" to="." method="_on_register_button_pressed"]
+[connection signal="toggled" from="RegisterVBoxContainer/MarginContainer2/VBoxContainer/RegisterRememberMeCheckBox" to="." method="_on_remember_me_check_box_toggled"]
+[connection signal="pressed" from="RegisterVBoxContainer/MarginContainer2/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
