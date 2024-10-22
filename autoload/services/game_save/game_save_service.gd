@@ -13,6 +13,13 @@ func get_game_save_id() -> String:
 func load_game_save(game_save_dto: GameSaveDto) -> void:
 	_game_save_id = game_save_dto.id
 
+	var response := await Api.currency.fetch_game_save_currencies(_game_save_id, _on_fetch_currencies_error)
+	Data.currencies.load_currencies(
+		response.gold,
+		response.diamonds,
+		response.emeralds,
+		response.amethysts
+	)
 
 func save_game() -> void:
 	var success := await _save_currencies()  # and save_nickname() and ...
@@ -33,6 +40,9 @@ func _save_currencies() -> bool:
 		Data.currencies.amethyst.get_value(),
 		_on_save_currencies_error
 	)
+
+func _on_fetch_currencies_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to fetch currencies.")
 
 
 func _on_save_currencies_error(response: Variant) -> void:
