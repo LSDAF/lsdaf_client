@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://bdgi2a1ok72ij" path="res://src/elements/hud/characteristics_menu/characteristics_menu_item/characteristic_menu_item.tscn" id="1_7c138"]
 [ext_resource type="Script" path="res://src/elements/hud/characteristics_menu/characteristics_menu.gd" id="1_7kkxu"]
-[ext_resource type="Resource" uid="uid://dbxfgb5kqnunr" path="res://resources/characteristics/attack.tres" id="2_obsgu"]
-[ext_resource type="Resource" uid="uid://bbxu7eidptypv" path="res://resources/characteristics/hp.tres" id="3_p0s3h"]
-[ext_resource type="Resource" uid="uid://dq3yp50svw41e" path="res://resources/characteristics/crit_chance.tres" id="5_vao70"]
-[ext_resource type="Resource" uid="uid://brr0ylrd5ovfc" path="res://resources/characteristics/crit_damage.tres" id="6_fmv3c"]
-[ext_resource type="Resource" uid="uid://bs527hme7vlc8" path="res://resources/characteristics/resistance.tres" id="7_vx7ag"]
+[ext_resource type="Resource" uid="uid://dbxfgb5kqnunr" path="res://src/resources/characteristics/attack.tres" id="2_obsgu"]
+[ext_resource type="Resource" uid="uid://bbxu7eidptypv" path="res://src/resources/characteristics/hp.tres" id="3_p0s3h"]
+[ext_resource type="Resource" uid="uid://dq3yp50svw41e" path="res://src/resources/characteristics/crit_chance.tres" id="5_vao70"]
+[ext_resource type="Resource" uid="uid://brr0ylrd5ovfc" path="res://src/resources/characteristics/crit_damage.tres" id="6_fmv3c"]
+[ext_resource type="Resource" uid="uid://bs527hme7vlc8" path="res://src/resources/characteristics/resistance.tres" id="7_vx7ag"]
 
 [node name="CharacteristicsMenu" type="Control"]
 layout_mode = 3
