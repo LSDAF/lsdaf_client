@@ -7,6 +7,9 @@ var game_save: GameSaveService = (
 var currencies: CurrenciesService = (
 	preload("res://autoload/services/currencies/currencies_service.gd").new()
 )
+var difficulty: DifficultyService = (
+	preload("res://autoload/services/difficulty/difficulty_service.gd").new()
+)
 var loot: Loot = preload("res://autoload/services/loot/loot.gd").new()
 var player_stats: PlayerStats = (
 	preload("res://autoload/services/player_stats/player_stats.gd").new()
