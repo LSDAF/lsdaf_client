@@ -25,7 +25,7 @@ func save_game() -> void:
 
 
 func _save_currencies() -> bool:
-	return await Api.game_save.update_game_save_currencies(
+	return await Api.currency.update_game_save_currencies(
 		_game_save_id,
 		Data.currencies.gold.get_value(),
 		Data.currencies.diamond.get_value(),
