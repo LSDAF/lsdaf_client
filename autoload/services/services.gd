@@ -1,13 +1,13 @@
 extends Node
 
 # Scripts
-var game_save: GameSaveService    = (
+var game_save: GameSaveService = (
 	preload("res://autoload/services/game_save/game_save_service.gd").new()
 )
 var currencies: CurrenciesService = (
 	preload("res://autoload/services/currencies/currencies_service.gd").new()
 )
-var current_quest: CurrentQuestService    = (
+var current_quest: CurrentQuestService = (
 	preload("res://autoload/services/current_quest/current_quest_service.gd").new()
 )
 var difficulty: DifficultyService = (
@@ -20,10 +20,8 @@ var loot: Loot = preload("res://autoload/services/loot/loot.gd").new()
 var player_stats: PlayerStats = (
 	preload("res://autoload/services/player_stats/player_stats.gd").new()
 )
-var stage: StageService             = (
-	preload("res://autoload/services/stage/stage_service.gd").new()
-)
-var toaster: ToasterService         = preload("res://autoload/services/toaster/toaster_service.gd").new()
+var stage: StageService = preload("res://autoload/services/stage/stage_service.gd").new()
+var toaster: ToasterService = preload("res://autoload/services/toaster/toaster_service.gd").new()
 var user_local_data: UserLocalDataService = (
 	preload("res://autoload/services/user_local_data_service/user_local_data_service.gd").new()
 )
