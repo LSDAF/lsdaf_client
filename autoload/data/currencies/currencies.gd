@@ -8,7 +8,12 @@ var emerald: Currency = Currency.new()
 var amethyst: Currency = Currency.new()
 
 
-# Init a custom start here (overrides loading of game save for nom)
 func _ready() -> void:
-	#gold.update_value(10000)
 	return
+
+
+func load_currencies(_gold: int, _diamonds: int, _emeralds: int, _amethysts: int) -> void:
+	gold.update_value(_gold)
+	diamond.update_value(_diamonds)
+	emerald.update_value(_emeralds)
+	amethyst.update_value(_amethysts)
