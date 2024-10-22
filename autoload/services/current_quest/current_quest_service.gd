@@ -15,7 +15,7 @@ func _init_stage_quest() -> Quest:
 	var quest := Data.current_quest.stage_quest_blueprint
 
 	quest.goal = Data.current_quest._stage_last_milestone + quest.stage_interval
-	quest.score = Data.stage.get_max_stage()
+	quest.score = Services.stage.get_max_stage()
 
 	return quest
 

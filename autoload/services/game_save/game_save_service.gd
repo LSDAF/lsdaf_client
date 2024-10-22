@@ -22,8 +22,8 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 	)
 
 	var fetched_stage := await Api.stage.fetch_game_save_stage(_game_save_id, _on_fetch_stage_error)
-	Data.stage.set_current_stage(fetched_stage.current_stage)
-	Data.stage.set_max_stage(fetched_stage.max_stage)
+	Services.stage.set_current_stage(fetched_stage.current_stage)
+	Services.stage.set_max_stage(fetched_stage.max_stage)
 
 func save_game() -> void:
 	var success := await _save_currencies() and await _save_stage()
@@ -51,8 +51,8 @@ func _save_currencies() -> bool:
 
 func _save_stage() -> bool:
 	var update_stage_dto := UpdateStageDto.new({
-		"current_stage": Data.stage.get_current_stage(),
-		"max_stage": Data.stage.get_max_stage(),
+		"current_stage": Services.stage.get_current_stage(),
+		"max_stage": Services.stage.get_max_stage(),
 	})
 
 	return await Api.stage.update_game_save_stage(
