@@ -81,12 +81,12 @@ func update_equipped_items() -> void:
 		"sword": null,
 	}
 
-	var equipped_items_index := Data.inventory.get_equipped_items_index()
+	var equipped_items_index := Services.inventory.get_equipped_items_index()
 
 	for item_index in equipped_items_index:
 		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
 		new_item_scene.on_item_selected.connect(_on_item_selected)
 
-		_update_corresponding_equipped_item(new_item_scene, Data.inventory.items[item_index].type)
+		_update_corresponding_equipped_item(new_item_scene, Services.inventory.get_item_at_index(item_index).type)
 
 	_update_corresponding_slots()
