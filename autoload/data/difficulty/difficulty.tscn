@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpyq5o6t216y"]
-
-[ext_resource type="Script" path="res://autoload/data/difficulty/difficulty.gd" id="1_nr3sr"]
-
-[node name="Difficulty" type="Node"]
-script = ExtResource("1_nr3sr")

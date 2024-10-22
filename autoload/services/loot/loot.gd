@@ -9,7 +9,7 @@ func loot_random_item() -> void:
 
 
 func try_loot_item() -> void:
-	var difficulty := Data.difficulty.get_current_difficulty()
+	var difficulty := Services.difficulty.get_current_difficulty()
 	var rarity := _get_rarity_for_difficulty(difficulty)
 	var type := _get_type_for_difficulty(difficulty)
 	var drop_rate := _get_drop_rate_for_difficulty(difficulty)

@@ -19,7 +19,7 @@ var gold_value: int = randi() % 10 + 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	max_health = scaler.hp_from_difficulty(Data.difficulty.get_current_difficulty())
+	max_health = scaler.hp_from_difficulty(Services.difficulty.get_current_difficulty())
 	health = max_health
 
 	$AnimatedSprite2D.play("move")
