@@ -1,4 +1,4 @@
-class_name CurrencyApi
+class_name CurrenciesApi
 
 func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> FetchCurrenciesDto:
 	var response: HTTPResult = await Http.api_client.fetch(
