@@ -85,7 +85,7 @@ func _update_item_details_menu() -> void:
 
 func open_for_item(item_index: int) -> void:
 	_item_index = item_index
-	_item = Data.inventory.get_item_at_index(item_index)
+	_item = Services.inventory.get_item_at_index(item_index)
 
 	if _item == null:
 		%NoItemSelectedLabel.show()
@@ -101,14 +101,14 @@ func open_for_item(item_index: int) -> void:
 
 func _on_level_up_button_pressed() -> void:
 	Data.currencies.amethyst.update_value(-_item.level_up_cost())
-	Data.inventory.level_up_item_at_index(_item_index)
+	Services.inventory.level_up_item_at_index(_item_index)
 
 	_update_item_details_menu()
 
 
 func _on_salvage_button_pressed() -> void:
 	Data.currencies.amethyst.update_value(_item.item_salvage_price())
-	Data.inventory.delete_item_at_index(_item_index)
+	Services.inventory.delete_item_at_index(_item_index)
 
 	on_salvage_item.emit(_item_index)
 	#_update_item_details_menu()
@@ -116,8 +116,8 @@ func _on_salvage_button_pressed() -> void:
 
 func _on_equip_button_pressed() -> void:
 	if _item.is_equipped:
-		Data.inventory.unequip_item_at_index(_item_index)
+		Services.inventory.unequip_item_at_index(_item_index)
 	else:
-		Data.inventory.equip_item_at_index(_item_index)
+		Services.inventory.equip_item_at_index(_item_index)
 
 	_update_item_details_menu()

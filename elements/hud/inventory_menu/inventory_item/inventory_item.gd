@@ -17,7 +17,7 @@ func with_data(item_to_load_index: int) -> InventoryItem:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var inventory_item := Data.inventory.get_item_at_index(item_index)
+	var inventory_item := Services.inventory.get_item_at_index(item_index)
 	%ItemTextureRect.texture = inventory_item.texture
 	%ItemLevelLabel.text = str(inventory_item.level)
 	%ItemRarityLabel.text = _prettify_rarity(inventory_item.rarity)

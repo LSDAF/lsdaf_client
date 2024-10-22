@@ -5,7 +5,7 @@ class_name Loot
 
 func loot_random_item() -> void:
 	var new_item := Services.items_service.create_random_item()
-	Data.inventory.add_item(new_item)
+	Services.inventory.add_item(new_item)
 
 
 func try_loot_item() -> void:
@@ -19,7 +19,7 @@ func try_loot_item() -> void:
 		return
 
 	var new_item := Services.items_service.create_item(type, rarity)
-	Data.inventory.add_item(new_item)
+	Services.inventory.add_item(new_item)
 
 
 func _get_rarity_for_difficulty(difficulty: int) -> ItemRarity.ItemRarity:
