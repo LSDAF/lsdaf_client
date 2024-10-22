@@ -22,13 +22,35 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 	)
 
 func save_game() -> void:
-	var success := await _save_currencies()  # and save_nickname() and ...
+	var success := true
+
+	success = await _save_currencies()
+#	if (success):
+#		await _save_characteristics()
+
 
 	if success:
 		_last_save_time = Time.get_unix_time_from_system()
 		Services.toaster.toast("Game saved.")
 	else:
 		Services.toaster.toast("Failed to save game.")
+
+
+func _save_characteristics() -> bool:
+	var update_characteristics_dto := UpdateCharacteristicsDto.new({
+		"attack": Data.characteristics.attack.current_value(),
+		"crit_chance": Data.characteristics.crit_chance.current_value(),
+		"crit_damage": Data.characteristics.crit_damage.current_value(),
+		"hp": Data.characteristics.hp.current_value(),
+		"resistance": Data.characteristics.resistance.current_value(),
+	})
+
+	return await Api.characteristics.update_characteristics(
+		_game_save_id,
+		update_characteristics_dto,
+		_on_save_characteristics_error
+	)
+
 
 
 func _save_currencies() -> bool:
@@ -44,6 +66,9 @@ func _save_currencies() -> bool:
 		update_currencies_dto,
 		_on_save_currencies_error
 	)
+
+func _on_save_characteristics_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save characteristics.")
 
 func _on_fetch_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch currencies.")
