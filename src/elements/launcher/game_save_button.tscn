@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://fwvt5ili38r3"]
+
+[ext_resource type="Script" path="res://src/elements/launcher/game_save_button.gd" id="1_ir8od"]
+[ext_resource type="Texture2D" uid="uid://buut3gtyqb7oc" path="res://asset/ui/wood/UI_Wood_Flat.png" id="2_dr83m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k46ue"]
+atlas = ExtResource("2_dr83m")
+region = Rect2(0, 224, 160, 160)
+
+[node name="GameSaveButton" type="Button"]
+custom_minimum_size = Vector2(0, 128)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ir8od")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_k46ue")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameNameLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "Game Nickname"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameCreatedAtLabel" type="Label" parent="NinePatchRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "Created"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

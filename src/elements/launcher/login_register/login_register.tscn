@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1einsb6nyd1r"]
+
+[ext_resource type="Script" path="res://src/elements/launcher/login_register/login_register.gd" id="1_vkpn1"]
+
+[node name="LoginRegisterMarginContainer" type="MarginContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 64
+script = ExtResource("1_vkpn1")
+
+[node name="LoginVBoxContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LoginVBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="GoToRegisterButton" type="Button" parent="LoginVBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No account ? Register"
+
+[node name="LoginEmailLineEdit" type="LineEdit" parent="LoginVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Email"
+
+[node name="LoginPasswordLineEdit" type="LineEdit" parent="LoginVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Password"
+secret = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="LoginVBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="LoginButton" type="Button" parent="LoginVBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Login"
+
+[node name="RegisterVBoxContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RegisterVBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="GoToLoginButton" type="Button" parent="RegisterVBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Already have an account ? Login"
+
+[node name="RegisterNameLineEdit" type="LineEdit" parent="RegisterVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="RegisterEmailLineEdit" type="LineEdit" parent="RegisterVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Email"
+
+[node name="RegisterPasswordLineEdit" type="LineEdit" parent="RegisterVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Password"
+secret = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="RegisterVBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="RegisterButton" type="Button" parent="RegisterVBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Register"
+
+[connection signal="pressed" from="LoginVBoxContainer/MarginContainer/GoToRegisterButton" to="." method="_on_go_to_register_button_pressed"]
+[connection signal="text_changed" from="LoginVBoxContainer/LoginEmailLineEdit" to="." method="_on_login_email_line_edit_text_changed"]
+[connection signal="text_changed" from="LoginVBoxContainer/LoginPasswordLineEdit" to="." method="_on_login_password_line_edit_text_changed"]
+[connection signal="pressed" from="LoginVBoxContainer/MarginContainer2/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="RegisterVBoxContainer/MarginContainer/GoToLoginButton" to="." method="_on_go_to_login_button_pressed"]
+[connection signal="text_changed" from="RegisterVBoxContainer/RegisterNameLineEdit" to="." method="_on_register_name_line_edit_text_changed"]
+[connection signal="text_changed" from="RegisterVBoxContainer/RegisterEmailLineEdit" to="." method="_on_register_email_line_edit_text_changed"]
+[connection signal="text_changed" from="RegisterVBoxContainer/RegisterPasswordLineEdit" to="." method="_on_register_password_line_edit_text_changed"]
+[connection signal="pressed" from="RegisterVBoxContainer/MarginContainer2/RegisterButton" to="." method="_on_register_button_pressed"]
