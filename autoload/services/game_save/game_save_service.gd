@@ -32,12 +32,16 @@ func save_game() -> void:
 
 
 func _save_currencies() -> bool:
+	var update_currencies_dto := UpdateCurrenciesDto.new({
+		"gold": Data.currencies.gold.get_value(),
+		"diamond": Data.currencies.diamond.get_value(),
+		"emerald": Data.currencies.emerald.get_value(),
+		"amethyst": Data.currencies.amethyst.get_value(),
+	})
+
 	return await Api.currency.update_game_save_currencies(
 		_game_save_id,
-		Data.currencies.gold.get_value(),
-		Data.currencies.diamond.get_value(),
-		Data.currencies.emerald.get_value(),
-		Data.currencies.amethyst.get_value(),
+		update_currencies_dto,
 		_on_save_currencies_error
 	)
 
