@@ -2,18 +2,16 @@ extends Node
 
 class_name GameSaveService
 
-var _game_save_id: String = ""
-var _last_save_time: float = 0
 
 
 func get_game_save_id() -> String:
-	return _game_save_id
+	return Data.game_save._game_save_id
 
 
 func load_game_save(game_save_dto: GameSaveDto) -> void:
-	_game_save_id = game_save_dto.id
+	Data.game_save._game_save_id = game_save_dto.id
 
-	var fetched_currencies := await Api.currency.fetch_game_save_currencies(_game_save_id, _on_fetch_currencies_error)
+	var fetched_currencies := await Api.currency.fetch_game_save_currencies(Data.game_save._game_save_id, _on_fetch_currencies_error)
 	Services.currencies._set_currencies(
 		fetched_currencies.gold,
 		fetched_currencies.diamond,
@@ -21,7 +19,7 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 		fetched_currencies.amethyst
 	)
 
-	var fetched_stage := await Api.stage.fetch_game_save_stage(_game_save_id, _on_fetch_stage_error)
+	var fetched_stage := await Api.stage.fetch_game_save_stage(Data.game_save._game_save_id, _on_fetch_stage_error)
 	Services.stage.set_current_stage(fetched_stage.current_stage)
 	Services.stage.set_max_stage(fetched_stage.max_stage)
 
@@ -29,7 +27,7 @@ func save_game() -> void:
 	var success := await _save_currencies() and await _save_stage()
 
 	if success:
-		_last_save_time = Time.get_unix_time_from_system()
+		Data.game_save._last_save_time = Time.get_unix_time_from_system()
 		Services.toaster.toast("Game saved.")
 	else:
 		Services.toaster.toast("Failed to save game.")
@@ -44,7 +42,7 @@ func _save_currencies() -> bool:
 	})
 
 	return await Api.currency.update_game_save_currencies(
-		_game_save_id,
+		Data.game_save._game_save_id,
 		update_currencies_dto,
 		_on_save_currencies_error
 	)
@@ -56,7 +54,7 @@ func _save_stage() -> bool:
 	})
 
 	return await Api.stage.update_game_save_stage(
-		_game_save_id,
+		Data.game_save._game_save_id,
 		update_stage_dto,
 		_on_save_stage_error
 	)
