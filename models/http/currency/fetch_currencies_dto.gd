@@ -1,13 +1,13 @@
 class_name FetchCurrenciesDto
 
 var gold: int
-var diamonds: int
-var emeralds: int
-var amethysts: int
+var diamond: int
+var emerald: int
+var amethyst: int
 
 
 func _init(dictionary: Dictionary) -> void:
 	gold = dictionary["gold"]
-	diamonds = dictionary["diamonds"]
-	emeralds = dictionary["emeralds"]
-	amethysts = dictionary["amethysts"]
+	diamond = dictionary["diamond"]
+	emerald = dictionary["emerald"]
+	amethyst = dictionary["amethyst"]

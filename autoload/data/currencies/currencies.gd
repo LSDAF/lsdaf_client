@@ -12,8 +12,8 @@ func _ready() -> void:
 	return
 
 
-func load_currencies(_gold: int, _diamonds: int, _emeralds: int, _amethysts: int) -> void:
+func load_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) -> void:
 	gold.update_value(_gold)
-	diamond.update_value(_diamonds)
-	emerald.update_value(_emeralds)
-	amethyst.update_value(_amethysts)
+	diamond.update_value(_diamond)
+	emerald.update_value(_emerald)
+	amethyst.update_value(_amethyst)
