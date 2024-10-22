@@ -21,7 +21,9 @@ var player_stats: PlayerStats = (
 	preload("res://src/autoload/services/player_stats/player_stats.gd").new()
 )
 var stage: StageService = preload("res://src/autoload/services/stage/stage_service.gd").new()
-var toaster: ToasterService = preload("res://src/autoload/services/toaster/toaster_service.gd").new()
+var toaster: ToasterService = (
+	preload("res://src/autoload/services/toaster/toaster_service.gd").new()
+)
 var user_local_data: UserLocalDataService = (
 	preload("res://src/autoload/services/user_local_data_service/user_local_data_service.gd").new()
 )
