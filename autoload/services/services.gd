@@ -1,11 +1,14 @@
 extends Node
 
 # Scripts
-var game_save: GameSaveService = (
+var game_save: GameSaveService    = (
 	preload("res://autoload/services/game_save/game_save_service.gd").new()
 )
 var currencies: CurrenciesService = (
 	preload("res://autoload/services/currencies/currencies_service.gd").new()
+)
+var current_quest: CurrentQuestService    = (
+	preload("res://autoload/services/current_quest/current_quest_service.gd").new()
 )
 var difficulty: DifficultyService = (
 	preload("res://autoload/services/difficulty/difficulty_service.gd").new()
