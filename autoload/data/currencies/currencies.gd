@@ -12,7 +12,8 @@ func _ready() -> void:
 	return
 
 
-func load_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) -> void:
+# INFO: This function is only used for loading the game save
+func _set_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) -> void:
 	gold.update_value(_gold)
 	diamond.update_value(_diamond)
 	emerald.update_value(_emerald)

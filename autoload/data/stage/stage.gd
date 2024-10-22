@@ -48,6 +48,10 @@ func set_current_wave(new_current_wave: int) -> void:
 	current_wave_updated.emit(new_current_wave)
 
 
+func set_max_stage(new_max_stage: int) -> void:
+	_max_stage = new_max_stage
+
+
 func beat_current_stage() -> void:
 	if _current_stage == _max_stage:
 		_max_stage += 1
