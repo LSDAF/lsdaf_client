@@ -16,9 +16,9 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 	var response := await Api.currency.fetch_game_save_currencies(_game_save_id, _on_fetch_currencies_error)
 	Data.currencies.load_currencies(
 		response.gold,
-		response.diamonds,
-		response.emeralds,
-		response.amethysts
+		response.diamond,
+		response.emerald,
+		response.amethyst
 	)
 
 func save_game() -> void:
