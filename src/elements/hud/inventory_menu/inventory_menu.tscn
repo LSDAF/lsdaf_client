@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://du1yiy20l36da"]
+
+[ext_resource type="Script" path="res://src/elements/hud/inventory_menu/inventory_menu.gd" id="1_5bvax"]
+[ext_resource type="PackedScene" uid="uid://b2arfnoe585sm" path="res://src/elements/hud/inventory_menu/inventory_item/inventory_item.tscn" id="2_d5uob"]
+[ext_resource type="PackedScene" uid="uid://dilg0e5h66qys" path="res://src/elements/hud/inventory_menu/item_details_menu/item_details_menu.tscn" id="3_rvolm"]
+[ext_resource type="PackedScene" uid="uid://7ax2al4pms1y" path="res://src/elements/hud/inventory_menu/equipped_items/equipped_items.tscn" id="4_rj5ns"]
+
+[node name="InventoryMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5bvax")
+item_scene = ExtResource("2_d5uob")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemDetailsMenu" parent="MarginContainer/Panel/MarginContainer/HBoxContainer" instance=ExtResource("3_rvolm")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryGridContainer" type="GridContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="EquippedItems" parent="MarginContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_rj5ns")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="MarginContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 48.0
+grow_horizontal = 0
+text = "X"
+metadata/_edit_use_anchors_ = true
+
+[node name="GiveRandomButton" type="Button" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Give a random item"
+
+[connection signal="pressed" from="MarginContainer/Panel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/GiveRandomButton" to="." method="_on_give_random_button_pressed"]

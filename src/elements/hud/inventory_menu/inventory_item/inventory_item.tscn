@@ -1,0 +1,110 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2arfnoe585sm"]
+
+[ext_resource type="Script" path="res://src/elements/hud/inventory_menu/inventory_item/inventory_item.gd" id="1_pftji"]
+[ext_resource type="Texture2D" uid="uid://dtc5j5acibygw" path="res://asset/ui/wood/Shadow/UI_Wood_A_NoBorder.png" id="2_hm3w1"]
+[ext_resource type="Texture2D" uid="uid://2ba3docwbyc4" path="res://asset/ui/selection_box_item.png" id="3_234bb"]
+[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="4_w5ilh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kdlx"]
+atlas = ExtResource("2_hm3w1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe8o1"]
+atlas = ExtResource("4_w5ilh")
+region = Rect2(291, 43, 25, 15)
+
+[node name="InventoryItem" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1216.0
+offset_bottom = -656.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+script = ExtResource("1_pftji")
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_1kdlx")
+
+[node name="SelectedTextureRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_234bb")
+expand_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ItemTextureRect" type="TextureRect" parent="MarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("AtlasTexture_pe8o1")
+stretch_mode = 5
+
+[node name="ItemLevelLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Lv. 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemRarityLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 24.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 16
+text = "N"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemEquippedLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_bottom = 24.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 16
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

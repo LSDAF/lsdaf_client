@@ -1,0 +1,194 @@
+[gd_scene load_steps=20 format=3 uid="uid://dqdsdwfufbwdg"]
+
+[ext_resource type="Script" path="res://src/elements/hud/hud.gd" id="1_lmgif"]
+[ext_resource type="Texture2D" uid="uid://noaec1uwwokm" path="res://asset/items/currencies/gold.png" id="2_jrthv"]
+[ext_resource type="Script" path="res://src/elements/hud/currencies/gold_label.gd" id="3_e8p0k"]
+[ext_resource type="Script" path="res://src/elements/hud/currencies/diamonds_label.gd" id="3_jc3ly"]
+[ext_resource type="Script" path="res://src/elements/hud/wave_label.gd" id="4_inuje"]
+[ext_resource type="Texture2D" uid="uid://c6jv7rbq1wlay" path="res://asset/items/currencies/diamond.png" id="4_p73r7"]
+[ext_resource type="Script" path="res://src/elements/hud/amethyst_label.gd" id="4_q2gc5"]
+[ext_resource type="Script" path="res://src/elements/hud/stage_label.gd" id="4_r1pv3"]
+[ext_resource type="Script" path="res://src/elements/hud/characteristics_button.gd" id="4_r7avi"]
+[ext_resource type="PackedScene" uid="uid://cvlpyerw0cjjq" path="res://src/elements/hud/characteristics_menu/characteristics_menu.tscn" id="5_836lv"]
+[ext_resource type="Texture2D" uid="uid://0xi6oohvn7pe" path="res://asset/items/currencies/emerald.png" id="6_qnpem"]
+[ext_resource type="Texture2D" uid="uid://dl0fyacx1bv8i" path="res://asset/items/currencies/amethyst.png" id="7_tl67l"]
+[ext_resource type="PackedScene" uid="uid://du1yiy20l36da" path="res://src/elements/hud/inventory_menu/inventory_menu.tscn" id="7_x71an"]
+[ext_resource type="Script" path="res://src/elements/hud/inventory_button.gd" id="8_fowqm"]
+[ext_resource type="Script" path="res://src/elements/hud/quest_button.gd" id="8_lxsct"]
+[ext_resource type="Script" path="res://src/elements/hud/settings_button.gd" id="15_0oafs"]
+[ext_resource type="Script" path="res://src/elements/hud/profile_button.gd" id="15_insbh"]
+[ext_resource type="PackedScene" uid="uid://cepdmakkbod5u" path="res://src/elements/hud/profile_menu/profile_menu.tscn" id="16_ajch4"]
+[ext_resource type="PackedScene" uid="uid://b3trj3p71tnns" path="res://src/elements/hud/settings_menu/settings_menu.tscn" id="16_vjwpm"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lmgif")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CurrenciesContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Gold" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Gold"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_jrthv")
+expand_mode = 3
+
+[node name="GoldLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Gold"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_e8p0k")
+
+[node name="Diamonds" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Diamonds"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_p73r7")
+expand_mode = 3
+
+[node name="DiamondsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Diamonds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_jc3ly")
+
+[node name="Emeralds" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Emeralds"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("6_qnpem")
+expand_mode = 3
+
+[node name="EmeraldsLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Emeralds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Amethysts" type="HBoxContainer" parent="VBoxContainer/CurrenciesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/CurrenciesContainer/Amethysts"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("7_tl67l")
+expand_mode = 3
+
+[node name="AmethystLabel" type="Label" parent="VBoxContainer/CurrenciesContainer/Amethysts"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123,456,789"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_q2gc5")
+
+[node name="StageLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Stage:"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_r1pv3")
+metadata/_edit_use_anchors_ = true
+
+[node name="WaveLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Stage:"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_inuje")
+metadata/_edit_use_anchors_ = true
+
+[node name="MenuButtons" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MenuButtons"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="InventoryButton" type="Button" parent="VBoxContainer/MenuButtons/GridContainer"]
+layout_mode = 2
+text = "Inventory"
+script = ExtResource("8_fowqm")
+inventory_menu = ExtResource("7_x71an")
+
+[node name="CharacteristicsButton" type="Button" parent="VBoxContainer/MenuButtons/GridContainer"]
+layout_mode = 2
+text = "Characteristics"
+script = ExtResource("4_r7avi")
+characteristics_menu = ExtResource("5_836lv")
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/MenuButtons/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Settings"
+script = ExtResource("15_0oafs")
+settings_menu = ExtResource("16_vjwpm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MenuButtons"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProfileButton" type="Button" parent="VBoxContainer/MenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "Profile"
+script = ExtResource("15_insbh")
+profile_menu = ExtResource("16_ajch4")
+
+[node name="QuestButton" type="Button" parent="VBoxContainer/MenuButtons/VBoxContainer"]
+layout_mode = 2
+text = "<CURRENT_QUEST_NAME>
+<CURRENT_QUEST_PROGRESS>
+<CURRENT_QUEST_REWARD>"
+script = ExtResource("8_lxsct")
+
+[connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/InventoryButton" to="VBoxContainer/MenuButtons/GridContainer/InventoryButton" method="_on_button_down"]
+[connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/CharacteristicsButton" to="VBoxContainer/MenuButtons/GridContainer/CharacteristicsButton" method="_on_button_down"]
+[connection signal="button_down" from="VBoxContainer/MenuButtons/GridContainer/SettingsButton" to="VBoxContainer/MenuButtons/GridContainer/SettingsButton" method="_on_button_down"]
+[connection signal="button_down" from="VBoxContainer/MenuButtons/VBoxContainer/ProfileButton" to="VBoxContainer/MenuButtons/VBoxContainer/ProfileButton" method="_on_button_down"]
+[connection signal="pressed" from="VBoxContainer/MenuButtons/VBoxContainer/QuestButton" to="VBoxContainer/MenuButtons/VBoxContainer/QuestButton" method="_on_pressed"]
