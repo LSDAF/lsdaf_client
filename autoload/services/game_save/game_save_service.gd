@@ -13,13 +13,17 @@ func get_game_save_id() -> String:
 func load_game_save(game_save_dto: GameSaveDto) -> void:
 	_game_save_id = game_save_dto.id
 
-	var response := await Api.currency.fetch_game_save_currencies(_game_save_id, _on_fetch_currencies_error)
-	Data.currencies.load_currencies(
-		response.gold,
-		response.diamond,
-		response.emerald,
-		response.amethyst
+	var fetched_currencies := await Api.currency.fetch_game_save_currencies(_game_save_id, _on_fetch_currencies_error)
+	Data.currencies._set_currencies(
+		fetched_currencies.gold,
+		fetched_currencies.diamond,
+		fetched_currencies.emerald,
+		fetched_currencies.amethyst
 	)
+
+	var fetched_stage := await Api.stage.fetch_game_save_stage(_game_save_id, _on_fetch_stage_error)
+	Data.stage.set_current_stage(fetched_stage.current_stage)
+	Data.stage.set_max_stage(fetched_stage.max_stage)
 
 func save_game() -> void:
 	var success := await _save_currencies() and await _save_stage()
@@ -60,6 +64,10 @@ func _save_stage() -> bool:
 
 func _on_fetch_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch currencies.")
+
+
+func _on_fetch_stage_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to fetch stage.")
 
 
 func _on_save_currencies_error(response: Variant) -> void:
