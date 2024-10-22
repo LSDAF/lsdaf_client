@@ -55,7 +55,7 @@ func set_max_stage(new_max_stage: int) -> void:
 func beat_current_stage() -> void:
 	if _current_stage == _max_stage:
 		_max_stage += 1
-		Data.current_quest.on_progress_stage()
+		Services.current_quest.on_progress_stage()
 
 	set_current_stage(_current_stage + 1)
 
