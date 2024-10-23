@@ -1,22 +1,23 @@
 class_name CurrentQuestService
 
 
-static func _init_mob_quest() -> Quest:
-	var quest := Data.current_quest.mob_quest_blueprint
+
+static func _init_mob_quest() -> void:
+	var quest: MobQuest = Data.current_quest.mob_quest_blueprint
 
 	quest.goal = quest.nb_kills
 	quest.score = 0
 
-	return quest
+	Data.current_quest._quest = quest
 
 
-static func _init_stage_quest() -> Quest:
-	var quest := Data.current_quest.stage_quest_blueprint
+static func _init_stage_quest() -> void:
+	var quest: StageQuest = Data.current_quest.stage_quest_blueprint
 
 	quest.goal = Data.current_quest._stage_last_milestone + quest.stage_interval
 	quest.score = StageService.get_max_stage()
 
-	return quest
+	Data.current_quest._quest = quest
 
 
 static func _reward_player() -> void:
@@ -50,15 +51,14 @@ static func is_redeemable() -> bool:
 static func redeem() -> void:
 	_reward_player()
 
-	var new_quest: Quest
-
 	if Data.current_quest._quest is MobQuest:
 		_init_stage_quest()
 	elif Data.current_quest._quest is StageQuest:
-		new_quest = _init_mob_quest()
-		Data.current_quest._stage_last_milestone = Data.current_quest._quest.goal
+		var quest_goal := Data.current_quest._quest.goal
+
+		_init_mob_quest()
+		Data.current_quest._stage_last_milestone = quest_goal
 	else:
 		return
 
-	Data.current_quest._quest = new_quest
 	EventBus.quest_update.emit()

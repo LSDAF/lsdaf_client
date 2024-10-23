@@ -10,4 +10,4 @@ var _stage_last_milestone := 0
 
 
 func _ready() -> void:
-	_quest = CurrentQuestService._init_mob_quest()
+	CurrentQuestService._init_mob_quest()
