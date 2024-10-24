@@ -10,7 +10,7 @@ func get_game_save_id() -> String:
 func load_game_save(game_save_dto: GameSaveDto) -> void:
 	Data.game_save._game_save_id = game_save_dto.id
 
-	var fetched_currencies := await Api.currency.fetch_game_save_currencies(
+	var fetched_currencies := await CurrenciesApi.fetch_game_save_currencies(
 		Data.game_save._game_save_id, _on_fetch_currencies_error
 	)
 	Services.currencies._set_currencies(
@@ -20,7 +20,7 @@ func load_game_save(game_save_dto: GameSaveDto) -> void:
 		fetched_currencies.amethyst
 	)
 
-	var fetched_stage := await Api.stage.fetch_game_save_stage(
+	var fetched_stage := await StageApi.fetch_game_save_stage(
 		Data.game_save._game_save_id, _on_fetch_stage_error
 	)
 	Services.stage.set_current_stage(fetched_stage.current_stage)
@@ -50,7 +50,7 @@ func _save_currencies() -> bool:
 		)
 	)
 
-	return await Api.currency.update_game_save_currencies(
+	return await CurrenciesApi.update_game_save_currencies(
 		Data.game_save._game_save_id, update_currencies_dto, _on_save_currencies_error
 	)
 
@@ -66,7 +66,7 @@ func _save_stage() -> bool:
 		)
 	)
 
-	return await Api.stage.update_game_save_stage(
+	return await StageApi.update_game_save_stage(
 		Data.game_save._game_save_id, update_stage_dto, _on_save_stage_error
 	)
 

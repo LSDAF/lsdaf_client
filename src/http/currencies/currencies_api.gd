@@ -1,7 +1,7 @@
 class_name CurrenciesApi
 
 
-func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> FetchCurrenciesDto:
+static func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> FetchCurrenciesDto:
 	var response: HTTPResult = await Http.api_client.fetch(
 		Http.api_routes.FETCH_GAME_SAVES_CURRENCIES.format({"game_save_id": game_save_id}), true
 	)
@@ -21,7 +21,7 @@ func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> F
 	return FetchCurrenciesDto.new(json["data"])
 
 
-func update_game_save_currencies(
+static func update_game_save_currencies(
 	game_save_id: String, update_currencies_dto: UpdateCurrenciesDto, on_failure: Callable
 ) -> bool:
 	var response: HTTPResult = await Http.api_client.post(

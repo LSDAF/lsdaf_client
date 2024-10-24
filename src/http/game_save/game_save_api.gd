@@ -1,7 +1,7 @@
 class_name GameSaveApi
 
 
-func generate_game_save(on_failure: Callable) -> GameSaveDto:
+static func generate_game_save(on_failure: Callable) -> GameSaveDto:
 	var response: HTTPResult = await Http.api_client.post(Http.api_routes.GENERATE_GAME_SAVE, true)
 
 	if !response.success() or response.status_err():
@@ -19,7 +19,7 @@ func generate_game_save(on_failure: Callable) -> GameSaveDto:
 	return GameSaveDto.new(json["data"])
 
 
-func update_game_save_nickname(
+static func update_game_save_nickname(
 	game_save_id: String, nickname: String, on_failure: Callable
 ) -> bool:
 	var body: Dictionary = {

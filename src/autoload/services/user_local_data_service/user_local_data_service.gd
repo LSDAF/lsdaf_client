@@ -37,7 +37,7 @@ func relog_user() -> bool:
 	):
 		return false
 
-	var refreshLoginResponse := await Api.auth.refresh_login(
+	var refreshLoginResponse := await AuthApi.refresh_login(
 		Data.user_local_data._user_data.email,
 		Data.user_local_data._user_data.refresh_token,
 		_on_relog_failed
