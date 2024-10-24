@@ -1,7 +1,9 @@
 class_name CurrenciesApi
 
 
-static func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> FetchCurrenciesDto:
+static func fetch_game_save_currencies(
+	game_save_id: String, on_failure: Callable
+) -> FetchCurrenciesDto:
 	var response: HTTPResult = await Http.api_client.fetch(
 		Http.api_routes.FETCH_GAME_SAVES_CURRENCIES.format({"game_save_id": game_save_id}), true
 	)
