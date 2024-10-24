@@ -5,8 +5,8 @@ static func get_game_save_id() -> String:
 	return Data.game_save._game_save_id
 
 
-static func load_game_save(game_save_dto: GameSaveDto) -> void:
-	Data.game_save._game_save_id = game_save_dto.id
+static func load_game_save(game_save_id: String) -> void:
+	Data.game_save._game_save_id = game_save_id
 
 	var fetched_currencies := await CurrenciesApi.fetch_game_save_currencies(
 		Data.game_save._game_save_id, _on_fetch_currencies_error
