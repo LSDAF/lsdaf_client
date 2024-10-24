@@ -1,8 +1,5 @@
 class_name StageService
 
-signal current_stage_updated(new_stage: int)
-signal current_wave_updated(new_wave: int)
-
 
 static func get_current_stage() -> int:
 	return Data.stage._current_stage
@@ -31,14 +28,14 @@ static func set_current_difficulty() -> void:
 static func set_current_stage(new_current_stage: int) -> void:
 	Data.stage._current_stage = new_current_stage
 
-	current_stage_updated.emit(new_current_stage)
+	EventBus.current_stage_update.emit(new_current_stage)
 	set_current_difficulty()
 
 
 static func set_current_wave(new_current_wave: int) -> void:
 	Data.stage._current_wave = new_current_wave
 
-	current_wave_updated.emit(new_current_wave)
+	EventBus.current_wave_update.emit(new_current_wave)
 
 
 static func set_max_stage(new_max_stage: int) -> void:
