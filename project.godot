@@ -16,7 +16,6 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 [autoload]
 
-Api="*res://src/autoload/api/api.gd"
 Data="*res://src/autoload/data/data.gd"
 Http="*res://src/autoload/http/http.gd"
 Services="*res://src/autoload/services/services.gd"
@@ -43,6 +42,7 @@ enabled=PackedStringArray("res://addons/awaitable_http_request/plugin.cfg", "res
 settings/test/test_discovery=true
 ui/toolbar/run_overall=true
 settings/test/test_lookup_folder="tests"
+ui/inspector/tree_view_mode=1
 
 [input_devices]
 
