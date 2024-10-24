@@ -2,7 +2,7 @@ class_name LootService
 
 
 static func loot_random_item() -> void:
-	var new_item := Services.items_service.create_random_item()
+	var new_item := ItemsService.create_random_item()
 	InventoryService.add_item(new_item)
 
 
@@ -16,7 +16,7 @@ static func try_loot_item() -> void:
 	if roll > drop_rate:
 		return
 
-	var new_item := Services.items_service.create_item(type, rarity)
+	var new_item := ItemsService.create_item(type, rarity)
 	InventoryService.add_item(new_item)
 
 

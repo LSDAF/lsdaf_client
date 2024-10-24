@@ -2,11 +2,12 @@ extends Node
 
 class_name ItemsService
 
-@export var item_stats_pools: ItemStatsPools
-@export var item_pools: ItemPools
+# INFO: Since this class is static, it is not possible to use exports for resources since we have no attached scene
+static var item_stats_pools: ItemStatsPools = load("res://src/resources/items/stats/pools/item_stats_pools.tres")
+static var item_pools: ItemPools = load("res://src/resources/items/item_pools/item_pools.tres")
 
 
-func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> Item:
+static func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> Item:
 	var item := Item.new()
 
 	# Fixed
@@ -28,14 +29,14 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 	return item
 
 
-func create_random_item() -> Item:
+static func create_random_item() -> Item:
 	var item_type: ItemType.ItemType = ItemType.ItemType.values().pick_random()
 	var item_rarity: ItemRarity.ItemRarity = ItemRarity.ItemRarity.values().pick_random()
 
 	return create_item(item_type, item_rarity)
 
 
-func _get_additionnal_stats(item_stats_pool: ItemStatsPool) -> Array[ItemStat]:
+static func _get_additionnal_stats(item_stats_pool: ItemStatsPool) -> Array[ItemStat]:
 	var item_additionnal_stats_blueprints: Array[ItemStatBlueprint] = []
 	var potential_stats_blueprints := item_stats_pool.potential_stats
 	potential_stats_blueprints.shuffle()
@@ -50,11 +51,11 @@ func _get_additionnal_stats(item_stats_pool: ItemStatsPool) -> Array[ItemStat]:
 	return item_additionnal_stats
 
 
-func _get_main_stat(item_stats_pool: ItemStatsPool) -> ItemStat:
+static func _get_main_stat(item_stats_pool: ItemStatsPool) -> ItemStat:
 	return _roll_stat_value(item_stats_pool.main_stat)
 
 
-func _get_blueprint_from_pools(
+static func _get_blueprint_from_pools(
 	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
 ) -> ItemBlueprint:
 	match item_type:
@@ -87,7 +88,7 @@ func _get_blueprint_from_pools(
 	return item_pools.swords.normal[0]
 
 
-func _get_stats_pool_from_pools(
+static func _get_stats_pool_from_pools(
 	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
 ) -> ItemStatsPool:
 	match item_type:
@@ -120,7 +121,7 @@ func _get_stats_pool_from_pools(
 	return item_stats_pools.swords.normal
 
 
-func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:
+static func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:
 	var item_stat := ItemStat.new()
 
 	item_stat.statistic = item_stat_blueprint.statistic
