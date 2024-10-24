@@ -20,4 +20,4 @@ func _on_logout() -> void:
 
 
 func _on_game_save_timer_timeout() -> void:
-	Services.game_save.save_game()
+	GameSaveService.save_game()

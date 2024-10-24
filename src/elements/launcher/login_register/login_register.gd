@@ -14,9 +14,9 @@ var _remember_me: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_remember_me = Services.user_local_data.get_remember_me()
-	_login_email = Services.user_local_data.get_email()
-	_register_email = Services.user_local_data.get_email()
+	_remember_me = UserLocalDataService.get_remember_me()
+	_login_email = UserLocalDataService.get_email()
+	_register_email = UserLocalDataService.get_email()
 	_apply()
 
 
@@ -56,27 +56,27 @@ func register(name: String, email: String, password: String) -> void:
 
 
 func error(response: Variant) -> void:
-	Services.toaster.toast("Error when registering")
+	ToasterService.toast("Error when registering")
 
 
 func _on_login_button_pressed() -> void:
-	Services.user_local_data.save_remember_me(_remember_me)
+	UserLocalDataService.save_remember_me(_remember_me)
 
 	if _remember_me:
-		Services.user_local_data.save_email(_login_email)
+		UserLocalDataService.save_email(_login_email)
 	else:
-		Services.user_local_data.save_email("")
+		UserLocalDataService.save_email("")
 
 	on_login.emit(_login_email, _login_password)
 
 
 func _on_register_button_pressed() -> void:
-	Services.user_local_data.save_remember_me(_remember_me)
+	UserLocalDataService.save_remember_me(_remember_me)
 
 	if _remember_me:
-		Services.user_local_data.save_email(_login_email)
+		UserLocalDataService.save_email(_login_email)
 	else:
-		Services.user_local_data.save_email("")
+		UserLocalDataService.save_email("")
 
 	register(_register_name, _register_email, _register_password)
 
