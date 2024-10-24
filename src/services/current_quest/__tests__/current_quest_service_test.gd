@@ -22,7 +22,7 @@ func test__init_mob_quest() -> void:
 	# Arrange
 
 	# Act
-	Services.current_quest._init_mob_quest()
+	CurrentQuestService._init_mob_quest()
 	var quest: MobQuest = Data.current_quest._quest
 
 	# Assert
@@ -34,7 +34,7 @@ func test__init_stage_quest() -> void:
 	# Arrange
 
 	# Act
-	Services.current_quest._init_stage_quest()
+	CurrentQuestService._init_stage_quest()
 	var quest: StageQuest = Data.current_quest._quest
 
 	# Assert
@@ -48,11 +48,11 @@ func test__reward_player() -> void:
 	# Arrange
 	Data.currencies.diamond._value = 10
 
-	Services.current_quest._init_stage_quest()
+	CurrentQuestService._init_stage_quest()
 	var quest: StageQuest = Data.current_quest._quest
 
 	# Act
-	Services.current_quest._reward_player()
+	CurrentQuestService._reward_player()
 
 	# Assert
 	assert_int(Data.currencies.diamond.get_value()).is_equal(10 + quest.reward)
@@ -60,11 +60,11 @@ func test__reward_player() -> void:
 
 func test__get_current_quest() -> void:
 	# Arrange
-	Services.current_quest._init_mob_quest()
+	CurrentQuestService._init_mob_quest()
 	var quest: MobQuest = Data.current_quest._quest
 
 	# Act
-	var current_quest: Quest = Services.current_quest.get_current_quest()
+	var current_quest: Quest = CurrentQuestService.get_current_quest()
 
 	# Assert
 	assert_that(current_quest).is_equal(quest)
@@ -83,7 +83,7 @@ func test__on_mob_death(current_quest: Quest, current_score: int, test_parameter
 	Data.current_quest._quest.score = current_score
 
 	# Act
-	Services.current_quest.on_mob_death()
+	CurrentQuestService.on_mob_death()
 
 	# Assert
 	if current_quest is MobQuest:
@@ -105,7 +105,7 @@ func test__on_progress_stage(current_quest: Quest, current_score: int, test_para
 	Data.current_quest._quest.score = current_score
 
 	# Act
-	Services.current_quest.on_progress_stage()
+	CurrentQuestService.on_progress_stage()
 
 	# Assert
 	if current_quest is StageQuest:
@@ -130,11 +130,11 @@ func test__is_redeemable(quest_score: int, quest_goal: int, test_parameters := [
 		[100, 10],
 ]) -> void:
 	# Arrange
-	Services.current_quest._init_mob_quest()
+	CurrentQuestService._init_mob_quest()
 	var quest: MobQuest = Data.current_quest._quest
 
 	# Act
-	var is_redeemable: bool = Services.current_quest.is_redeemable()
+	var is_redeemable: bool = CurrentQuestService.is_redeemable()
 
 	# Assert
 	assert_bool(is_redeemable).is_equal(quest.score >= quest.goal)
@@ -155,7 +155,7 @@ func test__redeem(current_quest: Quest, current_stage_last_milestone: int, curre
 	Data.current_quest._stage_last_milestone = current_stage_last_milestone
 
 	# Act
-	Services.current_quest.redeem()
+	CurrentQuestService.redeem()
 
 	# Assert
 	if current_quest is MobQuest:

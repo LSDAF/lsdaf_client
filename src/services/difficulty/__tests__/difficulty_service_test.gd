@@ -13,10 +13,10 @@ func test_set_current_difficulty() -> void:
 	Data.difficulty._current_difficulty = 420.69
 
 	# Act
-	Services.difficulty.set_current_difficulty(1.0)
+	DifficultyService.set_current_difficulty(1.0)
 
 	# Assert
-	assert_float(Services.difficulty.get_current_difficulty()).is_equal(1.0)
+	assert_float(DifficultyService.get_current_difficulty()).is_equal(1.0)
 
 
 func test_get_current_difficulty() -> void:
@@ -24,7 +24,7 @@ func test_get_current_difficulty() -> void:
 	Data.difficulty._current_difficulty = 420.69
 
 	# Act
-	var current_difficulty: float = Services.difficulty.get_current_difficulty()
+	var current_difficulty: float = DifficultyService.get_current_difficulty()
 
 	# Assert
 	assert_float(current_difficulty).is_equal(420.69)
