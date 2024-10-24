@@ -12,7 +12,7 @@ func test__set_currencies() -> void:
 	# Arrange
 	
 	# Act
-	Services.currencies._set_currencies(1, 2, 3, 4)
+	CurrenciesService._set_currencies(1, 2, 3, 4)
 	
 	# Assert
 	assert_int(Data.currencies.gold.get_value()).is_equal(1)
