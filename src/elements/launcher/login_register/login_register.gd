@@ -45,7 +45,7 @@ func clear() -> void:
 
 
 func register(name: String, email: String, password: String) -> void:
-	var registerResponse: RegisterResponseDto = await Api.auth.register(
+	var registerResponse: RegisterResponseDto = await AuthApi.register(
 		name, email, password, error
 	)
 

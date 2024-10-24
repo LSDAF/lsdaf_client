@@ -24,7 +24,7 @@ func fetch_game_saves() -> void:
 	%LoginRegister.hide()
 	%GameSavesCenterContainer.show()
 
-	var game_saves: FetchGameSavesDto = await Api.user.fetch_game_saves(_on_fetch_game_saves_error)
+	var game_saves: FetchGameSavesDto = await UserApi.fetch_game_saves(_on_fetch_game_saves_error)
 
 	for game_save_dto in game_saves.game_saves:
 		var game_save: GameSaveButton = game_save_scene.instantiate()
@@ -34,7 +34,7 @@ func fetch_game_saves() -> void:
 
 
 func login(email: String, password: String) -> void:
-	var loginResponse: LoginResponseDto = await Api.auth.login(email, password, _on_login_error)
+	var loginResponse: LoginResponseDto = await AuthApi.login(email, password, _on_login_error)
 
 	if loginResponse == null:
 		return
@@ -73,7 +73,7 @@ func _on_game_loaded() -> void:
 
 
 func _on_create_new_game_button_pressed() -> void:
-	var game_save_dto: GameSaveDto = await Api.game_save.generate_game_save(
+	var game_save_dto: GameSaveDto = await GameSaveApi.generate_game_save(
 		_on_generate_game_save_error
 	)
 
