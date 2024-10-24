@@ -3,7 +3,9 @@ extends Node
 class_name ItemsService
 
 # INFO: Since this class is static, it is not possible to use exports for resources since we have no attached scene
-static var item_stats_pools: ItemStatsPools = load("res://src/resources/items/stats/pools/item_stats_pools.tres")
+static var item_stats_pools: ItemStatsPools = load(
+	"res://src/resources/items/stats/pools/item_stats_pools.tres"
+)
 static var item_pools: ItemPools = load("res://src/resources/items/item_pools/item_pools.tres")
 
 
