@@ -8,7 +8,7 @@ var _selected_item_index: int = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	InventoryService.on_inventory_update.connect(update_inventory)
+	EventBus.inventory_update.connect(update_inventory)
 	%ItemDetailsMenu.on_salvage_item.connect(_on_salvage_item)
 	%EquippedItems.on_item_selected.connect(_on_item_selected)
 

@@ -1,7 +1,5 @@
 class_name CurrentQuestService
 
-signal quest_update
-
 
 static func _init_mob_quest() -> Quest:
 	var quest := Data.current_quest.mob_quest_blueprint
@@ -34,7 +32,7 @@ static func on_mob_death() -> void:
 		return
 
 	Data.current_quest._quest.score += 1
-	quest_update.emit()
+	EventBus.quest_update.emit()
 
 
 static func on_progress_stage() -> void:
@@ -42,7 +40,7 @@ static func on_progress_stage() -> void:
 		return
 
 	Data.current_quest._quest.score += 1
-	quest_update.emit()
+	EventBus.quest_update.emit()
 
 
 static func is_redeemable() -> bool:
@@ -63,4 +61,4 @@ static func redeem() -> void:
 		return
 
 	Data.current_quest._quest = new_quest
-	quest_update.emit()
+	EventBus.quest_update.emit()

@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.3", "Mobile")
 Data="*res://src/autoload/data/data.gd"
 Http="*res://src/autoload/http/http.gd"
 Services="*res://src/autoload/services/services.gd"
+EventBus="*res://src/autoload/event_bus.gd"
 
 [debug]
 

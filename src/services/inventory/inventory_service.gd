@@ -1,12 +1,10 @@
 class_name InventoryService
 
-signal on_inventory_update
-
 
 static func add_item(item: Item) -> void:
 	Data.inventory.items.push_back(item)
 
-	on_inventory_update.emit()
+	EventBus.inventory_update.emit()
 
 
 static func delete_item_at_index(item_index: int) -> void:
@@ -16,7 +14,7 @@ static func delete_item_at_index(item_index: int) -> void:
 
 	items.pop_at(item_index)
 
-	on_inventory_update.emit()
+	EventBus.inventory_update.emit()
 
 
 static func equip_item_at_index(item_index: int) -> void:
@@ -32,7 +30,7 @@ static func equip_item_at_index(item_index: int) -> void:
 
 		items[index].is_equipped = index == item_index
 
-	on_inventory_update.emit()
+	EventBus.inventory_update.emit()
 
 
 static func get_items() -> Array[Item]:
@@ -65,7 +63,7 @@ static func level_up_item_at_index(item_index: int) -> void:
 
 	items[item_index].level += 1
 
-	on_inventory_update.emit()
+	EventBus.inventory_update.emit()
 
 
 static func unequip_item_at_index(item_index: int) -> void:
@@ -75,4 +73,4 @@ static func unequip_item_at_index(item_index: int) -> void:
 
 	items[item_index].is_equipped = false
 
-	on_inventory_update.emit()
+	EventBus.inventory_update.emit()

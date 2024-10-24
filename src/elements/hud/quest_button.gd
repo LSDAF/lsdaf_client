@@ -3,7 +3,7 @@ extends Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	CurrentQuestService.quest_update.connect(on_quest_update)
+	EventBus.quest_update.connect(on_quest_update)
 	disabled = true
 
 	on_quest_update()

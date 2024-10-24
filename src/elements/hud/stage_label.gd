@@ -3,7 +3,7 @@ extends Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	StageService.current_stage_updated.connect(update_current_stage_updated)
+	EventBus.current_stage_update.connect(update_current_stage_updated)
 	text = "Stage: " + str(StageService.get_current_stage())
 
 
