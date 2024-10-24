@@ -11,7 +11,7 @@ signal game_loaded
 func _ready() -> void:
 	%LoginRegister.on_login.connect(login)
 
-	if await Services.user_local_data.relog_user() == true:
+	if await UserLocalDataService.relog_user() == true:
 		fetch_game_saves()
 
 
@@ -39,8 +39,8 @@ func login(email: String, password: String) -> void:
 	if loginResponse == null:
 		return
 
-	Services.user_local_data.save_access_token(loginResponse.access_token)
-	Services.user_local_data.save_refresh_token(loginResponse.refresh_token)
+	UserLocalDataService.save_access_token(loginResponse.access_token)
+	UserLocalDataService.save_refresh_token(loginResponse.refresh_token)
 
 	fetch_game_saves()
 
@@ -54,17 +54,17 @@ func return_to_login_form() -> void:
 
 
 func _on_generate_game_save_error(response: Variant) -> void:
-	Services.toaster.toast("Error when generating save")
+	ToasterService.toast("Error when generating save")
 
 
 func _on_login_error(response: Variant) -> void:
-	Services.toaster.toast("Error when logging in")
+	ToasterService.toast("Error when logging in")
 
 
 func _on_fetch_game_saves_error(response: Variant) -> void:
-	Services.toaster.toast("Error when fetching games")
+	ToasterService.toast("Error when fetching games")
 
-	Services.user_local_data.create_new_user_data()
+	UserLocalDataService.create_new_user_data()
 	return_to_login_form()
 
 

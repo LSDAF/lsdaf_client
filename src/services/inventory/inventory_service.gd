@@ -3,13 +3,13 @@ class_name InventoryService
 signal on_inventory_update
 
 
-func add_item(item: Item) -> void:
+static func add_item(item: Item) -> void:
 	Data.inventory.items.push_back(item)
 
 	on_inventory_update.emit()
 
 
-func delete_item_at_index(item_index: int) -> void:
+static func delete_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return
@@ -19,7 +19,7 @@ func delete_item_at_index(item_index: int) -> void:
 	on_inventory_update.emit()
 
 
-func equip_item_at_index(item_index: int) -> void:
+static func equip_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return
@@ -35,11 +35,11 @@ func equip_item_at_index(item_index: int) -> void:
 	on_inventory_update.emit()
 
 
-func get_items() -> Array[Item]:
+static func get_items() -> Array[Item]:
 	return Data.inventory.items
 
 
-func get_equipped_items_index() -> Array[int]:
+static func get_equipped_items_index() -> Array[int]:
 	var items := Data.inventory.items
 	var equipped_items_index: Array[int] = []
 
@@ -50,7 +50,7 @@ func get_equipped_items_index() -> Array[int]:
 	return equipped_items_index
 
 
-func get_item_at_index(item_index: int) -> Item:
+static func get_item_at_index(item_index: int) -> Item:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return null
@@ -58,7 +58,7 @@ func get_item_at_index(item_index: int) -> Item:
 	return items[item_index]
 
 
-func level_up_item_at_index(item_index: int) -> void:
+static func level_up_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return
@@ -68,7 +68,7 @@ func level_up_item_at_index(item_index: int) -> void:
 	on_inventory_update.emit()
 
 
-func unequip_item_at_index(item_index: int) -> void:
+static func unequip_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return

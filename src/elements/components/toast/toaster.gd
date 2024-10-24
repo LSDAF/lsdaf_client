@@ -7,7 +7,7 @@ class_name Toaster
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Services.toaster.on_toast.connect(add_toast)
+	ToasterService.on_toast.connect(add_toast)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
