@@ -8,15 +8,15 @@ extends GdUnitTestSuite
 const __source = 'res://src/autoload/services/current_quest/current_quest_service.gd'
 
 
-func before_test() -> void:
-	Data.current_quest.mob_quest_blueprint = load("res://src/resources/quests/mob_quest.tres")
-	Data.current_quest.stage_quest_blueprint = load("res://src/resources/quests/stage_quest.tres")
-	Data.current_quest._quest = null
-	Data.current_quest._stage_last_milestone = 0
-	Data.currencies.amethyst._value = 0
-	Data.currencies.diamond._value = 0
-	Data.currencies.emerald._value = 0
-	Data.currencies.gold._value = 0
+#func before_test() -> void:
+#	Data.current_quest.mob_quest_blueprint = load("res://src/resources/quests/mob_quest.tres")
+#	Data.current_quest.stage_quest_blueprint = load("res://src/resources/quests/stage_quest.tres")
+#	Data.current_quest._quest = null
+#	Data.current_quest._stage_last_milestone = 0
+#	Data.currencies.amethyst._value = 0
+#	Data.currencies.diamond._value = 0
+#	Data.currencies.emerald._value = 0
+#	Data.currencies.gold._value = 0
 
 func test__init_mob_quest() -> void:
 	# Arrange
