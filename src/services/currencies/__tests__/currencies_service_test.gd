@@ -1,21 +1,14 @@
-# GdUnit generated TestSuite
-class_name CurrenciesServiceTest
-extends GdUnitTestSuite
-@warning_ignore('unused_parameter')
-@warning_ignore('return_value_discarded')
-
-# TestSuite generated from
-const __source = 'res://src/autoload/services/currencies/currencies_service.gd'
+extends GutTest
 
 
-func test__set_currencies() -> void:
+func test_set_currencies() -> void:
 	# Arrange
-	
+
 	# Act
-	CurrenciesService._set_currencies(1, 2, 3, 4)
-	
+	CurrenciesService._set_currencies(100.0, 100.0, 100.0, 100.0)
+
 	# Assert
-	assert_int(Data.currencies.gold.get_value()).is_equal(1)
-	assert_int(Data.currencies.diamond.get_value()).is_equal(2)
-	assert_int(Data.currencies.emerald.get_value()).is_equal(3)
-	assert_int(Data.currencies.amethyst.get_value()).is_equal(4)
+	assert_eq(Data.currencies.gold.get_value(), 100.0)
+	assert_eq(Data.currencies.diamond.get_value(), 100.0)
+	assert_eq(Data.currencies.emerald.get_value(), 100.0)
+	assert_eq(Data.currencies.amethyst.get_value(), 100.0)
