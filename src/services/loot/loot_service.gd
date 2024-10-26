@@ -1,6 +1,7 @@
 class_name LootService
 
 
+# INFO: This is a temporary solution during dev, do not test it
 func loot_random_item() -> void:
 	var new_item := Services.items.create_random_item()
 	Services.inventory.add_item(new_item)
