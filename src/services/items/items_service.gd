@@ -129,6 +129,7 @@ func _roll_stat_value(item_stat_blueprint: ItemStatBlueprint) -> ItemStat:
 
 	var item_stat_base_value := 0.0
 
+	# TODO: use random_number_generator_service and mock it in tests
 	var base_value_dice_roll := randf()
 	var base_value_range: float = (
 		item_stat_blueprint.base_value_max - item_stat_blueprint.base_value_min

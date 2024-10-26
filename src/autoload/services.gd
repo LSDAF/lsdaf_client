@@ -14,10 +14,11 @@ var difficulty: DifficultyService = (
 )
 var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new(Data.inventory)
 var items: ItemsService = preload("res://src/services/items/items_service.gd").new()
-var loot: LootService = preload("res://src/services/loot/loot_service.gd").new()
+var loot: LootService = preload("res://src/services/loot/loot_service.gd").new(difficulty, inventory, items, random_number_generator)
 var player_stats: PlayerStatsService = (
 	preload("res://src/services/player_stats/player_stats_service.gd").new()
 )
+var random_number_generator: RandomNumberGeneratorService = preload("res://src/services/random_number_generator/random_number_generator_service.gd").new()
 var toaster: ToasterService = preload("res://src/services/toaster/toaster_service.gd").new()
 var user_local_data: UserLocalDataService = (
 	preload("res://src/services/user_local_data/user_local_data_service.gd").new()
