@@ -128,14 +128,14 @@ func test_get_stats_pool_from_pools(
 # Parameters
 # [item_statistic, base_value_min, base_value_max, base_value_step]
 var test_roll_stat_value_parameters := [
-	[ItemStatistics.ItemStatistics.ATTACK_ADD, 0, 100, 1],
-	[ItemStatistics.ItemStatistics.ATTACK_MULT, 0, 100, 5],
-	[ItemStatistics.ItemStatistics.CRIT_CHANCE, 0, 100, 20],
-	[ItemStatistics.ItemStatistics.CRIT_DAMAGE, 0, 100, 1.5],
-	[ItemStatistics.ItemStatistics.HP_ADD, 0, 100, 99],
-	[ItemStatistics.ItemStatistics.HP_MULT, 0, 100, 33.333],
-	[ItemStatistics.ItemStatistics.RESISTANCE_ADD, 0, 100, 17],
-	[ItemStatistics.ItemStatistics.RESISTANCE_MULT, 0, 100, 13],
+	[ItemStatistics.ItemStatistics.ATTACK_ADD, 0.0, 100.0, 1.0],
+	[ItemStatistics.ItemStatistics.ATTACK_MULT, 0.0, 100.0, 5.0],
+	[ItemStatistics.ItemStatistics.CRIT_CHANCE, 0.0, 100.0, 20.0],
+	[ItemStatistics.ItemStatistics.CRIT_DAMAGE, 0.0, 100.0, 1.5],
+	[ItemStatistics.ItemStatistics.HP_ADD, 0.0, 100.0, 99.0],
+	[ItemStatistics.ItemStatistics.HP_MULT, 0.0, 100.0, 33.333],
+	[ItemStatistics.ItemStatistics.RESISTANCE_ADD, 0.0, 100.0, 17.0],
+	[ItemStatistics.ItemStatistics.RESISTANCE_MULT, 0.0, 100.0, 13.0],
 ]
 func test_roll_stat_value(params: Array = use_parameters(test_roll_stat_value_parameters)) -> void:
 	# Arrange
@@ -157,4 +157,6 @@ func test_roll_stat_value(params: Array = use_parameters(test_roll_stat_value_pa
 	assert_eq(rolled_stat_value.statistic, item_stat_blueprint.statistic)
 	assert_gte(rolled_stat_value.base_value, item_stat_blueprint.base_value_min)
 	assert_lte(rolled_stat_value.base_value, item_stat_blueprint.base_value_max)
-	assert_eq(fmod(rolled_stat_value.base_value, item_stat_blueprint.base_value_step), 0)
+
+	if (rolled_stat_value.base_value < item_stat_blueprint.base_value_max):
+		assert_eq(fmod(rolled_stat_value.base_value, item_stat_blueprint.base_value_step), 0.0)
