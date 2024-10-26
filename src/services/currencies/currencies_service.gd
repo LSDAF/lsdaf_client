@@ -2,8 +2,10 @@ class_name CurrenciesService
 
 var _currency_data: CurrenciesData
 
+
 func _init(currency_data: CurrenciesData) -> void:
 	_currency_data = currency_data
+
 
 # INFO: This function is only used for loading the game save
 func _set_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) -> void:

@@ -10,6 +10,7 @@ var currencies_data_partial_double: Variant
 var current_quest_data_partial_double: Variant
 var stage_service_partial_double: Variant
 
+
 func before_each() -> void:
 	currencies_data_partial_double = partial_double(currencies_data).new()
 	current_quest_data_partial_double = partial_double(current_quest_data).new()
@@ -33,6 +34,7 @@ func test_init_mob_quest() -> void:
 	assert_eq(current_quest_data_partial_double._quest.nb_kills, 10)
 	assert_eq(current_quest_data_partial_double._quest.reward, 3000)
 	assert_eq(current_quest_data_partial_double._quest.score, 0)
+
 
 func test_init_stage_quest() -> void:
 	# Arrange
@@ -77,13 +79,15 @@ func test_get_current_quest() -> void:
 # Parameters
 # [current_quest, current_score]
 var test_on_mob_death_parameters := [
-		[MobQuest.new(), 0],
-		[MobQuest.new(), 1],
-		[MobQuest.new(), 9],
-		[StageQuest.new(), 1],
-		[StageQuest.new(), 0],
-		[StageQuest.new(), 9],
+	[MobQuest.new(), 0],
+	[MobQuest.new(), 1],
+	[MobQuest.new(), 9],
+	[StageQuest.new(), 1],
+	[StageQuest.new(), 0],
+	[StageQuest.new(), 9],
 ]
+
+
 func test_on_mob_death(params: Array = use_parameters(test_on_mob_death_parameters)) -> void:
 	# Arrange
 	current_quest_data_partial_double._quest = params[0]
@@ -102,14 +106,18 @@ func test_on_mob_death(params: Array = use_parameters(test_on_mob_death_paramete
 # Parameters
 # [current_quest, current_score]
 var test_on_progress_stage_parameters := [
-		[MobQuest.new(), 0],
-		[StageQuest.new(), 0],
-		[MobQuest.new(), 1],
-		[StageQuest.new(), 1],
-		[MobQuest.new(), 9],
-		[StageQuest.new(), 9],
+	[MobQuest.new(), 0],
+	[StageQuest.new(), 0],
+	[MobQuest.new(), 1],
+	[StageQuest.new(), 1],
+	[MobQuest.new(), 9],
+	[StageQuest.new(), 9],
 ]
-func test_on_progress_stage(params: Array = use_parameters(test_on_progress_stage_parameters)) -> void:
+
+
+func test_on_progress_stage(
+	params: Array = use_parameters(test_on_progress_stage_parameters)
+) -> void:
 	# Arrange
 	current_quest_data_partial_double._quest = params[0]
 	current_quest_data_partial_double._quest.score = params[1]
@@ -127,20 +135,22 @@ func test_on_progress_stage(params: Array = use_parameters(test_on_progress_stag
 # Parameters
 # [quest_score, quest_goal]
 var test_is_redeemable_parameters := [
-		[0, 1],
-		[1, 1],
-		[1, 2],
-		[1, 5],
-		[4, 5],
-		[5, 5],
-		[6, 5],
-		[25, 5],
-		[1, 10],
-		[9, 10],
-		[10, 10],
-		[11, 10],
-		[100, 10],
+	[0, 1],
+	[1, 1],
+	[1, 2],
+	[1, 5],
+	[4, 5],
+	[5, 5],
+	[6, 5],
+	[25, 5],
+	[1, 10],
+	[9, 10],
+	[10, 10],
+	[11, 10],
+	[100, 10],
 ]
+
+
 func test_is_redeemable(params: Array = use_parameters(test_is_redeemable_parameters)) -> void:
 	# Arrange
 	current_quest_data_partial_double._quest = MobQuest.new()
@@ -170,6 +180,8 @@ var test_redeem_parameters := [
 	[StageQuest.new(), 50, 10],
 	[StageQuest.new(), 50, 100],
 ]
+
+
 func test_redeem(params: Array = use_parameters(test_redeem_parameters)) -> void:
 	# Arrange
 	current_quest_data_partial_double._quest = params[0]
@@ -178,7 +190,9 @@ func test_redeem(params: Array = use_parameters(test_redeem_parameters)) -> void
 
 	stub(stage_service_partial_double, "get_max_stage").to_return(50)
 
-	var current_quest_before_redeem_is_mob_quest: bool = current_quest_data_partial_double._quest is MobQuest
+	var current_quest_before_redeem_is_mob_quest: bool = (
+		current_quest_data_partial_double._quest is MobQuest
+	)
 
 	# Act
 	sut.redeem()

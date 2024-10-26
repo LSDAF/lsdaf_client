@@ -2,8 +2,10 @@ class_name StageService
 
 var _stage_data: StageData
 
+
 func _init(stage_data: StageData) -> void:
 	_stage_data = stage_data
+
 
 func get_current_stage() -> int:
 	return _stage_data._current_stage

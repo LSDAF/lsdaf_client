@@ -7,6 +7,7 @@ var _currency_service: CurrenciesService
 var _stage_service: StageService
 var _game_save_data: GameSaveData
 
+
 func _init(
 	currency_api: CurrenciesApi,
 	stage_api: StageApi,
@@ -21,7 +22,6 @@ func _init(
 	_currency_service = currency_service
 	_stage_service = stage_service
 	_game_save_data = game_save_data
-
 
 
 func get_game_save_id() -> String:

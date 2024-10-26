@@ -3,6 +3,7 @@ extends Quest
 
 @export var nb_kills: int
 
+
 static func create_from_dict(dictionary: Dictionary) -> MobQuest:
 	var quest: MobQuest = MobQuest.new()
 

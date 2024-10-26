@@ -3,6 +3,7 @@ extends Quest
 
 @export var stage_interval: int
 
+
 static func create_from_dict(dictionary: Dictionary) -> StageQuest:
 	var quest: StageQuest = StageQuest.new()
 

@@ -4,21 +4,32 @@ var _currencies_data: CurrenciesData
 var _current_quest_data: CurrentQuestData
 var _stage_service: StageService
 
-func _init(currencies_data: CurrenciesData, current_quest_data: CurrentQuestData, stage_service: StageService) -> void:
+
+func _init(
+	currencies_data: CurrenciesData,
+	current_quest_data: CurrentQuestData,
+	stage_service: StageService
+) -> void:
 	_currencies_data = currencies_data
 	_current_quest_data = current_quest_data
 	_stage_service = stage_service
 
+
 func _init_mob_quest() -> void:
 	var mob_quest: MobQuest = _current_quest_data.mob_quest_blueprint
 
-	var quest: MobQuest = MobQuest.create_from_dict({
-		"goal": mob_quest.nb_kills,
-		"name": mob_quest.name,
-		"nb_kills": mob_quest.nb_kills,
-		"reward": mob_quest.reward,
-		"score": 0,
-	})
+	var quest: MobQuest = (
+		MobQuest
+		. create_from_dict(
+			{
+				"goal": mob_quest.nb_kills,
+				"name": mob_quest.name,
+				"nb_kills": mob_quest.nb_kills,
+				"reward": mob_quest.reward,
+				"score": 0,
+			}
+		)
+	)
 
 	_current_quest_data._quest = quest
 
@@ -26,13 +37,18 @@ func _init_mob_quest() -> void:
 func _init_stage_quest() -> void:
 	var stage_quest: StageQuest = _current_quest_data.stage_quest_blueprint
 
-	var quest: StageQuest = StageQuest.create_from_dict({
-		"goal": _current_quest_data._stage_last_milestone + stage_quest.stage_interval,
-		"name": stage_quest.name,
-		"reward": stage_quest.reward,
-		"score": _stage_service.get_max_stage(),
-		"stage_interval": stage_quest.stage_interval,
-	})
+	var quest: StageQuest = (
+		StageQuest
+		. create_from_dict(
+			{
+				"goal": _current_quest_data._stage_last_milestone + stage_quest.stage_interval,
+				"name": stage_quest.name,
+				"reward": stage_quest.reward,
+				"score": _stage_service.get_max_stage(),
+				"stage_interval": stage_quest.stage_interval,
+			}
+		)
+	)
 
 	_current_quest_data._quest = quest
 

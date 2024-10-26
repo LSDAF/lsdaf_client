@@ -24,9 +24,7 @@ func login(email: String, password: String, on_failure: Callable) -> LoginRespon
 	return LoginResponseDto.new(json["data"])
 
 
-func refresh_login(
-	email: String, refresh_token: String, on_failure: Callable
-) -> LoginResponseDto:
+func refresh_login(email: String, refresh_token: String, on_failure: Callable) -> LoginResponseDto:
 	var body: Dictionary = {
 		"email": email,
 		"refresh_token": refresh_token,

@@ -6,9 +6,12 @@ var difficulty_data := preload("res://src/data/difficulty/difficulty_data.gd")
 
 var difficulty_data_partial_double: DifficultyData
 
+
 func before_each() -> void:
 	difficulty_data_partial_double = partial_double(difficulty_data).new()
-	sut = preload("res://src/services/difficulty/difficulty_service.gd").new(difficulty_data_partial_double)
+	sut = preload("res://src/services/difficulty/difficulty_service.gd").new(
+		difficulty_data_partial_double
+	)
 
 
 func test_set_current_difficulty() -> void:
@@ -20,6 +23,7 @@ func test_set_current_difficulty() -> void:
 
 	# Assert
 	assert_eq(difficulty_data_partial_double._current_difficulty, 1.0)
+
 
 func test_get_current_difficulty() -> void:
 	# Arrange

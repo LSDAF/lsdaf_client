@@ -3,9 +3,7 @@ extends Node
 class_name CurrenciesApi
 
 
-func fetch_game_save_currencies(
-	game_save_id: String, on_failure: Callable
-) -> FetchCurrenciesDto:
+func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> FetchCurrenciesDto:
 	var response: HTTPResult = await Http.api_client.fetch(
 		Http.api_routes.FETCH_GAME_SAVES_CURRENCIES.format({"game_save_id": game_save_id}), true
 	)

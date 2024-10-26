@@ -11,7 +11,6 @@ var currency_data := preload("res://src/data/currencies/currencies_data.gd")
 var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
 var stage_data := preload("res://src/data/stage/stage_data.gd")
 
-
 var currencies_api_partial_double: Variant
 var stage_api_partial_double: Variant
 var clock_service_partial_double: Variant
@@ -20,6 +19,7 @@ var stage_service_partial_double: Variant
 var currency_data_partial_double: Variant
 var game_save_data_partial_double: Variant
 var stage_data_partial_double: Variant
+
 
 func before_each() -> void:
 	currency_data_partial_double = partial_double(currency_data).new()
@@ -31,20 +31,21 @@ func before_each() -> void:
 	currencies_service_partial_double = partial_double(currencies_service).new(
 		currency_data_partial_double
 	)
-	stage_service_partial_double = partial_double(stage_service).new(
-		stage_data_partial_double
-	)
+	stage_service_partial_double = partial_double(stage_service).new(stage_data_partial_double)
 	game_save_data_partial_double = partial_double(game_save_data).new()
 
-
-	sut = preload("res://src/services/game_save/game_save_service.gd").new(
-		currencies_api_partial_double,
-		stage_api_partial_double,
-		clock_service_partial_double,
-		currencies_service_partial_double,
-		stage_service_partial_double,
-		game_save_data_partial_double,
+	sut = (
+		preload("res://src/services/game_save/game_save_service.gd")
+		. new(
+			currencies_api_partial_double,
+			stage_api_partial_double,
+			clock_service_partial_double,
+			currencies_service_partial_double,
+			stage_service_partial_double,
+			game_save_data_partial_double,
+		)
 	)
+
 
 func test_get_game_save_id() -> void:
 	# Arrange
@@ -59,20 +60,30 @@ func test_get_game_save_id() -> void:
 
 func test_load_game_save() -> void:
 	# Arrange
-	var fetched_currencies: CurrenciesDto = CurrenciesDto.new({
-		"gold": 1000,
-		"diamond": 2000,
-		"emerald": 3000,
-		"amethyst": 4000,
-	})
-	var fetched_stage: FetchStageDto = FetchStageDto.new({
-		"current_stage": 100,
-		"max_stage": 200,
-	})
+	var fetched_currencies: CurrenciesDto = (
+		CurrenciesDto
+		. new(
+			{
+				"gold": 1000,
+				"diamond": 2000,
+				"emerald": 3000,
+				"amethyst": 4000,
+			}
+		)
+	)
+	var fetched_stage: FetchStageDto = (
+		FetchStageDto
+		. new(
+			{
+				"current_stage": 100,
+				"max_stage": 200,
+			}
+		)
+	)
 
 	stub(currencies_api_partial_double, "fetch_game_save_currencies").to_return(fetched_currencies)
 	stub(stage_api_partial_double, "fetch_game_save_stage").to_return(fetched_stage)
-	
+
 	# Act
 	sut.load_game_save("game_save_id")
 
@@ -113,6 +124,7 @@ func test_save_game_partial_failure() -> void:
 	# Assert
 	assert_eq(game_save_data_partial_double._last_save_time, 0.0)
 
+
 func test_save_currencies_success() -> void:
 	# Arrange
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(true)
@@ -134,8 +146,8 @@ func test_save_currencies_failure() -> void:
 	# Assert
 	assert_false(success)
 
-
 	# Assert
+
 
 func test_save_stage_success() -> void:
 	# Arrange

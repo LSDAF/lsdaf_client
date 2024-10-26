@@ -55,10 +55,11 @@ func save_to_device() -> Error:
 
 
 func get_access_token() -> String:
-	if (Data.user_local_data._user_data && Data.user_local_data._user_data.access_token):
+	if Data.user_local_data._user_data && Data.user_local_data._user_data.access_token:
 		return Data.user_local_data._user_data.access_token
-		
+
 	return ""
+
 
 func get_email() -> String:
 	return Data.user_local_data._user_data.email

@@ -2,6 +2,7 @@ class_name DifficultyService
 
 var _difficulty_data: DifficultyData
 
+
 func _init(difficulty_data: DifficultyData) -> void:
 	_difficulty_data = difficulty_data
 
