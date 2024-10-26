@@ -1,6 +1,6 @@
 extends Node
 
-class_name Stage
+class_name StageData
 
 var _current_stage := 1
 var _current_wave := 1

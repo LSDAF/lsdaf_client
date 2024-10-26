@@ -2,11 +2,11 @@ class_name PlayerStatsService
 
 
 #####   Attack   #####
-static func _get_attack_multiplier() -> float:
+func _get_attack_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
 			item.total_stat_value(ItemStatistics.ItemStatistics.ATTACK_MULT) / 100.0
 		)
@@ -14,11 +14,11 @@ static func _get_attack_multiplier() -> float:
 	return equipped_items_total_multiplier
 
 
-static func _get_attack_value() -> float:
+func _get_attack_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.ATTACK_ADD
 		)
@@ -26,7 +26,7 @@ static func _get_attack_value() -> float:
 	return equipped_items_total_value + Data.characteristics.attack.current_value()
 
 
-static func get_attack() -> PlayerStat:
+func get_attack() -> PlayerStat:
 	var stat := PlayerStat.new()
 
 	stat.value = _get_attack_value()
@@ -36,11 +36,11 @@ static func get_attack() -> PlayerStat:
 
 
 #####   Crit. Chance   #####
-static func _get_crit_chance_value() -> float:
+func _get_crit_chance_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.CRIT_CHANCE
 		)
@@ -48,7 +48,7 @@ static func _get_crit_chance_value() -> float:
 	return equipped_items_total_value + Data.characteristics.crit_chance.current_value()
 
 
-static func get_crit_chance() -> PlayerStat:
+func get_crit_chance() -> PlayerStat:
 	var stat := PlayerStat.new()
 
 	stat.value = _get_crit_chance_value()
@@ -58,11 +58,11 @@ static func get_crit_chance() -> PlayerStat:
 
 
 #####   Crit. Damage   #####
-static func _get_crit_damage_value() -> float:
+func _get_crit_damage_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.CRIT_DAMAGE
 		)
@@ -70,7 +70,7 @@ static func _get_crit_damage_value() -> float:
 	return equipped_items_total_value + Data.characteristics.crit_damage.current_value()
 
 
-static func get_crit_damage() -> PlayerStat:
+func get_crit_damage() -> PlayerStat:
 	var stat := PlayerStat.new()
 
 	stat.value = _get_crit_damage_value()
@@ -80,11 +80,11 @@ static func get_crit_damage() -> PlayerStat:
 
 
 #####   HP   #####
-static func _get_hp_multiplier() -> float:
+func _get_hp_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
 			item.total_stat_value(ItemStatistics.ItemStatistics.HP_MULT) / 100.0
 		)
@@ -92,17 +92,17 @@ static func _get_hp_multiplier() -> float:
 	return equipped_items_total_multiplier
 
 
-static func _get_hp_value() -> float:
+func _get_hp_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(ItemStatistics.ItemStatistics.HP_ADD)
 
 	return equipped_items_total_value + Data.characteristics.hp.current_value()
 
 
-static func get_hp() -> PlayerStat:
+func get_hp() -> PlayerStat:
 	var stat := PlayerStat.new()
 
 	stat.value = _get_hp_value()
@@ -112,11 +112,11 @@ static func get_hp() -> PlayerStat:
 
 
 #####   Resistance   #####
-static func _get_resistance_multiplier() -> float:
+func _get_resistance_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
 			item.total_stat_value(ItemStatistics.ItemStatistics.RESISTANCE_MULT) / 100.0
 		)
@@ -124,11 +124,11 @@ static func _get_resistance_multiplier() -> float:
 	return equipped_items_total_multiplier
 
 
-static func _get_resistance_value() -> float:
+func _get_resistance_value() -> float:
 	var equipped_items_total_value := 0.0
 
-	for equipped_items_index in InventoryService.get_equipped_items_index():
-		var item := InventoryService.get_item_at_index(equipped_items_index)
+	for equipped_items_index in Services.inventory.get_equipped_items_index():
+		var item := Services.inventory.get_item_at_index(equipped_items_index)
 		equipped_items_total_value += item.total_stat_value(
 			ItemStatistics.ItemStatistics.RESISTANCE_ADD
 		)
@@ -136,7 +136,7 @@ static func _get_resistance_value() -> float:
 	return equipped_items_total_value + Data.characteristics.resistance.current_value()
 
 
-static func get_resistance() -> PlayerStat:
+func get_resistance() -> PlayerStat:
 	var stat := PlayerStat.new()
 
 	stat.value = _get_resistance_value()

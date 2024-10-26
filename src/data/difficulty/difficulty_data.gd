@@ -1,5 +1,5 @@
 extends Node
 
-class_name Difficulty
+class_name DifficultyData
 
 var _current_difficulty := 1.0

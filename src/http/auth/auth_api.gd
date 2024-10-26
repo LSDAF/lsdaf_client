@@ -1,7 +1,7 @@
 class_name AuthApi
 
 
-static func login(email: String, password: String, on_failure: Callable) -> LoginResponseDto:
+func login(email: String, password: String, on_failure: Callable) -> LoginResponseDto:
 	var body: Dictionary = {
 		"email": email,
 		"password": password,
@@ -24,7 +24,7 @@ static func login(email: String, password: String, on_failure: Callable) -> Logi
 	return LoginResponseDto.new(json["data"])
 
 
-static func refresh_login(
+func refresh_login(
 	email: String, refresh_token: String, on_failure: Callable
 ) -> LoginResponseDto:
 	var body: Dictionary = {
@@ -51,7 +51,7 @@ static func refresh_login(
 	return LoginResponseDto.new(json["data"])
 
 
-static func register(
+func register(
 	name: String, email: String, password: String, on_failure: Callable
 ) -> RegisterResponseDto:
 	var body: Dictionary = {

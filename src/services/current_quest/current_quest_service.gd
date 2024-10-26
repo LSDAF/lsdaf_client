@@ -1,63 +1,80 @@
 class_name CurrentQuestService
 
+var _currencies_data: CurrenciesData
+var _current_quest_data: CurrentQuestData
+var _stage_service: StageService
+
+func _init(currencies_data: CurrenciesData, current_quest_data: CurrentQuestData, stage_service: StageService) -> void:
+	_currencies_data = currencies_data
+	_current_quest_data = current_quest_data
+	_stage_service = stage_service
+
+func _init_mob_quest() -> void:
+	var mob_quest: MobQuest = _current_quest_data.mob_quest_blueprint
+
+	var quest: MobQuest = MobQuest.create_from_dict({
+		"goal": mob_quest.nb_kills,
+		"name": mob_quest.name,
+		"nb_kills": mob_quest.nb_kills,
+		"reward": mob_quest.reward,
+		"score": 0,
+	})
+
+	_current_quest_data._quest = quest
 
 
-static func _init_mob_quest() -> void:
-	var quest: MobQuest = Data.current_quest.mob_quest_blueprint
+func _init_stage_quest() -> void:
+	var stage_quest: StageQuest = _current_quest_data.stage_quest_blueprint
 
-	quest.goal = quest.nb_kills
-	quest.score = 0
+	var quest: StageQuest = StageQuest.create_from_dict({
+		"goal": _current_quest_data._stage_last_milestone + stage_quest.stage_interval,
+		"name": stage_quest.name,
+		"reward": stage_quest.reward,
+		"score": _stage_service.get_max_stage(),
+		"stage_interval": stage_quest.stage_interval,
+	})
 
-	Data.current_quest._quest = quest
-
-
-static func _init_stage_quest() -> void:
-	var quest: StageQuest = Data.current_quest.stage_quest_blueprint
-
-	quest.goal = Data.current_quest._stage_last_milestone + quest.stage_interval
-	quest.score = StageService.get_max_stage()
-
-	Data.current_quest._quest = quest
+	_current_quest_data._quest = quest
 
 
-static func _reward_player() -> void:
-	Data.currencies.diamond.update_value(Data.current_quest._quest.reward)
+func _reward_player() -> void:
+	_currencies_data.diamond.update_value(_current_quest_data._quest.reward)
 
 
-static func get_current_quest() -> Quest:
-	return Data.current_quest._quest
+func get_current_quest() -> Quest:
+	return _current_quest_data._quest
 
 
-static func on_mob_death() -> void:
-	if not (Data.current_quest._quest is MobQuest):
+func on_mob_death() -> void:
+	if not (_current_quest_data._quest is MobQuest):
 		return
 
-	Data.current_quest._quest.score += 1
+	_current_quest_data._quest.score += 1
 	EventBus.quest_update.emit()
 
 
-static func on_progress_stage() -> void:
-	if not (Data.current_quest._quest is StageQuest):
+func on_progress_stage() -> void:
+	if not (_current_quest_data._quest is StageQuest):
 		return
 
-	Data.current_quest._quest.score += 1
+	_current_quest_data._quest.score += 1
 	EventBus.quest_update.emit()
 
 
-static func is_redeemable() -> bool:
-	return Data.current_quest._quest.score >= Data.current_quest._quest.goal
+func is_redeemable() -> bool:
+	return _current_quest_data._quest.score >= _current_quest_data._quest.goal
 
 
-static func redeem() -> void:
+func redeem() -> void:
 	_reward_player()
 
-	if Data.current_quest._quest is MobQuest:
+	if _current_quest_data._quest is MobQuest:
 		_init_stage_quest()
-	elif Data.current_quest._quest is StageQuest:
-		var quest_goal := Data.current_quest._quest.goal
+	elif _current_quest_data._quest is StageQuest:
+		var quest_goal := _current_quest_data._quest.goal
 
 		_init_mob_quest()
-		Data.current_quest._stage_last_milestone = quest_goal
+		_current_quest_data._stage_last_milestone = quest_goal
 	else:
 		return
 

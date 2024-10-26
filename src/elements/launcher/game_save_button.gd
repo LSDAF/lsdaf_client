@@ -20,5 +20,5 @@ func initialize(game_save_dto: GameSaveDto, on_game_loaded: Callable) -> void:
 
 
 func _on_pressed() -> void:
-	GameSaveService.load_game_save(_game_save_dto.id)
+	Services.game_save.load_game_save(_game_save_dto.id)
 	game_loaded.emit()

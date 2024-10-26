@@ -16,9 +16,11 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 [autoload]
 
-Data="*res://src/autoload/data/data.gd"
 Http="*res://src/autoload/http/http.gd"
+Data="*res://src/autoload/data.gd"
+Api="*res://src/autoload/api.gd"
 EventBus="*res://src/autoload/event_bus.gd"
+Services="*res://src/autoload/services.gd"
 
 [debug]
 
@@ -29,6 +31,7 @@ gdscript/warnings/untyped_declaration=2
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=2
 window/size/initial_position_type=3
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1

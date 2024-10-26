@@ -1,7 +1,9 @@
+extends Node
+
 class_name CurrenciesApi
 
 
-static func fetch_game_save_currencies(
+func fetch_game_save_currencies(
 	game_save_id: String, on_failure: Callable
 ) -> FetchCurrenciesDto:
 	var response: HTTPResult = await Http.api_client.fetch(
@@ -23,7 +25,7 @@ static func fetch_game_save_currencies(
 	return FetchCurrenciesDto.new(json["data"])
 
 
-static func update_game_save_currencies(
+func update_game_save_currencies(
 	game_save_id: String, update_currencies_dto: UpdateCurrenciesDto, on_failure: Callable
 ) -> bool:
 	var response: HTTPResult = await Http.api_client.post(

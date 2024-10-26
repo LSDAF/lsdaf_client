@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func on_quest_update() -> void:
-	var quest := CurrentQuestService.get_current_quest()
+	var quest := Services.current_quest.get_current_quest()
 	text = (
 		quest.name
 		+ "\n"
@@ -23,10 +23,10 @@ func on_quest_update() -> void:
 		+ str(quest.reward)
 	)
 
-	if CurrentQuestService.is_redeemable():
+	if Services.current_quest.is_redeemable():
 		disabled = false
 
 
 func _on_pressed() -> void:
 	disabled = true
-	CurrentQuestService.redeem()
+	Services.current_quest.redeem()

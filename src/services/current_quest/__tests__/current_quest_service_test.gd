@@ -1,120 +1,132 @@
-# GdUnit generated TestSuite
-class_name CurrentQuestServiceTest
-extends GdUnitTestSuite
-@warning_ignore('unused_parameter')
-@warning_ignore('return_value_discarded')
+extends GutTest
 
-# TestSuite generated from
-const __source = 'res://src/autoload/services/current_quest/current_quest_service.gd'
+var sut: CurrentQuestService
+
+var currencies_data := preload("res://src/data/currencies/currencies_data.gd")
+var current_quest_data := preload("res://src/data/current_quest/current_quest_data.gd")
+var stage_service := preload("res://src/services/stage/stage_service.gd")
+
+var currencies_data_partial_double: Variant
+var current_quest_data_partial_double: Variant
+var stage_service_partial_double: Variant
+
+func before_each() -> void:
+	currencies_data_partial_double = partial_double(currencies_data).new()
+	current_quest_data_partial_double = partial_double(current_quest_data).new()
+	stage_service_partial_double = partial_double(stage_service).new()
+
+	sut = preload("res://src/services/current_quest/current_quest_service.gd").new(
+		currencies_data_partial_double,
+		current_quest_data_partial_double,
+		stage_service_partial_double
+	)
 
 
-#func before_test() -> void:
-#	Data.current_quest.mob_quest_blueprint = load("res://src/resources/quests/mob_quest.tres")
-#	Data.current_quest.stage_quest_blueprint = load("res://src/resources/quests/stage_quest.tres")
-#	Data.current_quest._quest = null
-#	Data.current_quest._stage_last_milestone = 0
-#	Data.currencies.amethyst._value = 0
-#	Data.currencies.diamond._value = 0
-#	Data.currencies.emerald._value = 0
-#	Data.currencies.gold._value = 0
-
-func test__init_mob_quest() -> void:
+func test_init_mob_quest() -> void:
 	# Arrange
 
 	# Act
-	CurrentQuestService._init_mob_quest()
-	var quest: MobQuest = Data.current_quest._quest
+	sut._init_mob_quest()
 
 	# Assert
-	assert_int(quest.score).is_equal(0)
-	assert_int(quest.goal).is_equal(10)
-	assert_int(quest.nb_kills).is_equal(10)
+	assert_eq(current_quest_data_partial_double._quest.goal, 10)
+	assert_eq(current_quest_data_partial_double._quest.nb_kills, 10)
+	assert_eq(current_quest_data_partial_double._quest.reward, 3000)
+	assert_eq(current_quest_data_partial_double._quest.score, 0)
 
-func test__init_stage_quest() -> void:
+func test_init_stage_quest() -> void:
 	# Arrange
+	current_quest_data_partial_double._stage_last_milestone = 100
+	current_quest_data_partial_double.stage_quest_blueprint.stage_interval = 2
+
+	stub(stage_service_partial_double, "get_max_stage").to_return(5)
 
 	# Act
-	CurrentQuestService._init_stage_quest()
-	var quest: StageQuest = Data.current_quest._quest
+	sut._init_stage_quest()
 
 	# Assert
-	assert_int(quest.score).is_equal(1)
-	assert_int(quest.goal).is_equal(Data.current_quest._stage_last_milestone + quest.stage_interval)
+	assert_eq(current_quest_data_partial_double._quest.goal, 102)
+	assert_eq(current_quest_data_partial_double._quest.reward, 3000)
+	assert_eq(current_quest_data_partial_double._quest.score, 5)
+	assert_eq(current_quest_data_partial_double._quest.stage_interval, 2)
 
-	assert_int(quest.stage_interval).is_equal(2)
 
-
-func test__reward_player() -> void:
+func test_reward_player() -> void:
 	# Arrange
-	Data.currencies.diamond._value = 10
-
-	CurrentQuestService._init_stage_quest()
-	var quest: StageQuest = Data.current_quest._quest
+	current_quest_data_partial_double._quest = MobQuest.new()
+	current_quest_data_partial_double._quest.reward = 1234
 
 	# Act
-	CurrentQuestService._reward_player()
+	sut._reward_player()
 
 	# Assert
-	assert_int(Data.currencies.diamond.get_value()).is_equal(10 + quest.reward)
+	assert_eq(currencies_data_partial_double.diamond.get_value(), 1234)
 
 
-func test__get_current_quest() -> void:
+func test_get_current_quest() -> void:
 	# Arrange
-	CurrentQuestService._init_mob_quest()
-	var quest: MobQuest = Data.current_quest._quest
+	current_quest_data_partial_double._quest = MobQuest.new()
 
 	# Act
-	var current_quest: Quest = CurrentQuestService.get_current_quest()
+	var current_quest: Quest = sut.get_current_quest()
 
 	# Assert
-	assert_that(current_quest).is_equal(quest)
+	assert_eq(current_quest, current_quest_data_partial_double._quest)
 
 
-func test__on_mob_death(current_quest: Quest, current_score: int, test_parameters := [
+# Parameters
+# [current_quest, current_score]
+var test_on_mob_death_parameters := [
 		[MobQuest.new(), 0],
 		[MobQuest.new(), 1],
 		[MobQuest.new(), 9],
 		[StageQuest.new(), 1],
 		[StageQuest.new(), 0],
 		[StageQuest.new(), 9],
-]) -> void:
+]
+func test_on_mob_death(params: Array = use_parameters(test_on_mob_death_parameters)) -> void:
 	# Arrange
-	Data.current_quest._quest = current_quest
-	Data.current_quest._quest.score = current_score
+	current_quest_data_partial_double._quest = params[0]
+	current_quest_data_partial_double._quest.score = params[1]
 
 	# Act
-	CurrentQuestService.on_mob_death()
+	sut.on_mob_death()
 
 	# Assert
-	if current_quest is MobQuest:
-		assert_int(Data.current_quest._quest.score).is_equal(current_score + 1)
+	if current_quest_data_partial_double._quest is MobQuest:
+		assert_eq(current_quest_data_partial_double._quest.score, params[1] + 1)
 	else:
-		assert_int(Data.current_quest._quest.score).is_equal(current_score)
+		assert_eq(current_quest_data_partial_double._quest.score, params[1])
 
 
-func test__on_progress_stage(current_quest: Quest, current_score: int, test_parameters := [
+# Parameters
+# [current_quest, current_score]
+var test_on_progress_stage_parameters := [
 		[MobQuest.new(), 0],
 		[StageQuest.new(), 0],
 		[MobQuest.new(), 1],
 		[StageQuest.new(), 1],
 		[MobQuest.new(), 9],
 		[StageQuest.new(), 9],
-]) -> void:
+]
+func test_on_progress_stage(params: Array = use_parameters(test_on_progress_stage_parameters)) -> void:
 	# Arrange
-	Data.current_quest._quest = current_quest
-	Data.current_quest._quest.score = current_score
+	current_quest_data_partial_double._quest = params[0]
+	current_quest_data_partial_double._quest.score = params[1]
 
 	# Act
-	CurrentQuestService.on_progress_stage()
+	sut.on_progress_stage()
 
 	# Assert
-	if current_quest is StageQuest:
-		assert_int(Data.current_quest._quest.score).is_equal(current_score + 1)
+	if current_quest_data_partial_double._quest is StageQuest:
+		assert_eq(current_quest_data_partial_double._quest.score, params[1] + 1)
 	else:
-		assert_int(Data.current_quest._quest.score).is_equal(current_score)
+		assert_eq(current_quest_data_partial_double._quest.score, params[1])
 
 
-func test__is_redeemable(quest_score: int, quest_goal: int, test_parameters := [
+# Parameters
+# [quest_score, quest_goal]
+var test_is_redeemable_parameters := [
 		[0, 1],
 		[1, 1],
 		[1, 2],
@@ -122,45 +134,59 @@ func test__is_redeemable(quest_score: int, quest_goal: int, test_parameters := [
 		[4, 5],
 		[5, 5],
 		[6, 5],
- 		[25, 5],
+		[25, 5],
 		[1, 10],
 		[9, 10],
 		[10, 10],
 		[11, 10],
 		[100, 10],
-]) -> void:
+]
+func test_is_redeemable(params: Array = use_parameters(test_is_redeemable_parameters)) -> void:
 	# Arrange
-	CurrentQuestService._init_mob_quest()
-	var quest: MobQuest = Data.current_quest._quest
+	current_quest_data_partial_double._quest = MobQuest.new()
+	current_quest_data_partial_double._quest.goal = params[1]
+	current_quest_data_partial_double._quest.score = params[0]
 
 	# Act
-	var is_redeemable: bool = CurrentQuestService.is_redeemable()
+	var is_redeemable: bool = sut.is_redeemable()
 
 	# Assert
-	assert_bool(is_redeemable).is_equal(quest.score >= quest.goal)
+	assert_eq(is_redeemable, params[0] >= params[1])
 
 
-func test__redeem(current_quest: Quest, current_stage_last_milestone: int, current_goal: int, test_parameters := [
-		[MobQuest.new(), 0, 0],
-		[MobQuest.new(), 0, 1],
-		[StageQuest.new(), 0, 0],
-		[StageQuest.new(), 0, 1],
-		[StageQuest.new(), 0, 10],
-		[StageQuest.new(), 0, 100],
-]) -> void:
+# Parameters
+# [current_quest, current_stage_last_milestone, current_goal]
+var test_redeem_parameters := [
+	[MobQuest.new(), 0, 0],
+	[MobQuest.new(), 0, 1],
+	[StageQuest.new(), 0, 0],
+	[StageQuest.new(), 0, 1],
+	[StageQuest.new(), 0, 10],
+	[StageQuest.new(), 0, 100],
+	[MobQuest.new(), 50, 0],
+	[MobQuest.new(), 50, 1],
+	[StageQuest.new(), 50, 0],
+	[StageQuest.new(), 50, 1],
+	[StageQuest.new(), 50, 10],
+	[StageQuest.new(), 50, 100],
+]
+func test_redeem(params: Array = use_parameters(test_redeem_parameters)) -> void:
 	# Arrange
-	current_quest.goal = current_goal
-	Data.current_quest._quest = current_quest
+	current_quest_data_partial_double._quest = params[0]
+	current_quest_data_partial_double._stage_last_milestone = params[1]
+	current_quest_data_partial_double._quest.goal = params[2]
 
-	Data.current_quest._stage_last_milestone = current_stage_last_milestone
+	stub(stage_service_partial_double, "get_max_stage").to_return(50)
+
+	var current_quest_before_redeem_is_mob_quest: bool = current_quest_data_partial_double._quest is MobQuest
 
 	# Act
-	CurrentQuestService.redeem()
+	sut.redeem()
 
 	# Assert
-	if current_quest is MobQuest:
-		assert_bool(Data.current_quest._quest is StageQuest).is_true()
-		assert_int(Data.current_quest._stage_last_milestone).is_equal(current_stage_last_milestone)
+	if current_quest_before_redeem_is_mob_quest:
+		assert_eq(current_quest_data_partial_double._quest is StageQuest, true)
+		assert_eq(current_quest_data_partial_double._stage_last_milestone, params[1])
 	else:
-		assert_bool(Data.current_quest._quest is MobQuest).is_true()
-		assert_int(Data.current_quest._stage_last_milestone).is_equal(current_goal)
+		assert_eq(current_quest_data_partial_double._quest is MobQuest, true)
+		assert_eq(current_quest_data_partial_double._stage_last_milestone, params[2])
