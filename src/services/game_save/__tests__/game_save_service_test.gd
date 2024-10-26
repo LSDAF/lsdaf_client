@@ -4,34 +4,43 @@ var sut: GameSaveService
 
 var currencies_api := preload("res://src/http/currencies/currencies_api.gd")
 var stage_api := preload("res://src/http/stage/stage_api.gd")
-var currencies_service := preload("res://src/services/currencies/currencies_service.gd")
-var clock_service := preload("res://src/services/clock/clock_service.gd")
-var stage_service := preload("res://src/services/stage/stage_service.gd")
 var currency_data := preload("res://src/data/currencies/currencies_data.gd")
+var difficulty_data := preload("res://src/data/difficulty/difficulty_data.gd")
 var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
 var stage_data := preload("res://src/data/stage/stage_data.gd")
+var currencies_service := preload("res://src/services/currencies/currencies_service.gd")
+var clock_service := preload("res://src/services/clock/clock_service.gd")
+var current_quest_service := preload("res://src/services/current_quest/current_quest_service.gd")
+var difficulty_service := preload("res://src/services/difficulty/difficulty_service.gd")
+var stage_service := preload("res://src/services/stage/stage_service.gd")
 
 var currencies_api_partial_double: Variant
 var stage_api_partial_double: Variant
-var clock_service_partial_double: Variant
-var currencies_service_partial_double: Variant
-var stage_service_partial_double: Variant
 var currency_data_partial_double: Variant
+var difficulty_data_partial_double: Variant
 var game_save_data_partial_double: Variant
 var stage_data_partial_double: Variant
+var clock_service_partial_double: Variant
+var current_quest_service_partial_double: Variant
+var difficulty_service_partial_double: Variant
+var currencies_service_partial_double: Variant
+var stage_service_partial_double: Variant
 
 
 func before_each() -> void:
 	currency_data_partial_double = partial_double(currency_data).new()
+	difficulty_data_partial_double = partial_double(difficulty_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
 
 	currencies_api_partial_double = partial_double(currencies_api).new()
 	stage_api_partial_double = partial_double(stage_api).new()
 	clock_service_partial_double = partial_double(clock_service).new()
+	current_quest_service_partial_double = partial_double(current_quest_service).new()
+	difficulty_service_partial_double = partial_double(difficulty_service).new(difficulty_data_partial_double)
 	currencies_service_partial_double = partial_double(currencies_service).new(
 		currency_data_partial_double
 	)
-	stage_service_partial_double = partial_double(stage_service).new(stage_data_partial_double)
+	stage_service_partial_double = partial_double(stage_service).new(stage_data_partial_double,current_quest_service_partial_double ,difficulty_service_partial_double)
 	game_save_data_partial_double = partial_double(game_save_data).new()
 
 	sut = (
@@ -95,6 +104,8 @@ func test_load_game_save() -> void:
 
 	assert_eq(stage_data_partial_double._current_stage, 100)
 	assert_eq(stage_data_partial_double._max_stage, 200)
+
+	assert_eq(difficulty_data_partial_double._current_difficulty, 100.0)
 
 
 func test_save_game_success() -> void:

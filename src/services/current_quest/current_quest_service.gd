@@ -2,17 +2,14 @@ class_name CurrentQuestService
 
 var _currencies_data: CurrenciesData
 var _current_quest_data: CurrentQuestData
-var _stage_service: StageService
 
 
 func _init(
 	currencies_data: CurrenciesData,
 	current_quest_data: CurrentQuestData,
-	stage_service: StageService
 ) -> void:
 	_currencies_data = currencies_data
 	_current_quest_data = current_quest_data
-	_stage_service = stage_service
 
 
 func _init_mob_quest() -> void:
@@ -44,7 +41,7 @@ func _init_stage_quest() -> void:
 				"goal": _current_quest_data._stage_last_milestone + stage_quest.stage_interval,
 				"name": stage_quest.name,
 				"reward": stage_quest.reward,
-				"score": _stage_service.get_max_stage(),
+				"score": _current_quest_data._stage_last_milestone,
 				"stage_interval": stage_quest.stage_interval,
 			}
 		)
