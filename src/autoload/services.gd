@@ -19,9 +19,11 @@ var player_stats: PlayerStatsService = (
 	preload("res://src/services/player_stats/player_stats_service.gd").new(Data.characteristics, inventory)
 )
 var random_number_generator: RandomNumberGeneratorService = preload("res://src/services/random_number_generator/random_number_generator_service.gd").new()
+var resource_loader: ResourceLoaderService = preload("res://src/services/resource_loader/resource_loader_service.gd").new()
+var resource_saver: ResourceSaverService = preload("res://src/services/resource_saver/resource_saver_service.gd").new()
 var toaster: ToasterService = preload("res://src/services/toaster/toaster_service.gd").new()
 var user_local_data: UserLocalDataService = (
-	preload("res://src/services/user_local_data/user_local_data_service.gd").new()
+	preload("res://src/services/user_local_data/user_local_data_service.gd").new(Api.auth, Data.user_local_data, resource_loader, resource_saver)
 )
 
 var game_save: GameSaveService = preload("res://src/services/game_save/game_save_service.gd").new(

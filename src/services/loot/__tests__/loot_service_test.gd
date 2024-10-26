@@ -38,3 +38,25 @@ func test_try_loot_item() -> void:
 
 	# Assert
 	assert_called(inventory_service_partial_double, "add_item", [new_item])
+
+# Parameters
+# [difficulty]
+var test_get_rarity_and_type_for_difficulty_parameters := [
+	[1.0],
+	[1.5],
+	[10.0],
+	[100.0],
+	[1000.0],
+	[1000000.0],
+]
+func test_not_yet_implemented_get_rarity_and_type_for_difficulty(params: Array = use_parameters(test_get_rarity_and_type_for_difficulty_parameters)) -> void:
+	# Arrange
+	var difficulty: float = params[0]
+
+	# Act
+	var rarity: ItemRarity.ItemRarity = sut._get_rarity_for_difficulty(difficulty)
+	var type: ItemType.ItemType = sut._get_type_for_difficulty(difficulty)
+
+	# Assert
+	assert_true(rarity is ItemRarity.ItemRarity)
+	assert_true(type is ItemType.ItemType)
