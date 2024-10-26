@@ -36,11 +36,17 @@ func before_each() -> void:
 	stage_api_partial_double = partial_double(stage_api).new()
 	clock_service_partial_double = partial_double(clock_service).new()
 	current_quest_service_partial_double = partial_double(current_quest_service).new()
-	difficulty_service_partial_double = partial_double(difficulty_service).new(difficulty_data_partial_double)
+	difficulty_service_partial_double = partial_double(difficulty_service).new(
+		difficulty_data_partial_double
+	)
 	currencies_service_partial_double = partial_double(currencies_service).new(
 		currency_data_partial_double
 	)
-	stage_service_partial_double = partial_double(stage_service).new(stage_data_partial_double,current_quest_service_partial_double ,difficulty_service_partial_double)
+	stage_service_partial_double = partial_double(stage_service).new(
+		stage_data_partial_double,
+		current_quest_service_partial_double,
+		difficulty_service_partial_double
+	)
 	game_save_data_partial_double = partial_double(game_save_data).new()
 
 	sut = (

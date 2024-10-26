@@ -2,8 +2,10 @@ extends GutTest
 
 var sut: ItemsService
 
+
 func before_each() -> void:
 	sut = preload("res://src/services/items/items_service.gd").new()
+
 
 func test_create_item() -> void:
 	# Arrange
@@ -41,7 +43,6 @@ func test_get_additional_stats() -> void:
 	item_stats_pool.potential_stats.push_back(resistance_add)
 	item_stats_pool.potential_stats.push_back(resistance_mult)
 
-
 	# Act
 	var stats: Array[ItemStat] = sut._get_additionnal_stats(item_stats_pool)
 
@@ -54,6 +55,7 @@ func test_get_additional_stats() -> void:
 		assert_true(stat.statistic is ItemStatistics.ItemStatistics)
 		assert_does_not_have(unique_stats, stat.statistic)
 		unique_stats.push_back(stat.statistic)
+
 
 func test_get_main_stat() -> void:
 	# Arrange
@@ -82,7 +84,11 @@ var test_get_blueprint_from_pools_parameters := [
 	[ItemType.ItemType.SHIELD, ItemRarity.ItemRarity.NORMAL],
 	[ItemType.ItemType.SWORD, ItemRarity.ItemRarity.NORMAL],
 ]
-func test_get_blueprint_from_pools(params: Array = use_parameters(test_get_blueprint_from_pools_parameters)) -> void:
+
+
+func test_get_blueprint_from_pools(
+	params: Array = use_parameters(test_get_blueprint_from_pools_parameters)
+) -> void:
 	# Arrange
 	var item_type: ItemType.ItemType = params[0]
 	var item_rarity: ItemRarity.ItemRarity = params[1]
@@ -105,6 +111,8 @@ var test_get_stats_pool_from_pools_parameters := [
 	[ItemType.ItemType.SHIELD, ItemRarity.ItemRarity.NORMAL],
 	[ItemType.ItemType.SWORD, ItemRarity.ItemRarity.NORMAL],
 ]
+
+
 func test_get_stats_pool_from_pools(
 	params: Array = use_parameters(test_get_stats_pool_from_pools_parameters)
 ) -> void:
@@ -125,6 +133,7 @@ func test_get_stats_pool_from_pools(
 		assert_does_not_have(unique_stats_blueprint, stat.statistic)
 		unique_stats_blueprint.push_back(stat)
 
+
 # Parameters
 # [item_statistic, base_value_min, base_value_max, base_value_step]
 var test_roll_stat_value_parameters := [
@@ -137,6 +146,8 @@ var test_roll_stat_value_parameters := [
 	[ItemStatistics.ItemStatistics.RESISTANCE_ADD, 0.0, 100.0, 17.0],
 	[ItemStatistics.ItemStatistics.RESISTANCE_MULT, 0.0, 100.0, 13.0],
 ]
+
+
 func test_roll_stat_value(params: Array = use_parameters(test_roll_stat_value_parameters)) -> void:
 	# Arrange
 	var item_statistic: ItemStatistics.ItemStatistics = params[0]
@@ -158,5 +169,5 @@ func test_roll_stat_value(params: Array = use_parameters(test_roll_stat_value_pa
 	assert_gte(rolled_stat_value.base_value, item_stat_blueprint.base_value_min)
 	assert_lte(rolled_stat_value.base_value, item_stat_blueprint.base_value_max)
 
-	if (rolled_stat_value.base_value < item_stat_blueprint.base_value_max):
+	if rolled_stat_value.base_value < item_stat_blueprint.base_value_max:
 		assert_eq(fmod(rolled_stat_value.base_value, item_stat_blueprint.base_value_step), 0.0)

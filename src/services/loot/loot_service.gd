@@ -5,11 +5,18 @@ var _inventory_service: InventoryService
 var _items_service: ItemsService
 var _random_number_generator_service: RandomNumberGeneratorService
 
-func _init(difficulty_service: DifficultyService, inventory_service: InventoryService, items_service: ItemsService, random_number_generator_service: RandomNumberGeneratorService) -> void:
+
+func _init(
+	difficulty_service: DifficultyService,
+	inventory_service: InventoryService,
+	items_service: ItemsService,
+	random_number_generator_service: RandomNumberGeneratorService
+) -> void:
 	_difficulty_service = difficulty_service
 	_inventory_service = inventory_service
 	_items_service = items_service
 	_random_number_generator_service = random_number_generator_service
+
 
 # INFO: This is a temporary solution during dev, do not test it
 func loot_random_item() -> void:

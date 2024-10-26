@@ -1,5 +1,6 @@
 class_name ResourceLoaderService
 
+
 func exists(path: String, type_hint: String = "") -> bool:
 	return ResourceLoader.exists(path, type_hint)
 

@@ -7,7 +7,13 @@ var _user_local_data: UserLocalData
 var _resource_loader_service: ResourceLoaderService
 var _resource_saver_service: ResourceSaverService
 
-func _init(auth_api: AuthApi, user_local_data: UserLocalData, resource_loader_service: ResourceLoaderService, resource_saver_service: ResourceSaverService) -> void:
+
+func _init(
+	auth_api: AuthApi,
+	user_local_data: UserLocalData,
+	resource_loader_service: ResourceLoaderService,
+	resource_saver_service: ResourceSaverService
+) -> void:
 	_auth_api = auth_api
 	_user_local_data = user_local_data
 	_resource_loader_service = resource_loader_service
@@ -18,7 +24,11 @@ func create_new_user_data() -> void:
 	var new_user_data := UserData.new()
 
 	# If user wishes to remember his email
-	if _user_local_data._user_data and _user_local_data._user_data.remember_me and _user_local_data._user_data.email:
+	if (
+		_user_local_data._user_data
+		and _user_local_data._user_data.remember_me
+		and _user_local_data._user_data.email
+	):
 		new_user_data.remember_me = true
 		new_user_data.email = _user_local_data._user_data.email
 
@@ -40,10 +50,7 @@ func load() -> UserData:
 
 
 func relog_user() -> bool:
-	if (
-		_user_local_data._user_data.refresh_token == ""
-		or _user_local_data._user_data.email == ""
-	):
+	if _user_local_data._user_data.refresh_token == "" or _user_local_data._user_data.email == "":
 		return false
 
 	var refreshLoginResponse := await _auth_api.refresh_login(

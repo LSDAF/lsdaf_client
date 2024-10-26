@@ -16,15 +16,24 @@ var stage_data_partial_double: StageData
 var current_quest_service_partial_double: CurrentQuestService
 var difficulty_service_partial_double: DifficultyService
 
+
 func before_each() -> void:
 	currencies_data_partial_double = partial_double(currencies_data).new()
 	current_quest_data_partial_double = partial_double(current_quest_data).new()
 	difficulty_data_partial_double = partial_double(difficulty_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
-	current_quest_service_partial_double = partial_double(current_quest_service).new(currencies_data_partial_double, current_quest_data_partial_double)
-	difficulty_service_partial_double = partial_double(difficulty_service).new(difficulty_data_partial_double)
+	current_quest_service_partial_double = partial_double(current_quest_service).new(
+		currencies_data_partial_double, current_quest_data_partial_double
+	)
+	difficulty_service_partial_double = partial_double(difficulty_service).new(
+		difficulty_data_partial_double
+	)
 
-	sut = preload("res://src/services/stage/stage_service.gd").new(stage_data_partial_double, current_quest_service_partial_double, difficulty_service_partial_double)
+	sut = preload("res://src/services/stage/stage_service.gd").new(
+		stage_data_partial_double,
+		current_quest_service_partial_double,
+		difficulty_service_partial_double
+	)
 
 
 func test_get_current_stage() -> void:
@@ -85,6 +94,8 @@ var test_is_boss_wave_parameters := [
 	[10, 20],
 	[20, 20],
 ]
+
+
 func test_is_boss_wave(params: Array = use_parameters(test_is_boss_wave_parameters)) -> void:
 	# Arrange
 	var current_wave: int = params[0]
@@ -147,7 +158,11 @@ var test_beat_current_stage_parameters := [
 	[10, 20],
 	[20, 20],
 ]
-func test_beat_current_stage(params: Array = use_parameters(test_beat_current_stage_parameters)) -> void:
+
+
+func test_beat_current_stage(
+	params: Array = use_parameters(test_beat_current_stage_parameters)
+) -> void:
 	# Arrange
 	var current_stage: int = params[0]
 	var max_stage: int = params[1]

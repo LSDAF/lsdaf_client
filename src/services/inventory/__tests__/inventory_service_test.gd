@@ -6,10 +6,14 @@ var inventory_data := preload("res://src/data/inventory/inventory_data.gd")
 
 var inventory_data_partial_double: Variant
 
+
 func before_each() -> void:
 	inventory_data_partial_double = partial_double(inventory_data).new()
 
-	sut = preload("res://src/services/inventory/inventory_service.gd").new(inventory_data_partial_double)
+	sut = preload("res://src/services/inventory/inventory_service.gd").new(
+		inventory_data_partial_double
+	)
+
 
 func test_add_item() -> void:
 	# Arrange

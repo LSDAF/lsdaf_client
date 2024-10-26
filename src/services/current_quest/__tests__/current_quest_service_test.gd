@@ -13,9 +13,12 @@ func before_each() -> void:
 	currencies_data_partial_double = partial_double(currencies_data).new()
 	current_quest_data_partial_double = partial_double(current_quest_data).new()
 
-	sut = preload("res://src/services/current_quest/current_quest_service.gd").new(
-		currencies_data_partial_double,
-		current_quest_data_partial_double,
+	sut = (
+		preload("res://src/services/current_quest/current_quest_service.gd")
+		. new(
+			currencies_data_partial_double,
+			current_quest_data_partial_double,
+		)
 	)
 
 

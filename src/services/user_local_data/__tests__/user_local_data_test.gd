@@ -12,13 +12,19 @@ var user_local_data_partial_double: UserLocalData
 var resource_loader_partial_double: ResourceLoaderService
 var resource_saver_partial_double: ResourceSaverService
 
+
 func before_each() -> void:
 	auth_api_partial_double = partial_double(auth_api).new()
 	user_local_data_partial_double = partial_double(user_local_data).new()
 	resource_loader_partial_double = partial_double(resource_loader).new()
 	resource_saver_partial_double = partial_double(resource_saver).new()
 
-	sut = preload("res://src/services/user_local_data/user_local_data_service.gd").new( auth_api_partial_double, user_local_data_partial_double, resource_loader_partial_double, resource_saver_partial_double)
+	sut = preload("res://src/services/user_local_data/user_local_data_service.gd").new(
+		auth_api_partial_double,
+		user_local_data_partial_double,
+		resource_loader_partial_double,
+		resource_saver_partial_double
+	)
 
 
 # Parameters
@@ -29,14 +35,18 @@ var test_create_new_user_data_parameters := [
 	[false, "test@test.com"],
 	[false, ""],
 ]
-func test_create_new_user_data(params: Array = use_parameters(test_create_new_user_data_parameters)) -> void:
+
+
+func test_create_new_user_data(
+	params: Array = use_parameters(test_create_new_user_data_parameters)
+) -> void:
 	# Arrange
 	var remember_me: bool = params[0]
 	var email: String = params[1]
 
 	user_local_data_partial_double._user_data = null
 
-	if (params[0] or params[1]):
+	if params[0] or params[1]:
 		user_local_data_partial_double._user_data = UserData.new()
 		user_local_data_partial_double._user_data.remember_me = remember_me
 		user_local_data_partial_double._user_data.email = email
@@ -47,9 +57,10 @@ func test_create_new_user_data(params: Array = use_parameters(test_create_new_us
 	# Assert
 	assert_true(user_local_data_partial_double._user_data is UserData)
 
-	if (remember_me and email):
+	if remember_me and email:
 		assert_eq(user_local_data_partial_double._user_data.remember_me, true)
 		assert_eq(user_local_data_partial_double._user_data.email, email)
+
 
 # Parameters
 # [user_data_exists, local_user_data]
@@ -58,6 +69,8 @@ var test_load_parameters := [
 	[true, Resource.new()],
 	[false, null],
 ]
+
+
 func test_load(params: Array = use_parameters(test_load_parameters)) -> void:
 	# Arrange
 	var user_data_exists: bool = params[0]
@@ -73,28 +86,42 @@ func test_load(params: Array = use_parameters(test_load_parameters)) -> void:
 	assert_not_null(user_data)
 	assert_true(user_data is UserData)
 
-	if (user_data_exists and local_user_data is UserData):
+	if user_data_exists and local_user_data is UserData:
 		assert_eq(user_data, local_user_data)
 	else:
 		assert_ne(user_data, local_user_data)
+
 
 # Parameters
 # [user_data_refresh_token, user_data_email, refresh_login_response, expected_result]
 var test_relog_user_parameters := [
 	["", "", null, false],
-	["valid_refresh_token", "valid_email", LoginResponseDto.new({
-		"access_token": "test_access_token",
-		"refresh_token": "test_refresh_token",
-		"user_info": {
-			"id": "valid_id",
-			"name": "valid_name",
-			"email": "valid_email",
-		}
-	}), true],
+	[
+		"valid_refresh_token",
+		"valid_email",
+		(
+			LoginResponseDto
+			. new(
+				{
+					"access_token": "test_access_token",
+					"refresh_token": "test_refresh_token",
+					"user_info":
+					{
+						"id": "valid_id",
+						"name": "valid_name",
+						"email": "valid_email",
+					}
+				}
+			)
+		),
+		true
+	],
 	["invalid_refresh_token", "invalid_email", null, false],
 	["valid_refresh_token", "", null, false],
 	["", "valid_email", null, false],
 ]
+
+
 func test_relog_user(params: Array = use_parameters(test_relog_user_parameters)) -> void:
 	# Arrange
 	var user_data_refresh_token: String = params[0]
@@ -106,13 +133,18 @@ func test_relog_user(params: Array = use_parameters(test_relog_user_parameters))
 	user_local_data_partial_double._user_data.refresh_token = user_data_refresh_token
 	user_local_data_partial_double._user_data.email = user_data_email
 
-	stub(auth_api_partial_double, "refresh_login").when_passed(user_data_email, user_data_refresh_token, sut._on_relog_failed).to_return(refresh_login_response)
+	(
+		stub(auth_api_partial_double, "refresh_login")
+		. when_passed(user_data_email, user_data_refresh_token, sut._on_relog_failed)
+		. to_return(refresh_login_response)
+	)
 
 	# Act
 	var relog_user: bool = await sut.relog_user()
 
 	# Assert
 	assert_eq(relog_user, expected_result)
+
 
 # Parameters
 # [resource_saver_save_result]
@@ -123,6 +155,8 @@ var test_save_to_device_parameters := [
 	[ERR_FILE_BAD_DRIVE],
 	[ERR_FILE_BAD_PATH],
 ]
+
+
 func test_save_to_device(params: Array = use_parameters(test_save_to_device_parameters)) -> void:
 	# Arrange
 	var resource_saver_save_result: int = params[0]
@@ -144,14 +178,18 @@ var test_get_access_token_parameters := [
 	[null, "test_access_token", ""],
 	[null, "", ""],
 ]
-func test_get_access_token(params: Array = use_parameters(test_get_access_token_parameters)) -> void:
+
+
+func test_get_access_token(
+	params: Array = use_parameters(test_get_access_token_parameters)
+) -> void:
 	# Arrange
 	var local_user_data: UserData = params[0]
 	var local_access_token: Variant = params[1]
 	var expected_result: String = params[2]
 
 	user_local_data_partial_double._user_data = local_user_data
-	if (local_user_data):
+	if local_user_data:
 		user_local_data_partial_double._user_data.access_token = local_access_token
 
 	# Act
@@ -206,7 +244,11 @@ var test_save_access_token_parameters := [
 	[ERR_FILE_BAD_DRIVE, false],
 	[ERR_FILE_BAD_PATH, false],
 ]
-func test_save_access_token(params: Array = use_parameters(test_save_access_token_parameters)) -> void:
+
+
+func test_save_access_token(
+	params: Array = use_parameters(test_save_access_token_parameters)
+) -> void:
 	# Arrange
 	var save_to_device_result: int = params[0]
 	var expected_result: bool = params[1]
@@ -231,7 +273,11 @@ var test_save_refresh_token_parameters := [
 	[ERR_FILE_BAD_DRIVE, false],
 	[ERR_FILE_BAD_PATH, false],
 ]
-func test_save_refresh_token(params: Array = use_parameters(test_save_refresh_token_parameters)) -> void:
+
+
+func test_save_refresh_token(
+	params: Array = use_parameters(test_save_refresh_token_parameters)
+) -> void:
 	# Arrange
 	var save_to_device_result: int = params[0]
 	var expected_result: bool = params[1]
@@ -256,7 +302,11 @@ var test_save_remember_me_parameters := [
 	[ERR_FILE_BAD_DRIVE, false],
 	[ERR_FILE_BAD_PATH, false],
 ]
-func test_save_remember_me(params: Array = use_parameters(test_save_remember_me_parameters)) -> void:
+
+
+func test_save_remember_me(
+	params: Array = use_parameters(test_save_remember_me_parameters)
+) -> void:
 	# Arrange
 	var save_to_device_result: int = params[0]
 	var expected_result: bool = params[1]
@@ -281,6 +331,8 @@ var test_save_email_parameters := [
 	[ERR_FILE_BAD_DRIVE, false],
 	[ERR_FILE_BAD_PATH, false],
 ]
+
+
 func test_save_email(params: Array = use_parameters(test_save_email_parameters)) -> void:
 	# Arrange
 	var save_to_device_result: int = params[0]
