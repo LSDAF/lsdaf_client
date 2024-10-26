@@ -12,7 +12,7 @@ var current_quest: CurrentQuestService = (
 var difficulty: DifficultyService = (
 	preload("res://src/services/difficulty/difficulty_service.gd").new(Data.difficulty)
 )
-var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new()
+var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new(Data.inventory)
 var items: ItemsService = preload("res://src/services/items/items_service.gd").new()
 var loot: LootService = preload("res://src/services/loot/loot_service.gd").new()
 var player_stats: PlayerStatsService = (
