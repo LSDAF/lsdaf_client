@@ -8,11 +8,14 @@ var inventory_service := preload("res://src/services/inventory/inventory_service
 var characteristics_data_partial_double: Variant
 var inventory_service_partial_double: Variant
 
+
 func before_each() -> void:
 	characteristics_data_partial_double = partial_double(characteristics_data).new()
 	inventory_service_partial_double = partial_double(inventory_service).new()
 
-	sut = preload("res://src/services/player_stats/player_stats_service.gd").new(characteristics_data_partial_double, inventory_service_partial_double)
+	sut = preload("res://src/services/player_stats/player_stats_service.gd").new(
+		characteristics_data_partial_double, inventory_service_partial_double
+	)
 
 
 ##### Attack #####

@@ -2,8 +2,10 @@ class_name InventoryService
 
 var _inventory_data: InventoryData
 
+
 func _init(inventory_data: InventoryData) -> void:
 	_inventory_data = inventory_data
+
 
 func add_item(item: Item) -> void:
 	_inventory_data.items.push_back(item)

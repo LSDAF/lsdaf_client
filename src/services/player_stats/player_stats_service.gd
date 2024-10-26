@@ -8,6 +8,7 @@ func _init(characteristics_data: CharacteristicsData, inventory_service: Invento
 	_characteristics_data = characteristics_data
 	_inventory_service = inventory_service
 
+
 ##### Attack #####
 func _get_attack_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
