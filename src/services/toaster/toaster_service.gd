@@ -1,5 +1,5 @@
 class_name ToasterService
 
 
-static func toast(message: String) -> void:
+func toast(message: String) -> void:
 	EventBus.toast.emit(message)

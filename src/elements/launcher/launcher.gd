@@ -11,7 +11,7 @@ signal game_loaded
 func _ready() -> void:
 	%LoginRegister.on_login.connect(login)
 
-	if await UserLocalDataService.relog_user() == true:
+	if await Services.user_local_data.relog_user() == true:
 		fetch_game_saves()
 
 
@@ -24,7 +24,7 @@ func fetch_game_saves() -> void:
 	%LoginRegister.hide()
 	%GameSavesCenterContainer.show()
 
-	var game_saves: FetchGameSavesDto = await UserApi.fetch_game_saves(_on_fetch_game_saves_error)
+	var game_saves: FetchGameSavesDto = await Api.user.fetch_game_saves(_on_fetch_game_saves_error)
 
 	for game_save_dto in game_saves.game_saves:
 		var game_save: GameSaveButton = game_save_scene.instantiate()
@@ -34,13 +34,13 @@ func fetch_game_saves() -> void:
 
 
 func login(email: String, password: String) -> void:
-	var loginResponse: LoginResponseDto = await AuthApi.login(email, password, _on_login_error)
+	var loginResponse: LoginResponseDto = await Api.auth.login(email, password, _on_login_error)
 
 	if loginResponse == null:
 		return
 
-	UserLocalDataService.save_access_token(loginResponse.access_token)
-	UserLocalDataService.save_refresh_token(loginResponse.refresh_token)
+	Services.user_local_data.save_access_token(loginResponse.access_token)
+	Services.user_local_data.save_refresh_token(loginResponse.refresh_token)
 
 	fetch_game_saves()
 
@@ -54,17 +54,17 @@ func return_to_login_form() -> void:
 
 
 func _on_generate_game_save_error(response: Variant) -> void:
-	ToasterService.toast("Error when generating save")
+	Services.toaster.toast("Error when generating save")
 
 
 func _on_login_error(response: Variant) -> void:
-	ToasterService.toast("Error when logging in")
+	Services.toaster.toast("Error when logging in")
 
 
 func _on_fetch_game_saves_error(response: Variant) -> void:
-	ToasterService.toast("Error when fetching games")
+	Services.toaster.toast("Error when fetching games")
 
-	UserLocalDataService.create_new_user_data()
+	Services.user_local_data.create_new_user_data()
 	return_to_login_form()
 
 
@@ -73,7 +73,7 @@ func _on_game_loaded() -> void:
 
 
 func _on_create_new_game_button_pressed() -> void:
-	var game_save_dto: GameSaveDto = await GameSaveApi.generate_game_save(
+	var game_save_dto: GameSaveDto = await Api.game_save.generate_game_save(
 		_on_generate_game_save_error
 	)
 

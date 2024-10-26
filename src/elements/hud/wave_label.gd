@@ -5,7 +5,7 @@ extends Label
 func _ready() -> void:
 	EventBus.current_wave_update.connect(update_current_wave_updated)
 	text = (
-		"Wave: " + str(StageService.get_current_wave()) + "/" + str(StageService.get_max_wave())
+		"Wave: " + str(Services.stage.get_current_wave()) + "/" + str(Services.stage.get_max_wave())
 	)
 
 
@@ -16,5 +16,5 @@ func _process(delta: float) -> void:
 
 func update_current_wave_updated(new_stage: int) -> void:
 	text = (
-		"Wave: " + str(StageService.get_current_wave()) + "/" + str(StageService.get_max_wave())
+		"Wave: " + str(Services.stage.get_current_wave()) + "/" + str(Services.stage.get_max_wave())
 	)

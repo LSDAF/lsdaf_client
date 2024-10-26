@@ -25,7 +25,7 @@ func _instanciate_game() -> void:
 
 
 func _instanciate_launcher() -> void:
-	UserLocalDataService.load()
+	Services.user_local_data.load()
 
 	launcher_scene_instance = launcher_scene.instantiate()
 	launcher_scene_instance.game_loaded.connect(_on_launcher_game_loaded)
@@ -33,7 +33,7 @@ func _instanciate_launcher() -> void:
 
 
 func _on_logout() -> void:
-	UserLocalDataService.create_new_user_data()
+	Services.user_local_data.create_new_user_data()
 
 	game_main_scene_instance.queue_free()
 	_instanciate_launcher()

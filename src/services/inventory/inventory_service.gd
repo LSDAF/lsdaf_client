@@ -1,13 +1,13 @@
 class_name InventoryService
 
 
-static func add_item(item: Item) -> void:
+func add_item(item: Item) -> void:
 	Data.inventory.items.push_back(item)
 
 	EventBus.inventory_update.emit()
 
 
-static func delete_item_at_index(item_index: int) -> void:
+func delete_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return
@@ -17,7 +17,7 @@ static func delete_item_at_index(item_index: int) -> void:
 	EventBus.inventory_update.emit()
 
 
-static func equip_item_at_index(item_index: int) -> void:
+func equip_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return
@@ -33,11 +33,11 @@ static func equip_item_at_index(item_index: int) -> void:
 	EventBus.inventory_update.emit()
 
 
-static func get_items() -> Array[Item]:
+func get_items() -> Array[Item]:
 	return Data.inventory.items
 
 
-static func get_equipped_items_index() -> Array[int]:
+func get_equipped_items_index() -> Array[int]:
 	var items := Data.inventory.items
 	var equipped_items_index: Array[int] = []
 
@@ -48,7 +48,7 @@ static func get_equipped_items_index() -> Array[int]:
 	return equipped_items_index
 
 
-static func get_item_at_index(item_index: int) -> Item:
+func get_item_at_index(item_index: int) -> Item:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return null
@@ -56,7 +56,7 @@ static func get_item_at_index(item_index: int) -> Item:
 	return items[item_index]
 
 
-static func level_up_item_at_index(item_index: int) -> void:
+func level_up_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return
@@ -66,7 +66,7 @@ static func level_up_item_at_index(item_index: int) -> void:
 	EventBus.inventory_update.emit()
 
 
-static func unequip_item_at_index(item_index: int) -> void:
+func unequip_item_at_index(item_index: int) -> void:
 	var items := Data.inventory.items
 	if item_index < 0 or item_index >= len(items):
 		return

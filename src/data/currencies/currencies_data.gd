@@ -1,6 +1,6 @@
 extends Node
 
-class_name Currencies
+class_name CurrenciesData
 
 var gold: Currency = Currency.new()
 var diamond: Currency = Currency.new()

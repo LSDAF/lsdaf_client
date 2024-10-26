@@ -1,9 +1,14 @@
 class_name DifficultyService
 
+var _difficulty_data: DifficultyData
 
-static func set_current_difficulty(new_current_difficulty: float) -> void:
-	Data.difficulty._current_difficulty = new_current_difficulty
+func _init(difficulty_data: DifficultyData) -> void:
+	_difficulty_data = difficulty_data
 
 
-static func get_current_difficulty() -> float:
-	return Data.difficulty._current_difficulty
+func set_current_difficulty(new_current_difficulty: float) -> void:
+	_difficulty_data._current_difficulty = new_current_difficulty
+
+
+func get_current_difficulty() -> float:
+	return _difficulty_data._current_difficulty

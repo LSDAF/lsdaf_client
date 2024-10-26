@@ -1,7 +1,7 @@
 class_name StageApi
 
 
-static func fetch_game_save_stage(game_save_id: String, on_failure: Callable) -> FetchStageDto:
+func fetch_game_save_stage(game_save_id: String, on_failure: Callable) -> FetchStageDto:
 	var response: HTTPResult = await Http.api_client.fetch(
 		Http.api_routes.FETCH_GAME_SAVES_STAGE.format({"game_save_id": game_save_id}), true
 	)
@@ -21,7 +21,7 @@ static func fetch_game_save_stage(game_save_id: String, on_failure: Callable) ->
 	return FetchStageDto.new(json["data"])
 
 
-static func update_game_save_stage(
+func update_game_save_stage(
 	game_save_id: String, update_stage_dto: UpdateStageDto, on_failure: Callable
 ) -> bool:
 	var response: HTTPResult = await Http.api_client.post(

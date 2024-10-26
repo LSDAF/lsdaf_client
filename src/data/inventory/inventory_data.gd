@@ -1,5 +1,5 @@
 extends Node
 
-class_name Inventory
+class_name InventoryData
 
 var items: Array[Item] = []

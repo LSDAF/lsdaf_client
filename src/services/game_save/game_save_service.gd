@@ -1,41 +1,64 @@
 class_name GameSaveService
 
+var _currency_api: CurrenciesApi
+var _stage_api: StageApi
+var _clock_service: ClockService
+var _currency_service: CurrenciesService
+var _stage_service: StageService
+var _game_save_data: GameSaveData
 
-static func get_game_save_id() -> String:
-	return Data.game_save._game_save_id
+func _init(
+	currency_api: CurrenciesApi,
+	stage_api: StageApi,
+	clock_service: ClockService,
+	currency_service: CurrenciesService,
+	stage_service: StageService,
+	game_save_data: GameSaveData
+) -> void:
+	_currency_api = currency_api
+	_stage_api = stage_api
+	_clock_service = clock_service
+	_currency_service = currency_service
+	_stage_service = stage_service
+	_game_save_data = game_save_data
 
 
-static func load_game_save(game_save_id: String) -> void:
-	Data.game_save._game_save_id = game_save_id
 
-	var fetched_currencies := await CurrenciesApi.fetch_game_save_currencies(
-		Data.game_save._game_save_id, _on_fetch_currencies_error
+func get_game_save_id() -> String:
+	return _game_save_data._game_save_id
+
+
+func load_game_save(game_save_id: String) -> void:
+	_game_save_data._game_save_id = game_save_id
+
+	var fetched_currencies := await _currency_api.fetch_game_save_currencies(
+		_game_save_data._game_save_id, _on_fetch_currencies_error
 	)
-	CurrenciesService._set_currencies(
+	_currency_service._set_currencies(
 		fetched_currencies.gold,
 		fetched_currencies.diamond,
 		fetched_currencies.emerald,
 		fetched_currencies.amethyst
 	)
 
-	var fetched_stage := await StageApi.fetch_game_save_stage(
-		Data.game_save._game_save_id, _on_fetch_stage_error
+	var fetched_stage := await _stage_api.fetch_game_save_stage(
+		_game_save_data._game_save_id, _on_fetch_stage_error
 	)
-	StageService.set_current_stage(fetched_stage.current_stage)
-	StageService.set_max_stage(fetched_stage.max_stage)
+	_stage_service.set_current_stage(fetched_stage.current_stage)
+	_stage_service.set_max_stage(fetched_stage.max_stage)
 
 
-static func save_game() -> void:
+func save_game() -> void:
 	var success := await _save_currencies() and await _save_stage()
 
 	if success:
-		Data.game_save._last_save_time = Time.get_unix_time_from_system()
-		ToasterService.toast("Game saved.")
+		_game_save_data._last_save_time = _clock_service.get_unix_time_from_system()
+		Services.toaster.toast("Game saved.")
 	else:
-		ToasterService.toast("Failed to save game.")
+		Services.toaster.toast("Failed to save game.")
 
 
-static func _save_currencies() -> bool:
+func _save_currencies() -> bool:
 	var update_currencies_dto := (
 		UpdateCurrenciesDto
 		. new(
@@ -48,38 +71,38 @@ static func _save_currencies() -> bool:
 		)
 	)
 
-	return await CurrenciesApi.update_game_save_currencies(
+	return await _currency_api.update_game_save_currencies(
 		Data.game_save._game_save_id, update_currencies_dto, _on_save_currencies_error
 	)
 
 
-static func _save_stage() -> bool:
+func _save_stage() -> bool:
 	var update_stage_dto := (
 		UpdateStageDto
 		. new(
 			{
-				"current_stage": StageService.get_current_stage(),
-				"max_stage": StageService.get_max_stage(),
+				"current_stage": _stage_service.get_current_stage(),
+				"max_stage": _stage_service.get_max_stage(),
 			}
 		)
 	)
 
-	return await StageApi.update_game_save_stage(
-		Data.game_save._game_save_id, update_stage_dto, _on_save_stage_error
+	return await _stage_api.update_game_save_stage(
+		_game_save_data._game_save_id, update_stage_dto, _on_save_stage_error
 	)
 
 
-static func _on_fetch_currencies_error(response: Variant) -> void:
-	ToasterService.toast("Failed to fetch currencies.")
+func _on_fetch_currencies_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to fetch currencies.")
 
 
-static func _on_fetch_stage_error(response: Variant) -> void:
-	ToasterService.toast("Failed to fetch stage.")
+func _on_fetch_stage_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to fetch stage.")
 
 
-static func _on_save_currencies_error(response: Variant) -> void:
-	ToasterService.toast("Failed to save currencies.")
+func _on_save_currencies_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save currencies.")
 
 
-static func _on_save_stage_error(response: Variant) -> void:
-	ToasterService.toast("Failed to save stage.")
+func _on_save_stage_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save stage.")
