@@ -1,14 +1,18 @@
 class_name InventoryService
 
+var _inventory_data: InventoryData
+
+func _init(inventory_data: InventoryData) -> void:
+	_inventory_data = inventory_data
 
 func add_item(item: Item) -> void:
-	Data.inventory.items.push_back(item)
+	_inventory_data.items.push_back(item)
 
 	EventBus.inventory_update.emit()
 
 
 func delete_item_at_index(item_index: int) -> void:
-	var items := Data.inventory.items
+	var items := _inventory_data.items
 	if item_index < 0 or item_index >= len(items):
 		return
 
@@ -18,7 +22,7 @@ func delete_item_at_index(item_index: int) -> void:
 
 
 func equip_item_at_index(item_index: int) -> void:
-	var items := Data.inventory.items
+	var items := _inventory_data.items
 	if item_index < 0 or item_index >= len(items):
 		return
 
@@ -34,11 +38,11 @@ func equip_item_at_index(item_index: int) -> void:
 
 
 func get_items() -> Array[Item]:
-	return Data.inventory.items
+	return _inventory_data.items
 
 
 func get_equipped_items_index() -> Array[int]:
-	var items := Data.inventory.items
+	var items := _inventory_data.items
 	var equipped_items_index: Array[int] = []
 
 	for item_index in len(items):
@@ -49,7 +53,7 @@ func get_equipped_items_index() -> Array[int]:
 
 
 func get_item_at_index(item_index: int) -> Item:
-	var items := Data.inventory.items
+	var items := _inventory_data.items
 	if item_index < 0 or item_index >= len(items):
 		return null
 
@@ -57,7 +61,7 @@ func get_item_at_index(item_index: int) -> Item:
 
 
 func level_up_item_at_index(item_index: int) -> void:
-	var items := Data.inventory.items
+	var items := _inventory_data.items
 	if item_index < 0 or item_index >= len(items):
 		return
 
@@ -67,7 +71,7 @@ func level_up_item_at_index(item_index: int) -> void:
 
 
 func unequip_item_at_index(item_index: int) -> void:
-	var items := Data.inventory.items
+	var items := _inventory_data.items
 	if item_index < 0 or item_index >= len(items):
 		return
 
