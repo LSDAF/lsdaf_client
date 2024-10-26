@@ -4,10 +4,10 @@ var clock: ClockService = preload("res://src/services/clock/clock_service.gd").n
 var currencies: CurrenciesService = (
 	preload("res://src/services/currencies/currencies_service.gd").new(Data.currencies)
 )
-var stage: StageService = preload("res://src/services/stage/stage_service.gd").new(Data.stage)
+var stage: StageService = preload("res://src/services/stage/stage_service.gd").new(Data.stage, current_quest, difficulty)
 var current_quest: CurrentQuestService = (
 	preload("res://src/services/current_quest/current_quest_service.gd")
-	. new(Data.currencies, Data.current_quest, stage)
+	. new(Data.currencies, Data.current_quest)
 )
 var difficulty: DifficultyService = (
 	preload("res://src/services/difficulty/difficulty_service.gd").new(Data.difficulty)
