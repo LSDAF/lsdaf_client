@@ -12,8 +12,8 @@ var difficulty: DifficultyService = (
 	preload("res://src/services/difficulty/difficulty_service.gd").new(Data.difficulty)
 )
 var stage: StageService = preload("res://src/services/stage/stage_service.gd").new(
-										Data.stage, current_quest, difficulty
-									)
+	Data.stage, current_quest, difficulty
+)
 var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new(
 	Data.inventory
 )
@@ -26,8 +26,8 @@ var random_number_generator: RandomNumberGeneratorService = (
 	preload("res://src/services/random_number_generator/random_number_generator_service.gd").new()
 )
 var loot: LootService = preload("res://src/services/loot/loot_service.gd").new(
-																difficulty, inventory, items, random_number_generator
-															)
+	difficulty, inventory, items, random_number_generator
+)
 var resource_loader: ResourceLoaderService = (
 	preload("res://src/services/resource_loader/resource_loader_service.gd").new()
 )
