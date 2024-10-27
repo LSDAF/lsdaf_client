@@ -1,6 +1,5 @@
-extends Resource
-
 class_name ItemBlueprint
+extends Resource
 
 @export var rarity: ItemRarity.ItemRarity
 @export_range(1, 100, 1) var level: int
