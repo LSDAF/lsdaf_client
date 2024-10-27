@@ -1,14 +1,25 @@
+SHELL := /bin/bash
+
 default: help
 
-help:
-	@echo "> install-pre-commit   |----------------------------------|  Install pre-commit hooks"
-	@echo "> install-venv         |----------------------------------|  Install virtual environment"
+format:
+	gdformat .
 
 install-pre-commit:
-	python3 -m venv .venv && source .venv/bin/activate
 	pre-commit clean
 	pre-commit install
 
-install-venv:
-	python3 -m venv .venv && source .venv/bin/activate
-	pip install -r requirements.txt
+install-venv-help:
+	@echo 'Run the following commands to install the virtual environment:'
+	@echo 'python3 -m venv .venv'
+	@echo 'source .venv/bin/activate'
+	@echo 'pip install -r requirements.txt'
+
+lint:
+	gdlint .
+
+help:
+	@echo "> format               |----------------------------------|  Apply gdformat to all files"
+	@echo "> install-pre-commit   |----------------------------------|  Install pre-commit hooks"
+	@echo "> install-venv-help    |----------------------------------|  Show help to install virtual environment"
+	@echo "> lint                 |----------------------------------|  Run gdlint on all files"

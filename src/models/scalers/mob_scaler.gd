@@ -1,7 +1,6 @@
 class_name MobScaler
 extends Resource
 
-# From this idea https://stackoverflow.com/questions/76700683/what-formulas-to-use-for-clicker-incremental-games
 @export var attack_poln_coef_2: float
 @export var attack_poln_coef_1: float
 @export var attack_poln_coef_0: int
