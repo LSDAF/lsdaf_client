@@ -7,7 +7,7 @@
   "hide_orphans": false,
   "ignore_pause": false,
   "include_subdirs": true,
-  "junit_xml_file": "",
+  "junit_xml_file": "res://.test_results.xml",
   "junit_xml_timestamp": false,
   "prefix": "",
   "should_exit": true,

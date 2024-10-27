@@ -1,5 +1,8 @@
 default: help
 
+help:
+	@echo "> install-pre-commit   |----------------------------------|  Install pre-commit hooks"
+	@echo "> install-venv         |----------------------------------|  Install virtual environment"
 
 install-pre-commit:
 	python3 -m venv .venv && source .venv/bin/activate
@@ -9,7 +12,3 @@ install-pre-commit:
 install-venv:
 	python3 -m venv .venv && source .venv/bin/activate
 	pip install -r requirements.txt
-
-help:
-	@echo "> install-pre-commit   |----------------------------------|  Install pre-commit hooks"
-	@echo "> install-venv         |----------------------------------|  Install virtual environment"
