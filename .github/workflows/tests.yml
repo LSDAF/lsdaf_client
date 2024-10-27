@@ -33,6 +33,7 @@ jobs:
                 with:
                     lfs: true
 
+            # Documentation: https://github.com/marketplace/actions/setup-godot-action
             -   uses: chickensoft-games/setup-godot@v1
                 name: 🤖 Setup Godot
                 with:
@@ -42,12 +43,16 @@ jobs:
                     # Use .NET-enabled version of Godot (the default is true).
                     use-dotnet: false
                     # Include the Godot Export Templates (the default is false).
-                    include-templates: true
+                    include-templates: false
 
             -   name: 🔬 Verify Setup
                 run: |
                     godot --version
 
+            -   name: 🧪 Run Tests
+                run : |
+                    godot -d -s --path "$PWD" addons/gut/gut_cmdln.gd
+                    
 #            # run tests by using the gdUnit4-action with Godot version 4.2.1 and the latest GdUnit4 release
 #            -   uses: MikeSchulze/gdUnit4-action@v1.1.1
 #                with:
