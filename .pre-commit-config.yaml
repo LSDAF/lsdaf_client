@@ -6,3 +6,4 @@ repos:
             entry: ./.pre-commit-script.sh
             language: system
             types: [text]
+            verbose: false
