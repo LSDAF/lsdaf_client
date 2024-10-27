@@ -33,6 +33,21 @@ jobs:
                 with:
                     lfs: true
 
+            -   uses: chickensoft-games/setup-godot@v1
+                name: 🤖 Setup Godot
+                with:
+                    # Version must include major, minor, and patch, and be >= 4.0.0
+                    # Pre-release label is optional.
+                    version: 4.3 # also valid: 4.0.0.rc1 or 4.0.0, etc
+                    # Use .NET-enabled version of Godot (the default is true).
+                    use-dotnet: false
+                    # Include the Godot Export Templates (the default is false).
+                    include-templates: true
+
+            -   name: 🔬 Verify Setup
+                run: |
+                    godot --version
+
 #            # run tests by using the gdUnit4-action with Godot version 4.2.1 and the latest GdUnit4 release
 #            -   uses: MikeSchulze/gdUnit4-action@v1.1.1
 #                with:
