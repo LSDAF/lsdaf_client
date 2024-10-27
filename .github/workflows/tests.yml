@@ -1,12 +1,9 @@
-name: Run tests
+name: 🧑‍🔬 Run tests
 
 run-name: ${{ github.head_ref || github.ref_name }}-run-tests
 
 on:
     pull_request:
-        paths-ignore:
-            - '**.yml'
-            - '**.md'
     workflow_dispatch:
 
 
@@ -17,7 +14,7 @@ concurrency:
 
 jobs:
     unit-test:
-        name: "Run Unit Tests"
+        name: "🧪 Run Unit Tests"
         runs-on: 'ubuntu-22.04'
         timeout-minutes: 10 # The overall timeout
         permissions:
@@ -29,13 +26,14 @@ jobs:
 
         steps:
             # checkout your repository
-            -   uses: actions/checkout@v4
+            -   name: 📥 Checkout
+                uses: actions/checkout@v4
                 with:
                     lfs: true
 
             # Documentation: https://github.com/marketplace/actions/setup-godot-action
-            -   uses: chickensoft-games/setup-godot@v1
-                name: 🤖 Setup Godot
+            -   name: 🤖 Setup Godot
+                uses: chickensoft-games/setup-godot@v1
                 with:
                     # Version must include major, minor, and patch, and be >= 4.0.0
                     # Pre-release label is optional.
@@ -72,7 +70,7 @@ jobs:
                 if: always()
 
 
-            - name: Find Comment
+            - name: 🔎 Find Comment
               uses: peter-evans/find-comment@v3
               id: fc
               with:
@@ -81,7 +79,7 @@ jobs:
                   body-includes: '<img src="https://svg.test-summary.com/dashboard.svg?'
               if: always()
 
-            - name: Create or update comment
+            - name: ✏️ Create or update comment
               uses: peter-evans/create-or-update-comment@v4
               with:
                   comment-id: ${{ steps.fc.outputs.comment-id }}
