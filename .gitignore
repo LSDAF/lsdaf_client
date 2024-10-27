@@ -4,6 +4,9 @@
 # Godot 4+ specific ignores
 .godot/
 
+# Gut
+.test_results.xml
+
 # Python
 .venv
 

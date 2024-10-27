@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Idle Rpg"
+config/name="IdleRpg"
 run/main_scene="res://src/elements/root/root.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 
