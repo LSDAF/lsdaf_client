@@ -15,23 +15,28 @@ STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
 # Run gdformat and gdlint on each staged file
 gdlint_errors=()
 
+GREEN='\033[0;32m'    # Green color
+RED='\033[0;31m'      # Red color
+YELLOW='\033[0;33m'   # Yellow color
+NC='\033[0m'          # No Color
+BOLD='\033[1m'        # Bold text
+
 for file in $STAGED_FILES; do
     if [[ $file == *.gd ]]; then
-        echo "Running gdformat on $file..."
+        echo -e "${GREEN}Running gdformat on ${BOLD}$file${NC}"
         gdformat "$file"
-        echo "Running gdlint on $file..."
-        if gdlint "$file"; then
-          errored_files+=("$file")
+        echo -e "${GREEN}Running gdlint on ${BOLD}$file${NC}"
+        gdlint_output=$(gdlint "$file" 2>&1)
+        gdlint_exit_code=$?
+        if [ $gdlint_exit_code -ne 0 ]; then
+          gdlint_errors+=("$gdlint_output")
+          echo -e " - ${RED}${BOLD}Gdlint error${NC}:${YELLOW}${BOLD} $gdlint_output${NC}"
         fi
     fi
 done
 
 if [ ${#gdlint_errors[@]} -ne 0 ]; then
-  for error in "${gdlint_errors[@]}"; do
-      echo " - Gdlint error: $error"
-  done
-
-  echo "Gdlint errors: [ ${#gdlint_errors[@]} ] found, aborting commit"
+  echo -e "${BOLD}Gdlint errors found, aborting commit${NC}"
   exit 1
 fi
 # Optionally, you can add additional commands or checks here

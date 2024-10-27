@@ -1,6 +1,5 @@
-extends Resource
-
 class_name UserData
+extends Resource
 
 @export var access_token: String = ""
 @export var refresh_token: String = ""
