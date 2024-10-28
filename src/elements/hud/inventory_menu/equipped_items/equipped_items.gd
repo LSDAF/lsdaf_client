@@ -20,11 +20,6 @@ func _ready() -> void:
 	update_equipped_items()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_item_selected(item_index: int) -> void:
 	on_item_selected.emit(item_index)
 

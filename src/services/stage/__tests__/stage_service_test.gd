@@ -1,3 +1,5 @@
+# gdlint: disable=class-definitions-order
+
 extends GutTest
 
 var sut: StageService

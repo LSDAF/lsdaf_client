@@ -7,10 +7,5 @@ func _ready() -> void:
 	text = "Stage: " + str(Services.stage.get_current_stage())
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func update_current_stage_updated(new_stage: int) -> void:
+func update_current_stage_updated() -> void:
 	text = "Stage: " + str(Services.stage.get_current_stage())

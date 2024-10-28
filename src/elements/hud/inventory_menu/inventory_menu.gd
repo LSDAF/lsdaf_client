@@ -15,11 +15,6 @@ func _ready() -> void:
 	_on_item_selected(0)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_close_button_pressed() -> void:
 	queue_free()
 
@@ -29,7 +24,7 @@ func _on_give_random_button_pressed() -> void:
 	update_inventory()
 
 
-func _on_salvage_item(item_index: int) -> void:
+func _on_salvage_item() -> void:
 	_on_item_selected(0)
 
 
@@ -38,7 +33,7 @@ func _on_item_selected(item_index: int) -> void:
 	update_inventory()
 
 
-# From https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom
+# https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom
 # func is called as many times as necessary, receiving two array elements as arguments.
 # The function should return true if the first element should be moved behind the second one,
 # otherwise it should return false.
@@ -60,7 +55,7 @@ func _sort_inventory_custom_sort(
 	return false
 
 
-# From https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom
+# https://docs.godotengine.org/en/stable/classes/class_array.html#class-array-method-sort-custom
 # func is called as many times as necessary, receiving two array elements as arguments.
 # The function should return true if the first element should be moved behind the second one,
 # otherwise it should return false.

@@ -1,20 +1,15 @@
 extends Marker2D
 
+const WAVE_SIZE := 10
+
 @export var current_mobs: Array[Mob] = []
 @export var mob_scene: PackedScene
 @export var boss_scene: PackedScene
-
-var WAVE_SIZE := 10
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	spawn_mobs()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func generate_boss() -> Array[Mob]:

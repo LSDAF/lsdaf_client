@@ -1,6 +1,5 @@
-extends Node
-
 class_name CurrenciesApi
+extends Node
 
 
 func fetch_game_save_currencies(game_save_id: String, on_failure: Callable) -> FetchCurrenciesDto:

@@ -1,16 +1,15 @@
 class_name Mob
-
 extends Area2D
 
-var BASE_SCALE_RATIO: float = 1
-var BASE_SCALE: Vector2 = Vector2(BASE_SCALE_RATIO, BASE_SCALE_RATIO)
-var BASE_DAMAGE_LABEL_DISTANCE: int = 150
-var BASE_DAMAGE_LABEL_X_OFFSET: int = 22
+signal mob_death
+
+const BASE_SCALE_RATIO: float = 1
+const BASE_SCALE: Vector2 = Vector2(BASE_SCALE_RATIO, BASE_SCALE_RATIO)
+const BASE_DAMAGE_LABEL_DISTANCE: int = 150
+const BASE_DAMAGE_LABEL_X_OFFSET: int = 22
 
 @export var damage_taken_label_scene: PackedScene
 @export var scaler: MobScaler
-
-signal mob_death
 
 var max_health: int
 var health: int
@@ -29,7 +28,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var overlapping_areas := get_overlapping_areas()
 	for overlapping_area in overlapping_areas:
 		if overlapping_area.position.x < position.x:

@@ -39,12 +39,12 @@ func try_loot_item() -> void:
 
 
 # NOTE: Not yet implemented, not tested
-func _get_rarity_for_difficulty(difficulty: int) -> ItemRarity.ItemRarity:
+func _get_rarity_for_difficulty(_difficulty: int) -> ItemRarity.ItemRarity:
 	return ItemRarity.ItemRarity.values().pick_random()
 
 
 # NOTE: Not yet implemented, not tested
-func _get_type_for_difficulty(difficulty: int) -> ItemType.ItemType:
+func _get_type_for_difficulty(_difficulty: int) -> ItemType.ItemType:
 	return ItemType.ItemType.values().pick_random()
 
 

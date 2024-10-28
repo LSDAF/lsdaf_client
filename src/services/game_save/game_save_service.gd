@@ -94,15 +94,19 @@ func _save_stage() -> bool:
 
 func _on_fetch_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch currencies.")
+	print(response)
 
 
 func _on_fetch_stage_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch stage.")
+	print(response)
 
 
 func _on_save_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to save currencies.")
+	print(response)
 
 
 func _on_save_stage_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to save stage.")
+	print(response)

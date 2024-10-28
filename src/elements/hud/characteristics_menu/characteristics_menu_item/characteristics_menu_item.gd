@@ -14,11 +14,6 @@ func _ready() -> void:
 	%CostLabel.text = str(characteristic.next_level_cost())
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_upgrade_button_button_down() -> void:
 	Data.currencies.gold.update_value(-characteristic.next_level_cost())
 	characteristic.upgrade()

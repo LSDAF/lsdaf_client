@@ -1,6 +1,5 @@
-extends Control
-
 class_name Launcher
+extends Control
 
 signal game_loaded
 
@@ -13,11 +12,6 @@ func _ready() -> void:
 
 	if await Services.user_local_data.relog_user() == true:
 		fetch_game_saves()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func fetch_game_saves() -> void:
@@ -34,13 +28,13 @@ func fetch_game_saves() -> void:
 
 
 func login(email: String, password: String) -> void:
-	var loginResponse: LoginResponseDto = await Api.auth.login(email, password, _on_login_error)
+	var login_response: LoginResponseDto = await Api.auth.login(email, password, _on_login_error)
 
-	if loginResponse == null:
+	if login_response == null:
 		return
 
-	Services.user_local_data.save_access_token(loginResponse.access_token)
-	Services.user_local_data.save_refresh_token(loginResponse.refresh_token)
+	Services.user_local_data.save_access_token(login_response.access_token)
+	Services.user_local_data.save_refresh_token(login_response.refresh_token)
 
 	fetch_game_saves()
 
@@ -55,14 +49,17 @@ func return_to_login_form() -> void:
 
 func _on_generate_game_save_error(response: Variant) -> void:
 	Services.toaster.toast("Error when generating save")
+	print(response)
 
 
 func _on_login_error(response: Variant) -> void:
 	Services.toaster.toast("Error when logging in")
+	print(response)
 
 
 func _on_fetch_game_saves_error(response: Variant) -> void:
 	Services.toaster.toast("Error when fetching games")
+	print(response)
 
 	Services.user_local_data.create_new_user_data()
 	return_to_login_form()

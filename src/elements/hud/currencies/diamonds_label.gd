@@ -7,10 +7,5 @@ func _ready() -> void:
 	_update_diamond_value(Data.currencies.diamond.get_value())
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _update_diamond_value(new_value: int) -> void:
 	text = str(new_value)

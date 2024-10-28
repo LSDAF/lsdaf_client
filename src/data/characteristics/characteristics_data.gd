@@ -1,6 +1,5 @@
-extends Node
-
 class_name CharacteristicsData
+extends Node
 
 var attack: Characteristic = preload("res://src/resources/characteristics/attack.tres")
 var crit_chance: Characteristic = preload("res://src/resources/characteristics/crit_chance.tres")

@@ -20,11 +20,6 @@ func _ready() -> void:
 	_apply()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _apply() -> void:
 	%LoginEmailLineEdit.text = _login_email
 	%LoginPasswordLineEdit.text = _login_password
@@ -45,11 +40,11 @@ func clear() -> void:
 
 
 func register(name: String, email: String, password: String) -> void:
-	var registerResponse: RegisterResponseDto = await Api.auth.register(
+	var register_response: RegisterResponseDto = await Api.auth.register(
 		name, email, password, error
 	)
 
-	if registerResponse == null:
+	if register_response == null:
 		return
 
 	on_login.emit(email, password)
@@ -57,6 +52,7 @@ func register(name: String, email: String, password: String) -> void:
 
 func error(response: Variant) -> void:
 	Services.toaster.toast("Error when registering")
+	print(response)
 
 
 func _on_login_button_pressed() -> void:

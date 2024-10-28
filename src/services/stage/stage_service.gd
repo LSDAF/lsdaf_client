@@ -38,14 +38,14 @@ func is_boss_wave() -> bool:
 func set_current_stage(new_current_stage: int) -> void:
 	_stage_data._current_stage = new_current_stage
 
-	EventBus.current_stage_update.emit(new_current_stage)
+	EventBus.current_stage_update.emit()
 	_difficulty_service.set_current_difficulty(_stage_data._current_stage)
 
 
 func set_current_wave(new_current_wave: int) -> void:
 	_stage_data._current_wave = new_current_wave
 
-	EventBus.current_wave_update.emit(new_current_wave)
+	EventBus.current_wave_update.emit()
 
 
 func set_max_stage(new_max_stage: int) -> void:
