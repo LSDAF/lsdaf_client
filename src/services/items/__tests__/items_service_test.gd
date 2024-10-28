@@ -1,6 +1,17 @@
+# gdlint: disable=class-definitions-order
+
 extends GutTest
 
 var sut: ItemsService
+
+var AttackAdd := preload("res://src/resources/items/stats/attack_add.tres")
+var AttackMult := preload("res://src/resources/items/stats/attack_mult.tres")
+var CritChance := preload("res://src/resources/items/stats/crit_chance.tres")
+var CritDamage := preload("res://src/resources/items/stats/crit_damage.tres")
+var HpAdd := preload("res://src/resources/items/stats/hp_add.tres")
+var HpMult := preload("res://src/resources/items/stats/hp_mult.tres")
+var ResistanceAdd := preload("res://src/resources/items/stats/resistance_add.tres")
+var ResistanceMult := preload("res://src/resources/items/stats/resistance_mult.tres")
 
 
 func before_each() -> void:
@@ -22,26 +33,16 @@ func test_create_item() -> void:
 
 func test_get_additional_stats() -> void:
 	# Arrange
-
-	var attack_add := preload("res://src/resources/items/stats/attack_add.tres")
-	var attack_mult := preload("res://src/resources/items/stats/attack_mult.tres")
-	var crit_chance := preload("res://src/resources/items/stats/crit_chance.tres")
-	var crit_damage := preload("res://src/resources/items/stats/crit_damage.tres")
-	var hp_add := preload("res://src/resources/items/stats/hp_add.tres")
-	var hp_mult := preload("res://src/resources/items/stats/hp_mult.tres")
-	var resistance_add := preload("res://src/resources/items/stats/resistance_add.tres")
-	var resistance_mult := preload("res://src/resources/items/stats/resistance_mult.tres")
-
 	var item_stats_pool: ItemStatsPool = ItemStatsPool.new()
-	item_stats_pool.main_stat = attack_add
+	item_stats_pool.main_stat = AttackAdd
 
-	item_stats_pool.potential_stats.push_back(attack_mult)
-	item_stats_pool.potential_stats.push_back(crit_chance)
-	item_stats_pool.potential_stats.push_back(crit_damage)
-	item_stats_pool.potential_stats.push_back(hp_add)
-	item_stats_pool.potential_stats.push_back(hp_mult)
-	item_stats_pool.potential_stats.push_back(resistance_add)
-	item_stats_pool.potential_stats.push_back(resistance_mult)
+	item_stats_pool.potential_stats.push_back(AttackMult)
+	item_stats_pool.potential_stats.push_back(CritChance)
+	item_stats_pool.potential_stats.push_back(CritDamage)
+	item_stats_pool.potential_stats.push_back(HpAdd)
+	item_stats_pool.potential_stats.push_back(HpMult)
+	item_stats_pool.potential_stats.push_back(ResistanceAdd)
+	item_stats_pool.potential_stats.push_back(ResistanceMult)
 
 	# Act
 	var stats: Array[ItemStat] = sut._get_additionnal_stats(item_stats_pool)
@@ -59,13 +60,10 @@ func test_get_additional_stats() -> void:
 
 func test_get_main_stat() -> void:
 	# Arrange
-	var attack_add := preload("res://src/resources/items/stats/attack_add.tres")
-	var attack_mult := preload("res://src/resources/items/stats/attack_mult.tres")
-
 	var item_stats_pool: ItemStatsPool = ItemStatsPool.new()
-	item_stats_pool.main_stat = attack_add
+	item_stats_pool.main_stat = AttackAdd
 
-	item_stats_pool.potential_stats.push_back(attack_mult)
+	item_stats_pool.potential_stats.push_back(AttackMult)
 
 	# Act
 	var main_stat: ItemStat = sut._get_main_stat(item_stats_pool)

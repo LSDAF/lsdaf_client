@@ -1,6 +1,5 @@
-extends Control
-
 class_name GameSaveButton
+extends Control
 
 signal game_loaded
 

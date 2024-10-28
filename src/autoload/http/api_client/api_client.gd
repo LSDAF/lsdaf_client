@@ -1,6 +1,5 @@
-extends Node
-
 class_name ApiClient
+extends Node
 
 
 func _generate_headers(

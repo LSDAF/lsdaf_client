@@ -9,12 +9,7 @@ func _ready() -> void:
 	)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func update_current_wave_updated(new_stage: int) -> void:
+func update_current_wave_updated() -> void:
 	text = (
 		"Wave: " + str(Services.stage.get_current_wave()) + "/" + str(Services.stage.get_max_wave())
 	)

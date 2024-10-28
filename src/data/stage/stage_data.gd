@@ -1,6 +1,5 @@
-extends Node
-
 class_name StageData
+extends Node
 
 var _current_stage := 1
 var _current_wave := 1

@@ -1,6 +1,9 @@
+# gdlint: disable = max-returns
+
 class_name ItemsService
 
-# INFO: Since this class is static, it is not possible to use exports for resources since we have no attached scene
+# INFO: Since this class is static, it is not possible to use
+# exports for resources since we have no attached scene
 var item_stats_pools: ItemStatsPools = preload(
 	"res://src/resources/items/stats/pools/item_stats_pools.tres"
 )

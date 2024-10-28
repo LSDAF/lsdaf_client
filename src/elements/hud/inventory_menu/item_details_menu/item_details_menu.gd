@@ -1,19 +1,9 @@
 extends Control
 
-signal on_salvage_item(item_index: int)
+signal on_salvage_item
 
 var _item: Item = null
 var _item_index: int
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func _prettify_level(level: int) -> String:
@@ -110,8 +100,7 @@ func _on_salvage_button_pressed() -> void:
 	Data.currencies.amethyst.update_value(_item.item_salvage_price())
 	Services.inventory.delete_item_at_index(_item_index)
 
-	on_salvage_item.emit(_item_index)
-	#_update_item_details_menu()
+	on_salvage_item.emit()
 
 
 func _on_equip_button_pressed() -> void:

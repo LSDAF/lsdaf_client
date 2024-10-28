@@ -7,10 +7,5 @@ func _ready() -> void:
 	_update_gold_value(Data.currencies.gold.get_value())
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _update_gold_value(new_value: int) -> void:
 	text = str(new_value)

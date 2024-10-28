@@ -1,6 +1,5 @@
-extends Resource
-
 class_name ItemStatsPools
+extends Resource
 
 @export var boots: ItemRarityStatsPools
 @export var chestplates: ItemRarityStatsPools

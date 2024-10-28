@@ -1,6 +1,5 @@
-extends Node
-
 class_name CurrentQuestData
+extends Node
 
 var mob_quest_blueprint: MobQuest = preload("res://src/resources/quests/mob_quest.tres")
 var stage_quest_blueprint: StageQuest = preload("res://src/resources/quests/stage_quest.tres")
