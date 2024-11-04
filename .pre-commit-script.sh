@@ -22,7 +22,13 @@ NC='\033[0m'          # No Color
 BOLD='\033[1m'        # Bold text
 
 for file in $STAGED_FILES; do
+    echo -e "${GREEN}Staged file: ${BOLD}$file${NC}"
+
     if [[ $file == *.gd ]]; then
+        if [[ $file == addons/* ]]; then
+          echo -e "${YELLOW}Skipping ${BOLD}$file${NC}"
+            continue
+        fi
         echo -e "${GREEN}Running gdformat on ${BOLD}$file${NC}"
         gdformat "$file"
         echo -e "${GREEN}Running gdlint on ${BOLD}$file${NC}"
