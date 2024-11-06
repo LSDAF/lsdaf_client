@@ -3,7 +3,7 @@ class_name AuthApi
 
 func login(email: String, password: String, on_failure: Callable) -> LoginResponseDto:
 	var body: Dictionary = {
-		"email": email,
+		"username": email,
 		"password": password,
 	}
 
