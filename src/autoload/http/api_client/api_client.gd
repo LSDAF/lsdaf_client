@@ -26,12 +26,22 @@ func _generate_headers(
 	return headers
 
 
+func _log_error(url: String, response: HTTPResult) -> void:
+	if !response.success() or response.status_err():
+		var error := "{0}: Received status code [ {1} ]\nBody:\n{2}".format(
+			[url, str(response.status), response.body_as_string()]
+		)
+		push_error(error)
+
+
 func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth)
 
 	var response: HTTPResult = await Http.http_client.http.async_request(
 		url, headers, HTTPClient.METHOD_GET
 	)
+
+	_log_error(url, response)
 
 	return response
 
@@ -45,5 +55,7 @@ func post(
 	var response: HTTPResult = await Http.http_client.http.async_request(
 		url, headers, HTTPClient.METHOD_POST, request_data
 	)
+
+	_log_error(url, response)
 
 	return response
