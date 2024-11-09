@@ -82,11 +82,11 @@ func _save_characteristics() -> bool:
 		UpdateCharacteristicsDto
 		. new(
 			{
-				"attack": Data.characteristics.attack.current_value(),
-				"crit_chance": Data.characteristics.crit_chance.current_value(),
-				"crit_damage": Data.characteristics.crit_damage.current_value(),
-				"health": Data.characteristics.health.current_value(),
-				"resistance": Data.characteristics.resistance.current_value(),
+				"attack": Data.characteristics.attack.get_level(),
+				"crit_chance": Data.characteristics.crit_chance.get_level(),
+				"crit_damage": Data.characteristics.crit_damage.get_level(),
+				"health": Data.characteristics.health.get_level(),
+				"resistance": Data.characteristics.resistance.get_level(),
 			}
 		)
 	)
