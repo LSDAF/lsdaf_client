@@ -2,6 +2,7 @@ extends GutTest
 
 var sut: GameSaveService
 
+var characteristics_api := preload("res://src/http/characteristics/characteristics_api.gd")
 var currencies_api := preload("res://src/http/currencies/currencies_api.gd")
 var stage_api := preload("res://src/http/stage/stage_api.gd")
 var currency_data := preload("res://src/data/currencies/currencies_data.gd")
@@ -14,6 +15,7 @@ var current_quest_service := preload("res://src/services/current_quest/current_q
 var difficulty_service := preload("res://src/services/difficulty/difficulty_service.gd")
 var stage_service := preload("res://src/services/stage/stage_service.gd")
 
+var characteristics_api_partial_double: Variant
 var currencies_api_partial_double: Variant
 var stage_api_partial_double: Variant
 var currency_data_partial_double: Variant
@@ -32,6 +34,7 @@ func before_each() -> void:
 	difficulty_data_partial_double = partial_double(difficulty_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
 
+	characteristics_api_partial_double = partial_double(characteristics_api).new()
 	currencies_api_partial_double = partial_double(currencies_api).new()
 	stage_api_partial_double = partial_double(stage_api).new()
 	clock_service_partial_double = partial_double(clock_service).new()
@@ -52,6 +55,7 @@ func before_each() -> void:
 	sut = (
 		preload("res://src/services/game_save/game_save_service.gd")
 		. new(
+			characteristics_api_partial_double,
 			currencies_api_partial_double,
 			stage_api_partial_double,
 			clock_service_partial_double,
@@ -118,6 +122,7 @@ func test_save_game_success() -> void:
 	# Arrange
 	stub(clock_service_partial_double, "get_unix_time_from_system").to_return(1000.0)
 
+	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(true)
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(true)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
 
@@ -132,6 +137,7 @@ func test_save_game_partial_failure() -> void:
 	# Arrange
 	stub(clock_service_partial_double, "get_unix_time_from_system").to_return(1000.0)
 
+	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(true)
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(false)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
 
@@ -140,6 +146,28 @@ func test_save_game_partial_failure() -> void:
 
 	# Assert
 	assert_eq(game_save_data_partial_double._last_save_time, 0.0)
+
+
+func test_save_characteristics_success() -> void:
+	# Arrange
+	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(true)
+
+	# Act
+	var success := await sut._save_characteristics()
+
+	# Assert
+	assert_true(success)
+
+
+func test_save_characteristics_failure() -> void:
+	# Arrange
+	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(false)
+
+	# Act
+	var success := await sut._save_characteristics()
+
+	# Assert
+	assert_false(success)
 
 
 func test_save_currencies_success() -> void:
