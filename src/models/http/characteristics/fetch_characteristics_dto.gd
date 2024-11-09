@@ -1,4 +1,4 @@
-class_name UpdateCharacteristicsDto
+class_name FetchCharacteristicsDto
 
 var attack: int
 var crit_chance: int
@@ -13,13 +13,3 @@ func _init(dictionary: Dictionary) -> void:
 	crit_damage = dictionary["crit_damage"]
 	health = dictionary["health"]
 	resistance = dictionary["resistance"]
-
-
-func to_dictionary() -> Dictionary:
-	return {
-		"attack": attack,
-		"crit_chance": crit_chance,
-		"crit_damage": crit_damage,
-		"health": health,
-		"resistance": resistance,
-	}

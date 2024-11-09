@@ -5,10 +5,14 @@ var sut: GameSaveService
 var characteristics_api := preload("res://src/http/characteristics/characteristics_api.gd")
 var currencies_api := preload("res://src/http/currencies/currencies_api.gd")
 var stage_api := preload("res://src/http/stage/stage_api.gd")
+var characteristics_data := preload("res://src/data/characteristics/characteristics_data.gd")
 var currency_data := preload("res://src/data/currencies/currencies_data.gd")
 var difficulty_data := preload("res://src/data/difficulty/difficulty_data.gd")
 var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
 var stage_data := preload("res://src/data/stage/stage_data.gd")
+var characteristics_service := preload(
+	"res://src/services/characteristics/characteristics_service.gd"
+)
 var currencies_service := preload("res://src/services/currencies/currencies_service.gd")
 var clock_service := preload("res://src/services/clock/clock_service.gd")
 var current_quest_service := preload("res://src/services/current_quest/current_quest_service.gd")
@@ -18,11 +22,13 @@ var stage_service := preload("res://src/services/stage/stage_service.gd")
 var characteristics_api_partial_double: Variant
 var currencies_api_partial_double: Variant
 var stage_api_partial_double: Variant
+var characteristics_data_partial_double: Variant
 var currency_data_partial_double: Variant
 var difficulty_data_partial_double: Variant
 var game_save_data_partial_double: Variant
 var stage_data_partial_double: Variant
 var clock_service_partial_double: Variant
+var characteristics_service_partial_double: Variant
 var current_quest_service_partial_double: Variant
 var difficulty_service_partial_double: Variant
 var currencies_service_partial_double: Variant
@@ -30,6 +36,7 @@ var stage_service_partial_double: Variant
 
 
 func before_each() -> void:
+	characteristics_data_partial_double = partial_double(characteristics_data).new()
 	currency_data_partial_double = partial_double(currency_data).new()
 	difficulty_data_partial_double = partial_double(difficulty_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
@@ -41,6 +48,9 @@ func before_each() -> void:
 	current_quest_service_partial_double = partial_double(current_quest_service).new()
 	difficulty_service_partial_double = partial_double(difficulty_service).new(
 		difficulty_data_partial_double
+	)
+	characteristics_service_partial_double = partial_double(characteristics_service).new(
+		characteristics_data_partial_double
 	)
 	currencies_service_partial_double = partial_double(currencies_service).new(
 		currency_data_partial_double
@@ -59,6 +69,7 @@ func before_each() -> void:
 			currencies_api_partial_double,
 			stage_api_partial_double,
 			clock_service_partial_double,
+			characteristics_service_partial_double,
 			currencies_service_partial_double,
 			stage_service_partial_double,
 			game_save_data_partial_double,
