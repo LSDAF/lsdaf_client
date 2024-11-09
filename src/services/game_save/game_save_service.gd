@@ -1,5 +1,6 @@
 class_name GameSaveService
 
+var _characteristics_api: CharacteristicsApi
 var _currency_api: CurrenciesApi
 var _stage_api: StageApi
 var _clock_service: ClockService
@@ -9,6 +10,7 @@ var _game_save_data: GameSaveData
 
 
 func _init(
+	characteristics_api: CharacteristicsApi,
 	currency_api: CurrenciesApi,
 	stage_api: StageApi,
 	clock_service: ClockService,
@@ -16,6 +18,7 @@ func _init(
 	stage_service: StageService,
 	game_save_data: GameSaveData
 ) -> void:
+	_characteristics_api = characteristics_api
 	_currency_api = currency_api
 	_stage_api = stage_api
 	_clock_service = clock_service
@@ -49,13 +52,34 @@ func load_game_save(game_save_id: String) -> void:
 
 
 func save_game() -> void:
-	var success := await _save_currencies() and await _save_stage()
+	var success := (
+		await _save_currencies() and await _save_stage() and await _save_characteristics()
+	)
 
 	if success:
 		_game_save_data._last_save_time = _clock_service.get_unix_time_from_system()
 		Services.toaster.toast("Game saved.")
 	else:
 		Services.toaster.toast("Failed to save game.")
+
+
+func _save_characteristics() -> bool:
+	var update_characteristics_dto := (
+		UpdateCharacteristicsDto
+		. new(
+			{
+				"attack": Data.characteristics.attack.current_value(),
+				"crit_chance": Data.characteristics.crit_chance.current_value(),
+				"crit_damage": Data.characteristics.crit_damage.current_value(),
+				"hp": Data.characteristics.hp.current_value(),
+				"resistance": Data.characteristics.resistance.current_value(),
+			}
+		)
+	)
+
+	return await _characteristics_api.update_game_save_characteristics(
+		_game_save_data._game_save_id, update_characteristics_dto, _on_save_characteristics_error
+	)
 
 
 func _save_currencies() -> bool:
@@ -90,6 +114,11 @@ func _save_stage() -> bool:
 	return await _stage_api.update_game_save_stage(
 		_game_save_data._game_save_id, update_stage_dto, _on_save_stage_error
 	)
+
+
+func _on_save_characteristics_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save characteristics.")
+	print(response)
 
 
 func _on_fetch_currencies_error(response: Variant) -> void:

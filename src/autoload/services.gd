@@ -41,5 +41,5 @@ var user_local_data: UserLocalDataService = (
 )
 
 var game_save: GameSaveService = preload("res://src/services/game_save/game_save_service.gd").new(
-	Api.currencies, Api.stage, clock, currencies, stage, Data.game_save
+	Api.characteristics, Api.currencies, Api.stage, clock, currencies, stage, Data.game_save
 )
