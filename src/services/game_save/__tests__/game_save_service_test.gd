@@ -90,6 +90,18 @@ func test_get_game_save_id() -> void:
 
 func test_load_game_save() -> void:
 	# Arrange
+	var fetched_characteristics: FetchCharacteristicsDto = (
+		FetchCharacteristicsDto
+		. new(
+			{
+				"attack": 100,
+				"crit_chance": 100,
+				"crit_damage": 100,
+				"health": 100,
+				"resistance": 100,
+			}
+		)
+	)
 	var fetched_currencies: CurrenciesDto = (
 		CurrenciesDto
 		. new(
@@ -111,6 +123,9 @@ func test_load_game_save() -> void:
 		)
 	)
 
+	stub(characteristics_api_partial_double, "fetch_game_save_characteristics").to_return(
+		fetched_characteristics
+	)
 	stub(currencies_api_partial_double, "fetch_game_save_currencies").to_return(fetched_currencies)
 	stub(stage_api_partial_double, "fetch_game_save_stage").to_return(fetched_stage)
 
@@ -125,6 +140,12 @@ func test_load_game_save() -> void:
 
 	assert_eq(stage_data_partial_double._current_stage, 100)
 	assert_eq(stage_data_partial_double._max_stage, 200)
+
+	assert_eq(characteristics_data_partial_double.attack._level, 100)
+	assert_eq(characteristics_data_partial_double.crit_chance._level, 100)
+	assert_eq(characteristics_data_partial_double.crit_damage._level, 100)
+	assert_eq(characteristics_data_partial_double.health._level, 100)
+	assert_eq(characteristics_data_partial_double.resistance._level, 100)
 
 	assert_eq(difficulty_data_partial_double._current_difficulty, 100.0)
 
