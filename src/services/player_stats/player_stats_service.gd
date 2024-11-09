@@ -87,34 +87,36 @@ func get_crit_damage() -> PlayerStat:
 	return stat
 
 
-#####   HP   #####
-func _get_hp_multiplier() -> float:
+#####   Health   #####
+func _get_health_multiplier() -> float:
 	var equipped_items_total_multiplier := 1.0
 
 	for equipped_items_index in _inventory_service.get_equipped_items_index():
 		var item := _inventory_service.get_item_at_index(equipped_items_index)
 		equipped_items_total_multiplier += (
-			item.total_stat_value(ItemStatistics.ItemStatistics.HP_MULT) / 100.0
+			item.total_stat_value(ItemStatistics.ItemStatistics.HEALTH_MULT) / 100.0
 		)
 
 	return equipped_items_total_multiplier
 
 
-func _get_hp_value() -> float:
+func _get_health_value() -> float:
 	var equipped_items_total_value := 0.0
 
 	for equipped_items_index in _inventory_service.get_equipped_items_index():
 		var item := _inventory_service.get_item_at_index(equipped_items_index)
-		equipped_items_total_value += item.total_stat_value(ItemStatistics.ItemStatistics.HP_ADD)
+		equipped_items_total_value += item.total_stat_value(
+			ItemStatistics.ItemStatistics.HEALTH_ADD
+		)
 
-	return equipped_items_total_value + _characteristics_data.hp.current_value()
+	return equipped_items_total_value + _characteristics_data.health.current_value()
 
 
-func get_hp() -> PlayerStat:
+func get_health() -> PlayerStat:
 	var stat := PlayerStat.new()
 
-	stat.value = _get_hp_value()
-	stat.multiplier = _get_hp_multiplier()
+	stat.value = _get_health_value()
+	stat.multiplier = _get_health_multiplier()
 
 	return stat
 

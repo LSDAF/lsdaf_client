@@ -8,8 +8,8 @@ var AttackAdd := preload("res://src/resources/items/stats/attack_add.tres")
 var AttackMult := preload("res://src/resources/items/stats/attack_mult.tres")
 var CritChance := preload("res://src/resources/items/stats/crit_chance.tres")
 var CritDamage := preload("res://src/resources/items/stats/crit_damage.tres")
-var HpAdd := preload("res://src/resources/items/stats/hp_add.tres")
-var HpMult := preload("res://src/resources/items/stats/hp_mult.tres")
+var HealthAdd := preload("res://src/resources/items/stats/health_add.tres")
+var HealthMult := preload("res://src/resources/items/stats/health_mult.tres")
 var ResistanceAdd := preload("res://src/resources/items/stats/resistance_add.tres")
 var ResistanceMult := preload("res://src/resources/items/stats/resistance_mult.tres")
 
@@ -39,8 +39,8 @@ func test_get_additional_stats() -> void:
 	item_stats_pool.potential_stats.push_back(AttackMult)
 	item_stats_pool.potential_stats.push_back(CritChance)
 	item_stats_pool.potential_stats.push_back(CritDamage)
-	item_stats_pool.potential_stats.push_back(HpAdd)
-	item_stats_pool.potential_stats.push_back(HpMult)
+	item_stats_pool.potential_stats.push_back(HealthAdd)
+	item_stats_pool.potential_stats.push_back(HealthMult)
 	item_stats_pool.potential_stats.push_back(ResistanceAdd)
 	item_stats_pool.potential_stats.push_back(ResistanceMult)
 
@@ -139,8 +139,8 @@ var test_roll_stat_value_parameters := [
 	[ItemStatistics.ItemStatistics.ATTACK_MULT, 0.0, 100.0, 5.0],
 	[ItemStatistics.ItemStatistics.CRIT_CHANCE, 0.0, 100.0, 20.0],
 	[ItemStatistics.ItemStatistics.CRIT_DAMAGE, 0.0, 100.0, 1.5],
-	[ItemStatistics.ItemStatistics.HP_ADD, 0.0, 100.0, 99.0],
-	[ItemStatistics.ItemStatistics.HP_MULT, 0.0, 100.0, 33.333],
+	[ItemStatistics.ItemStatistics.HEALTH_ADD, 0.0, 100.0, 99.0],
+	[ItemStatistics.ItemStatistics.HEALTH_MULT, 0.0, 100.0, 33.333],
 	[ItemStatistics.ItemStatistics.RESISTANCE_ADD, 0.0, 100.0, 17.0],
 	[ItemStatistics.ItemStatistics.RESISTANCE_MULT, 0.0, 100.0, 13.0],
 ]

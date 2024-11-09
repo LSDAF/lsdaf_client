@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_e866r")
-name = "HP"
+name = "Health"
 cost_scaler = ExtResource("1_f3dg4")
