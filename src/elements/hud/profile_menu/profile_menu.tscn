@@ -56,10 +56,10 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Attack"
 
-[node name="HpLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HealthLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "HP"
+text = "Health"
 
 [node name="CritChanceLabel" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true

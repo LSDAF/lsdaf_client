@@ -8,8 +8,10 @@ func _ready() -> void:
 		[attack_stat.value, attack_stat.multiplier * 100]
 	)
 
-	var hp_stat := Services.player_stats.get_hp()
-	%HpLabel.text = "HP: {0} ({1}%)".format([hp_stat.value, hp_stat.multiplier * 100])
+	var health_stat := Services.player_stats.get_health()
+	%HealthLabel.text = "HEALTH: {0} ({1}%)".format(
+		[health_stat.value, health_stat.multiplier * 100]
+	)
 
 	var crit_chance_stat := Services.player_stats.get_crit_chance()
 	%CritChanceLabel.text = "Crit. Chance: {0}%".format([crit_chance_stat.value])

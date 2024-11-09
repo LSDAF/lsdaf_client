@@ -46,7 +46,7 @@ func test_get_attack_multiplier() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_MULT
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_2.main_stat.base_value = 69.0
 
 	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
@@ -91,7 +91,7 @@ func test_get_attack_value() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 
 	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
@@ -141,7 +141,7 @@ func test_get_attack() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 	item_2.additional_stats = [ItemStat.new(), ItemStat.new()]
 	item_2.additional_stats[0].statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
@@ -193,7 +193,7 @@ func test_get_crit_chance_value() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 
 	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
@@ -243,7 +243,7 @@ func test_get_crit_chance() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 	item_2.additional_stats = [ItemStat.new(), ItemStat.new()]
 	item_2.additional_stats[0].statistic = ItemStatistics.ItemStatistics.CRIT_CHANCE
@@ -295,7 +295,7 @@ func test_get_crit_damage_value() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 
 	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
@@ -345,7 +345,7 @@ func test_get_crit_damage() -> void:
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
 	item_2.main_stat = ItemStat.new()
-	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 	item_2.additional_stats = [ItemStat.new(), ItemStat.new()]
 	item_2.additional_stats[0].statistic = ItemStatistics.ItemStatistics.CRIT_DAMAGE
@@ -366,8 +366,8 @@ func test_get_crit_damage() -> void:
 	assert_eq(crit_damage.multiplier, 1.0)
 
 
-#####   HP   #####
-func test_get_hp_multiplier() -> void:
+#####   Health   #####
+func test_get_health_multiplier() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -375,7 +375,7 @@ func test_get_hp_multiplier() -> void:
 	item_0.rarity = ItemRarity.ItemRarity.NORMAL
 	item_0.level = 1
 	item_0.main_stat = ItemStat.new()
-	item_0.main_stat.statistic = ItemStatistics.ItemStatistics.HP_MULT
+	item_0.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_0.main_stat.base_value = 5.0
 
 	var item_1 := Item.new()
@@ -385,7 +385,7 @@ func test_get_hp_multiplier() -> void:
 	item_1.level = 2
 	item_1.main_stat = ItemStat.new()
 	item_1.additional_stats = [ItemStat.new()]
-	item_1.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HP_MULT
+	item_1.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_1.additional_stats[0].base_value = 30.0
 
 	var item_2 := Item.new()
@@ -403,16 +403,16 @@ func test_get_hp_multiplier() -> void:
 	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
 
 	# Act
-	var hp_multiplier: float = sut._get_hp_multiplier()
+	var health_multiplier: float = sut._get_health_multiplier()
 
 	# Assert
-	assert_eq(hp_multiplier, 1.65)
+	assert_eq(health_multiplier, 1.65)
 
 
-func test_get_hp_value() -> void:
+func test_get_health_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.hp = Characteristic.new()
-	characteristics_data_partial_double.hp._level = 100
+	characteristics_data_partial_double.health = Characteristic.new()
+	characteristics_data_partial_double.health._level = 100
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -420,7 +420,7 @@ func test_get_hp_value() -> void:
 	item_0.rarity = ItemRarity.ItemRarity.NORMAL
 	item_0.level = 1
 	item_0.main_stat = ItemStat.new()
-	item_0.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_0.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_0.main_stat.base_value = 15.0
 
 	var item_1 := Item.new()
@@ -430,7 +430,7 @@ func test_get_hp_value() -> void:
 	item_1.level = 2
 	item_1.main_stat = ItemStat.new()
 	item_1.additional_stats = [ItemStat.new()]
-	item_1.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_1.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_1.additional_stats[0].base_value = 25.0
 
 	var item_2 := Item.new()
@@ -448,16 +448,16 @@ func test_get_hp_value() -> void:
 	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
 
 	# Act
-	var hp_value: float = sut._get_hp_value()
+	var health_value: float = sut._get_health_value()
 
 	# Assert
-	assert_eq(hp_value, 265.0)
+	assert_eq(health_value, 265.0)
 
 
-func test_get_hp() -> void:
+func test_get_health() -> void:
 	# Arrange
-	characteristics_data_partial_double.hp = Characteristic.new()
-	characteristics_data_partial_double.hp._level = 135
+	characteristics_data_partial_double.health = Characteristic.new()
+	characteristics_data_partial_double.health._level = 135
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -465,10 +465,10 @@ func test_get_hp() -> void:
 	item_0.rarity = ItemRarity.ItemRarity.NORMAL
 	item_0.level = 1
 	item_0.main_stat = ItemStat.new()
-	item_0.main_stat.statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_0.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_0.main_stat.base_value = 15.0
 	item_0.additional_stats = [ItemStat.new()]
-	item_0.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HP_MULT
+	item_0.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_0.additional_stats[0].base_value = 30.0
 
 	var item_1 := Item.new()
@@ -478,7 +478,7 @@ func test_get_hp() -> void:
 	item_1.level = 2
 	item_1.main_stat = ItemStat.new()
 	item_1.additional_stats = [ItemStat.new()]
-	item_1.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_1.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_1.additional_stats[0].base_value = 50.0
 
 	var item_2 := Item.new()
@@ -490,9 +490,9 @@ func test_get_hp() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	item_2.main_stat.base_value = 69.0
 	item_2.additional_stats = [ItemStat.new(), ItemStat.new()]
-	item_2.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HP_ADD
+	item_2.additional_stats[0].statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.additional_stats[0].base_value = 25.0
-	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.HP_MULT
+	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_2.additional_stats[1].base_value = 15.0
 
 	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
@@ -501,11 +501,11 @@ func test_get_hp() -> void:
 	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
 
 	# Act
-	var hp: PlayerStat = sut.get_hp()
+	var health: PlayerStat = sut.get_health()
 
 	# Assert
-	assert_eq(hp.value, 460.0)
-	assert_eq(hp.multiplier, 1.75)
+	assert_eq(health.value, 460.0)
+	assert_eq(health.multiplier, 1.75)
 
 
 #####   Resistance   #####

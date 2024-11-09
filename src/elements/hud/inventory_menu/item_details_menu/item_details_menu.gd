@@ -33,10 +33,10 @@ func _prettify_statistic(item_stat: ItemStat, level: int) -> String:
 			prettified_statistic = "+{0}% {1}".format([current_value, "Crit. Chance"])
 		ItemStatistics.ItemStatistics.CRIT_DAMAGE:
 			prettified_statistic = "+{0}% {1}".format([current_value, "Crit. Damage"])
-		ItemStatistics.ItemStatistics.HP_ADD:
-			prettified_statistic = "+{0} {1}".format([current_value, "HP"])
-		ItemStatistics.ItemStatistics.HP_MULT:
-			prettified_statistic = "+{0}% {1}".format([current_value, "HP"])
+		ItemStatistics.ItemStatistics.HEALTH_ADD:
+			prettified_statistic = "+{0} {1}".format([current_value, "Health"])
+		ItemStatistics.ItemStatistics.HEALTH_MULT:
+			prettified_statistic = "+{0}% {1}".format([current_value, "Health"])
 		ItemStatistics.ItemStatistics.RESISTANCE_ADD:
 			prettified_statistic = "+{0} {1}".format([current_value, "Resistance"])
 		ItemStatistics.ItemStatistics.RESISTANCE_MULT:
