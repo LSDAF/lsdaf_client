@@ -1,6 +1,10 @@
 extends Node
 
 var clock: ClockService = preload("res://src/services/clock/clock_service.gd").new()
+var characteristics: CharacteristicsService = (
+	preload("res://src/services/characteristics/characteristics_service.gd")
+	. new(Data.characteristics)
+)
 var currencies: CurrenciesService = (
 	preload("res://src/services/currencies/currencies_service.gd").new(Data.currencies)
 )
@@ -41,5 +45,12 @@ var user_local_data: UserLocalDataService = (
 )
 
 var game_save: GameSaveService = preload("res://src/services/game_save/game_save_service.gd").new(
-	Api.characteristics, Api.currencies, Api.stage, clock, currencies, stage, Data.game_save
+	Api.characteristics,
+	Api.currencies,
+	Api.stage,
+	clock,
+	characteristics,
+	currencies,
+	stage,
+	Data.game_save
 )

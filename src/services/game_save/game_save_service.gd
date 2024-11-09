@@ -4,6 +4,7 @@ var _characteristics_api: CharacteristicsApi
 var _currency_api: CurrenciesApi
 var _stage_api: StageApi
 var _clock_service: ClockService
+var _characteristics_service: CharacteristicsService
 var _currency_service: CurrenciesService
 var _stage_service: StageService
 var _game_save_data: GameSaveData
@@ -14,6 +15,7 @@ func _init(
 	currency_api: CurrenciesApi,
 	stage_api: StageApi,
 	clock_service: ClockService,
+	characteristics_service: CharacteristicsService,
 	currency_service: CurrenciesService,
 	stage_service: StageService,
 	game_save_data: GameSaveData
@@ -22,6 +24,7 @@ func _init(
 	_currency_api = currency_api
 	_stage_api = stage_api
 	_clock_service = clock_service
+	_characteristics_service = characteristics_service
 	_currency_service = currency_service
 	_stage_service = stage_service
 	_game_save_data = game_save_data
@@ -33,6 +36,17 @@ func get_game_save_id() -> String:
 
 func load_game_save(game_save_id: String) -> void:
 	_game_save_data._game_save_id = game_save_id
+
+	var fetched_characteristics := await _characteristics_api.fetch_game_save_characteristics(
+		_game_save_data._game_save_id, _on_fetch_characteristics_error
+	)
+	_characteristics_service._set_characteristics(
+		fetched_characteristics.attack,
+		fetched_characteristics.crit_chance,
+		fetched_characteristics.crit_damage,
+		fetched_characteristics.health,
+		fetched_characteristics.resistance
+	)
 
 	var fetched_currencies := await _currency_api.fetch_game_save_currencies(
 		_game_save_data._game_save_id, _on_fetch_currencies_error
@@ -71,7 +85,7 @@ func _save_characteristics() -> bool:
 				"attack": Data.characteristics.attack.current_value(),
 				"crit_chance": Data.characteristics.crit_chance.current_value(),
 				"crit_damage": Data.characteristics.crit_damage.current_value(),
-				"hp": Data.characteristics.hp.current_value(),
+				"health": Data.characteristics.health.current_value(),
 				"resistance": Data.characteristics.resistance.current_value(),
 			}
 		)
@@ -116,8 +130,8 @@ func _save_stage() -> bool:
 	)
 
 
-func _on_save_characteristics_error(response: Variant) -> void:
-	Services.toaster.toast("Failed to save characteristics.")
+func _on_fetch_characteristics_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to fetch characteristics.")
 	print(response)
 
 
@@ -128,6 +142,11 @@ func _on_fetch_currencies_error(response: Variant) -> void:
 
 func _on_fetch_stage_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch stage.")
+	print(response)
+
+
+func _on_save_characteristics_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save characteristics.")
 	print(response)
 
 
