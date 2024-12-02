@@ -10,7 +10,6 @@ var _size: int = 0
 func enqueue(item: Variant) -> void:
 	_data.append(item)
 	_size += 1
-	
 
 
 # Remove and return the item at the front of the queue
