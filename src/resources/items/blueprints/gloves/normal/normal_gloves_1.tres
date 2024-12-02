@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=4 format=3 uid="uid://bck4k7hylo2a1"]
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=3 format=3 uid="uid://bck4k7hylo2a1"]
 
 [ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="1_nwpfg"]
-[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="3_cplm7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e6enp"]
-atlas = ExtResource("3_cplm7")
 region = Rect2(200, 72, 17, 16)
 
 [resource]
