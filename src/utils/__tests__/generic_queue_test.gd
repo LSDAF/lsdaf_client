@@ -1,6 +1,5 @@
 extends GutTest
 
-
 var queue: Queue
 
 

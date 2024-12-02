@@ -11,7 +11,7 @@ func process_queue(prioritary: bool) -> void:
 	var queue_to_process: Queue = _prioritary_queue if prioritary else _queue
 	while not queue_to_process.is_empty():
 		var event: HttpEvent = queue_to_process.dequeue()
-		var result: bool     = await _process_event(event)
+		var result: bool = await _process_event(event)
 		if result:
 			print("Function called successfully.")
 			break
@@ -28,14 +28,13 @@ func enqueue_event(http_event: HttpEvent) -> void:
 
 func _process_event(http_event: HttpEvent) -> bool:
 	var callable: Callable = http_event.get_function()
-	var nb_retries: int    = http_event.get_nb_retries()
+	var nb_tries: int = http_event.get_nb_tries()
 
 	var final_result: bool = false
 
-	for i in range(nb_retries):
+	for i in range(nb_tries):
 		callable.call()
 	# waits for 5 seconds before retrying
-
 
 	return true
 
