@@ -1,4 +1,4 @@
-class_name HttpRequest
+class_name HttpEvent
 
 var _function: Callable
 var _nb_retries: int

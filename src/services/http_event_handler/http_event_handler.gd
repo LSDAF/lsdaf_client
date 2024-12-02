@@ -1,14 +1,17 @@
 class_name HttpEventHandler
 extends Node
 
+const RETRY_DELAY: int = 5
+
 var _queue: Queue
 var _prioritary_queue: Queue
 
 
-func process_queue() -> void:
-	while not _queue.is_empty():
-		var request: HttpRequest = _queue.dequeue()
-		var result: bool = await _process_event(request)
+func process_queue(prioritary: bool) -> void:
+	var queue_to_process: Queue = _prioritary_queue if prioritary else _queue
+	while not queue_to_process.is_empty():
+		var event: HttpEvent = queue_to_process.dequeue()
+		var result: bool     = await _process_event(event)
 		if result:
 			print("Function called successfully.")
 			break
@@ -16,28 +19,25 @@ func process_queue() -> void:
 			print("Error while calling the function.")
 
 
-func enqueue_event(request: HttpRequest) -> void:
-	if request.get_prioritary():
-		_prioritary_queue.enqueue(request)
+func enqueue_event(http_event: HttpEvent) -> void:
+	if http_event.get_prioritary():
+		_prioritary_queue.enqueue(http_event)
 	else:
-		_queue.enqueue(request)
+		_queue.enqueue(http_event)
 
 
-func _process_event(request: HttpRequest) -> bool:
-	var callable: Callable = request.get_function()
-	var nb_retries: int = request.get_nb_retries()
+func _process_event(http_event: HttpEvent) -> bool:
+	var callable: Callable = http_event.get_function()
+	var nb_retries: int    = http_event.get_nb_retries()
 
 	var final_result: bool = false
 
 	for i in range(nb_retries):
-		var response: HTTPResult = callable.call()
-		if response.success():
-			final_result = true
-			break
-		# waits for 5 seconds before retrying
-		await get_tree().create_timer(5).timeout
+		callable.call()
+	# waits for 5 seconds before retrying
 
-	return final_result
+
+	return true
 
 
 func _init(queue: Queue, prioritary_queue: Queue) -> void:

@@ -1,6 +1,5 @@
 extends GutTest
 
-const Queue = preload("res://src/utils/generic_queue.gd")
 
 var queue: Queue
 
