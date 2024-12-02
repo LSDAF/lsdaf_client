@@ -1,6 +1,6 @@
-extends Object
-
 class_name Queue
+
+extends Object
 
 var _data: Array = []
 
