@@ -8,7 +8,7 @@ var _prioritary_queue: Queue
 func process_queue() -> void:
 	while not _queue.is_empty():
 		var request: HttpRequest = _queue.dequeue()
-		var result: bool         = await _process_event(request)
+		var result: bool = await _process_event(request)
 		if result:
 			print("Function called successfully.")
 			break
@@ -25,7 +25,7 @@ func enqueue_event(request: HttpRequest) -> void:
 
 func _process_event(request: HttpRequest) -> bool:
 	var callable: Callable = request.get_function()
-	var nb_retries: int    = request.get_nb_retries()
+	var nb_retries: int = request.get_nb_retries()
 
 	var final_result: bool = false
 
