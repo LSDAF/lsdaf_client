@@ -73,8 +73,10 @@ func save_game() -> void:
 	if success:
 		_game_save_data._last_save_time = _clock_service.get_unix_time_from_system()
 		Services.toaster.toast("Game saved.")
+		print("Game Saved")
 	else:
 		Services.toaster.toast("Failed to save game.")
+		print("Failed to save game.")
 
 
 func _save_characteristics() -> bool:
