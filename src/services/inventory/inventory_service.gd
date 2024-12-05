@@ -72,6 +72,20 @@ func level_up_item_at_index(item_index: int) -> void:
 	EventBus.inventory_update.emit()
 
 
+func set_inventory_from_fetch_inventory_dto(fetch_inventory_dto: FetchInventoryDto) -> void:
+	_inventory_data.items = []
+
+	for inventory_item_dto in fetch_inventory_dto.items:
+		var item := Item.new()
+		item.main_stat = inventory_item_dto.main_stat
+		item.additional_stats = inventory_item_dto.additional_stats
+		item.rarity = inventory_item_dto.rarity
+		item.level = inventory_item_dto.level
+		item.type = inventory_item_dto.type
+		item.is_equipped = inventory_item_dto.is_equipped
+		_inventory_data.items.append(item)
+
+
 func unequip_item_at_index(item_index: int) -> void:
 	var items := _inventory_data.items
 	if item_index < 0 or item_index >= len(items):
