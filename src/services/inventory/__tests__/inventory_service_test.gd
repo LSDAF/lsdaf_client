@@ -172,21 +172,20 @@ func test_set_inventory_from_fetch_inventory_dto() -> void:
 			{
 				"items":
 				[
-					# Arrange
 					{
-						"main_stat": {"statistic": "attack_add", "base_value": 1.0},
-						"additional_stats": [{"statistic": "crit_damage", "base_value": 3.0}],
-						"rarity": "normal",
+						"main_stat": {"statistic": "ATTACK_ADD", "base_value": 1.0},
+						"additional_stats": [{"statistic": "CRIT_DAMAGE", "base_value": 3.0}],
+						"rarity": "NORMAL",
 						"level": 1,
-						"type": "sword",
+						"type": "SWORD",
 						"is_equipped": false,
 					},
 					{
-						"main_stat": {"statistic": "crit_chance", "base_value": 2.0},
-						"additional_stats": [{"statistic": "health_add", "base_value": 4.0}],
-						"rarity": "normal",
+						"main_stat": {"statistic": "CRIT_CHANCE", "base_value": 2.0},
+						"additional_stats": [{"statistic": "HEALTH_ADD", "base_value": 4.0}],
+						"rarity": "NORMAL",
 						"level": 10,
-						"type": "chestplate",
+						"type": "CHESTPLATE",
 						"is_equipped": true,
 					}
 				]
