@@ -17,7 +17,7 @@ func before_each() -> void:
 
 func test_add_item() -> void:
 	# Arrange
-	var item = Item.new()
+	var item := Item.new()
 	item.name = "item"
 
 	# Act
@@ -31,9 +31,9 @@ func test_add_item() -> void:
 
 func test_delete_item_at_index() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 
 	inventory_data_partial_double.items.push_back(item_0)
@@ -49,17 +49,17 @@ func test_delete_item_at_index() -> void:
 
 func test_equip_item_at_index() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
 	item_0.is_equipped = true
 	item_0.type = ItemType.ItemType.SWORD
 
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 	item_1.is_equipped = false
 	item_1.type = ItemType.ItemType.SWORD
 
-	var item_2 = Item.new()
+	var item_2 := Item.new()
 	item_2.name = "item_2"
 	item_2.is_equipped = true
 	item_2.type = ItemType.ItemType.SHIELD
@@ -79,9 +79,9 @@ func test_equip_item_at_index() -> void:
 
 func test_get_items() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 
 	inventory_data_partial_double.items.push_back(item_0)
@@ -98,17 +98,17 @@ func test_get_items() -> void:
 
 func test_get_equipped_items_index() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
 	item_0.is_equipped = true
 	item_0.type = ItemType.ItemType.SWORD
 
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 	item_1.is_equipped = false
 	item_1.type = ItemType.ItemType.SWORD
 
-	var item_2 = Item.new()
+	var item_2 := Item.new()
 	item_2.name = "item_2"
 	item_2.is_equipped = true
 	item_2.type = ItemType.ItemType.SHIELD
@@ -128,9 +128,9 @@ func test_get_equipped_items_index() -> void:
 
 func test_get_item_at_index() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 
 	inventory_data_partial_double.items.push_back(item_0)
@@ -145,11 +145,11 @@ func test_get_item_at_index() -> void:
 
 func test_level_up_item_at_index() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
 	item_0.level = 1
 
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 	item_1.level = 2
 
@@ -164,19 +164,84 @@ func test_level_up_item_at_index() -> void:
 	assert_eq(inventory_data_partial_double.items[1].level, 3)
 
 
+func test_set_inventory_from_fetch_inventory_dto() -> void:
+	# Arrange
+	var fetch_inventory_dto := (
+		FetchInventoryDto
+		. new(
+			{
+				"items":
+				[
+					# Arrange
+					{
+						"main_stat": {"statistic": "attack_add", "base_value": 1.0},
+						"additional_stats": [{"statistic": "crit_damage", "base_value": 3.0}],
+						"rarity": "normal",
+						"level": 1,
+						"type": "sword",
+						"is_equipped": false,
+					},
+					{
+						"main_stat": {"statistic": "crit_chance", "base_value": 2.0},
+						"additional_stats": [{"statistic": "health_add", "base_value": 4.0}],
+						"rarity": "normal",
+						"level": 10,
+						"type": "chestplate",
+						"is_equipped": true,
+					}
+				]
+			}
+		)
+	)
+
+	# Act
+	sut.set_inventory_from_fetch_inventory_dto(fetch_inventory_dto)
+
+	# Assert
+	assert_eq(inventory_data_partial_double.items.size(), 2)
+	assert_eq(
+		inventory_data_partial_double.items[0].main_stat.statistic,
+		ItemStatistics.ItemStatistics.ATTACK_ADD
+	)
+	assert_eq(inventory_data_partial_double.items[0].main_stat.base_value, 1.0)
+	assert_eq(
+		inventory_data_partial_double.items[0].additional_stats[0].statistic,
+		ItemStatistics.ItemStatistics.CRIT_DAMAGE
+	)
+	assert_eq(inventory_data_partial_double.items[0].additional_stats[0].base_value, 3.0)
+	assert_eq(inventory_data_partial_double.items[0].rarity, ItemRarity.ItemRarity.NORMAL)
+	assert_eq(inventory_data_partial_double.items[0].level, 1)
+	assert_eq(inventory_data_partial_double.items[0].type, ItemType.ItemType.SWORD)
+	assert_eq(inventory_data_partial_double.items[0].is_equipped, false)
+	assert_eq(
+		inventory_data_partial_double.items[1].main_stat.statistic,
+		ItemStatistics.ItemStatistics.CRIT_CHANCE
+	)
+	assert_eq(inventory_data_partial_double.items[1].main_stat.base_value, 2.0)
+	assert_eq(
+		inventory_data_partial_double.items[1].additional_stats[0].statistic,
+		ItemStatistics.ItemStatistics.HEALTH_ADD
+	)
+	assert_eq(inventory_data_partial_double.items[1].additional_stats[0].base_value, 4.0)
+	assert_eq(inventory_data_partial_double.items[1].rarity, ItemRarity.ItemRarity.NORMAL)
+	assert_eq(inventory_data_partial_double.items[1].level, 10)
+	assert_eq(inventory_data_partial_double.items[1].type, ItemType.ItemType.CHESTPLATE)
+	assert_eq(inventory_data_partial_double.items[1].is_equipped, true)
+
+
 func test_unequip_item_at_index() -> void:
 	# Arrange
-	var item_0 = Item.new()
+	var item_0 := Item.new()
 	item_0.name = "item_0"
 	item_0.is_equipped = true
 	item_0.type = ItemType.ItemType.SWORD
 
-	var item_1 = Item.new()
+	var item_1 := Item.new()
 	item_1.name = "item_1"
 	item_1.is_equipped = false
 	item_1.type = ItemType.ItemType.SWORD
 
-	var item_2 = Item.new()
+	var item_2 := Item.new()
 	item_2.name = "item_2"
 	item_2.is_equipped = true
 	item_2.type = ItemType.ItemType.SHIELD

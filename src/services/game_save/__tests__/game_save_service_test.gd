@@ -4,11 +4,13 @@ var sut: GameSaveService
 
 var characteristics_api := preload("res://src/http/characteristics/characteristics_api.gd")
 var currencies_api := preload("res://src/http/currencies/currencies_api.gd")
+var inventory_api := preload("res://src/http/inventory/inventory_api.gd")
 var stage_api := preload("res://src/http/stage/stage_api.gd")
 var characteristics_data := preload("res://src/data/characteristics/characteristics_data.gd")
 var currency_data := preload("res://src/data/currencies/currencies_data.gd")
 var difficulty_data := preload("res://src/data/difficulty/difficulty_data.gd")
 var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
+var inventory_data := preload("res://src/data/inventory/inventory_data.gd")
 var stage_data := preload("res://src/data/stage/stage_data.gd")
 var characteristics_service := preload(
 	"res://src/services/characteristics/characteristics_service.gd"
@@ -17,21 +19,25 @@ var currencies_service := preload("res://src/services/currencies/currencies_serv
 var clock_service := preload("res://src/services/clock/clock_service.gd")
 var current_quest_service := preload("res://src/services/current_quest/current_quest_service.gd")
 var difficulty_service := preload("res://src/services/difficulty/difficulty_service.gd")
+var inventory_service := preload("res://src/services/inventory/inventory_service.gd")
 var stage_service := preload("res://src/services/stage/stage_service.gd")
 
 var characteristics_api_partial_double: Variant
 var currencies_api_partial_double: Variant
+var inventory_api_partial_double: Variant
 var stage_api_partial_double: Variant
 var characteristics_data_partial_double: Variant
 var currency_data_partial_double: Variant
 var difficulty_data_partial_double: Variant
 var game_save_data_partial_double: Variant
+var inventory_data_partial_double: Variant
 var stage_data_partial_double: Variant
-var clock_service_partial_double: Variant
 var characteristics_service_partial_double: Variant
+var currencies_service_partial_double: Variant
+var clock_service_partial_double: Variant
 var current_quest_service_partial_double: Variant
 var difficulty_service_partial_double: Variant
-var currencies_service_partial_double: Variant
+var inventory_service_partial_double: Variant
 var stage_service_partial_double: Variant
 
 
@@ -39,10 +45,12 @@ func before_each() -> void:
 	characteristics_data_partial_double = partial_double(characteristics_data).new()
 	currency_data_partial_double = partial_double(currency_data).new()
 	difficulty_data_partial_double = partial_double(difficulty_data).new()
+	inventory_data_partial_double = partial_double(inventory_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
 
 	characteristics_api_partial_double = partial_double(characteristics_api).new()
 	currencies_api_partial_double = partial_double(currencies_api).new()
+	inventory_api_partial_double = partial_double(inventory_api).new()
 	stage_api_partial_double = partial_double(stage_api).new()
 	clock_service_partial_double = partial_double(clock_service).new()
 	current_quest_service_partial_double = partial_double(current_quest_service).new()
@@ -54,6 +62,9 @@ func before_each() -> void:
 	)
 	currencies_service_partial_double = partial_double(currencies_service).new(
 		currency_data_partial_double
+	)
+	inventory_service_partial_double = partial_double(inventory_service).new(
+		inventory_data_partial_double
 	)
 	stage_service_partial_double = partial_double(stage_service).new(
 		stage_data_partial_double,
@@ -67,10 +78,12 @@ func before_each() -> void:
 		. new(
 			characteristics_api_partial_double,
 			currencies_api_partial_double,
+			inventory_api_partial_double,
 			stage_api_partial_double,
 			clock_service_partial_double,
 			characteristics_service_partial_double,
 			currencies_service_partial_double,
+			inventory_service_partial_double,
 			stage_service_partial_double,
 			game_save_data_partial_double,
 		)
@@ -123,10 +136,13 @@ func test_load_game_save() -> void:
 		)
 	)
 
+	var fetched_inventory: FetchInventoryDto = FetchInventoryDto.new({"items": []})
+
 	stub(characteristics_api_partial_double, "fetch_game_save_characteristics").to_return(
 		fetched_characteristics
 	)
 	stub(currencies_api_partial_double, "fetch_game_save_currencies").to_return(fetched_currencies)
+	stub(inventory_api_partial_double, "fetch_game_save_inventory").to_return(fetched_inventory)
 	stub(stage_api_partial_double, "fetch_game_save_stage").to_return(fetched_stage)
 
 	# Act
@@ -146,6 +162,8 @@ func test_load_game_save() -> void:
 	assert_eq(characteristics_data_partial_double.crit_damage._level, 100)
 	assert_eq(characteristics_data_partial_double.health._level, 100)
 	assert_eq(characteristics_data_partial_double.resistance._level, 100)
+
+	assert_eq(inventory_data_partial_double.items.size(), 0)
 
 	assert_eq(difficulty_data_partial_double._current_difficulty, 100.0)
 

@@ -2,10 +2,12 @@ class_name GameSaveService
 
 var _characteristics_api: CharacteristicsApi
 var _currency_api: CurrenciesApi
+var _inventory_api: InventoryApi
 var _stage_api: StageApi
 var _clock_service: ClockService
 var _characteristics_service: CharacteristicsService
 var _currency_service: CurrenciesService
+var _inventory_service: InventoryService
 var _stage_service: StageService
 var _game_save_data: GameSaveData
 
@@ -13,19 +15,23 @@ var _game_save_data: GameSaveData
 func _init(
 	characteristics_api: CharacteristicsApi,
 	currency_api: CurrenciesApi,
+	inventory_api: InventoryApi,
 	stage_api: StageApi,
 	clock_service: ClockService,
 	characteristics_service: CharacteristicsService,
 	currency_service: CurrenciesService,
+	inventory_service: InventoryService,
 	stage_service: StageService,
-	game_save_data: GameSaveData
+	game_save_data: GameSaveData,
 ) -> void:
 	_characteristics_api = characteristics_api
 	_currency_api = currency_api
+	_inventory_api = inventory_api
 	_stage_api = stage_api
 	_clock_service = clock_service
 	_characteristics_service = characteristics_service
 	_currency_service = currency_service
+	_inventory_service = inventory_service
 	_stage_service = stage_service
 	_game_save_data = game_save_data
 
@@ -57,6 +63,11 @@ func load_game_save(game_save_id: String) -> void:
 		fetched_currencies.emerald,
 		fetched_currencies.amethyst
 	)
+
+	var fetched_inventory := await _inventory_api.fetch_game_save_inventory(
+		_game_save_data._game_save_id, _on_fetch_inventory_error
+	)
+	_inventory_service.set_inventory_from_fetch_inventory_dto(fetched_inventory)
 
 	var fetched_stage := await _stage_api.fetch_game_save_stage(
 		_game_save_data._game_save_id, _on_fetch_stage_error
@@ -137,6 +148,11 @@ func _on_fetch_characteristics_error(response: Variant) -> void:
 
 func _on_fetch_currencies_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch currencies.")
+	print(response)
+
+
+func _on_fetch_inventory_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to fetch inventory.")
 	print(response)
 
 
