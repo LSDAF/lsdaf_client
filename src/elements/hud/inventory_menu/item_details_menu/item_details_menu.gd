@@ -58,9 +58,21 @@ func _update_item_details_menu() -> void:
 
 	%MainStatLabel.text = _prettify_statistic(_item.main_stat, _item.level)
 	%AdditionnalStat1Label.text = _prettify_statistic(_item.additional_stats[0], _item.level)
-	%AdditionnalStat2Label.text = _prettify_statistic(_item.additional_stats[1], _item.level)
-	%AdditionnalStat3Label.text = _prettify_statistic(_item.additional_stats[2], _item.level)
-	%AdditionnalStat4Label.text = _prettify_statistic(_item.additional_stats[3], _item.level)
+
+	if _item.additional_stats.size() >= 2:
+		%AdditionnalStat2Label.text = _prettify_statistic(_item.additional_stats[1], _item.level)
+	else:
+		%AdditionnalStat2Label.text = ""
+
+	if _item.additional_stats.size() >= 3:
+		%AdditionnalStat3Label.text = _prettify_statistic(_item.additional_stats[2], _item.level)
+	else:
+		%AdditionnalStat3Label.text = ""
+
+	if _item.additional_stats.size() >= 4:
+		%AdditionnalStat4Label.text = _prettify_statistic(_item.additional_stats[3], _item.level)
+	else:
+		%AdditionnalStat4Label.text = ""
 
 	%SalvagePriceLabel.text = str(_item.item_salvage_price())
 	%LevelUpCostLabel.text = str(_item.level_up_cost())
