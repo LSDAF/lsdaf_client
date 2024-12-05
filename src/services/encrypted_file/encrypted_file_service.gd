@@ -1,7 +1,7 @@
-class_name EncryptedFileLoaderService
+class_name EncryptedFileService
 
-# This service is responsible for loading encrypted files.
-# It is used to load the game save files in case of offline savings.
+# This service is responsible for loading/saving encrypted files.
+# It is used to load/save the game save files in case of offline mode.
 
 const SECURITY_KEY: String = "SECURITY_KEY"
 
@@ -26,3 +26,14 @@ func load(path: String) -> Variant:
 		return null
 
 	return data
+
+
+func save(path: String, data: Variant) -> void:
+	var file: FileAccess = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, SECURITY_KEY)
+	if file == null:
+		printerr(FileAccess.get_open_error())
+		return
+
+	var content: String = JSON.stringify(data)
+	file.store_string(content)
+	file.close()
