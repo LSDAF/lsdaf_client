@@ -44,6 +44,8 @@ var user_local_data: UserLocalDataService = (
 	. new(Api.auth, Data.user_local_data, resource_loader, resource_saver)
 )
 
+var timer: TimerService = preload("res://src/services/timer/timer_service.gd").new()
+
 var game_save: GameSaveService = preload("res://src/services/game_save/game_save_service.gd").new(
 	Api.characteristics,
 	Api.currencies,
@@ -61,3 +63,7 @@ var http_event_handler: HttpEventHandler = (
 	preload("res://src/services/http_event_handler/http_event_handler.gd")
 	. new(Queue.new(), Queue.new())
 )
+
+
+func _ready() -> void:
+	add_child(timer)
