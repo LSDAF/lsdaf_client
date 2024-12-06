@@ -30,13 +30,8 @@ func _process_event(http_event: HttpEvent) -> bool:
 	var callable: Callable = http_event.get_function()
 	var nb_tries: int = http_event.get_nb_tries()
 
-	var final_result: bool = false
-
-	for i in range(nb_tries):
-		callable.call()
-	# waits for 5 seconds before retrying
-
-	return true
+	var result: bool = await callable.call()
+	return result
 
 
 func _init(queue: Queue, prioritary_queue: Queue) -> void:
