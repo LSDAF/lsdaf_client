@@ -34,6 +34,7 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 
 # INFO: This is a temporary solution during dev, do not test it
 func create_random_item() -> Item:
+	var client_id: String = _random_number_generator_service.randi()
 	var item_type: ItemType.ItemType = ItemType.ItemType.values().pick_random()
 	var item_rarity: ItemRarity.ItemRarity = ItemRarity.ItemRarity.values().pick_random()
 
