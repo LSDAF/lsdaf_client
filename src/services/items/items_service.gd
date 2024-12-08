@@ -9,6 +9,14 @@ var item_stats_pools: ItemStatsPools = preload(
 )
 var item_pools: ItemPools = preload("res://src/resources/items/item_pools/item_pools.tres")
 
+var _game_save_service: GameSaveService
+
+
+func _init(
+	game_save_service: GameSaveService,
+) -> void:
+	_game_save_service = game_save_service
+
 
 func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity) -> Item:
 	var item := Item.new()
@@ -17,6 +25,7 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 	item.level = 1
 
 	# From constructor
+	item.client_id = _game_save_service.get_game_save_id() + "__" + Tools.uuid.v4()
 	item.type = item_type
 	item.rarity = item_rarity
 
@@ -34,7 +43,6 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 
 # INFO: This is a temporary solution during dev, do not test it
 func create_random_item() -> Item:
-	var client_id: String = _random_number_generator_service.randi()
 	var item_type: ItemType.ItemType = ItemType.ItemType.values().pick_random()
 	var item_rarity: ItemRarity.ItemRarity = ItemRarity.ItemRarity.values().pick_random()
 
