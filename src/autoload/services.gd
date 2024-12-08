@@ -1,44 +1,51 @@
 extends Node
 
 var clock: ClockService = preload("res://src/services/clock/clock_service.gd").new()
+
 var characteristics: CharacteristicsService = (
 	preload("res://src/services/characteristics/characteristics_service.gd")
 	. new(Data.characteristics)
 )
+
 var currencies: CurrenciesService = (
 	preload("res://src/services/currencies/currencies_service.gd").new(Data.currencies)
 )
+
 var current_quest: CurrentQuestService = (
 	preload("res://src/services/current_quest/current_quest_service.gd")
 	. new(Data.currencies, Data.current_quest)
 )
+
 var difficulty: DifficultyService = (
 	preload("res://src/services/difficulty/difficulty_service.gd").new(Data.difficulty)
 )
+
 var stage: StageService = preload("res://src/services/stage/stage_service.gd").new(
 	Data.stage, current_quest, difficulty
 )
+
 var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new(
 	Data.inventory
 )
-var items: ItemsService = preload("res://src/services/items/items_service.gd").new()
+
 var player_stats: PlayerStatsService = (
 	preload("res://src/services/player_stats/player_stats_service.gd")
 	. new(Data.characteristics, inventory)
 )
+
 var random_number_generator: RandomNumberGeneratorService = (
 	preload("res://src/services/random_number_generator/random_number_generator_service.gd").new()
 )
-var loot: LootService = preload("res://src/services/loot/loot_service.gd").new(
-	difficulty, inventory, items, random_number_generator
-)
+
 var resource_loader: ResourceLoaderService = (
 	preload("res://src/services/resource_loader/resource_loader_service.gd").new()
 )
+
 var resource_saver: ResourceSaverService = (
 	preload("res://src/services/resource_saver/resource_saver_service.gd").new()
 )
 var toaster: ToasterService = preload("res://src/services/toaster/toaster_service.gd").new()
+
 var user_local_data: UserLocalDataService = (
 	preload("res://src/services/user_local_data/user_local_data_service.gd")
 	. new(Api.auth, Data.user_local_data, resource_loader, resource_saver)
@@ -55,6 +62,12 @@ var game_save: GameSaveService = preload("res://src/services/game_save/game_save
 	inventory,
 	stage,
 	Data.game_save
+)
+
+var items: ItemsService = preload("res://src/services/items/items_service.gd").new(game_save)
+
+var loot: LootService = preload("res://src/services/loot/loot_service.gd").new(
+	difficulty, inventory, items, random_number_generator
 )
 
 var http_event_handler: HttpEventHandler = (
