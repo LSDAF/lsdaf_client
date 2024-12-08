@@ -26,11 +26,7 @@ func _ready() -> void:
 
 
 func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
-	match item_rarity:
-		ItemRarity.ItemRarity.NORMAL:
-			return "N"
-		_:
-			return "?"
+	return ItemRarity._prettify_rarity(item_rarity).substr(0, 1)
 
 
 func _on_pressed() -> void:
