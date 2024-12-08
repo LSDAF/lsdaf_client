@@ -1,5 +1,6 @@
 class_name InventoryItemDto
 
+var client_id: String
 var main_stat: ItemStat
 var additional_stats: Array[ItemStat]
 var rarity: ItemRarity.ItemRarity
@@ -9,6 +10,7 @@ var is_equipped: bool = false
 
 
 func _init(dictionary: Dictionary) -> void:
+	client_id = dictionary["client_id"]
 	main_stat = ItemStat.new()
 	main_stat.statistic = ItemStatistics.ItemStatistics[dictionary["main_stat"]["statistic"]]
 	main_stat.base_value = dictionary["main_stat"]["base_value"]
