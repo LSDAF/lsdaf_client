@@ -4,8 +4,10 @@ extends GutTest
 
 var sut: ItemsService
 
+var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
 var game_save_service := preload("res://src/services/game_save/game_save_service.gd")
 
+var game_save_data_partial_double: Variant
 var game_save_service_partial_double: Variant
 
 var AttackAdd := preload("res://src/resources/items/stats/attack_add.tres")
@@ -19,7 +21,22 @@ var ResistanceMult := preload("res://src/resources/items/stats/resistance_mult.t
 
 
 func before_each() -> void:
-	game_save_service_partial_double = partial_double(game_save_service).new()
+	game_save_data_partial_double = partial_double(game_save_data).new()
+	game_save_service_partial_double = (
+		partial_double(game_save_service)
+		. new(
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			game_save_data_partial_double,
+		)
+	)
 
 	sut = preload("res://src/services/items/items_service.gd").new(game_save_service_partial_double)
 

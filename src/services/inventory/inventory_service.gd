@@ -13,12 +13,17 @@ func add_item(item: Item) -> void:
 	EventBus.inventory_update.emit()
 
 
-func delete_item_at_index(item_index: int) -> void:
+func delete_item(item_client_id: String) -> void:
 	var items := _inventory_data.items
-	if item_index < 0 or item_index >= len(items):
-		return
 
-	items.pop_at(item_index)
+	var item_to_delete_index := -1
+
+	for index in len(items):
+		if items[index].client_id == item_client_id:  # Assuming each Item has an 'id' field
+			item_to_delete_index = index
+			break
+
+	items.pop_at(item_to_delete_index)
 
 	EventBus.inventory_update.emit()
 
