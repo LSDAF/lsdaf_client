@@ -29,18 +29,20 @@ func test_add_item() -> void:
 	assert_eq(inventory_data_partial_double.items[0], item)
 
 
-func test_delete_item_at_index() -> void:
+func test_delete_item() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "36f27c2a-06e8-4bdb-bf59-56999116f5ef__11111111-1111-1111-1111-111111111111"
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "36f27c2a-06e8-4bdb-bf59-56999116f5ef__22222222-2222-2222-2222-222222222222"
 
 	inventory_data_partial_double.items.push_back(item_0)
 	inventory_data_partial_double.items.push_back(item_1)
 
 	# Act
-	sut.delete_item_at_index(0)
+	sut.delete_item("36f27c2a-06e8-4bdb-bf59-56999116f5ef__11111111-1111-1111-1111-111111111111")
 
 	# Assert
 	assert_eq(inventory_data_partial_double.items.size(), 1)
@@ -173,6 +175,8 @@ func test_set_inventory_from_fetch_inventory_dto() -> void:
 				"items":
 				[
 					{
+						"client_id":
+						"36f27c2a-06e8-4bdb-bf59-56999116f5ef__11111111-1111-1111-1111-111111111111",
 						"main_stat": {"statistic": "ATTACK_ADD", "base_value": 1.0},
 						"additional_stats": [{"statistic": "CRIT_DAMAGE", "base_value": 3.0}],
 						"rarity": "NORMAL",
@@ -181,6 +185,8 @@ func test_set_inventory_from_fetch_inventory_dto() -> void:
 						"is_equipped": false,
 					},
 					{
+						"client_id":
+						"36f27c2a-06e8-4bdb-bf59-56999116f5ef__22222222-2222-2222-2222-222222222222",
 						"main_stat": {"statistic": "CRIT_CHANCE", "base_value": 2.0},
 						"additional_stats": [{"statistic": "HEALTH_ADD", "base_value": 4.0}],
 						"rarity": "NORMAL",
