@@ -79,7 +79,7 @@ func _on_level_up_button_pressed() -> void:
 
 func _on_salvage_button_pressed() -> void:
 	Data.currencies.amethyst.update_value(_item.item_salvage_price())
-	Services.inventory.delete_item_at_index(_item_index)
+	Services.inventory.delete_item(_item.client_id)
 
 	on_salvage_item.emit()
 
