@@ -16,30 +16,35 @@ func add_item(item: Item) -> void:
 func delete_item(item_client_id: String) -> void:
 	var items := _inventory_data.items
 
-	var item_to_delete_index := -1
+	var item_to_delete_index := ArrayUtils.find_index_predicate(
+		items, func(item: Item) -> bool: return item.client_id == item_client_id
+	)
 
-	for index in len(items):
-		if items[index].client_id == item_client_id:  # Assuming each Item has an 'id' field
-			item_to_delete_index = index
-			break
+	if item_to_delete_index == -1:
+		return
 
 	items.pop_at(item_to_delete_index)
 
 	EventBus.inventory_update.emit()
 
 
-func equip_item_at_index(item_index: int) -> void:
+func equip_item(item_client_id: String) -> void:
 	var items := _inventory_data.items
-	if item_index < 0 or item_index >= len(items):
+
+	var item_to_equip_index := ArrayUtils.find_index_predicate(
+		items, func(item: Item) -> bool: return item.client_id == item_client_id
+	)
+
+	if item_to_equip_index == -1:
 		return
 
-	var item_type := items[item_index].type
+	var item_type := items[item_to_equip_index].type
 
 	for index in len(items):
 		if items[index].type != item_type:
 			continue
 
-		items[index].is_equipped = index == item_index
+		items[index].is_equipped = index == item_to_equip_index
 
 	EventBus.inventory_update.emit()
 

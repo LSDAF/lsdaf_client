@@ -53,16 +53,19 @@ func test_equip_item_at_index() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "36f27c2a-06e8-4bdb-bf59-56999116f5ef__11111111-1111-1111-1111-111111111111"
 	item_0.is_equipped = true
 	item_0.type = ItemType.ItemType.SWORD
 
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "36f27c2a-06e8-4bdb-bf59-56999116f5ef__22222222-2222-2222-2222-222222222222"
 	item_1.is_equipped = false
 	item_1.type = ItemType.ItemType.SWORD
 
 	var item_2 := Item.new()
 	item_2.name = "item_2"
+	item_2.client_id = "36f27c2a-06e8-4bdb-bf59-56999116f5ef__33333333-3333-3333-3333-333333333333"
 	item_2.is_equipped = true
 	item_2.type = ItemType.ItemType.SHIELD
 
@@ -71,7 +74,7 @@ func test_equip_item_at_index() -> void:
 	inventory_data_partial_double.items.push_back(item_2)
 
 	# Act
-	sut.equip_item_at_index(1)
+	sut.equip_item("36f27c2a-06e8-4bdb-bf59-56999116f5ef__22222222-2222-2222-2222-222222222222")
 
 	# Assert
 	assert_eq(inventory_data_partial_double.items[0].is_equipped, false)
