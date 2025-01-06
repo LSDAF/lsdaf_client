@@ -59,9 +59,10 @@ var game_save: GameSaveService = preload("res://src/services/game_save/game_save
 	Data.game_save
 )
 
-var http_event_handler: HttpEventHandler = (
-	preload("res://src/services/http_event_handler/http_event_handler.gd")
-	. new(Queue.new(), Queue.new())
+var http_event_handler: HttpEventHandler = preload("res://src/services/http_event_handler/http_event_handler.gd").new(
+		Queue.new(),
+		Queue.new(),
+		timer
 )
 
 
