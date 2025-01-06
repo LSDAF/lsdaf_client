@@ -4,6 +4,12 @@ extends GutTest
 
 var sut: ItemsService
 
+var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
+var game_save_service := preload("res://src/services/game_save/game_save_service.gd")
+
+var game_save_data_partial_double: Variant
+var game_save_service_partial_double: Variant
+
 var AttackAdd := preload("res://src/resources/items/stats/attack_add.tres")
 var AttackMult := preload("res://src/resources/items/stats/attack_mult.tres")
 var CritChance := preload("res://src/resources/items/stats/crit_chance.tres")
@@ -15,7 +21,24 @@ var ResistanceMult := preload("res://src/resources/items/stats/resistance_mult.t
 
 
 func before_each() -> void:
-	sut = preload("res://src/services/items/items_service.gd").new()
+	game_save_data_partial_double = partial_double(game_save_data).new()
+	game_save_service_partial_double = (
+		partial_double(game_save_service)
+		. new(
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			game_save_data_partial_double,
+		)
+	)
+
+	sut = preload("res://src/services/items/items_service.gd").new(game_save_service_partial_double)
 
 
 func test_create_item() -> void:
@@ -29,6 +52,7 @@ func test_create_item() -> void:
 	# Assert
 	assert_eq(item.type, item_type)
 	assert_eq(item.rarity, item_rarity)
+	assert_not_null(item.client_id)
 
 
 func test_get_additional_stats() -> void:
