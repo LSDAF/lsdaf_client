@@ -20,6 +20,7 @@ func _ready() -> void:
 	%ItemTextureRect.texture = inventory_item.texture
 	%ItemLevelLabel.text = str(inventory_item.level)
 	%ItemRarityLabel.text = _prettify_rarity(inventory_item.rarity)
+	%ItemTypeLabel.text = _prettify_type(inventory_item.type)
 
 	%SelectedTextureRect.visible = is_selected
 	%ItemEquippedLabel.visible = inventory_item.is_equipped
@@ -27,6 +28,10 @@ func _ready() -> void:
 
 func _prettify_rarity(item_rarity: ItemRarity.ItemRarity) -> String:
 	return ItemRarity._prettify_rarity(item_rarity).substr(0, 1)
+
+
+func _prettify_type(item_type: ItemType.ItemType) -> String:
+	return ItemType._prettify_type_short(item_type)
 
 
 func _on_pressed() -> void:
