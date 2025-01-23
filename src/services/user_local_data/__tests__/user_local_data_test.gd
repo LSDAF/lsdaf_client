@@ -28,6 +28,9 @@ func before_each() -> void:
 		resource_saver_partial_double
 	)
 
+	# Stubing save to no write on disk
+	stub(resource_saver_partial_double, "save").to_return(OK)
+
 
 # Parameters
 # [remember_me, email]
