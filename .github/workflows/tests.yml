@@ -63,7 +63,7 @@ jobs:
 
 
             -   name: 📤 Upload Test Summary
-                uses: actions/upload-artifact@v3
+                uses: actions/upload-artifact@v4
                 with:
                     name: test-summary
                     path: test-summary.md
