@@ -53,33 +53,34 @@ func get_items() -> Array[Item]:
 	return _inventory_data.items
 
 
-func get_equipped_items_index() -> Array[int]:
+func get_equipped_items_client_id() -> Array[String]:
 	var items := _inventory_data.items
-	var equipped_items_index: Array[int] = []
+	var equipped_items_index: Array[String] = []
 
 	for item_index in len(items):
 		if items[item_index].is_equipped:
-			equipped_items_index.push_back(item_index)
+			equipped_items_index.push_back(items[item_index].client_id)
 
 	return equipped_items_index
 
 
-func get_item_at_index(item_index: int) -> Item:
+func get_item_from_client_id(item_client_id: String) -> Item:
 	var items := _inventory_data.items
-	if item_index < 0 or item_index >= len(items):
-		return null
+	for item_index in len(items):
+		if items[item_index].client_id == item_client_id:
+			return items[item_index]
 
-	return items[item_index]
+	return null
 
 
-func level_up_item_at_index(item_index: int) -> void:
+func level_up_item(item_client_id: String) -> void:
 	var items := _inventory_data.items
-	if item_index < 0 or item_index >= len(items):
-		return
+	for item_index in len(items):
+		if items[item_index].client_id == item_client_id:
+			items[item_index].level += 1
 
-	items[item_index].level += 1
-
-	EventBus.inventory_update.emit()
+			EventBus.inventory_update.emit()
+			return
 
 
 func set_inventory_from_fetch_inventory_dto(fetch_inventory_dto: FetchInventoryDto) -> void:
@@ -96,11 +97,11 @@ func set_inventory_from_fetch_inventory_dto(fetch_inventory_dto: FetchInventoryD
 		_inventory_data.items.append(item)
 
 
-func unequip_item_at_index(item_index: int) -> void:
+func unequip_item(item_client_id: String) -> void:
 	var items := _inventory_data.items
-	if item_index < 0 or item_index >= len(items):
-		return
+	for item_index in len(items):
+		if items[item_index].client_id == item_client_id:
+			items[item_index].is_equipped = false
 
-	items[item_index].is_equipped = false
-
-	EventBus.inventory_update.emit()
+			EventBus.inventory_update.emit()
+			return

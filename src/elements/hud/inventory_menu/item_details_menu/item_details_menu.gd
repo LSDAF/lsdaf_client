@@ -3,7 +3,6 @@ extends Control
 signal on_salvage_item
 
 var _item: Item = null
-var _item_index: int
 
 
 func _prettify_level(level: int) -> String:
@@ -54,9 +53,8 @@ func _update_item_details_menu() -> void:
 		%EquipButton.text = "Equip"
 
 
-func open_for_item(item_index: int) -> void:
-	_item_index = item_index
-	_item = Services.inventory.get_item_at_index(item_index)
+func open_for_item(item_client_id: String) -> void:
+	_item = Services.inventory.get_item_from_client_id(item_client_id)
 
 	if _item == null:
 		%NoItemSelectedLabel.show()
@@ -72,7 +70,7 @@ func open_for_item(item_index: int) -> void:
 
 func _on_level_up_button_pressed() -> void:
 	Data.currencies.amethyst.update_value(-_item.level_up_cost())
-	Services.inventory.level_up_item_at_index(_item_index)
+	Services.inventory.level_up_item(_item.client_id)
 
 	_update_item_details_menu()
 
@@ -86,8 +84,8 @@ func _on_salvage_button_pressed() -> void:
 
 func _on_equip_button_pressed() -> void:
 	if _item.is_equipped:
-		Services.inventory.unequip_item_at_index(_item_index)
+		Services.inventory.unequip_item(_item.client_id)
 	else:
-		Services.inventory.equip_item_at_index(_item_index)
+		Services.inventory.equip_item(_item.client_id)
 
 	_update_item_details_menu()

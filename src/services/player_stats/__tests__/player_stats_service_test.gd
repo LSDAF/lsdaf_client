@@ -49,10 +49,24 @@ func test_get_attack_multiplier() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var attack_multiplier: float = sut._get_attack_multiplier()
@@ -68,6 +82,7 @@ func test_get_attack_value() -> void:
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "item_0"
 	item_0.type = ItemType.ItemType.SWORD
 	item_0.rarity = ItemRarity.ItemRarity.NORMAL
 	item_0.level = 1
@@ -77,6 +92,7 @@ func test_get_attack_value() -> void:
 
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "item_1"
 	item_1.type = ItemType.ItemType.GLOVES
 	item_1.rarity = ItemRarity.ItemRarity.NORMAL
 	item_1.level = 2
@@ -87,6 +103,7 @@ func test_get_attack_value() -> void:
 
 	var item_2 := Item.new()
 	item_2.name = "item_2"
+	item_2.client_id = "item_2"
 	item_2.type = ItemType.ItemType.SHIELD
 	item_2.rarity = ItemRarity.ItemRarity.NORMAL
 	item_2.level = 3
@@ -94,10 +111,24 @@ func test_get_attack_value() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var attack_value: float = sut._get_attack_value()
@@ -149,10 +180,24 @@ func test_get_attack() -> void:
 	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.ATTACK_MULT
 	item_2.additional_stats[1].base_value = 200.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var attack: PlayerStat = sut.get_attack()
@@ -196,10 +241,24 @@ func test_get_crit_chance_value() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var crit_chance_value: float = sut._get_crit_chance_value()
@@ -251,10 +310,24 @@ func test_get_crit_chance() -> void:
 	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.CRIT_DAMAGE
 	item_2.additional_stats[1].base_value = 120.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var crit_chance: PlayerStat = sut.get_crit_chance()
@@ -298,10 +371,24 @@ func test_get_crit_damage_value() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var crit_damage_value: float = sut._get_crit_damage_value()
@@ -353,10 +440,24 @@ func test_get_crit_damage() -> void:
 	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.CRIT_CHANCE
 	item_2.additional_stats[1].base_value = 15.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var crit_damage: PlayerStat = sut.get_crit_damage()
@@ -397,10 +498,24 @@ func test_get_health_multiplier() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var health_multiplier: float = sut._get_health_multiplier()
@@ -442,10 +557,24 @@ func test_get_health_value() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var health_value: float = sut._get_health_value()
@@ -495,10 +624,24 @@ func test_get_health() -> void:
 	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.HEALTH_MULT
 	item_2.additional_stats[1].base_value = 15.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var health: PlayerStat = sut.get_health()
@@ -539,10 +682,24 @@ func test_get_resistance_multiplier() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var resistance_multiplier: float = sut._get_resistance_multiplier()
@@ -584,10 +741,24 @@ func test_get_resistance_value() -> void:
 	item_2.main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	item_2.main_stat.base_value = 69.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var resistance_value: float = sut._get_resistance_value()
@@ -637,10 +808,24 @@ func test_get_resistance() -> void:
 	item_2.additional_stats[1].statistic = ItemStatistics.ItemStatistics.RESISTANCE_MULT
 	item_2.additional_stats[1].base_value = 45.0
 
-	stub(inventory_service_partial_double, "get_equipped_items_index").to_return([0, 1, 2])
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(0).to_return(item_0)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(1).to_return(item_1)
-	stub(inventory_service_partial_double, "get_item_at_index").when_passed(2).to_return(item_2)
+	stub(inventory_service_partial_double, "get_equipped_items_client_id").to_return(
+		["item_0", "item_1", "item_2"]
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_0")
+		. to_return(item_0)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_1")
+		. to_return(item_1)
+	)
+	(
+		stub(inventory_service_partial_double, "get_item_from_client_id")
+		. when_passed("item_2")
+		. to_return(item_2)
+	)
 
 	# Act
 	var resistance: PlayerStat = sut.get_resistance()

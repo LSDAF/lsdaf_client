@@ -3,7 +3,7 @@ extends Control
 @export var item_scene: PackedScene
 var _current_item_scenes: Array[InventoryItem]
 
-var _selected_item_index: int = -1
+var _selected_item_client_id: String = ""
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,7 +12,7 @@ func _ready() -> void:
 	%ItemDetailsMenu.on_salvage_item.connect(_on_salvage_item)
 	%EquippedItems.on_item_selected.connect(_on_item_selected)
 
-	_on_item_selected(0)
+	_on_item_selected("")
 
 
 func _on_close_button_pressed() -> void:
@@ -25,11 +25,11 @@ func _on_give_random_button_pressed() -> void:
 
 
 func _on_salvage_item() -> void:
-	_on_item_selected(0)
+	_on_item_selected("")
 
 
-func _on_item_selected(item_index: int) -> void:
-	_selected_item_index = item_index
+func _on_item_selected(item_client_id: String) -> void:
+	_selected_item_client_id = item_client_id
 	update_inventory()
 
 
@@ -40,8 +40,8 @@ func _on_item_selected(item_index: int) -> void:
 func _sort_inventory_custom_sort(
 	inventory_item_a: InventoryItem, inventory_item_b: InventoryItem
 ) -> bool:
-	var item_a := Services.inventory.get_item_at_index(inventory_item_a.item_index)
-	var item_b := Services.inventory.get_item_at_index(inventory_item_b.item_index)
+	var item_a := Services.inventory.get_item_from_client_id(inventory_item_a.item_client_id)
+	var item_b := Services.inventory.get_item_from_client_id(inventory_item_b.item_client_id)
 
 	if item_a.type != item_b.type:
 		return item_a.type > item_b.type
@@ -62,8 +62,8 @@ func _sort_inventory_custom_sort(
 func _sort_inventory_custom_sort_equipped_items(
 	inventory_item_a: InventoryItem, inventory_item_b: InventoryItem
 ) -> bool:
-	var item_a := Services.inventory.get_item_at_index(inventory_item_a.item_index)
-	var item_b := Services.inventory.get_item_at_index(inventory_item_b.item_index)
+	var item_a := Services.inventory.get_item_from_client_id(inventory_item_a.item_client_id)
+	var item_b := Services.inventory.get_item_from_client_id(inventory_item_b.item_client_id)
 
 	if item_a.is_equipped and not item_b.is_equipped:
 		return true
@@ -77,10 +77,12 @@ func get_inventory_items_scenes() -> Array[InventoryItem]:
 	var items := Services.inventory.get_items()
 
 	for item_index in len(items):
-		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(item_index)
+		var new_item_scene: InventoryItem = item_scene.instantiate().with_data(
+			items[item_index].client_id
+		)
 
 		new_item_scene.on_item_selected.connect(_on_item_selected)
-		new_item_scene.is_selected = item_index == _selected_item_index
+		new_item_scene.is_selected = new_item_scene.item_client_id == _selected_item_client_id
 
 		inventory_items.push_back(new_item_scene)
 
@@ -98,5 +100,5 @@ func update_inventory() -> void:
 	for scene in _current_item_scenes:
 		%InventoryGridContainer.add_child(scene)
 
-	%ItemDetailsMenu.open_for_item(_selected_item_index)
+	%ItemDetailsMenu.open_for_item(_selected_item_client_id)
 	%EquippedItems.update_equipped_items()

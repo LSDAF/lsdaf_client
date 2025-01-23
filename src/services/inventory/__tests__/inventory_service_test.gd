@@ -101,20 +101,23 @@ func test_get_items() -> void:
 	assert_eq(items[1].name, "item_1")
 
 
-func test_get_equipped_items_index() -> void:
+func test_get_equipped_items_client_id() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "item_0"
 	item_0.is_equipped = true
 	item_0.type = ItemType.ItemType.SWORD
 
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "item_1"
 	item_1.is_equipped = false
 	item_1.type = ItemType.ItemType.SWORD
 
 	var item_2 := Item.new()
 	item_2.name = "item_2"
+	item_2.client_id = "item_2"
 	item_2.is_equipped = true
 	item_2.type = ItemType.ItemType.SHIELD
 
@@ -123,46 +126,50 @@ func test_get_equipped_items_index() -> void:
 	inventory_data_partial_double.items.push_back(item_2)
 
 	# Act
-	var equipped_items_index: Array[int] = sut.get_equipped_items_index()
+	var equipped_items_index: Array[String] = sut.get_equipped_items_client_id()
 
 	# Assert
 	assert_eq(equipped_items_index.size(), 2)
-	assert_eq(equipped_items_index[0], 0)
-	assert_eq(equipped_items_index[1], 2)
+	assert_eq(equipped_items_index[0], "item_0")
+	assert_eq(equipped_items_index[1], "item_2")
 
 
-func test_get_item_at_index() -> void:
+func test_get_item_from_client_id() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "item_0"
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "item_1"
 
 	inventory_data_partial_double.items.push_back(item_0)
 	inventory_data_partial_double.items.push_back(item_1)
 
 	# Act
-	var item: Item = sut.get_item_at_index(1)
+	var item: Item = sut.get_item_from_client_id("item_1")
 
 	# Assert
 	assert_eq(item.name, "item_1")
 
 
-func test_level_up_item_at_index() -> void:
+func test_level_up_item() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "item_0"
 	item_0.level = 1
 
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "item_1"
 	item_1.level = 2
 
 	inventory_data_partial_double.items.push_back(item_0)
 	inventory_data_partial_double.items.push_back(item_1)
 
 	# Act
-	sut.level_up_item_at_index(1)
+	sut.level_up_item("item_1")
 
 	# Assert
 	assert_eq(inventory_data_partial_double.items[0].level, 1)
@@ -237,20 +244,23 @@ func test_set_inventory_from_fetch_inventory_dto() -> void:
 	assert_eq(inventory_data_partial_double.items[1].is_equipped, true)
 
 
-func test_unequip_item_at_index() -> void:
+func test_unequip_item() -> void:
 	# Arrange
 	var item_0 := Item.new()
 	item_0.name = "item_0"
+	item_0.client_id = "item_0"
 	item_0.is_equipped = true
 	item_0.type = ItemType.ItemType.SWORD
 
 	var item_1 := Item.new()
 	item_1.name = "item_1"
+	item_1.client_id = "item_1"
 	item_1.is_equipped = false
 	item_1.type = ItemType.ItemType.SWORD
 
 	var item_2 := Item.new()
 	item_2.name = "item_2"
+	item_2.client_id = "item_2"
 	item_2.is_equipped = true
 	item_2.type = ItemType.ItemType.SHIELD
 
@@ -259,7 +269,7 @@ func test_unequip_item_at_index() -> void:
 	inventory_data_partial_double.items.push_back(item_2)
 
 	# Act
-	sut.unequip_item_at_index(0)
+	sut.unequip_item("item_0")
 
 	# Assert
 	assert_eq(inventory_data_partial_double.items[0].is_equipped, false)
