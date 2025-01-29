@@ -26,3 +26,28 @@ func _init(dictionary: Dictionary) -> void:
 	level = dictionary["level"]
 	type = ItemType.ItemType[dictionary["type"]]
 	is_equipped = dictionary["is_equipped"]
+
+
+func to_dictionary() -> Dictionary:
+	var additional_stats_array: Array = []
+	for stat in additional_stats:
+		additional_stats_array.push_back(
+			{
+				"statistic": ItemStatistics.ItemStatistics.keys()[stat.statistic],
+				"base_value": stat.base_value
+			}
+		)
+
+	return {
+		"client_id": client_id,
+		"main_stat":
+		{
+			"statistic": ItemStatistics.ItemStatistics.keys()[main_stat.statistic],
+			"base_value": main_stat.base_value
+		},
+		"additional_stats": additional_stats_array,
+		"rarity": ItemRarity.ItemRarity.keys()[rarity],
+		"level": level,
+		"type": ItemType.ItemType.keys()[type],
+		"is_equipped": is_equipped
+	}
