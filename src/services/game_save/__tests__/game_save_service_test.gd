@@ -175,6 +175,9 @@ func test_save_game_success() -> void:
 	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(true)
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(true)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
+	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
+	var items = []
+	stub(inventory_service_partial_double, "get_items").to_return(items)
 
 	# Act
 	sut.save_game()
@@ -190,6 +193,9 @@ func test_save_game_partial_failure() -> void:
 	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(true)
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(false)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
+	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
+	var items = []
+	stub(inventory_service_partial_double, "get_items").to_return(items)
 
 	# Act
 	sut.save_game()
@@ -241,8 +247,6 @@ func test_save_currencies_failure() -> void:
 	# Assert
 	assert_false(success)
 
-	# Assert
-
 
 func test_save_stage_success() -> void:
 	# Arrange
@@ -264,3 +268,85 @@ func test_save_stage_failure() -> void:
 
 	# Assert
 	assert_false(success)
+
+
+func test_save_inventory_success() -> void:
+	# Arrange
+	var main_stat := ItemStat.new()
+	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK
+	main_stat.base_value = 100
+
+	var additional_stat := ItemStat.new()
+	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH
+	additional_stat.base_value = 50
+
+	var item1 := Item.new()
+	item1.client_id = "item1"
+	item1.main_stat = main_stat
+	item1.additional_stats = [additional_stat]
+	item1.rarity = ItemRarity.ItemRarity.COMMON
+	item1.level = 1
+	item1.type = ItemType.ItemType.SWORD
+	item1.is_equipped = false
+
+	var item2 := Item.new()
+	item2.client_id = "item2"
+	item2.main_stat = main_stat
+	item2.additional_stats = [additional_stat]
+	item2.rarity = ItemRarity.ItemRarity.RARE
+	item2.level = 2
+	item2.type = ItemType.ItemType.SHIELD
+	item2.is_equipped = true
+
+	var items := [item1, item2]
+
+	stub(inventory_service_partial_double, "get_items").to_return(items)
+	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
+
+	# Act
+	var result := await sut._save_inventory()
+
+	# Assert
+	assert_true(result)
+	assert_call_count(inventory_api_partial_double, "update_game_save_inventory_item", 2)
+
+
+func test_save_inventory_partial_failure() -> void:
+	# Arrange
+	var main_stat := ItemStat.new()
+	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK
+	main_stat.base_value = 100
+
+	var additional_stat := ItemStat.new()
+	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH
+	additional_stat.base_value = 50
+
+	var item1 := Item.new()
+	item1.client_id = "item1"
+	item1.main_stat = main_stat
+	item1.additional_stats = [additional_stat]
+	item1.rarity = ItemRarity.ItemRarity.COMMON
+	item1.level = 1
+	item1.type = ItemType.ItemType.SWORD
+	item1.is_equipped = false
+
+	var item2 := Item.new()
+	item2.client_id = "item2"
+	item2.main_stat = main_stat
+	item2.additional_stats = [additional_stat]
+	item2.rarity = ItemRarity.ItemRarity.RARE
+	item2.level = 2
+	item2.type = ItemType.ItemType.SHIELD
+	item2.is_equipped = true
+
+	var items := [item1, item2]
+
+	stub(inventory_service_partial_double, "get_items").to_return(items)
+	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(false)
+
+	# Act
+	var result := await sut._save_inventory()
+
+	# Assert
+	assert_false(result)
+	assert_call_count(inventory_api_partial_double, "update_game_save_inventory_item", 2)
