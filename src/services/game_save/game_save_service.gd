@@ -78,7 +78,10 @@ func load_game_save(game_save_id: String) -> void:
 
 func save_game() -> void:
 	var success := (
-		await _save_currencies() and await _save_stage() and await _save_characteristics()
+		await _save_currencies()
+		and await _save_stage()
+		and await _save_characteristics()
+		and await _save_inventory()
 	)
 
 	if success:
@@ -143,6 +146,38 @@ func _save_stage() -> bool:
 	)
 
 
+func _save_inventory() -> bool:
+	var success := true
+	var items := _inventory_service.get_items()
+
+	for item in items:
+		var item_dto := InventoryItemDto.new({
+			"client_id": item.client_id,
+			"main_stat": {
+				"statistic": ItemStatistics.ItemStatistics.keys()[item.main_stat.statistic],
+				"base_value": item.main_stat.base_value
+			},
+			"additional_stats": item.additional_stats.map(func(stat: ItemStat) -> Dictionary: return {
+				"statistic": ItemStatistics.ItemStatistics.keys()[stat.statistic],
+				"base_value": stat.base_value
+			}),
+			"rarity": ItemRarity.ItemRarity.keys()[item.rarity],
+			"level": item.level,
+			"type": ItemType.ItemType.keys()[item.type],
+			"is_equipped": item.is_equipped
+		})
+
+		var update_success := await _inventory_api.update_game_save_inventory_item(
+			_game_save_data._game_save_id,
+			item_dto,
+			_on_save_inventory_error
+		)
+		if not update_success:
+			success = false
+
+	return success
+
+
 func _on_fetch_characteristics_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to fetch characteristics.")
 	print(response)
@@ -175,4 +210,9 @@ func _on_save_currencies_error(response: Variant) -> void:
 
 func _on_save_stage_error(response: Variant) -> void:
 	Services.toaster.toast("Failed to save stage.")
+	print(response)
+
+
+func _on_save_inventory_error(response: Variant) -> void:
+	Services.toaster.toast("Failed to save inventory item.")
 	print(response)
