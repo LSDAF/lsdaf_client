@@ -2,17 +2,13 @@ class_name StageService
 
 var _stage_data: StageData
 var _current_quest_service: CurrentQuestService
-var _difficulty_service: DifficultyService
+var _difficulty_store: DifficultyStore
 
 
-func _init(
-	stage_data: StageData,
-	current_quest_service: CurrentQuestService,
-	difficulty_service: DifficultyService
-) -> void:
+func _init(stage_data: StageData, current_quest_service: CurrentQuestService) -> void:
 	_stage_data = stage_data
 	_current_quest_service = current_quest_service
-	_difficulty_service = difficulty_service
+	_difficulty_store = Stores.get_store(&"Difficulty") as DifficultyStore
 
 
 func get_current_stage() -> int:
@@ -39,7 +35,7 @@ func set_current_stage(new_current_stage: int) -> void:
 	_stage_data._current_stage = new_current_stage
 
 	EventBus.current_stage_update.emit()
-	_difficulty_service.set_current_difficulty(_stage_data._current_stage)
+	_difficulty_store.set_current_difficulty(_stage_data._current_stage)
 
 
 func set_current_wave(new_current_wave: int) -> void:

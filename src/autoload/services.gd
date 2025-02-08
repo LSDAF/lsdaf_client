@@ -16,12 +16,8 @@ var current_quest: CurrentQuestService = (
 	. new(Data.currencies, Data.current_quest)
 )
 
-var difficulty: DifficultyService = (
-	preload("res://src/services/difficulty/difficulty_service.gd").new(Data.difficulty)
-)
-
 var stage: StageService = preload("res://src/services/stage/stage_service.gd").new(
-	Data.stage, current_quest, difficulty
+	Data.stage, current_quest
 )
 
 var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new(
@@ -67,7 +63,7 @@ var game_save: GameSaveService = preload("res://src/services/game_save/game_save
 var items: ItemsService = preload("res://src/services/items/items_service.gd").new(game_save)
 
 var loot: LootService = preload("res://src/services/loot/loot_service.gd").new(
-	difficulty, inventory, items, random_number_generator
+	inventory, items, random_number_generator
 )
 
 var http_event_handler: HttpEventHandler = (
