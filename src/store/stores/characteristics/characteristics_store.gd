@@ -1,47 +1,46 @@
 class_name CharacteristicsStore extends ReactiveStore
 
+var attack_property := ReactiveStoreProperty.new(self, &"attack")
+var crit_chance_property := ReactiveStoreProperty.new(self, &"crit_chance")
+var crit_damage_property := ReactiveStoreProperty.new(self, &"crit_damage")
+var health_property := ReactiveStoreProperty.new(self, &"health")
+var resistance_property := ReactiveStoreProperty.new(self, &"resistance")
+
 # Type definitions
 var attack: int:
 	get:
-		return await _get_property(&"attack")
+		return await attack_property.get_value()
 	set(v):
-		set_property(&"attack", v)
+		attack_property.set_value(v)
 
 var crit_chance: int:
 	get:
-		return await _get_property(&"crit_chance")
+		return await crit_chance_property.get_value()
 	set(v):
-		set_property(&"crit_chance", v)
+		crit_chance_property.set_value(v)
 
 var crit_damage: int:
 	get:
-		return await _get_property(&"crit_damage")
+		return await crit_damage_property.get_value()
 	set(v):
-		set_property(&"crit_damage", v)
+		crit_damage_property.set_value(v)
 
 var health: int:
 	get:
-		return await _get_property(&"health")
+		return await health_property.get_value()
 	set(v):
-		set_property(&"health", v)
+		health_property.set_value(v)
 
 var resistance: int:
 	get:
-		return await _get_property(&"resistance")
+		return await resistance_property.get_value()
 	set(v):
-		set_property(&"resistance", v)
+		resistance_property.set_value(v)
 
 
 func _init() -> void:
 	_define_properties(
-		{
-			&"attack": TYPE_INT,
-			&"crit_chance": TYPE_INT,
-			&"crit_damage": TYPE_INT,
-			&"health": TYPE_INT,
-			&"resistance": TYPE_INT
-		},
-		{&"attack": 0, &"crit_chance": 0, &"crit_damage": 0, &"health": 0, &"resistance": 0}
+		CharacteristicsState.get_property_types(), CharacteristicsState.get_initial_state()
 	)
 
 
@@ -49,8 +48,12 @@ func _init() -> void:
 func set_characteristics(
 	_attack: int, _crit_chance: int, _crit_damage: int, _health: int, _resistance: int
 ) -> void:
-	attack = _attack
-	crit_chance = _crit_chance
-	crit_damage = _crit_damage
-	health = _health
-	resistance = _resistance
+	set_properties(
+		{
+			&"attack": _attack,
+			&"crit_chance": _crit_chance,
+			&"crit_damage": _crit_damage,
+			&"health": _health,
+			&"resistance": _resistance
+		}
+	)

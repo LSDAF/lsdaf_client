@@ -4,10 +4,9 @@ var sut: DifficultyStore
 
 
 func before_each() -> void:
-	Stores.reset()
 	sut = DifficultyStore.new()
-	Stores.override(&"Difficulty", sut)
-	Stores._post_initialize_stores()
+	Stores.reset()
+	await Stores.replace_stores_with_doubles({&"difficulty": sut})
 
 
 func test_set_current_difficulty() -> void:
@@ -30,7 +29,3 @@ func test_get_current_difficulty() -> void:
 
 	# Assert
 	assert_eq(current_difficulty, 69.0)
-
-
-func after_each() -> void:
-	Stores.reset()

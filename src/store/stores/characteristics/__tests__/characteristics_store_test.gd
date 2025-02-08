@@ -10,6 +10,16 @@ var sut: CharacteristicsStoreClass
 func before_each() -> void:
 	sut = CharacteristicsStoreClass.new()
 
+	Stores.reset()
+	await (
+		Stores
+		. replace_stores_with_doubles(
+			{
+				&"characteristics": sut,
+			}
+		)
+	)
+
 
 func test_initial_values() -> void:
 	# Arrange

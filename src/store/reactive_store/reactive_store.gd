@@ -1,4 +1,5 @@
 class_name ReactiveStore extends Node
+
 signal property_changed(property: StringName)
 signal initialized
 
@@ -20,15 +21,39 @@ func _define_properties(allowed_types: Dictionary, initial_state: Dictionary) ->
 	initialized.emit()
 
 
+func create_property(name: StringName) -> ReactiveStoreProperty:
+	return ReactiveStoreProperty.new(self, name)
+
+
+func set_properties(properties: Dictionary) -> void:
+	var changed_properties: Array[StringName] = []
+
+	for name: StringName in properties.keys():
+		var value: Variant = properties[name]
+		assert(_allowed_types.has(name), "Undefined property: %s" % name)
+		assert(
+			typeof(value) == _allowed_types[name],
+			"Type mismatch for %s (Expected %s)" % [name, _allowed_types[name]]
+		)
+
+		if _state.get(name) != value:
+			_state[name] = value
+			_invalidate_dependents(name)
+			changed_properties.append(name)
+
+	for name: StringName in changed_properties:
+		property_changed.emit(name)
+
+
 # Optional method for initialization
 func _initialize() -> void:
 	pass
 
 
 # Optional method for stores that need dependencies
-func _inject_dependencies(_stores: Dictionary) -> void:
-	# Stores can override this to get references to other stores
-	pass
+func _inject_dependencies(_stores: StoreContainer) -> void:
+	# Stores can override this to get typed references to other stores
+	_dependencies_injected = true
 
 
 # Optional method for post-initialization

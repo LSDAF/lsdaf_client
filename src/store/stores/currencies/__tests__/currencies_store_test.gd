@@ -7,6 +7,7 @@ var sut: CurrenciesStoreClass
 
 func before_each() -> void:
 	sut = CurrenciesStoreClass.new()
+	await Stores.replace_stores_with_doubles({&"currencies": sut})
 
 
 func test_initial_values() -> void:

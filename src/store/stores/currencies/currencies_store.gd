@@ -1,41 +1,42 @@
 class_name CurrenciesStore extends ReactiveStore
 
+var gold_property := ReactiveStoreProperty.new(self, &"gold")
+var diamond_property := ReactiveStoreProperty.new(self, &"diamond")
+var emerald_property := ReactiveStoreProperty.new(self, &"emerald")
+var amethyst_property := ReactiveStoreProperty.new(self, &"amethyst")
+
 # Type definitions
 var gold: int:
 	get:
-		return await _get_property(&"gold")
+		return await gold_property.get_value()
 	set(v):
-		set_property(&"gold", v)
+		gold_property.set_value(v)
 
 var diamond: int:
 	get:
-		return await _get_property(&"diamond")
+		return await diamond_property.get_value()
 	set(v):
-		set_property(&"diamond", v)
+		diamond_property.set_value(v)
 
 var emerald: int:
 	get:
-		return await _get_property(&"emerald")
+		return await emerald_property.get_value()
 	set(v):
-		set_property(&"emerald", v)
+		emerald_property.set_value(v)
 
 var amethyst: int:
 	get:
-		return await _get_property(&"amethyst")
+		return await amethyst_property.get_value()
 	set(v):
-		set_property(&"amethyst", v)
+		amethyst_property.set_value(v)
 
 
 func _init() -> void:
-	_define_properties(
-		{&"gold": TYPE_INT, &"diamond": TYPE_INT, &"emerald": TYPE_INT, &"amethyst": TYPE_INT},
-		{&"gold": 0, &"diamond": 0, &"emerald": 0, &"amethyst": 0}
-	)
+	_define_properties(CurrenciesState.get_property_types(), CurrenciesState.get_initial_state())
 
 
 # Actions
 func set_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) -> void:
-	gold = _gold
-	diamond = _diamond
-	emerald = _emerald
-	amethyst = _amethyst
+	set_properties(
+		{&"gold": _gold, &"diamond": _diamond, &"emerald": _emerald, &"amethyst": _amethyst}
+	)
