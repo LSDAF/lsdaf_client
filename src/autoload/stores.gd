@@ -1,5 +1,10 @@
 extends Node
 
+const CurrenciesStore := preload("res://src/store/stores/currencies/currencies_store.gd")
+const CharacteristicsStore := preload(
+	"res://src/store/stores/characteristics/characteristics_store.gd"
+)
+
 # Registry of stores (StringName -> ReactiveStore)
 var _stores: Dictionary = {}
 var _initialized := false
@@ -48,6 +53,8 @@ func _ready() -> void:
 func _initialize_default_stores() -> void:
 	# Register your default stores here
 	register(&"Difficulty", DifficultyStore.new())
+	register(&"Currencies", CurrenciesStore.new())
+	register(&"Characteristics", CharacteristicsStore.new())
 
 
 func _post_initialize_stores() -> void:
