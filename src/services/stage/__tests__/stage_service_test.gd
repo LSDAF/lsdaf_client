@@ -24,10 +24,9 @@ func before_each() -> void:
 		currencies_data_partial_double, current_quest_data_partial_double
 	)
 	difficulty_store = DifficultyStore.new()
-	Stores.override(&"Difficulty", difficulty_store)
 
 	sut = preload("res://src/services/stage/stage_service.gd").new(
-		stage_data_partial_double, current_quest_service_partial_double
+		stage_data_partial_double, current_quest_service_partial_double, difficulty_store
 	)
 
 
@@ -186,4 +185,4 @@ func test_set_current_stage_updates_difficulty() -> void:
 
 
 func after_each() -> void:
-	Stores.reset()
+	pass

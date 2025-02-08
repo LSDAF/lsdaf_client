@@ -5,10 +5,14 @@ var _current_quest_service: CurrentQuestService
 var _difficulty_store: DifficultyStore
 
 
-func _init(stage_data: StageData, current_quest_service: CurrentQuestService) -> void:
+func _init(
+	stage_data: StageData,
+	current_quest_service: CurrentQuestService,
+	difficulty_store: DifficultyStore
+) -> void:
 	_stage_data = stage_data
 	_current_quest_service = current_quest_service
-	_difficulty_store = Stores.get_store(&"Difficulty") as DifficultyStore
+	_difficulty_store = difficulty_store
 
 
 func get_current_stage() -> int:

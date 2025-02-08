@@ -17,7 +17,7 @@ var current_quest: CurrentQuestService = (
 )
 
 var stage: StageService = preload("res://src/services/stage/stage_service.gd").new(
-	Data.stage, current_quest
+	Data.stage, current_quest, Stores.get_store(&"Difficulty") as DifficultyStore
 )
 
 var inventory: InventoryService = preload("res://src/services/inventory/inventory_service.gd").new(

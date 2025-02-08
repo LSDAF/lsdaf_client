@@ -62,7 +62,7 @@ func before_each() -> void:
 	difficulty_store = DifficultyStore.new()
 	Stores.override(&"Difficulty", difficulty_store)
 	stage_service_partial_double = partial_double(stage_service).new(
-		stage_data_partial_double, current_quest_service_partial_double
+		stage_data_partial_double, current_quest_service_partial_double, difficulty_store
 	)
 	game_save_data_partial_double = partial_double(game_save_data).new()
 
