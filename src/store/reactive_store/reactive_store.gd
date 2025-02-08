@@ -1,11 +1,28 @@
-class_name ReactiveStore extends RefCounted
+class_name ReactiveStore extends Node
 signal property_changed(property: StringName)
+signal initialized
 
 var _allowed_types := {}
 var _state := {}
 var _computeds := {}
 var _current_computed := &""
 var _dependencies_injected := false
+var _store_initialized := false
+var _initialization_in_progress := false
+
+
+# Called by subclasses to set up properties
+func _define_properties(allowed_types: Dictionary, initial_state: Dictionary) -> void:
+	_initialization_in_progress = true
+	_allowed_types = allowed_types
+	_state = initial_state
+	_store_initialized = true
+	initialized.emit()
+
+
+# Optional method for initialization
+func _initialize() -> void:
+	pass
 
 
 # Optional method for stores that need dependencies
@@ -40,6 +57,19 @@ func define_computed(name: StringName, getter: Callable) -> void:
 
 # Internal logic
 func _get_property(name: StringName) -> Variant:
+	# Handle initialization
+	if not _store_initialized:
+		if not _initialization_in_progress:
+			push_error("Store accessed before initialization started")
+			return null
+		await initialized
+
+	# Validate property exists
+	if not _allowed_types.has(name):
+		push_error("Attempting to access undefined property '%s'" % name)
+		return null
+
+	# Return property value
 	if name in _computeds:
 		return _get_computed_value(name)
 	return _state.get(name)

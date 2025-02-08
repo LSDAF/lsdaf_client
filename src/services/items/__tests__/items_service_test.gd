@@ -148,12 +148,12 @@ func test_get_stats_pool_from_pools(
 	# Assert
 	assert_eq(item_stats_pool.main_stat.statistic is ItemStatistics.ItemStatistics, true)
 
-	var unique_stats_blueprint: Array[ItemStatBlueprint] = []
+	var unique_stats_blueprint: Array[ItemStatistics.ItemStatistics] = []
 	for stat in item_stats_pool.potential_stats:
 		assert_true(stat is ItemStatBlueprint)
-		assert_true(stat.statistic is ItemStatistics.ItemStatistics)
-		assert_does_not_have(unique_stats_blueprint, stat.statistic)
-		unique_stats_blueprint.push_back(stat)
+		assert_true((stat as ItemStatBlueprint).statistic is ItemStatistics.ItemStatistics)
+		assert_does_not_have(unique_stats_blueprint, (stat as ItemStatBlueprint).statistic)
+		unique_stats_blueprint.push_back((stat as ItemStatBlueprint).statistic)
 
 
 # Parameters

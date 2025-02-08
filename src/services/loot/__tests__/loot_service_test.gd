@@ -27,7 +27,11 @@ func before_each() -> void:
 	random_number_generator_service_partial_double = (
 		partial_double(random_number_generator_service).new()
 	)
+
+	Stores.reset()
 	difficulty_store = DifficultyStore.new()
+	Stores.register(&"Difficulty", difficulty_store)
+	Stores._post_initialize_stores()
 
 	sut = preload("res://src/services/loot/loot_service.gd").new(
 		inventory_service_partial_double,

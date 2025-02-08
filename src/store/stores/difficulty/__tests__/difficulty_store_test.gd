@@ -4,8 +4,10 @@ var sut: DifficultyStore
 
 
 func before_each() -> void:
+	Stores.reset()
 	sut = DifficultyStore.new()
-	Stores.override("Difficulty", sut)
+	Stores.override(&"Difficulty", sut)
+	Stores._post_initialize_stores()
 
 
 func test_set_current_difficulty() -> void:

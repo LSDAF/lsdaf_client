@@ -17,6 +17,8 @@ var difficulty_store: DifficultyStore
 
 
 func before_each() -> void:
+	Stores.reset()
+
 	currencies_data_partial_double = partial_double(currencies_data).new()
 	current_quest_data_partial_double = partial_double(current_quest_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
@@ -24,6 +26,8 @@ func before_each() -> void:
 		currencies_data_partial_double, current_quest_data_partial_double
 	)
 	difficulty_store = DifficultyStore.new()
+	Stores.register(&"Difficulty", difficulty_store)
+	Stores._post_initialize_stores()
 
 	sut = preload("res://src/services/stage/stage_service.gd").new(
 		stage_data_partial_double, current_quest_service_partial_double, difficulty_store

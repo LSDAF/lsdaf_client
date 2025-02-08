@@ -3,56 +3,54 @@ class_name CharacteristicsStore extends ReactiveStore
 # Type definitions
 var attack: int:
 	get:
-		return _get_property(&"attack")
+		return await _get_property(&"attack")
 	set(v):
 		set_property(&"attack", v)
 
 var crit_chance: int:
 	get:
-		return _get_property(&"crit_chance")
+		return await _get_property(&"crit_chance")
 	set(v):
 		set_property(&"crit_chance", v)
 
 var crit_damage: int:
 	get:
-		return _get_property(&"crit_damage")
+		return await _get_property(&"crit_damage")
 	set(v):
 		set_property(&"crit_damage", v)
 
 var health: int:
 	get:
-		return _get_property(&"health")
+		return await _get_property(&"health")
 	set(v):
 		set_property(&"health", v)
 
 var resistance: int:
 	get:
-		return _get_property(&"resistance")
+		return await _get_property(&"resistance")
 	set(v):
 		set_property(&"resistance", v)
 
 
 func _init() -> void:
-	_allowed_types = {
-		&"attack": TYPE_INT,
-		&"crit_chance": TYPE_INT,
-		&"crit_damage": TYPE_INT,
-		&"health": TYPE_INT,
-		&"resistance": TYPE_INT
-	}
-	_state = {"attack": 0, "crit_chance": 0, "crit_damage": 0, "health": 0, "resistance": 0}
+	_define_properties(
+		{
+			&"attack": TYPE_INT,
+			&"crit_chance": TYPE_INT,
+			&"crit_damage": TYPE_INT,
+			&"health": TYPE_INT,
+			&"resistance": TYPE_INT
+		},
+		{&"attack": 0, &"crit_chance": 0, &"crit_damage": 0, &"health": 0, &"resistance": 0}
+	)
 
 
 # Actions
 func set_characteristics(
-	attack_level: int,
-	crit_chance_level: int,
-	crit_damage_level: int,
-	health_level: int,
-	resistance_level: int
+	_attack: int, _crit_chance: int, _crit_damage: int, _health: int, _resistance: int
 ) -> void:
-	attack = attack_level
-	crit_chance = crit_chance_level
-	crit_damage = crit_damage_level
-	health = health_level
-	resistance = resistance_level
+	attack = _attack
+	crit_chance = _crit_chance
+	crit_damage = _crit_damage
+	health = _health
+	resistance = _resistance
