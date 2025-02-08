@@ -5,6 +5,19 @@ var _allowed_types := {}
 var _state := {}
 var _computeds := {}
 var _current_computed := &""
+var _dependencies_injected := false
+
+
+# Optional method for stores that need dependencies
+func _inject_dependencies(_stores: Dictionary) -> void:
+	# Stores can override this to get references to other stores
+	pass
+
+
+# Optional method for post-initialization
+func _on_all_stores_initialized() -> void:
+	# Stores can override this for post-initialization logic
+	pass
 
 
 # Public API

@@ -9,12 +9,13 @@ var _difficulty_store: DifficultyStore
 func _init(
 	inventory_service: InventoryService,
 	items_service: ItemsService,
-	random_number_generator_service: RandomNumberGeneratorService
+	random_number_generator_service: RandomNumberGeneratorService,
+	difficulty_store: DifficultyStore
 ) -> void:
 	_inventory_service = inventory_service
 	_items_service = items_service
 	_random_number_generator_service = random_number_generator_service
-	_difficulty_store = Stores.get_store(&"Difficulty") as DifficultyStore
+	_difficulty_store = difficulty_store
 
 
 # INFO: This is a temporary solution during dev, do not test it

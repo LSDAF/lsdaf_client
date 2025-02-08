@@ -28,12 +28,12 @@ func before_each() -> void:
 		partial_double(random_number_generator_service).new()
 	)
 	difficulty_store = DifficultyStore.new()
-	Stores.override(&"Difficulty", difficulty_store)
 
 	sut = preload("res://src/services/loot/loot_service.gd").new(
 		inventory_service_partial_double,
 		items_service_partial_double,
-		random_number_generator_service_partial_double
+		random_number_generator_service_partial_double,
+		difficulty_store
 	)
 
 
@@ -81,4 +81,4 @@ func test_not_yet_implemented_get_rarity_and_type_for_difficulty(
 
 
 func after_each() -> void:
-	Stores.reset()
+	pass
