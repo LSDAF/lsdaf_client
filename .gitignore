@@ -6,6 +6,7 @@
 
 # Gut
 .test_results.xml
+.tmp-cline-test_output.log
 
 # Python
 .venv
