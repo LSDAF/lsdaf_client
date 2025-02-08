@@ -20,9 +20,9 @@ Http="*res://src/autoload/http/http.gd"
 Data="*res://src/autoload/data.gd"
 Api="*res://src/autoload/api.gd"
 EventBus="*res://src/autoload/event_bus.gd"
+Stores="*res://src/autoload/stores.gd"
 Services="*res://src/autoload/services.gd"
 Tools="*res://src/autoload/tools.gd"
-Stores="*res://src/autoload/stores.gd"
 
 [debug]
 
