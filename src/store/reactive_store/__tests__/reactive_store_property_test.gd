@@ -8,13 +8,8 @@ func before_each() -> void:
 	store = ReactiveStore.new()
 	store._define_properties({&"test_property": TYPE_STRING}, {&"test_property": ""})
 	sut = ReactiveStoreProperty.new(store, &"test_property")
-	add_child(store)
-	add_child(sut)
-
-
-func after_each() -> void:
-	sut.queue_free()
-	store.queue_free()
+	add_child_autofree(store)
+	add_child_autofree(sut)
 
 
 func test_get_value_returns_store_property_value() -> void:
