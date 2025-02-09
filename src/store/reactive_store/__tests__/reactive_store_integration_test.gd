@@ -63,6 +63,8 @@ func before_each() -> void:
 	sut = StoreManager.new()
 	player_store = _create_store("player")
 	enemy_store = _create_store("enemy")
+	autofree(player_store)
+	autofree(enemy_store)
 	sut.register_store(player_store)
 	sut.register_store(enemy_store)
 	add_child_autofree(sut)
@@ -74,9 +76,16 @@ func test_store_initializes_with_correct_state() -> void:
 	# Initial setup done in before_each
 
 	# Act
-	var player_health = await player_store.create_property(&"health").get_value()
-	var player_mana = await player_store.create_property(&"mana").get_value()
-	var can_cast = await player_store.create_property(&"can_cast_spell").get_value()
+	var health_prop = player_store.create_property(&"health")
+	var mana_prop = player_store.create_property(&"mana")
+	var can_cast_prop = player_store.create_property(&"can_cast_spell")
+	autofree(health_prop)
+	autofree(mana_prop)
+	autofree(can_cast_prop)
+
+	var player_health = await health_prop.get_value()
+	var player_mana = await mana_prop.get_value()
+	var can_cast = await can_cast_prop.get_value()
 
 	# Assert
 	assert_eq(player_health, 100, "Player should start with 100 health")
@@ -92,7 +101,9 @@ func test_computed_property_updates_on_mana_change() -> void:
 	player_store.set_property(&"mana", 5)
 
 	# Assert
-	var can_cast = await player_store.create_property(&"can_cast_spell").get_value()
+	var can_cast_prop = player_store.create_property(&"can_cast_spell")
+	autofree(can_cast_prop)
+	var can_cast = await can_cast_prop.get_value()
 	assert_false(can_cast, "Player shouldn't be able to cast with 5 mana")
 
 
@@ -104,13 +115,16 @@ func test_computed_property_updates_on_multiple_dependencies() -> void:
 	player_store.set_properties({&"health": 0, &"is_alive": false})
 
 	# Assert
-	var can_cast = await player_store.create_property(&"can_cast_spell").get_value()
+	var can_cast_prop = player_store.create_property(&"can_cast_spell")
+	autofree(can_cast_prop)
+	var can_cast = await can_cast_prop.get_value()
 	assert_false(can_cast, "Dead player shouldn't be able to cast spells")
 
 
 func test_store_replacement_preserves_initial_state() -> void:
 	# Arrange
 	var new_player_store := _create_store("player")
+	autofree(new_player_store)
 
 	# Act
 	sut._cleanup_stores()
@@ -118,5 +132,7 @@ func test_store_replacement_preserves_initial_state() -> void:
 	await sut.initialize()
 
 	# Assert
-	var player_health = await new_player_store.create_property(&"health").get_value()
+	var health_prop = new_player_store.create_property(&"health")
+	autofree(health_prop)
+	var player_health = await health_prop.get_value()
 	assert_eq(player_health, 100, "New player store should have initial health")
