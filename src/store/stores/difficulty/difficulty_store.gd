@@ -14,7 +14,7 @@ func _init() -> void:
 	_define_properties(DifficultyState.get_property_types(), DifficultyState.get_initial_state())
 
 
-func _inject_dependencies(stores: StoreContainer) -> void:
+func _inject_dependencies(stores: StoreManager) -> void:
 	super._inject_dependencies(stores)
 
 

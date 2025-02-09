@@ -2,42 +2,42 @@ class_name StoreManager extends Node
 
 signal initialized
 
-var currencies: CurrenciesStore
-var characteristics: CharacteristicsStore
-var difficulty: DifficultyStore
 var _initialized := false
-var _store_container: StoreContainer
+var _stores: Array[Node] = []
+var _store_dict: Dictionary = {}
+
+
+func register_store(store: Node) -> void:
+	_stores.append(store)
+	_store_dict[store.name] = store
+	add_child(store)
+
+
+func get_store(store_name: String) -> Node:
+	return _store_dict.get(store_name)
 
 
 func _validate_stores() -> void:
-	assert(currencies != null, "Currencies store cannot be null")
-	assert(characteristics != null, "Characteristics store cannot be null")
-	assert(difficulty != null, "Difficulty store cannot be null")
+	for store in _stores:
+		assert(store != null, "Store cannot be null: %s" % store.name)
 
 
 func _wait_for_store_initialization() -> void:
-	if not currencies._store_initialized:
-		await currencies.initialized
-	if not characteristics._store_initialized:
-		await characteristics.initialized
-	if not difficulty._store_initialized:
-		await difficulty.initialized
+	for store in _stores:
+		if store.has_method("_store_initialized") and not store._store_initialized:
+			await store.initialized
 
 
 func _inject_store_dependencies() -> void:
-	if not _store_container:
-		_store_container = StoreContainer.new(currencies, characteristics, difficulty)
-		add_child(_store_container)
-
-	currencies._inject_dependencies(_store_container)
-	characteristics._inject_dependencies(_store_container)
-	difficulty._inject_dependencies(_store_container)
+	for store in _stores:
+		if store.has_method("_inject_dependencies"):
+			store._inject_dependencies(self)
 
 
 func _call_post_initialization() -> void:
-	currencies._on_all_stores_initialized()
-	characteristics._on_all_stores_initialized()
-	difficulty._on_all_stores_initialized()
+	for store in _stores:
+		if store.has_method("_on_all_stores_initialized"):
+			store._on_all_stores_initialized()
 
 
 func initialize() -> void:
@@ -51,9 +51,8 @@ func initialize() -> void:
 
 
 func _cleanup_stores() -> void:
-	if _store_container:
-		_store_container.queue_free()
-		_store_container = null
+	_store_dict.clear()
+	_stores.clear()
 
 	for child in get_children():
 		remove_child(child)
@@ -62,9 +61,7 @@ func _cleanup_stores() -> void:
 
 func replace_store(store_name: StringName, store: Node) -> void:
 	set(store_name, store)
-	if _store_container:
-		_store_container.queue_free()
-		_store_container = null
+	_store_dict.clear()
 	await initialize()
 
 

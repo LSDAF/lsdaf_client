@@ -6,6 +6,11 @@ const CharacteristicsStore := preload(
 )
 const DifficultyStore := preload("res://src/store/stores/difficulty/difficulty_store.gd")
 
+# Application-specific store instances
+var currencies: CurrenciesStore
+var characteristics: CharacteristicsStore
+var difficulty: DifficultyStore
+
 
 func _init() -> void:
 	print("init")
@@ -15,10 +20,10 @@ func _init() -> void:
 	characteristics = CharacteristicsStore.new()
 	difficulty = DifficultyStore.new()
 
-	# Add stores as children
-	add_child(currencies)
-	add_child(characteristics)
-	add_child(difficulty)
+	# Register stores with the manager
+	register_store(currencies)
+	register_store(characteristics)
+	register_store(difficulty)
 
 	await initialize()
 
@@ -31,9 +36,22 @@ func reset() -> void:
 	characteristics = CharacteristicsStore.new()
 	difficulty = DifficultyStore.new()
 
-	# Add as children
-	add_child(currencies)
-	add_child(characteristics)
-	add_child(difficulty)
+	# Register stores with the manager
+	register_store(currencies)
+	register_store(characteristics)
+	register_store(difficulty)
 
 	await initialize()
+
+
+# Helper functions to access stores
+func get_currencies() -> CurrenciesStore:
+	return currencies
+
+
+func get_characteristics() -> CharacteristicsStore:
+	return characteristics
+
+
+func get_difficulty() -> DifficultyStore:
+	return difficulty

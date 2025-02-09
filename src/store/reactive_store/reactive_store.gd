@@ -51,7 +51,7 @@ func _initialize() -> void:
 
 
 # Optional method for stores that need dependencies
-func _inject_dependencies(_stores: StoreContainer) -> void:
+func _inject_dependencies(_stores: StoreManager) -> void:
 	# Stores can override this to get typed references to other stores
 	_dependencies_injected = true
 
