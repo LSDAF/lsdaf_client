@@ -1,10 +1,5 @@
 class_name GameSaveService
 
-const CharacteristicsStore := preload(
-	"res://src/store/stores/characteristics/characteristics_store.gd"
-)
-const CurrenciesStore := preload("res://src/store/stores/currencies/currencies_store.gd")
-
 var _characteristics_api: CharacteristicsApi
 var _currency_api: CurrenciesApi
 var _inventory_api: InventoryApi
