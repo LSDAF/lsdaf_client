@@ -94,9 +94,13 @@ func _get_property(name: StringName) -> Variant:
 		push_error("Attempting to access undefined property '%s'" % name)
 		return null
 
+	# Track dependency
+	if _current_computed != &"":
+		_computeds[_current_computed].deps[name] = true
+
 	# Return property value
 	if name in _computeds:
-		return _get_computed_value(name)
+		return await _get_computed_value(name)
 	return _state.get(name)
 
 
@@ -104,15 +108,20 @@ func _get_computed_value(name: StringName) -> Variant:
 	var comp: Variant = _computeds[name]
 
 	if comp.stale:
-		var prev := _current_computed
+		var prev: StringName = _current_computed
 		_current_computed = name
 		comp.deps.clear()
-		comp.value = comp.getter.call()
+		var new_value: Variant = await comp.getter.call()
+
+		# Only emit property_changed if the value actually changed
+		if new_value != comp.value:
+			comp.value = new_value
+			property_changed.emit(name)
+		else:
+			comp.value = new_value  # Still update to maintain consistency
+
 		comp.stale = false
 		_current_computed = prev
-
-	if _current_computed != &"":
-		comp.deps[_current_computed] = true
 
 	return comp.value
 
@@ -121,4 +130,3 @@ func _invalidate_dependents(changed: StringName) -> void:
 	for computed: Variant in _computeds:
 		if changed in _computeds[computed].deps:
 			_computeds[computed].stale = true
-			property_changed.emit(computed)
