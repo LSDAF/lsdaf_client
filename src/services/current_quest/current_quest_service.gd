@@ -1,14 +1,14 @@
 class_name CurrentQuestService
 
-var _currencies_data: CurrenciesData
+var _currencies_store: CurrenciesStore
 var _current_quest_data: CurrentQuestData
 
 
 func _init(
-	currencies_data: CurrenciesData,
+	currencies_store: CurrenciesStore,
 	current_quest_data: CurrentQuestData,
 ) -> void:
-	_currencies_data = currencies_data
+	_currencies_store = currencies_store
 	_current_quest_data = current_quest_data
 
 
@@ -51,7 +51,7 @@ func _init_stage_quest() -> void:
 
 
 func _reward_player() -> void:
-	_currencies_data.diamond.update_value(_current_quest_data._quest.reward)
+	_currencies_store.diamond += _current_quest_data._quest.reward
 
 
 func get_current_quest() -> Quest:

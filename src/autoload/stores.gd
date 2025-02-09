@@ -13,8 +13,6 @@ var difficulty: DifficultyStore
 
 
 func _init() -> void:
-	print("init")
-
 	# Create instances
 	currencies = CurrenciesStore.new()
 	characteristics = CharacteristicsStore.new()

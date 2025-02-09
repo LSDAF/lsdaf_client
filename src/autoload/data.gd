@@ -4,7 +4,7 @@ extends Node
 var characteristics: CharacteristicsData = (
 	preload("res://src/data/characteristics/characteristics_data.gd").new()
 )
-var currencies: CurrenciesData = preload("res://src/data/currencies/currencies_data.gd").new()
+
 var current_quest: CurrentQuestData = (
 	preload("res://src/data/current_quest/current_quest_data.gd").new()
 )

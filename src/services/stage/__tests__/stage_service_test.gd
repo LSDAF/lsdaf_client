@@ -4,12 +4,12 @@ extends GutTest
 
 var sut: StageService
 
-var currencies_data := preload("res://src/data/currencies/currencies_data.gd")
+var currencies_store := preload("res://src/store/stores/currencies/currencies_store.gd")
 var current_quest_data := preload("res://src/data/current_quest/current_quest_data.gd")
 var stage_data := preload("res://src/data/stage/stage_data.gd")
 var current_quest_service := preload("res://src/services/current_quest/current_quest_service.gd")
 
-var currencies_data_partial_double: CurrenciesData
+var currencies_store_partial_double: CurrenciesStore
 var current_quest_data_partial_double: CurrentQuestData
 var stage_data_partial_double: StageData
 var current_quest_service_partial_double: CurrentQuestService
@@ -17,11 +17,11 @@ var difficulty_store: DifficultyStore
 
 
 func before_each() -> void:
-	currencies_data_partial_double = partial_double(currencies_data).new()
+	currencies_store_partial_double = partial_double(currencies_store).new()
 	current_quest_data_partial_double = partial_double(current_quest_data).new()
 	stage_data_partial_double = partial_double(stage_data).new()
 	current_quest_service_partial_double = partial_double(current_quest_service).new(
-		currencies_data_partial_double, current_quest_data_partial_double
+		currencies_store_partial_double, current_quest_data_partial_double
 	)
 	difficulty_store = partial_double(DifficultyStore).new()
 
