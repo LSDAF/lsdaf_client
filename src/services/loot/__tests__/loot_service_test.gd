@@ -42,7 +42,7 @@ func before_each() -> void:
 
 func test_try_loot_item() -> void:
 	# Arrange
-	difficulty_store.current_difficulty = 1.0
+	await difficulty_store.current_difficulty_property.set_value(1.0)
 	stub(random_number_generator_service_partial_double, "randf").to_return(0.0)
 
 	var new_item := Item.new()

@@ -184,4 +184,4 @@ func test_set_current_stage_updates_difficulty() -> void:
 	sut.set_current_stage(100)
 
 	# Assert
-	assert_eq(difficulty_store.current_difficulty, 100.0)
+	assert_eq(await difficulty_store.current_difficulty_property.get_value(), 100.0)

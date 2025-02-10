@@ -1,23 +1,16 @@
 class_name DifficultyStore extends ReactiveStore
 
-var current_difficulty_property := ReactiveStoreProperty.new(self, &"current_difficulty")
-
-# Type definitions
-var current_difficulty: float:
-	get:
-		return await current_difficulty_property.get_value()
-	set(v):
-		current_difficulty_property.set_value(v)
+var current_difficulty_property := ReactiveStoreProperty.new(self, &"current_difficulty"):
+	set(_value):
+		push_error(
+			"current_difficulty_property cannot be reassigned. Use actions to modify the value."
+		)
 
 
 func _init() -> void:
 	_initialize_reactive_store(
 		DifficultyState.get_property_types(), DifficultyState.get_initial_state()
 	)
-
-
-func _inject_dependencies(stores: StoreManager) -> void:
-	super._inject_dependencies(stores)
 
 
 # Actions

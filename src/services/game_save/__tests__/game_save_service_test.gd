@@ -154,7 +154,7 @@ func test_load_game_save() -> void:
 
 	assert_eq(inventory_data_partial_double.items.size(), 0)
 
-	assert_eq(difficulty_store_partial_double.current_difficulty, 100.0)
+	assert_eq(await difficulty_store_partial_double.current_difficulty_property.get_value(), 100.0)
 
 
 func test_save_game_success() -> void:
