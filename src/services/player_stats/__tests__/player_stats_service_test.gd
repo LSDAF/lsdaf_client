@@ -1,21 +1,34 @@
 extends GutTest
 
+const CharacteristicsStoreClass = preload(
+	"res://src/store/stores/characteristics/characteristics_store.gd"
+)
+
 var sut: PlayerStatsService
-
-var characteristics_data := preload("res://src/data/characteristics/characteristics_data.gd")
 var inventory_service := preload("res://src/services/inventory/inventory_service.gd")
-
-var characteristics_data_partial_double: Variant
+var characteristics_store_double: CharacteristicsStoreClass
 var inventory_service_partial_double: Variant
 
 
 func before_each() -> void:
-	characteristics_data_partial_double = partial_double(characteristics_data).new()
+	characteristics_store_double = CharacteristicsStoreClass.new()
 	inventory_service_partial_double = partial_double(inventory_service).new()
 
-	sut = preload("res://src/services/player_stats/player_stats_service.gd").new(
-		characteristics_data_partial_double, inventory_service_partial_double
+	Stores.reset()
+	await (
+		Stores
+		. replace_stores_with_doubles(
+			{
+				&"characteristics": characteristics_store_double,
+			}
+		)
 	)
+
+	sut = preload("res://src/services/player_stats/player_stats_service.gd").new(
+		inventory_service_partial_double
+	)
+	add_child_autofree(sut)
+	await get_tree().process_frame
 
 
 ##### Attack #####
@@ -77,8 +90,8 @@ func test_get_attack_multiplier() -> void:
 
 func test_get_attack_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.attack = Characteristic.new()
-	characteristics_data_partial_double.attack._level = 1000
+	characteristics_store_double.attack = Characteristic.new()
+	characteristics_store_double.attack._level = 1000
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -139,8 +152,8 @@ func test_get_attack_value() -> void:
 
 func test_get_attack() -> void:
 	# Arrange
-	characteristics_data_partial_double.attack = Characteristic.new()
-	characteristics_data_partial_double.attack._level = 250
+	characteristics_store_double.attack = Characteristic.new()
+	characteristics_store_double.attack._level = 250
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -210,8 +223,8 @@ func test_get_attack() -> void:
 #####   Crit. Chance   #####
 func test_get_crit_chance_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_chance = Characteristic.new()
-	characteristics_data_partial_double.crit_chance._level = 10
+	characteristics_store_double.crit_chance = Characteristic.new()
+	characteristics_store_double.crit_chance._level = 10
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -269,8 +282,8 @@ func test_get_crit_chance_value() -> void:
 
 func test_get_crit_chance() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_chance = Characteristic.new()
-	characteristics_data_partial_double.crit_chance._level = 25
+	characteristics_store_double.crit_chance = Characteristic.new()
+	characteristics_store_double.crit_chance._level = 25
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -340,8 +353,8 @@ func test_get_crit_chance() -> void:
 #####   Crit. Damage   #####
 func test_get_crit_damage_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_damage = Characteristic.new()
-	characteristics_data_partial_double.crit_damage._level = 200
+	characteristics_store_double.crit_damage = Characteristic.new()
+	characteristics_store_double.crit_damage._level = 200
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -399,8 +412,8 @@ func test_get_crit_damage_value() -> void:
 
 func test_get_crit_damage() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_damage = Characteristic.new()
-	characteristics_data_partial_double.crit_damage._level = 100
+	characteristics_store_double.crit_damage = Characteristic.new()
+	characteristics_store_double.crit_damage._level = 100
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -526,8 +539,8 @@ func test_get_health_multiplier() -> void:
 
 func test_get_health_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.health = Characteristic.new()
-	characteristics_data_partial_double.health._level = 100
+	characteristics_store_double.health = Characteristic.new()
+	characteristics_store_double.health._level = 100
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -585,8 +598,8 @@ func test_get_health_value() -> void:
 
 func test_get_health() -> void:
 	# Arrange
-	characteristics_data_partial_double.health = Characteristic.new()
-	characteristics_data_partial_double.health._level = 135
+	characteristics_store_double.health = Characteristic.new()
+	characteristics_store_double.health._level = 135
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -710,8 +723,8 @@ func test_get_resistance_multiplier() -> void:
 
 func test_get_resistance_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.resistance = Characteristic.new()
-	characteristics_data_partial_double.resistance._level = 150
+	characteristics_store_double.resistance = Characteristic.new()
+	characteristics_store_double.resistance._level = 150
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -769,8 +782,8 @@ func test_get_resistance_value() -> void:
 
 func test_get_resistance() -> void:
 	# Arrange
-	characteristics_data_partial_double.resistance = Characteristic.new()
-	characteristics_data_partial_double.resistance._level = 135
+	characteristics_store_double.resistance = Characteristic.new()
+	characteristics_store_double.resistance._level = 135
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"

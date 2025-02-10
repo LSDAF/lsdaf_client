@@ -27,7 +27,7 @@ var loot := preload("res://src/services/loot/loot_service.gd").new(
 	inventory, items, random_number_generator, _difficulty_store
 )
 var player_stats := preload("res://src/services/player_stats/player_stats_service.gd").new(
-	Data.characteristics, inventory
+	inventory
 )
 var random_number_generator := (
 	preload("res://src/services/random_number_generator/random_number_generator_service.gd").new()

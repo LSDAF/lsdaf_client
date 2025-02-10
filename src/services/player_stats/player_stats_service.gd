@@ -1,11 +1,10 @@
 class_name PlayerStatsService
+extends Node
 
-var _characteristics_data: CharacteristicsData
 var _inventory_service: InventoryService
 
 
-func _init(characteristics_data: CharacteristicsData, inventory_service: InventoryService) -> void:
-	_characteristics_data = characteristics_data
+func _init(inventory_service: InventoryService) -> void:
 	_inventory_service = inventory_service
 
 
@@ -31,7 +30,7 @@ func _get_attack_value() -> float:
 			ItemStatistics.ItemStatistics.ATTACK_ADD
 		)
 
-	return equipped_items_total_value + _characteristics_data.attack.current_value()
+	return equipped_items_total_value + Stores.characteristics.attack.current_value()
 
 
 func get_attack() -> PlayerStat:
@@ -53,7 +52,7 @@ func _get_crit_chance_value() -> float:
 			ItemStatistics.ItemStatistics.CRIT_CHANCE
 		)
 
-	return equipped_items_total_value + _characteristics_data.crit_chance.current_value()
+	return equipped_items_total_value + Stores.characteristics.crit_chance.current_value()
 
 
 func get_crit_chance() -> PlayerStat:
@@ -75,7 +74,7 @@ func _get_crit_damage_value() -> float:
 			ItemStatistics.ItemStatistics.CRIT_DAMAGE
 		)
 
-	return equipped_items_total_value + _characteristics_data.crit_damage.current_value()
+	return equipped_items_total_value + Stores.characteristics.crit_damage.current_value()
 
 
 func get_crit_damage() -> PlayerStat:
@@ -109,7 +108,7 @@ func _get_health_value() -> float:
 			ItemStatistics.ItemStatistics.HEALTH_ADD
 		)
 
-	return equipped_items_total_value + _characteristics_data.health.current_value()
+	return equipped_items_total_value + Stores.characteristics.health.current_value()
 
 
 func get_health() -> PlayerStat:
@@ -143,7 +142,7 @@ func _get_resistance_value() -> float:
 			ItemStatistics.ItemStatistics.RESISTANCE_ADD
 		)
 
-	return equipped_items_total_value + _characteristics_data.resistance.current_value()
+	return equipped_items_total_value + Stores.characteristics.resistance.current_value()
 
 
 func get_resistance() -> PlayerStat:

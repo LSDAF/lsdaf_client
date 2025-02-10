@@ -7,31 +7,31 @@ var health_property := ReactiveStoreProperty.new(self, &"health")
 var resistance_property := ReactiveStoreProperty.new(self, &"resistance")
 
 # Type definitions
-var attack: int:
+var attack: Characteristic:
 	get:
 		return await attack_property.get_value()
 	set(v):
 		attack_property.set_value(v)
 
-var crit_chance: int:
+var crit_chance: Characteristic:
 	get:
 		return await crit_chance_property.get_value()
 	set(v):
 		crit_chance_property.set_value(v)
 
-var crit_damage: int:
+var crit_damage: Characteristic:
 	get:
 		return await crit_damage_property.get_value()
 	set(v):
 		crit_damage_property.set_value(v)
 
-var health: int:
+var health: Characteristic:
 	get:
 		return await health_property.get_value()
 	set(v):
 		health_property.set_value(v)
 
-var resistance: int:
+var resistance: Characteristic:
 	get:
 		return await resistance_property.get_value()
 	set(v):
@@ -50,10 +50,10 @@ func set_characteristics(
 ) -> void:
 	set_properties(
 		{
-			&"attack": _attack,
-			&"crit_chance": _crit_chance,
-			&"crit_damage": _crit_damage,
-			&"health": _health,
-			&"resistance": _resistance
+			&"attack": Characteristic.new(_attack),
+			&"crit_chance": Characteristic.new(_crit_chance),
+			&"crit_damage": Characteristic.new(_crit_damage),
+			&"health": Characteristic.new(_health),
+			&"resistance": Characteristic.new(_resistance)
 		}
 	)

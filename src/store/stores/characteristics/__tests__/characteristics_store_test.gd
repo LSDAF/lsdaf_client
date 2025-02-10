@@ -26,18 +26,18 @@ func test_initial_values() -> void:
 	# Already done in before_each
 
 	# Act
-	var attack_value: int = sut.attack
-	var crit_chance_value: int = sut.crit_chance
-	var crit_damage_value: int = sut.crit_damage
-	var health_value: int = sut.health
-	var resistance_value: int = sut.resistance
+	var attack_value := sut.attack
+	var crit_chance_value := sut.crit_chance
+	var crit_damage_value := sut.crit_damage
+	var health_value := sut.health
+	var resistance_value := sut.resistance
 
 	# Assert
-	assert_eq(attack_value, 0)
-	assert_eq(crit_chance_value, 0)
-	assert_eq(crit_damage_value, 0)
-	assert_eq(health_value, 0)
-	assert_eq(resistance_value, 0)
+	assert_eq(attack_value.current_value(), 2)
+	assert_eq(crit_chance_value.current_value(), 2)
+	assert_eq(crit_damage_value.current_value(), 2)
+	assert_eq(health_value.current_value(), 2)
+	assert_eq(resistance_value.current_value(), 2)
 
 
 func test_set_characteristics() -> void:
@@ -52,11 +52,11 @@ func test_set_characteristics() -> void:
 	sut.set_characteristics(attack, crit_chance, crit_damage, health, resistance)
 
 	# Assert
-	assert_eq(sut.attack, attack)
-	assert_eq(sut.crit_chance, crit_chance)
-	assert_eq(sut.crit_damage, crit_damage)
-	assert_eq(sut.health, health)
-	assert_eq(sut.resistance, resistance)
+	assert_eq(sut.attack.get_level(), attack)
+	assert_eq(sut.crit_chance.get_level(), crit_chance)
+	assert_eq(sut.crit_damage.get_level(), crit_damage)
+	assert_eq(sut.health.get_level(), health)
+	assert_eq(sut.resistance.get_level(), resistance)
 
 
 func test_property_changed_signal() -> void:
@@ -100,18 +100,18 @@ func test_direct_property_update() -> void:
 	var resistance_value: int = 2
 
 	# Act
-	sut.attack = attack_value
-	sut.crit_chance = crit_chance_value
-	sut.crit_damage = crit_damage_value
-	sut.health = health_value
-	sut.resistance = resistance_value
+	sut.attack = Characteristic.new(attack_value)
+	sut.crit_chance = Characteristic.new(crit_chance_value)
+	sut.crit_damage = Characteristic.new(crit_damage_value)
+	sut.health = Characteristic.new(health_value)
+	sut.resistance = Characteristic.new(resistance_value)
 
 	# Assert
-	assert_eq(sut.attack, attack_value)
-	assert_eq(sut.crit_chance, crit_chance_value)
-	assert_eq(sut.crit_damage, crit_damage_value)
-	assert_eq(sut.health, health_value)
-	assert_eq(sut.resistance, resistance_value)
+	assert_eq(sut.attack.get_level(), attack_value)
+	assert_eq(sut.crit_chance.get_level(), crit_chance_value)
+	assert_eq(sut.crit_damage.get_level(), crit_damage_value)
+	assert_eq(sut.health.get_level(), health_value)
+	assert_eq(sut.resistance.get_level(), resistance_value)
 
 	var signal_emit_count: int = get_signal_emit_count(sut, "property_changed")
 	assert_eq(signal_emit_count, 5, "Should emit 5 signals")

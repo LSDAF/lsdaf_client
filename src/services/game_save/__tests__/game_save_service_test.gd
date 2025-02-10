@@ -146,11 +146,11 @@ func test_load_game_save() -> void:
 	assert_eq(stage_data_partial_double._current_stage, 100)
 	assert_eq(stage_data_partial_double._max_stage, 200)
 
-	assert_eq(characteristics_store_partial_double.attack, 100)
-	assert_eq(characteristics_store_partial_double.crit_chance, 100)
-	assert_eq(characteristics_store_partial_double.crit_damage, 100)
-	assert_eq(characteristics_store_partial_double.health, 100)
-	assert_eq(characteristics_store_partial_double.resistance, 100)
+	assert_eq(characteristics_store_partial_double.attack.get_level(), 100)
+	assert_eq(characteristics_store_partial_double.crit_chance.get_level(), 100)
+	assert_eq(characteristics_store_partial_double.crit_damage.get_level(), 100)
+	assert_eq(characteristics_store_partial_double.health.get_level(), 100)
+	assert_eq(characteristics_store_partial_double.resistance.get_level(), 100)
 
 	assert_eq(inventory_data_partial_double.items.size(), 0)
 
