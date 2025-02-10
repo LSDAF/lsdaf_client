@@ -185,7 +185,3 @@ func test_set_current_stage_updates_difficulty() -> void:
 
 	# Assert
 	assert_eq(difficulty_store.current_difficulty, 100.0)
-
-
-func after_each() -> void:
-	pass

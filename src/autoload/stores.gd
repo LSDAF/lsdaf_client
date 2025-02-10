@@ -13,17 +13,7 @@ var difficulty: DifficultyStore
 
 
 func _init() -> void:
-	# Create instances
-	currencies = CurrenciesStore.new()
-	characteristics = CharacteristicsStore.new()
-	difficulty = DifficultyStore.new()
-
-	# Register stores with the manager
-	register_store(currencies)
-	register_store(characteristics)
-	register_store(difficulty)
-
-	await initialize()
+	reset()
 
 
 func reset() -> void:
@@ -40,16 +30,3 @@ func reset() -> void:
 	register_store(difficulty)
 
 	await initialize()
-
-
-# Helper functions to access stores
-func get_currencies() -> CurrenciesStore:
-	return currencies
-
-
-func get_characteristics() -> CharacteristicsStore:
-	return characteristics
-
-
-func get_difficulty() -> DifficultyStore:
-	return difficulty

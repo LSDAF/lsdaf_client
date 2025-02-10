@@ -81,7 +81,3 @@ func test_not_yet_implemented_get_rarity_and_type_for_difficulty(
 	# Assert
 	assert_true(rarity is ItemRarity.ItemRarity)
 	assert_true(type is ItemType.ItemType)
-
-
-func after_each() -> void:
-	pass

@@ -21,10 +21,6 @@ func _define_properties(allowed_types: Dictionary, initial_state: Dictionary) ->
 	initialized.emit()
 
 
-func create_property(name: StringName) -> ReactiveStoreProperty:
-	return ReactiveStoreProperty.new(self, name)
-
-
 func set_properties(properties: Dictionary) -> void:
 	var changed_properties: Array[StringName] = []
 
