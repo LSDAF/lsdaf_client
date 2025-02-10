@@ -26,11 +26,11 @@ func test_initial_values() -> void:
 	# Already done in before_each
 
 	# Act
-	var attack_value := sut.attack
-	var crit_chance_value := sut.crit_chance
-	var crit_damage_value := sut.crit_damage
-	var health_value := sut.health
-	var resistance_value := sut.resistance
+	var attack_value := await sut.attack_property.get_value()
+	var crit_chance_value := await sut.crit_chance_property.get_value()
+	var crit_damage_value := await sut.crit_damage_property.get_value()
+	var health_value := await sut.health_property.get_value()
+	var resistance_value := await sut.resistance_property.get_value()
 
 	# Assert
 	assert_eq(attack_value.current_value(), 2)
@@ -52,11 +52,11 @@ func test_set_characteristics() -> void:
 	sut.set_characteristics(attack, crit_chance, crit_damage, health, resistance)
 
 	# Assert
-	assert_eq(sut.attack.get_level(), attack)
-	assert_eq(sut.crit_chance.get_level(), crit_chance)
-	assert_eq(sut.crit_damage.get_level(), crit_damage)
-	assert_eq(sut.health.get_level(), health)
-	assert_eq(sut.resistance.get_level(), resistance)
+	assert_eq((await sut.attack_property.get_value()).get_level(), attack)
+	assert_eq((await sut.crit_chance_property.get_value()).get_level(), crit_chance)
+	assert_eq((await sut.crit_damage_property.get_value()).get_level(), crit_damage)
+	assert_eq((await sut.health_property.get_value()).get_level(), health)
+	assert_eq((await sut.resistance_property.get_value()).get_level(), resistance)
 
 
 func test_property_changed_signal() -> void:
@@ -100,18 +100,18 @@ func test_direct_property_update() -> void:
 	var resistance_value: int = 2
 
 	# Act
-	sut.attack = Characteristic.new(attack_value)
-	sut.crit_chance = Characteristic.new(crit_chance_value)
-	sut.crit_damage = Characteristic.new(crit_damage_value)
-	sut.health = Characteristic.new(health_value)
-	sut.resistance = Characteristic.new(resistance_value)
+	await sut.attack_property.set_value(Characteristic.new(attack_value))
+	await sut.crit_chance_property.set_value(Characteristic.new(crit_chance_value))
+	await sut.crit_damage_property.set_value(Characteristic.new(crit_damage_value))
+	await sut.health_property.set_value(Characteristic.new(health_value))
+	await sut.resistance_property.set_value(Characteristic.new(resistance_value))
 
 	# Assert
-	assert_eq(sut.attack.get_level(), attack_value)
-	assert_eq(sut.crit_chance.get_level(), crit_chance_value)
-	assert_eq(sut.crit_damage.get_level(), crit_damage_value)
-	assert_eq(sut.health.get_level(), health_value)
-	assert_eq(sut.resistance.get_level(), resistance_value)
+	assert_eq((await sut.attack_property.get_value()).get_level(), attack_value)
+	assert_eq((await sut.crit_chance_property.get_value()).get_level(), crit_chance_value)
+	assert_eq((await sut.crit_damage_property.get_value()).get_level(), crit_damage_value)
+	assert_eq((await sut.health_property.get_value()).get_level(), health_value)
+	assert_eq((await sut.resistance_property.get_value()).get_level(), resistance_value)
 
 	var signal_emit_count: int = get_signal_emit_count(sut, "property_changed")
 	assert_eq(signal_emit_count, 5, "Should emit 5 signals")
