@@ -40,7 +40,7 @@ func test_initial_values() -> void:
 	assert_eq(resistance_value.current_value(), 2)
 
 
-func test_set_characteristics() -> void:
+func test_set_characteristics_level() -> void:
 	# Arrange
 	var attack: int = 5
 	var crit_chance: int = 3
@@ -49,7 +49,7 @@ func test_set_characteristics() -> void:
 	var resistance: int = 2
 
 	# Act
-	sut.set_characteristics(attack, crit_chance, crit_damage, health, resistance)
+	sut.set_characteristics_level(attack, crit_chance, crit_damage, health, resistance)
 
 	# Assert
 	assert_eq((await sut.attack_property.get_value()).get_level(), attack)
@@ -69,7 +69,7 @@ func test_property_changed_signal() -> void:
 	var resistance: int = 2
 
 	# Act
-	sut.set_characteristics(attack, crit_chance, crit_damage, health, resistance)
+	sut.set_characteristics_level(attack, crit_chance, crit_damage, health, resistance)
 
 	# Assert
 	var signal_emit_count: int = get_signal_emit_count(sut, "property_changed")
@@ -88,6 +88,61 @@ func test_property_changed_signal() -> void:
 	assert_true(emitted_properties.has(&"crit_damage"), "Should emit crit_damage property")
 	assert_true(emitted_properties.has(&"health"), "Should emit health property")
 	assert_true(emitted_properties.has(&"resistance"), "Should emit resistance property")
+
+
+func test_set_attack_level() -> void:
+	# Arrange
+	var attack: int = 5
+
+	# Act
+	sut.set_attack_level(attack)
+
+	# Assert
+	assert_eq((await sut.attack_property.get_value()).get_level(), attack)
+
+
+func test_set_crit_chance_level() -> void:
+	# Arrange
+	var crit_chance: int = 3
+
+	# Act
+	sut.set_crit_chance_level(crit_chance)
+
+	# Assert
+	assert_eq((await sut.crit_chance_property.get_value()).get_level(), crit_chance)
+
+
+func test_set_crit_damage_level() -> void:
+	# Arrange
+	var crit_damage: int = 4
+
+	# Act
+	sut.set_crit_damage_level(crit_damage)
+
+	# Assert
+	assert_eq((await sut.crit_damage_property.get_value()).get_level(), crit_damage)
+
+
+func test_set_health_level() -> void:
+	# Arrange
+	var health: int = 6
+
+	# Act
+	sut.set_health_level(health)
+
+	# Assert
+	assert_eq((await sut.health_property.get_value()).get_level(), health)
+
+
+func test_set_resistance_level() -> void:
+	# Arrange
+	var resistance: int = 2
+
+	# Act
+	sut.set_resistance_level(resistance)
+
+	# Assert
+	assert_eq((await sut.resistance_property.get_value()).get_level(), resistance)
 
 
 func test_direct_property_update() -> void:

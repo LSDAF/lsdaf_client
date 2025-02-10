@@ -28,7 +28,7 @@ func _init() -> void:
 
 
 # Actions
-func set_characteristics(
+func set_characteristics_level(
 	_attack: int, _crit_chance: int, _crit_damage: int, _health: int, _resistance: int
 ) -> void:
 	set_properties(
@@ -40,3 +40,23 @@ func set_characteristics(
 			&"resistance": Characteristic.new(_resistance)
 		}
 	)
+
+
+func set_attack_level(value: int) -> void:
+	set_properties({&"attack": Characteristic.new(value)})
+
+
+func set_crit_chance_level(value: int) -> void:
+	set_properties({&"crit_chance": Characteristic.new(value)})
+
+
+func set_crit_damage_level(value: int) -> void:
+	set_properties({&"crit_damage": Characteristic.new(value)})
+
+
+func set_health_level(value: int) -> void:
+	set_properties({&"health": Characteristic.new(value)})
+
+
+func set_resistance_level(value: int) -> void:
+	set_properties({&"resistance": Characteristic.new(value)})

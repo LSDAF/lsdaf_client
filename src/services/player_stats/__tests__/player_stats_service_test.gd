@@ -90,7 +90,7 @@ func test_get_attack_multiplier() -> void:
 
 func test_get_attack_value() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(1000, 0, 0, 0, 0)
+	characteristics_store_double.set_attack_level(1000)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -151,7 +151,7 @@ func test_get_attack_value() -> void:
 
 func test_get_attack() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(250, 0, 0, 0, 0)
+	characteristics_store_double.set_attack_level(250)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -221,7 +221,7 @@ func test_get_attack() -> void:
 #####   Crit. Chance   #####
 func test_get_crit_chance_value() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 10, 0, 0, 0)
+	characteristics_store_double.set_characteristics_level(0, 10, 0, 0, 0)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -279,7 +279,7 @@ func test_get_crit_chance_value() -> void:
 
 func test_get_crit_chance() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 25, 0, 0, 0)
+	characteristics_store_double.set_crit_chance_level(25)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -349,7 +349,7 @@ func test_get_crit_chance() -> void:
 #####   Crit. Damage   #####
 func test_get_crit_damage_value() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 0, 200, 0, 0)
+	characteristics_store_double.set_characteristics_level(0, 0, 200, 0, 0)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -407,7 +407,7 @@ func test_get_crit_damage_value() -> void:
 
 func test_get_crit_damage() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 0, 100, 0, 0)
+	characteristics_store_double.set_crit_damage_level(100)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -533,7 +533,7 @@ func test_get_health_multiplier() -> void:
 
 func test_get_health_value() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 0, 0, 100, 0)
+	characteristics_store_double.set_health_level(100)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -591,7 +591,7 @@ func test_get_health_value() -> void:
 
 func test_get_health() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 0, 0, 135, 0)
+	characteristics_store_double.set_characteristics_level(0, 0, 0, 135, 0)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -715,7 +715,7 @@ func test_get_resistance_multiplier() -> void:
 
 func test_get_resistance_value() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 0, 0, 0, 150)
+	characteristics_store_double.set_characteristics_level(0, 0, 0, 0, 150)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -773,7 +773,7 @@ func test_get_resistance_value() -> void:
 
 func test_get_resistance() -> void:
 	# Arrange
-	characteristics_store_double.set_characteristics(0, 0, 0, 0, 135)
+	characteristics_store_double.set_resistance_level(135)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"

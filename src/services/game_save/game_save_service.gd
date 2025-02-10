@@ -46,7 +46,7 @@ func load_game_save(game_save_id: String) -> void:
 	var fetched_characteristics := await _characteristics_api.fetch_game_save_characteristics(
 		_game_save_data._game_save_id, _on_fetch_characteristics_error
 	)
-	_characteristics_store.set_characteristics(
+	_characteristics_store.set_characteristics_level(
 		fetched_characteristics.attack,
 		fetched_characteristics.crit_chance,
 		fetched_characteristics.crit_damage,
