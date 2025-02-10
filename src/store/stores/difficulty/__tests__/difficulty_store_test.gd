@@ -20,6 +20,21 @@ func test_set_current_difficulty() -> void:
 	assert_eq(await sut.current_difficulty_property.get_value(), 1.0)
 
 
+func test_property_cannot_be_set_directly() -> void:
+	# Arrange
+	var old_difficulty = sut.current_difficulty_property
+
+	# Act
+	sut.current_difficulty_property = ReactiveStoreProperty.new(sut, &"current_difficulty")
+
+	# Assert
+	assert_eq(
+		sut.current_difficulty_property,
+		old_difficulty,
+		"Current difficulty property should not change"
+	)
+
+
 func test_get_current_difficulty() -> void:
 	# Arrange
 	await sut.current_difficulty_property.set_value(69.0)

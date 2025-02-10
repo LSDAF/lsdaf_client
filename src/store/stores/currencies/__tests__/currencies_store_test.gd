@@ -44,6 +44,26 @@ func test_set_currencies() -> void:
 	assert_eq(await sut.amethyst_property.get_value(), amethyst)
 
 
+func test_properties_cannot_be_set_directly() -> void:
+	# Arrange
+	var old_gold = sut.gold_property
+	var old_diamond = sut.diamond_property
+	var old_emerald = sut.emerald_property
+	var old_amethyst = sut.amethyst_property
+
+	# Act
+	sut.gold_property = ReactiveStoreProperty.new(sut, &"gold")
+	sut.diamond_property = ReactiveStoreProperty.new(sut, &"diamond")
+	sut.emerald_property = ReactiveStoreProperty.new(sut, &"emerald")
+	sut.amethyst_property = ReactiveStoreProperty.new(sut, &"amethyst")
+
+	# Assert
+	assert_eq(sut.gold_property, old_gold, "Gold property should not change")
+	assert_eq(sut.diamond_property, old_diamond, "Diamond property should not change")
+	assert_eq(sut.emerald_property, old_emerald, "Emerald property should not change")
+	assert_eq(sut.amethyst_property, old_amethyst, "Amethyst property should not change")
+
+
 func test_property_changed_signal() -> void:
 	# Arrange
 	watch_signals(sut)

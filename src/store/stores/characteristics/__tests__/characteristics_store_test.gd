@@ -80,6 +80,29 @@ func test_set_characteristics_level() -> void:
 	assert_eq((await sut.resistance_property.get_value()).get_level(), resistance)
 
 
+func test_properties_cannot_be_set_directly() -> void:
+	# Arrange
+	var old_attack = sut.attack_property
+	var old_crit_chance = sut.crit_chance_property
+	var old_crit_damage = sut.crit_damage_property
+	var old_health = sut.health_property
+	var old_resistance = sut.resistance_property
+
+	# Act
+	sut.attack_property = ReactiveStoreProperty.new(sut, &"attack")
+	sut.crit_chance_property = ReactiveStoreProperty.new(sut, &"crit_chance")
+	sut.crit_damage_property = ReactiveStoreProperty.new(sut, &"crit_damage")
+	sut.health_property = ReactiveStoreProperty.new(sut, &"health")
+	sut.resistance_property = ReactiveStoreProperty.new(sut, &"resistance")
+
+	# Assert
+	assert_eq(sut.attack_property, old_attack, "Attack property should not change")
+	assert_eq(sut.crit_chance_property, old_crit_chance, "Crit chance property should not change")
+	assert_eq(sut.crit_damage_property, old_crit_damage, "Crit damage property should not change")
+	assert_eq(sut.health_property, old_health, "Health property should not change")
+	assert_eq(sut.resistance_property, old_resistance, "Resistance property should not change")
+
+
 func test_property_changed_signal() -> void:
 	# Arrange
 	watch_signals(sut)
