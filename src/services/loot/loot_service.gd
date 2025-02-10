@@ -25,7 +25,7 @@ func loot_random_item() -> void:
 
 
 func try_loot_item() -> void:
-	var difficulty := await _difficulty_store.current_difficulty_property.get_value()
+	var difficulty: float = await _difficulty_store.current_difficulty_property.get_value()
 	var rarity := _get_rarity_for_difficulty(difficulty)
 	var type := _get_type_for_difficulty(difficulty)
 	var drop_rate := _get_drop_rate_for_difficulty(difficulty)

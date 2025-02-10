@@ -1,34 +1,20 @@
 class_name CurrenciesStore extends ReactiveStore
 
-var gold_property := ReactiveStoreProperty.new(self, &"gold")
-var diamond_property := ReactiveStoreProperty.new(self, &"diamond")
-var emerald_property := ReactiveStoreProperty.new(self, &"emerald")
-var amethyst_property := ReactiveStoreProperty.new(self, &"amethyst")
+var gold_property := ReactiveStoreProperty.new(self, &"gold"):
+	set(_value):
+		push_error("gold_property cannot be reassigned. Use actions to modify the value.")
 
-# Type definitions
-var gold: int:
-	get:
-		return await gold_property.get_value()
-	set(v):
-		gold_property.set_value(v)
+var diamond_property := ReactiveStoreProperty.new(self, &"diamond"):
+	set(_value):
+		push_error("diamond_property cannot be reassigned. Use actions to modify the value.")
 
-var diamond: int:
-	get:
-		return await diamond_property.get_value()
-	set(v):
-		diamond_property.set_value(v)
+var emerald_property := ReactiveStoreProperty.new(self, &"emerald"):
+	set(_value):
+		push_error("emerald_property cannot be reassigned. Use actions to modify the value.")
 
-var emerald: int:
-	get:
-		return await emerald_property.get_value()
-	set(v):
-		emerald_property.set_value(v)
-
-var amethyst: int:
-	get:
-		return await amethyst_property.get_value()
-	set(v):
-		amethyst_property.set_value(v)
+var amethyst_property := ReactiveStoreProperty.new(self, &"amethyst"):
+	set(_value):
+		push_error("amethyst_property cannot be reassigned. Use actions to modify the value.")
 
 
 func _init() -> void:

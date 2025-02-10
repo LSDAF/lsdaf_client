@@ -51,7 +51,10 @@ func _init_stage_quest() -> void:
 
 
 func _reward_player() -> void:
-	_currencies_store.diamond += _current_quest_data._quest.reward
+	var current_diamond: int = await _currencies_store.diamond_property.get_value()
+	await _currencies_store.diamond_property.set_value(
+		current_diamond + _current_quest_data._quest.reward
+	)
 
 
 func get_current_quest() -> Quest:

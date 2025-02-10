@@ -15,10 +15,10 @@ func test_initial_values() -> void:
 	# Already done in before_each
 
 	# Act
-	var gold_value: int = sut.gold
-	var diamond_value: int = sut.diamond
-	var emerald_value: int = sut.emerald
-	var amethyst_value: int = sut.amethyst
+	var gold_value: int = await sut.gold_property.get_value()
+	var diamond_value: int = await sut.diamond_property.get_value()
+	var emerald_value: int = await sut.emerald_property.get_value()
+	var amethyst_value: int = await sut.amethyst_property.get_value()
 
 	# Assert
 	assert_eq(gold_value, 0)
@@ -38,10 +38,10 @@ func test_set_currencies() -> void:
 	sut.set_currencies(gold, diamond, emerald, amethyst)
 
 	# Assert
-	assert_eq(sut.gold, gold)
-	assert_eq(sut.diamond, diamond)
-	assert_eq(sut.emerald, emerald)
-	assert_eq(sut.amethyst, amethyst)
+	assert_eq(await sut.gold_property.get_value(), gold)
+	assert_eq(await sut.diamond_property.get_value(), diamond)
+	assert_eq(await sut.emerald_property.get_value(), emerald)
+	assert_eq(await sut.amethyst_property.get_value(), amethyst)
 
 
 func test_property_changed_signal() -> void:
@@ -82,16 +82,16 @@ func test_direct_property_update() -> void:
 	var amethyst_value: int = 10
 
 	# Act
-	sut.gold = gold_value
-	sut.diamond = diamond_value
-	sut.emerald = emerald_value
-	sut.amethyst = amethyst_value
+	await sut.gold_property.set_value(gold_value)
+	await sut.diamond_property.set_value(diamond_value)
+	await sut.emerald_property.set_value(emerald_value)
+	await sut.amethyst_property.set_value(amethyst_value)
 
 	# Assert
-	assert_eq(sut.gold, gold_value)
-	assert_eq(sut.diamond, diamond_value)
-	assert_eq(sut.emerald, emerald_value)
-	assert_eq(sut.amethyst, amethyst_value)
+	assert_eq(await sut.gold_property.get_value(), gold_value)
+	assert_eq(await sut.diamond_property.get_value(), diamond_value)
+	assert_eq(await sut.emerald_property.get_value(), emerald_value)
+	assert_eq(await sut.amethyst_property.get_value(), amethyst_value)
 
 	var signal_emit_count: int = get_signal_emit_count(sut, "property_changed")
 	assert_eq(signal_emit_count, 4, "Should emit 4 signals")

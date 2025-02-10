@@ -56,13 +56,13 @@ func test_reward_player() -> void:
 	# Arrange
 	current_quest_data_partial_double._quest = MobQuest.new()
 	current_quest_data_partial_double._quest.reward = 1234
-	currencies_store_partial_double.diamond = 0
+	await currencies_store_partial_double.diamond_property.set_value(0)
 
 	# Act
-	sut._reward_player()
+	await sut._reward_player()
 
 	# Assert
-	assert_eq(currencies_store_partial_double.diamond, 1234)
+	assert_eq(await currencies_store_partial_double.diamond_property.get_value(), 1234)
 
 
 func test_get_current_quest() -> void:

@@ -138,10 +138,10 @@ func test_load_game_save() -> void:
 	sut.load_game_save("game_save_id")
 
 	# Assert
-	assert_eq(currencies_store_partial_double.gold, 1000)
-	assert_eq(currencies_store_partial_double.diamond, 2000)
-	assert_eq(currencies_store_partial_double.emerald, 3000)
-	assert_eq(currencies_store_partial_double.amethyst, 4000)
+	assert_eq(await currencies_store_partial_double.gold_property.get_value(), 1000)
+	assert_eq(await currencies_store_partial_double.diamond_property.get_value(), 2000)
+	assert_eq(await currencies_store_partial_double.emerald_property.get_value(), 3000)
+	assert_eq(await currencies_store_partial_double.amethyst_property.get_value(), 4000)
 
 	assert_eq(stage_data_partial_double._current_stage, 100)
 	assert_eq(stage_data_partial_double._max_stage, 200)

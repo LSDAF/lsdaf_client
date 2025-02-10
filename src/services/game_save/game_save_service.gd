@@ -114,10 +114,10 @@ func _save_currencies() -> bool:
 		UpdateCurrenciesDto
 		. new(
 			{
-				"gold": _currencies_store.gold,
-				"diamond": _currencies_store.diamond,
-				"emerald": _currencies_store.emerald,
-				"amethyst": _currencies_store.amethyst,
+				"gold": await _currencies_store.gold_property.get_value(),
+				"diamond": await _currencies_store.diamond_property.get_value(),
+				"emerald": await _currencies_store.emerald_property.get_value(),
+				"amethyst": await _currencies_store.amethyst_property.get_value(),
 			}
 		)
 	)
