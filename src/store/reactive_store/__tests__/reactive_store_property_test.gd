@@ -6,7 +6,7 @@ var store: ReactiveStore
 
 func before_each() -> void:
 	store = ReactiveStore.new()
-	store._define_properties({&"test_property": TYPE_STRING}, {&"test_property": ""})
+	store._initialize_reactive_store({&"test_property": TYPE_STRING}, {&"test_property": ""})
 	sut = ReactiveStoreProperty.new(store, &"test_property")
 	add_child_autofree(store)
 	add_child_autofree(sut)

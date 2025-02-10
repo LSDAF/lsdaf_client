@@ -18,7 +18,7 @@ class TestStore:
 		return {&"counter": 0, &"name": "Test", &"enabled": true}
 
 	func _ready() -> void:
-		_define_properties(get_property_types(), get_initial_state())
+		_initialize_reactive_store(get_property_types(), get_initial_state())
 
 		define_computed(&"double_counter", func(): return await _get_property(&"counter") * 2)
 

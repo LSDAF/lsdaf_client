@@ -32,7 +32,9 @@ var amethyst: int:
 
 
 func _init() -> void:
-	_define_properties(CurrenciesState.get_property_types(), CurrenciesState.get_initial_state())
+	_initialize_reactive_store(
+		CurrenciesState.get_property_types(), CurrenciesState.get_initial_state()
+	)
 
 
 # Actions

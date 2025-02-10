@@ -39,7 +39,7 @@ var resistance: Characteristic:
 
 
 func _init() -> void:
-	_define_properties(
+	_initialize_reactive_store(
 		CharacteristicsState.get_property_types(), CharacteristicsState.get_initial_state()
 	)
 

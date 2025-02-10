@@ -13,7 +13,7 @@ var _initialization_in_progress := false
 
 
 # Called by subclasses to set up properties
-func _define_properties(allowed_types: Dictionary, initial_state: Dictionary) -> void:
+func _initialize_reactive_store(allowed_types: Dictionary, initial_state: Dictionary) -> void:
 	_initialization_in_progress = true
 	_allowed_types = allowed_types
 	_state = initial_state

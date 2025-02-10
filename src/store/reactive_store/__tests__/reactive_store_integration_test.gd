@@ -28,7 +28,7 @@ class TestStore:
 		_initialize()
 
 	func _initialize() -> void:
-		_define_properties(TestState.get_property_types(), TestState.get_initial_state())
+		_initialize_reactive_store(TestState.get_property_types(), TestState.get_initial_state())
 
 		# Update can_cast_spell whenever mana or is_alive changes
 		var update_can_cast = func():

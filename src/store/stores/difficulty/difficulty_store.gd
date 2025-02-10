@@ -11,7 +11,9 @@ var current_difficulty: float:
 
 
 func _init() -> void:
-	_define_properties(DifficultyState.get_property_types(), DifficultyState.get_initial_state())
+	_initialize_reactive_store(
+		DifficultyState.get_property_types(), DifficultyState.get_initial_state()
+	)
 
 
 func _inject_dependencies(stores: StoreManager) -> void:
