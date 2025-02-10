@@ -28,3 +28,19 @@ func set_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) ->
 	set_properties(
 		{&"gold": _gold, &"diamond": _diamond, &"emerald": _emerald, &"amethyst": _amethyst}
 	)
+
+
+func set_gold(value: int) -> void:
+	set_properties({&"gold": value})
+
+
+func set_diamond(value: int) -> void:
+	set_properties({&"diamond": value})
+
+
+func set_emerald(value: int) -> void:
+	set_properties({&"emerald": value})
+
+
+func set_amethyst(value: int) -> void:
+	set_properties({&"amethyst": value})

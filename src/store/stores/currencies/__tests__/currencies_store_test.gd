@@ -73,6 +73,50 @@ func test_property_changed_signal() -> void:
 	assert_true(emitted_properties.has(&"amethyst"), "Should emit amethyst property")
 
 
+func test_set_gold() -> void:
+	# Arrange
+	var gold: int = 100
+
+	# Act
+	sut.set_gold(gold)
+
+	# Assert
+	assert_eq(await sut.gold_property.get_value(), gold)
+
+
+func test_set_diamond() -> void:
+	# Arrange
+	var diamond: int = 50
+
+	# Act
+	sut.set_diamond(diamond)
+
+	# Assert
+	assert_eq(await sut.diamond_property.get_value(), diamond)
+
+
+func test_set_emerald() -> void:
+	# Arrange
+	var emerald: int = 25
+
+	# Act
+	sut.set_emerald(emerald)
+
+	# Assert
+	assert_eq(await sut.emerald_property.get_value(), emerald)
+
+
+func test_set_amethyst() -> void:
+	# Arrange
+	var amethyst: int = 10
+
+	# Act
+	sut.set_amethyst(amethyst)
+
+	# Assert
+	assert_eq(await sut.amethyst_property.get_value(), amethyst)
+
+
 func test_direct_property_update() -> void:
 	# Arrange
 	watch_signals(sut)
