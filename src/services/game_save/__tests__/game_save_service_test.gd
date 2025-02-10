@@ -52,8 +52,37 @@ func before_each() -> void:
 	)
 	difficulty_store_partial_double = partial_double(difficulty_store).new()
 
+	# Initialize characteristics store with test values
+	var attack := Characteristic.new(1)
+	var crit_chance := Characteristic.new(2)
+	var crit_damage := Characteristic.new(3)
+	var health := Characteristic.new(4)
+	var resistance := Characteristic.new(5)
+
+	characteristics_store_partial_double._initialize_reactive_store(
+		{
+			&"attack": TYPE_OBJECT,
+			&"crit_chance": TYPE_OBJECT,
+			&"crit_damage": TYPE_OBJECT,
+			&"health": TYPE_OBJECT,
+			&"resistance": TYPE_OBJECT
+		},
+		{
+			&"attack": attack,
+			&"crit_chance": crit_chance,
+			&"crit_damage": crit_damage,
+			&"health": health,
+			&"resistance": resistance
+		}
+	)
+
 	Stores.reset()
-	await Stores.replace_stores_with_doubles({&"difficulty": difficulty_store_partial_double})
+	await Stores.replace_stores_with_doubles(
+		{
+			&"difficulty": difficulty_store_partial_double,
+			&"characteristics": characteristics_store_partial_double
+		}
+	)
 
 	stage_service_partial_double = partial_double(stage_service).new(
 		stage_data_partial_double,
@@ -146,11 +175,21 @@ func test_load_game_save() -> void:
 	assert_eq(stage_data_partial_double._current_stage, 100)
 	assert_eq(stage_data_partial_double._max_stage, 200)
 
-	var attack = await characteristics_store_partial_double.attack_property.get_value()
-	var crit_chance = await characteristics_store_partial_double.crit_chance_property.get_value()
-	var crit_damage = await characteristics_store_partial_double.crit_damage_property.get_value()
-	var health = await characteristics_store_partial_double.health_property.get_value()
-	var resistance = await characteristics_store_partial_double.resistance_property.get_value()
+	var attack: Characteristic = await (
+		characteristics_store_partial_double.attack_property.get_value()
+	)
+	var crit_chance: Characteristic = await (
+		characteristics_store_partial_double.crit_chance_property.get_value()
+	)
+	var crit_damage: Characteristic = await (
+		characteristics_store_partial_double.crit_damage_property.get_value()
+	)
+	var health: Characteristic = await (
+		characteristics_store_partial_double.health_property.get_value()
+	)
+	var resistance: Characteristic = await (
+		characteristics_store_partial_double.resistance_property.get_value()
+	)
 
 	assert_eq(attack.get_level(), 100)
 	assert_eq(crit_chance.get_level(), 100)

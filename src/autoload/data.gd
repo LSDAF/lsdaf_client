@@ -1,10 +1,6 @@
 extends Node
 
 # Scripts
-var characteristics: CharacteristicsData = (
-	preload("res://src/data/characteristics/characteristics_data.gd").new()
-)
-
 var current_quest: CurrentQuestData = (
 	preload("res://src/data/current_quest/current_quest_data.gd").new()
 )
@@ -15,5 +11,4 @@ var stage: StageData = preload("res://src/data/stage/stage_data.gd").new()
 
 
 func _ready() -> void:
-	add_child(characteristics)
 	add_child(current_quest)

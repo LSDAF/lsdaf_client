@@ -23,7 +23,28 @@ func before_each() -> void:
 
 func test_initial_values() -> void:
 	# Arrange
-	# Already done in before_each
+	var initial_attack := Characteristic.new(1)
+	var initial_crit_chance := Characteristic.new(2)
+	var initial_crit_damage := Characteristic.new(3)
+	var initial_health := Characteristic.new(4)
+	var initial_resistance := Characteristic.new(5)
+
+	sut._initialize_reactive_store(
+		{
+			&"attack": TYPE_OBJECT,
+			&"crit_chance": TYPE_OBJECT,
+			&"crit_damage": TYPE_OBJECT,
+			&"health": TYPE_OBJECT,
+			&"resistance": TYPE_OBJECT
+		},
+		{
+			&"attack": initial_attack,
+			&"crit_chance": initial_crit_chance,
+			&"crit_damage": initial_crit_damage,
+			&"health": initial_health,
+			&"resistance": initial_resistance
+		}
+	)
 
 	# Act
 	var attack_value := await sut.attack_property.get_value()
@@ -33,11 +54,11 @@ func test_initial_values() -> void:
 	var resistance_value := await sut.resistance_property.get_value()
 
 	# Assert
-	assert_eq(attack_value.current_value(), 2)
-	assert_eq(crit_chance_value.current_value(), 2)
-	assert_eq(crit_damage_value.current_value(), 2)
-	assert_eq(health_value.current_value(), 2)
-	assert_eq(resistance_value.current_value(), 2)
+	assert_eq(attack_value.get_level(), 1)
+	assert_eq(crit_chance_value.get_level(), 2)
+	assert_eq(crit_damage_value.get_level(), 3)
+	assert_eq(health_value.get_level(), 4)
+	assert_eq(resistance_value.get_level(), 5)
 
 
 func test_set_characteristics_level() -> void:

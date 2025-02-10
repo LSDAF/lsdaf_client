@@ -3,17 +3,17 @@ extends Area2D
 
 const ACTIONS = {ATTACK = "attack", DEATH = "death", IDLE = "death", MOVE = "move"}
 
-var current_health: int = Data.characteristics.health.current_value()
+var current_health: int
 var action := ACTIONS.MOVE
 var current_encounter: Mob = null
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Data.characteristics.health.upgraded.connect(_on_health_upgraded)
+	_init_health()
+	Stores.characteristics.health_property.value_changed.connect(_on_health_upgraded)
 
 	%AnimatedSprite2D.play("move")
-	%HealthBar.max_value = Data.characteristics.health.current_value()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,8 +39,14 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 			attack(current_encounter)
 
 
-func _on_health_upgraded() -> void:
-	%HealthBar.max_value = Data.characteristics.health.current_value()
+func _init_health() -> void:
+	var health_value = (await Stores.characteristics.health_property.get_value()).current_value()
+	current_health = health_value
+	%HealthBar.max_value = health_value
+
+
+func _on_health_upgraded(_old_value: Variant, new_value: Characteristic) -> void:
+	%HealthBar.max_value = new_value.current_value()
 
 
 func _get_player_damage() -> float:

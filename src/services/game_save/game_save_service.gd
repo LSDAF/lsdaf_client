@@ -91,18 +91,21 @@ func save_game() -> void:
 
 
 func _save_characteristics() -> bool:
+	var attack: Characteristic = await _characteristics_store.attack_property.get_value()
+	var crit_chance: Characteristic = await _characteristics_store.crit_chance_property.get_value()
+	var crit_damage: Characteristic = await _characteristics_store.crit_damage_property.get_value()
+	var health: Characteristic = await _characteristics_store.health_property.get_value()
+	var resistance: Characteristic = await _characteristics_store.resistance_property.get_value()
+
 	var update_characteristics_dto := (
 		UpdateCharacteristicsDto
 		. new(
 			{
-				"attack": (await _characteristics_store.attack_property.get_value()).get_level(),
-				"crit_chance":
-				(await _characteristics_store.crit_chance_property.get_value()).get_level(),
-				"crit_damage":
-				(await _characteristics_store.crit_damage_property.get_value()).get_level(),
-				"health": (await _characteristics_store.health_property.get_value()).get_level(),
-				"resistance":
-				(await _characteristics_store.resistance_property.get_value()).get_level(),
+				"attack": attack.get_level(),
+				"crit_chance": crit_chance.get_level(),
+				"crit_damage": crit_damage.get_level(),
+				"health": health.get_level(),
+				"resistance": resistance.get_level(),
 			}
 		)
 	)
