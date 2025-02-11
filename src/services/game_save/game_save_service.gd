@@ -138,8 +138,8 @@ func _save_stage() -> bool:
 		UpdateStageDto
 		. new(
 			{
-				"current_stage": _stage_service.get_current_stage(),
-				"max_stage": _stage_service.get_max_stage(),
+				"current_stage": await _stage_service.get_current_stage(),
+				"max_stage": await _stage_service.get_max_stage(),
 			}
 		)
 	)

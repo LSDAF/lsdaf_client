@@ -8,7 +8,7 @@ var inventory_api := preload("res://src/http/inventory/inventory_api.gd")
 var stage_api := preload("res://src/http/stage/stage_api.gd")
 var game_save_data := preload("res://src/data/game_save/game_save_data.gd")
 var inventory_data := preload("res://src/data/inventory/inventory_data.gd")
-var stage_data := preload("res://src/data/stage/stage_data.gd")
+var stage_store := preload("res://src/store/stores/stage/stage_store.gd")
 var characteristics_store := preload(
 	"res://src/store/stores/characteristics/characteristics_store.gd"
 )
@@ -25,7 +25,7 @@ var inventory_api_partial_double: Variant
 var stage_api_partial_double: Variant
 var game_save_data_partial_double: Variant
 var inventory_data_partial_double: Variant
-var stage_data_partial_double: Variant
+var stage_store_partial_double: Variant
 var characteristics_store_partial_double: Variant
 var currencies_store_partial_double: Variant
 var clock_service_partial_double: Variant
@@ -37,7 +37,7 @@ var difficulty_store_partial_double: Variant
 
 func before_each() -> void:
 	inventory_data_partial_double = partial_double(inventory_data).new()
-	stage_data_partial_double = partial_double(stage_data).new()
+	stage_store_partial_double = partial_double(stage_store).new()
 
 	characteristics_api_partial_double = partial_double(characteristics_api).new()
 	currencies_api_partial_double = partial_double(currencies_api).new()
@@ -85,7 +85,7 @@ func before_each() -> void:
 	)
 
 	stage_service_partial_double = partial_double(stage_service).new(
-		stage_data_partial_double,
+		stage_store_partial_double,
 		current_quest_service_partial_double,
 		difficulty_store_partial_double
 	)
@@ -172,8 +172,8 @@ func test_load_game_save() -> void:
 	assert_eq(await currencies_store_partial_double.emerald_property.get_value(), 3000)
 	assert_eq(await currencies_store_partial_double.amethyst_property.get_value(), 4000)
 
-	assert_eq(stage_data_partial_double._current_stage, 100)
-	assert_eq(stage_data_partial_double._max_stage, 200)
+	assert_eq(await stage_store_partial_double.current_stage_property.get_value(), 100)
+	assert_eq(await stage_store_partial_double.max_stage_property.get_value(), 200)
 
 	var attack: Characteristic = await (
 		characteristics_store_partial_double.attack_property.get_value()

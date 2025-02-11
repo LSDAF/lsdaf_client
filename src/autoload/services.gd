@@ -37,7 +37,7 @@ var resource_loader := (
 )
 var resource_saver := preload("res://src/services/resource_saver/resource_saver_service.gd").new()
 var stage := preload("res://src/services/stage/stage_service.gd").new(
-	Data.stage, current_quest, _difficulty_store
+	_stage_store, current_quest, _difficulty_store
 )
 var toaster := preload("res://src/services/toaster/toaster_service.gd").new()
 var user_local_data := preload("res://src/services/user_local_data/user_local_data_service.gd").new(
@@ -48,3 +48,4 @@ var user_local_data := preload("res://src/services/user_local_data/user_local_da
 var _characteristics_store := Stores.characteristics
 var _currencies_store := Stores.currencies
 var _difficulty_store := Stores.difficulty
+var _stage_store := Stores.stage
