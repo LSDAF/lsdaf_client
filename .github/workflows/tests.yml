@@ -52,7 +52,7 @@ jobs:
             -   name: 🧪 Run Tests
                 run : |
                     godot --headless --import
-                    godot --headless --path "$PWD" -s addons/gut/gut_cmdln.gd 
+                    make tests-github-actions
 
             -   name: 📝 Tests Summary
                 uses: test-summary/action@v2
