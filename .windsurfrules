@@ -1,0 +1,26 @@
+## WindSurf Rules ##
+
+# Globals
+- Make use of the Makefile
+
+# Commits
+- When committing, there are pre commit checks. They output the issue, look for issues if any, fix them, and retry the commit
+- When asking to commit, check with me what files I want to commit. Use the git status command
+- Before committing, you must run the tests. You can use the make tests command. You MUST see them all pass before committing, unless explicitly stated otherwise
+- When committing, you should add a summary or list of changes in the body of the commit message.
+
+# Gdscript
+
+# Gdlint
+- You can check @https://github.com/Scony/godot-gdscript-toolkit/wiki/3.-Linter#class-checks for more infos on the class-definitions-order warnings
+
+# Tests
+- When running a single test file, you can leverage the make test command. Pass the TEST_FILE parameter to specify the test to run.
+- When writing tests, the naming convention is *_test.gd, placed in a folder named __tests__ alongside the script(s) being tested
+- In tests, the system under test should be called sut
+- In test, you must use the Arrange Act Assert comments
+- When writing tests, if you end up having multiple Arrange, Act, or Assert sections, you should split the test.
+- When writing tests, you should run them after to check they work
+- When runnning tests, you should run them all before committing, and run only the tests that failed when changing the code
+- Using GUT methods is impossible outside of test files
+- If you need more infos about GUT, it's source code is in addons/gut/gut.gd
