@@ -16,3 +16,11 @@ func _set_characteristics(
 	_characteristics_data.crit_damage._level = crit_damage
 	_characteristics_data.health._level = health
 	_characteristics_data.resistance._level = resistance
+
+
+func get_current_health() -> int:
+	return _characteristics_data.health.current_value()
+
+
+func connect_health_upgraded(callback: Callable) -> void:
+	_characteristics_data.health.upgraded.connect(callback)

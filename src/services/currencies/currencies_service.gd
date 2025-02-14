@@ -13,3 +13,35 @@ func _set_currencies(_gold: int, _diamond: int, _emerald: int, _amethyst: int) -
 	_currency_data.diamond._value = _diamond
 	_currency_data.emerald._value = _emerald
 	_currency_data.amethyst._value = _amethyst
+
+
+func get_gold_value() -> int:
+	return _currency_data.gold.get_value()
+
+
+func update_gold_value(delta: int) -> void:
+	_currency_data.gold.update_value(delta)
+
+
+func connect_gold_updated(callback: Callable) -> void:
+	_currency_data.gold.updated.connect(callback)
+
+
+func get_diamond_value() -> int:
+	return _currency_data.diamond.get_value()
+
+
+func connect_diamond_updated(callback: Callable) -> void:
+	_currency_data.diamond.updated.connect(callback)
+
+
+func get_amethyst_value() -> int:
+	return _currency_data.amethyst.get_value()
+
+
+func connect_amethyst_updated(callback: Callable) -> void:
+	_currency_data.amethyst.updated.connect(callback)
+
+
+func update_amethyst_value(delta: int) -> void:
+	_currency_data.amethyst.update_value(delta)

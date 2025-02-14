@@ -3,8 +3,8 @@ extends Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Data.currencies.diamond.updated.connect(_update_diamond_value)
-	_update_diamond_value(Data.currencies.diamond.get_value())
+	Services.currencies.connect_diamond_updated(_update_diamond_value)
+	_update_diamond_value(Services.currencies.get_diamond_value())
 
 
 func _update_diamond_value(new_value: int) -> void:
