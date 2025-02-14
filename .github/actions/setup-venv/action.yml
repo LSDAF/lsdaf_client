@@ -1,0 +1,31 @@
+name: 'Setup Python Virtual Environment'
+description: 'Sets up Python and creates a virtual environment with requirements'
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: 💾 Load cached venv
+      uses: actions/cache@v3
+      id: venv-cache
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-py3.13-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          venv-${{ runner.os }}-py3.13-
+
+    - name: 🌱 Setup venv
+      if: steps.venv-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        python3 -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: 🔄 Activate venv
+      shell: bash
+      run: source .venv/bin/activate
