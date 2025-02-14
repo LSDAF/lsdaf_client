@@ -72,10 +72,8 @@ jobs:
                 with:
                     lfs: true
 
-            -   name: 🌱 Setup Python and venv
-                uses: ./.github/actions/setup-venv
-
             -   name: 🏗️ Run architectural constraints check
+                shell: bash
                 run: |
                     chmod +x ./scripts/strict-layers.sh
                     ./scripts/strict-layers.sh --directory src
