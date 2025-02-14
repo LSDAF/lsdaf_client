@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Activate virtual environment if it exists
-if [ -f ".venv/bin/activate" ]; then
-    source .venv/bin/activate
+# Activate virtual environment
+if [ ! -f ".venv/bin/activate" ]; then
+    echo "Error: Virtual environment not found. Please run 'python3 -m venv .venv' first."
+    exit 1
 fi
+
+source .venv/bin/activate
 
 # Colors for output
 GREEN='\033[0;32m'    # Green color
