@@ -27,17 +27,11 @@ jobs:
                 with:
                     lfs: true
 
-            -   name: 🐍 Setup Python
-                uses: actions/setup-python@v5
-                with:
-                    python-version: '3.13'
+            -   name: 🌱 Setup Python and venv
+                uses: ./.github/actions/setup-venv
 
             -   name: 🧑‍✈️ Run lint check
-                run: |
-                    python3 -m venv .venv
-                    source .venv/bin/activate
-                    pip install -r requirements.txt
-                    gdlint .
+                run: gdlint .
 
     format:
         name: "🕵️ Run Format"
@@ -56,14 +50,32 @@ jobs:
                 with:
                     lfs: true
 
-            -   name: 🐍 Setup Python
-                uses: actions/setup-python@v5
-                with:
-                    python-version: '3.13'
+            -   name: 🌱 Setup Python and venv
+                uses: ./.github/actions/setup-venv
 
-            -   name: 🕵️ Run format check
+            -   name: 🧑‍✈️ Run format check
+                run: gdformat .
+
+    architecture:
+        name: "🏗️ Check Architecture"
+        runs-on: 'ubuntu-22.04'
+        timeout-minutes: 10
+        permissions:
+            actions: write
+            checks: write
+            contents: write
+            pull-requests: write
+            statuses: write
+        steps:
+            -   name: 📥 Checkout
+                uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            -   name: 🌱 Setup Python and venv
+                uses: ./.github/actions/setup-venv
+
+            -   name: 🏗️ Run architectural constraints check
                 run: |
-                    python3 -m venv .venv
-                    source .venv/bin/activate
-                    pip install -r requirements.txt
-                    gdformat .
+                    chmod +x ./scripts/strict-layers.sh
+                    ./scripts/strict-layers.sh --directory src
