@@ -45,7 +45,7 @@ func _update_item_details_menu() -> void:
 	%SalvagePriceLabel.text = str(_item.item_salvage_price())
 	%LevelUpCostLabel.text = str(_item.level_up_cost())
 
-	%LevelUpButton.disabled = (_item.level_up_cost() > Data.currencies.amethyst.get_value())
+	%LevelUpButton.disabled = (_item.level_up_cost() > Services.currencies.get_amethyst_value())
 
 	if _item.is_equipped:
 		%EquipButton.text = "Unequip"
@@ -69,14 +69,14 @@ func open_for_item(item_client_id: String) -> void:
 
 
 func _on_level_up_button_pressed() -> void:
-	Data.currencies.amethyst.update_value(-_item.level_up_cost())
+	Services.currencies.update_amethyst_value(-_item.level_up_cost())
 	Services.inventory.level_up_item(_item.client_id)
 
 	_update_item_details_menu()
 
 
 func _on_salvage_button_pressed() -> void:
-	Data.currencies.amethyst.update_value(_item.item_salvage_price())
+	Services.currencies.update_amethyst_value(_item.item_salvage_price())
 	Services.inventory.delete_item(_item.client_id)
 
 	on_salvage_item.emit()
