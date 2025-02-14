@@ -26,6 +26,8 @@ runs:
         source .venv/bin/activate
         pip install -r requirements.txt
 
-    - name: 🔄 Activate venv
+    - name: 🔄 Activate venv and setup PATH
       shell: bash
-      run: source .venv/bin/activate
+      run: |
+        source .venv/bin/activate
+        echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
