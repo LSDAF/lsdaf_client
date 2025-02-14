@@ -9,12 +9,15 @@
 - Before committing, you must run the tests. You can use the make tests command. You MUST see them all pass before committing, unless explicitly stated otherwise
 - When committing, you should add a summary or list of changes in the body of the commit message.
 
+<<<<<<< HEAD
 # Gdscript
 
 # Gdlint
 - You can check @https://github.com/Scony/godot-gdscript-toolkit/wiki/3.-Linter#class-checks for more infos on the class-definitions-order warnings
 
 # Tests
+=======
+>>>>>>> d13417cf (chore: update windsurf rules)
 - When running a single test file, you can leverage the make test command. Pass the TEST_FILE parameter to specify the test to run.
 - When writing tests, the naming convention is *_test.gd, placed in a folder named __tests__ alongside the script(s) being tested
 - In tests, the system under test should be called sut

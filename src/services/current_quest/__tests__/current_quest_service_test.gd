@@ -4,21 +4,21 @@ extends GutTest
 
 var sut: CurrentQuestService
 
-var currencies_data := preload("res://src/data/currencies/currencies_data.gd")
+var currencies_store := preload("res://src/store/stores/currencies/currencies_store.gd")
 var current_quest_data := preload("res://src/data/current_quest/current_quest_data.gd")
 
-var currencies_data_partial_double: Variant
+var currencies_store_partial_double: Variant
 var current_quest_data_partial_double: Variant
 
 
 func before_each() -> void:
-	currencies_data_partial_double = partial_double(currencies_data).new()
+	currencies_store_partial_double = partial_double(currencies_store).new()
 	current_quest_data_partial_double = partial_double(current_quest_data).new()
 
 	sut = (
 		preload("res://src/services/current_quest/current_quest_service.gd")
 		. new(
-			currencies_data_partial_double,
+			currencies_store_partial_double,
 			current_quest_data_partial_double,
 		)
 	)
@@ -56,12 +56,13 @@ func test_reward_player() -> void:
 	# Arrange
 	current_quest_data_partial_double._quest = MobQuest.new()
 	current_quest_data_partial_double._quest.reward = 1234
+	await currencies_store_partial_double.diamond_property.set_value(0)
 
 	# Act
-	sut._reward_player()
+	await sut._reward_player()
 
 	# Assert
-	assert_eq(currencies_data_partial_double.diamond.get_value(), 1234)
+	assert_eq(await currencies_store_partial_double.diamond_property.get_value(), 1234)
 
 
 func test_get_current_quest() -> void:

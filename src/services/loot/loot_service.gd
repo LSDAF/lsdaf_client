@@ -1,21 +1,21 @@
 class_name LootService
 
-var _difficulty_service: DifficultyService
 var _inventory_service: InventoryService
 var _items_service: ItemsService
 var _random_number_generator_service: RandomNumberGeneratorService
+var _difficulty_store: DifficultyStore
 
 
 func _init(
-	difficulty_service: DifficultyService,
 	inventory_service: InventoryService,
 	items_service: ItemsService,
-	random_number_generator_service: RandomNumberGeneratorService
+	random_number_generator_service: RandomNumberGeneratorService,
+	difficulty_store: DifficultyStore
 ) -> void:
-	_difficulty_service = difficulty_service
 	_inventory_service = inventory_service
 	_items_service = items_service
 	_random_number_generator_service = random_number_generator_service
+	_difficulty_store = difficulty_store
 
 
 # INFO: This is a temporary solution during dev, do not test it
@@ -25,7 +25,7 @@ func loot_random_item() -> void:
 
 
 func try_loot_item() -> void:
-	var difficulty := _difficulty_service.get_current_difficulty()
+	var difficulty: float = await _difficulty_store.current_difficulty_property.get_value()
 	var rarity := _get_rarity_for_difficulty(difficulty)
 	var type := _get_type_for_difficulty(difficulty)
 	var drop_rate := _get_drop_rate_for_difficulty(difficulty)
@@ -39,14 +39,14 @@ func try_loot_item() -> void:
 
 
 # NOTE: Not yet implemented, not tested
-func _get_rarity_for_difficulty(_difficulty: int) -> ItemRarity.ItemRarity:
+func _get_rarity_for_difficulty(_difficulty: float) -> ItemRarity.ItemRarity:
 	return ItemRarity.ItemRarity.values().pick_random()
 
 
 # NOTE: Not yet implemented, not tested
-func _get_type_for_difficulty(_difficulty: int) -> ItemType.ItemType:
+func _get_type_for_difficulty(_difficulty: float) -> ItemType.ItemType:
 	return ItemType.ItemType.values().pick_random()
 
 
-func _get_drop_rate_for_difficulty(difficulty: int) -> float:
+func _get_drop_rate_for_difficulty(difficulty: float) -> float:
 	return 1.0 / difficulty

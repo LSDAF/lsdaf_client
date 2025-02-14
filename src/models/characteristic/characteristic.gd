@@ -7,7 +7,11 @@ signal upgraded
 
 @export var cost_scaler: CostScaler
 
-var _level: int = 1
+var _level: int
+
+
+func _init(level: int = 1) -> void:
+	_level = level
 
 
 func next_level_cost() -> int:

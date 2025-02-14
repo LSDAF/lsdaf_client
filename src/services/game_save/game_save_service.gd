@@ -5,8 +5,8 @@ var _currency_api: CurrenciesApi
 var _inventory_api: InventoryApi
 var _stage_api: StageApi
 var _clock_service: ClockService
-var _characteristics_service: CharacteristicsService
-var _currency_service: CurrenciesService
+var _characteristics_store: CharacteristicsStore
+var _currencies_store: CurrenciesStore
 var _inventory_service: InventoryService
 var _stage_service: StageService
 var _game_save_data: GameSaveData
@@ -18,8 +18,8 @@ func _init(
 	inventory_api: InventoryApi,
 	stage_api: StageApi,
 	clock_service: ClockService,
-	characteristics_service: CharacteristicsService,
-	currency_service: CurrenciesService,
+	characteristics_store: CharacteristicsStore,
+	currencies_store: CurrenciesStore,
 	inventory_service: InventoryService,
 	stage_service: StageService,
 	game_save_data: GameSaveData,
@@ -29,8 +29,8 @@ func _init(
 	_inventory_api = inventory_api
 	_stage_api = stage_api
 	_clock_service = clock_service
-	_characteristics_service = characteristics_service
-	_currency_service = currency_service
+	_characteristics_store = characteristics_store
+	_currencies_store = currencies_store
 	_inventory_service = inventory_service
 	_stage_service = stage_service
 	_game_save_data = game_save_data
@@ -46,7 +46,7 @@ func load_game_save(game_save_id: String) -> void:
 	var fetched_characteristics := await _characteristics_api.fetch_game_save_characteristics(
 		_game_save_data._game_save_id, _on_fetch_characteristics_error
 	)
-	_characteristics_service._set_characteristics(
+	_characteristics_store.set_characteristics_level(
 		fetched_characteristics.attack,
 		fetched_characteristics.crit_chance,
 		fetched_characteristics.crit_damage,
@@ -57,7 +57,7 @@ func load_game_save(game_save_id: String) -> void:
 	var fetched_currencies := await _currency_api.fetch_game_save_currencies(
 		_game_save_data._game_save_id, _on_fetch_currencies_error
 	)
-	_currency_service._set_currencies(
+	_currencies_store.set_currencies(
 		fetched_currencies.gold,
 		fetched_currencies.diamond,
 		fetched_currencies.emerald,
@@ -91,15 +91,21 @@ func save_game() -> void:
 
 
 func _save_characteristics() -> bool:
+	var attack: Characteristic = await _characteristics_store.attack_property.get_value()
+	var crit_chance: Characteristic = await _characteristics_store.crit_chance_property.get_value()
+	var crit_damage: Characteristic = await _characteristics_store.crit_damage_property.get_value()
+	var health: Characteristic = await _characteristics_store.health_property.get_value()
+	var resistance: Characteristic = await _characteristics_store.resistance_property.get_value()
+
 	var update_characteristics_dto := (
 		UpdateCharacteristicsDto
 		. new(
 			{
-				"attack": Data.characteristics.attack.get_level(),
-				"crit_chance": Data.characteristics.crit_chance.get_level(),
-				"crit_damage": Data.characteristics.crit_damage.get_level(),
-				"health": Data.characteristics.health.get_level(),
-				"resistance": Data.characteristics.resistance.get_level(),
+				"attack": attack.get_level(),
+				"crit_chance": crit_chance.get_level(),
+				"crit_damage": crit_damage.get_level(),
+				"health": health.get_level(),
+				"resistance": resistance.get_level(),
 			}
 		)
 	)
@@ -114,10 +120,10 @@ func _save_currencies() -> bool:
 		UpdateCurrenciesDto
 		. new(
 			{
-				"gold": Data.currencies.gold.get_value(),
-				"diamond": Data.currencies.diamond.get_value(),
-				"emerald": Data.currencies.emerald.get_value(),
-				"amethyst": Data.currencies.amethyst.get_value(),
+				"gold": await _currencies_store.gold_property.get_value(),
+				"diamond": await _currencies_store.diamond_property.get_value(),
+				"emerald": await _currencies_store.emerald_property.get_value(),
+				"amethyst": await _currencies_store.amethyst_property.get_value(),
 			}
 		)
 	)
@@ -132,8 +138,8 @@ func _save_stage() -> bool:
 		UpdateStageDto
 		. new(
 			{
-				"current_stage": _stage_service.get_current_stage(),
-				"max_stage": _stage_service.get_max_stage(),
+				"current_stage": await _stage_service.get_current_stage(),
+				"max_stage": await _stage_service.get_max_stage(),
 			}
 		)
 	)

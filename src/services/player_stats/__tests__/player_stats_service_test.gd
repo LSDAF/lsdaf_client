@@ -1,21 +1,34 @@
 extends GutTest
 
+const CharacteristicsStoreClass = preload(
+	"res://src/store/stores/characteristics/characteristics_store.gd"
+)
+
 var sut: PlayerStatsService
-
-var characteristics_data := preload("res://src/data/characteristics/characteristics_data.gd")
 var inventory_service := preload("res://src/services/inventory/inventory_service.gd")
-
-var characteristics_data_partial_double: Variant
+var characteristics_store_double: CharacteristicsStoreClass
 var inventory_service_partial_double: Variant
 
 
 func before_each() -> void:
-	characteristics_data_partial_double = partial_double(characteristics_data).new()
+	characteristics_store_double = CharacteristicsStoreClass.new()
 	inventory_service_partial_double = partial_double(inventory_service).new()
 
-	sut = preload("res://src/services/player_stats/player_stats_service.gd").new(
-		characteristics_data_partial_double, inventory_service_partial_double
+	Stores.reset()
+	await (
+		Stores
+		. replace_stores_with_doubles(
+			{
+				&"characteristics": characteristics_store_double,
+			}
+		)
 	)
+
+	sut = preload("res://src/services/player_stats/player_stats_service.gd").new(
+		inventory_service_partial_double
+	)
+	add_child_autofree(sut)
+	await get_tree().process_frame
 
 
 ##### Attack #####
@@ -77,8 +90,7 @@ func test_get_attack_multiplier() -> void:
 
 func test_get_attack_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.attack = Characteristic.new()
-	characteristics_data_partial_double.attack._level = 1000
+	characteristics_store_double.set_attack_level(1000)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -131,7 +143,7 @@ func test_get_attack_value() -> void:
 	)
 
 	# Act
-	var attack_value: float = sut._get_attack_value()
+	var attack_value: float = await sut._get_attack_value()
 
 	# Assert
 	assert_eq(attack_value, 2050.0)
@@ -139,8 +151,7 @@ func test_get_attack_value() -> void:
 
 func test_get_attack() -> void:
 	# Arrange
-	characteristics_data_partial_double.attack = Characteristic.new()
-	characteristics_data_partial_double.attack._level = 250
+	characteristics_store_double.set_attack_level(250)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -200,7 +211,7 @@ func test_get_attack() -> void:
 	)
 
 	# Act
-	var attack: PlayerStat = sut.get_attack()
+	var attack: PlayerStat = await sut.get_attack()
 
 	# Assert
 	assert_eq(attack.value, 855.0)
@@ -210,8 +221,7 @@ func test_get_attack() -> void:
 #####   Crit. Chance   #####
 func test_get_crit_chance_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_chance = Characteristic.new()
-	characteristics_data_partial_double.crit_chance._level = 10
+	characteristics_store_double.set_characteristics_level(0, 10, 0, 0, 0)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -261,7 +271,7 @@ func test_get_crit_chance_value() -> void:
 	)
 
 	# Act
-	var crit_chance_value: float = sut._get_crit_chance_value()
+	var crit_chance_value: float = await sut._get_crit_chance_value()
 
 	# Assert
 	assert_eq(crit_chance_value, 40.0)
@@ -269,8 +279,7 @@ func test_get_crit_chance_value() -> void:
 
 func test_get_crit_chance() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_chance = Characteristic.new()
-	characteristics_data_partial_double.crit_chance._level = 25
+	characteristics_store_double.set_crit_chance_level(25)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -330,7 +339,7 @@ func test_get_crit_chance() -> void:
 	)
 
 	# Act
-	var crit_chance: PlayerStat = sut.get_crit_chance()
+	var crit_chance: PlayerStat = await sut.get_crit_chance()
 
 	# Assert
 	assert_eq(crit_chance.value, 70.0)
@@ -340,8 +349,7 @@ func test_get_crit_chance() -> void:
 #####   Crit. Damage   #####
 func test_get_crit_damage_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_damage = Characteristic.new()
-	characteristics_data_partial_double.crit_damage._level = 200
+	characteristics_store_double.set_characteristics_level(0, 0, 200, 0, 0)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -391,7 +399,7 @@ func test_get_crit_damage_value() -> void:
 	)
 
 	# Act
-	var crit_damage_value: float = sut._get_crit_damage_value()
+	var crit_damage_value: float = await sut._get_crit_damage_value()
 
 	# Assert
 	assert_eq(crit_damage_value, 485.0)
@@ -399,8 +407,7 @@ func test_get_crit_damage_value() -> void:
 
 func test_get_crit_damage() -> void:
 	# Arrange
-	characteristics_data_partial_double.crit_damage = Characteristic.new()
-	characteristics_data_partial_double.crit_damage._level = 100
+	characteristics_store_double.set_crit_damage_level(100)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -460,7 +467,7 @@ func test_get_crit_damage() -> void:
 	)
 
 	# Act
-	var crit_damage: PlayerStat = sut.get_crit_damage()
+	var crit_damage: PlayerStat = await sut.get_crit_damage()
 
 	# Assert
 	assert_eq(crit_damage.value, 450.0)
@@ -526,8 +533,7 @@ func test_get_health_multiplier() -> void:
 
 func test_get_health_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.health = Characteristic.new()
-	characteristics_data_partial_double.health._level = 100
+	characteristics_store_double.set_health_level(100)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -577,7 +583,7 @@ func test_get_health_value() -> void:
 	)
 
 	# Act
-	var health_value: float = sut._get_health_value()
+	var health_value: float = await sut._get_health_value()
 
 	# Assert
 	assert_eq(health_value, 265.0)
@@ -585,8 +591,7 @@ func test_get_health_value() -> void:
 
 func test_get_health() -> void:
 	# Arrange
-	characteristics_data_partial_double.health = Characteristic.new()
-	characteristics_data_partial_double.health._level = 135
+	characteristics_store_double.set_characteristics_level(0, 0, 0, 135, 0)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -644,7 +649,7 @@ func test_get_health() -> void:
 	)
 
 	# Act
-	var health: PlayerStat = sut.get_health()
+	var health: PlayerStat = await sut.get_health()
 
 	# Assert
 	assert_eq(health.value, 460.0)
@@ -710,8 +715,7 @@ func test_get_resistance_multiplier() -> void:
 
 func test_get_resistance_value() -> void:
 	# Arrange
-	characteristics_data_partial_double.resistance = Characteristic.new()
-	characteristics_data_partial_double.resistance._level = 150
+	characteristics_store_double.set_characteristics_level(0, 0, 0, 0, 150)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -761,7 +765,7 @@ func test_get_resistance_value() -> void:
 	)
 
 	# Act
-	var resistance_value: float = sut._get_resistance_value()
+	var resistance_value: float = await sut._get_resistance_value()
 
 	# Assert
 	assert_eq(resistance_value, 565.0)
@@ -769,8 +773,7 @@ func test_get_resistance_value() -> void:
 
 func test_get_resistance() -> void:
 	# Arrange
-	characteristics_data_partial_double.resistance = Characteristic.new()
-	characteristics_data_partial_double.resistance._level = 135
+	characteristics_store_double.set_resistance_level(135)
 
 	var item_0 := Item.new()
 	item_0.name = "item_0"
@@ -828,7 +831,7 @@ func test_get_resistance() -> void:
 	)
 
 	# Act
-	var resistance: PlayerStat = sut.get_resistance()
+	var resistance: PlayerStat = await sut.get_resistance()
 
 	# Assert
 	assert_eq(resistance.value, 640.0)

@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 func _on_upgrade_button_button_down() -> void:
-	Data.currencies.gold.update_value(-characteristic.next_level_cost())
+	Data.currencies.set_gold(Data.currencies.gold.get_value() - characteristic.next_level_cost())
 	characteristic.upgrade()
 
 
