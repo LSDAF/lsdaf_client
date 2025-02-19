@@ -71,34 +71,38 @@ func _get_main_stat(item_stats_pool: ItemStatsPool) -> ItemStat:
 func _get_random_blueprint_from_pools(
 	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
 ) -> ItemBlueprint:
+	var pool: ItemPool
 	match item_type:
 		ItemType.ItemType.BOOTS:
-			match item_rarity:
-				ItemRarity.ItemRarity.NORMAL:
-					return item_pools.boots.normal.pick_random()
+			pool = item_pools.boots
 		ItemType.ItemType.CHESTPLATE:
-			match item_rarity:
-				ItemRarity.ItemRarity.NORMAL:
-					return item_pools.chestplates.normal.pick_random()
+			pool = item_pools.chestplates
 		ItemType.ItemType.GLOVES:
-			match item_rarity:
-				ItemRarity.ItemRarity.NORMAL:
-					return item_pools.gloves.normal.pick_random()
+			pool = item_pools.gloves
 		ItemType.ItemType.HELMET:
-			match item_rarity:
-				ItemRarity.ItemRarity.NORMAL:
-					return item_pools.helmets.normal.pick_random()
+			pool = item_pools.helmets
 		ItemType.ItemType.SHIELD:
-			match item_rarity:
-				ItemRarity.ItemRarity.NORMAL:
-					return item_pools.shields.normal.pick_random()
+			pool = item_pools.shields
 		ItemType.ItemType.SWORD:
-			match item_rarity:
-				ItemRarity.ItemRarity.NORMAL:
-					return item_pools.swords.normal.pick_random()
+			pool = item_pools.swords
+		_:
+			push_error("Unknown item type: %s" % item_type)
+			return item_pools.swords.normal[0]
 
-	# WIP
-	return item_pools.swords.normal[0]
+	match item_rarity:
+		ItemRarity.ItemRarity.NORMAL:
+			if pool.normal.is_empty():
+				push_error("No normal items in pool for type: %s" % item_type)
+				return item_pools.swords.normal[0]
+			return pool.normal.pick_random()
+		ItemRarity.ItemRarity.RARE:
+			if pool.rare.is_empty():
+				push_error("No rare items in pool for type: %s" % item_type)
+				return item_pools.swords.normal[0]
+			return pool.rare.pick_random()
+		_:
+			push_error("Unknown rarity: %s" % item_rarity)
+			return item_pools.swords.normal[0]
 
 
 func _get_stats_pool_from_pools(
