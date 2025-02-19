@@ -147,22 +147,18 @@ func _save_stage() -> bool:
 
 
 func _convert_item_to_dto(item: Item) -> InventoryItemDto:
-	return InventoryItemDto.new({
-		"client_id": item.client_id,
-		"blueprint_id": item.blueprint_id,
-		"main_stat": {
-			"statistic": ItemStatistics.ItemStatistics.keys()[item.main_stat.statistic],
-			"base_value": item.main_stat.base_value
-		},
-		"additional_stats": item.additional_stats.map(func(stat: ItemStat) -> Dictionary: return {
-			"statistic": ItemStatistics.ItemStatistics.keys()[stat.statistic],
-			"base_value": stat.base_value
-		}),
-		"rarity": ItemRarity.ItemRarity.keys()[item.rarity],
-		"level": item.level,
-		"type": ItemType.ItemType.keys()[item.type],
-		"is_equipped": item.is_equipped
-	})
+	return InventoryItemDto.new(
+		{
+			"client_id": item.client_id,
+			"blueprint_id": item.blueprint_id,
+			"main_stat": ItemStat.to_dictionary(item.main_stat),
+			"additional_stats": item.additional_stats.map(ItemStat.to_dictionary),
+			"rarity": ItemRarity.ItemRarity.keys()[item.rarity],
+			"level": item.level,
+			"type": ItemType.ItemType.keys()[item.type],
+			"is_equipped": item.is_equipped
+		}
+	)
 
 
 func _get_local_items_dto() -> Array[InventoryItemDto]:
@@ -219,27 +215,21 @@ func _execute_inventory_operations(
 	# Delete items
 	for client_id in items_to_delete:
 		if not await _inventory_api.delete_game_save_inventory_item(
-			_game_save_data._game_save_id,
-			client_id,
-			_on_save_inventory_error
+			_game_save_data._game_save_id, client_id, _on_save_inventory_error
 		):
 			success = false
 
 	# Create new items
 	for item in items_to_create:
 		if not await _inventory_api.create_game_save_inventory_item(
-			_game_save_data._game_save_id,
-			item,
-			_on_save_inventory_error
+			_game_save_data._game_save_id, item, _on_save_inventory_error
 		):
 			success = false
 
 	# Update existing items
 	for item in items_to_update:
 		if not await _inventory_api.update_game_save_inventory_item(
-			_game_save_data._game_save_id,
-			item,
-			_on_save_inventory_error
+			_game_save_data._game_save_id, item, _on_save_inventory_error
 		):
 			success = false
 
@@ -249,8 +239,7 @@ func _execute_inventory_operations(
 func _save_inventory() -> bool:
 	# 1. Get current inventory from DB
 	var db_inventory: FetchInventoryDto = await _inventory_api.fetch_game_save_inventory(
-		_game_save_data._game_save_id,
-		_on_fetch_inventory_error
+		_game_save_data._game_save_id, _on_fetch_inventory_error
 	)
 	if not db_inventory:
 		return false
