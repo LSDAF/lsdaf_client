@@ -176,7 +176,7 @@ func test_save_game_success() -> void:
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(true)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
 	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
-	var items = []
+	var items: Array[Item] = []
 	stub(inventory_service_partial_double, "get_items").to_return(items)
 
 	# Act
@@ -194,7 +194,7 @@ func test_save_game_partial_failure() -> void:
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(false)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
 	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
-	var items = []
+	var items: Array[Item] = []
 	stub(inventory_service_partial_double, "get_items").to_return(items)
 
 	# Act
@@ -273,32 +273,34 @@ func test_save_stage_failure() -> void:
 func test_save_inventory_success() -> void:
 	# Arrange
 	var main_stat := ItemStat.new()
-	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK
+	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	main_stat.base_value = 100
 
 	var additional_stat := ItemStat.new()
-	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH
+	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	additional_stat.base_value = 50
 
 	var item1 := Item.new()
 	item1.client_id = "item1"
+	item1.blueprint_id = "sword_normal_1"
 	item1.main_stat = main_stat
 	item1.additional_stats = [additional_stat]
-	item1.rarity = ItemRarity.ItemRarity.COMMON
+	item1.rarity = ItemRarity.ItemRarity.NORMAL
 	item1.level = 1
 	item1.type = ItemType.ItemType.SWORD
 	item1.is_equipped = false
 
 	var item2 := Item.new()
 	item2.client_id = "item2"
+	item2.blueprint_id = "shield_normal_1"
 	item2.main_stat = main_stat
 	item2.additional_stats = [additional_stat]
-	item2.rarity = ItemRarity.ItemRarity.RARE
+	item2.rarity = ItemRarity.ItemRarity.NORMAL
 	item2.level = 2
 	item2.type = ItemType.ItemType.SHIELD
 	item2.is_equipped = true
 
-	var items := [item1, item2]
+	var items: Array[Item] = [item1, item2]
 
 	stub(inventory_service_partial_double, "get_items").to_return(items)
 	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
@@ -314,32 +316,34 @@ func test_save_inventory_success() -> void:
 func test_save_inventory_partial_failure() -> void:
 	# Arrange
 	var main_stat := ItemStat.new()
-	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK
+	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
 	main_stat.base_value = 100
 
 	var additional_stat := ItemStat.new()
-	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH
+	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
 	additional_stat.base_value = 50
 
 	var item1 := Item.new()
 	item1.client_id = "item1"
+	item1.blueprint_id = "sword_normal_1"
 	item1.main_stat = main_stat
 	item1.additional_stats = [additional_stat]
-	item1.rarity = ItemRarity.ItemRarity.COMMON
+	item1.rarity = ItemRarity.ItemRarity.NORMAL
 	item1.level = 1
 	item1.type = ItemType.ItemType.SWORD
 	item1.is_equipped = false
 
 	var item2 := Item.new()
 	item2.client_id = "item2"
+	item2.blueprint_id = "shield_normal_1"
 	item2.main_stat = main_stat
 	item2.additional_stats = [additional_stat]
-	item2.rarity = ItemRarity.ItemRarity.RARE
+	item2.rarity = ItemRarity.ItemRarity.NORMAL
 	item2.level = 2
 	item2.type = ItemType.ItemType.SHIELD
 	item2.is_equipped = true
 
-	var items := [item1, item2]
+	var items: Array[Item] = [item1, item2]
 
 	stub(inventory_service_partial_double, "get_items").to_return(items)
 	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(false)

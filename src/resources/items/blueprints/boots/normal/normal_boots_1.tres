@@ -14,3 +14,4 @@ level = 0
 type = 0
 name = "Boots 1"
 texture = SubResource("AtlasTexture_jdojb")
+id = "boots_normal_1"

@@ -14,3 +14,4 @@ level = 0
 type = 0
 name = "Boots 2"
 texture = SubResource("AtlasTexture_32ip1")
+id = "boots_normal_2"

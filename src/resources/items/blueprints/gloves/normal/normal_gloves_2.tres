@@ -14,3 +14,4 @@ level = 0
 type = 2
 name = "Gloves"
 texture = SubResource("AtlasTexture_ijqm7")
+id = "gloves_normal_2"

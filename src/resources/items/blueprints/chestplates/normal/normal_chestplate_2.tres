@@ -14,3 +14,4 @@ level = 0
 type = 1
 name = "Chestplate"
 texture = SubResource("AtlasTexture_2ypkm")
+id = "chestplate_normal_2"
