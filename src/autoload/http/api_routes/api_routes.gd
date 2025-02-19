@@ -18,6 +18,10 @@ const FETCH_GAME_SAVES_INVENTORY := APP_URL + "/api/v1/inventory/{game_save_id}"
 const UPDATE_GAME_SAVE_INVENTORY_ITEM := (
 	APP_URL + "/api/v1/inventory/{game_save_id}/items/{client_id}"
 )
+const CREATE_GAME_SAVE_INVENTORY_ITEM := APP_URL + "/api/v1/inventory/{game_save_id}/items"
+const DELETE_GAME_SAVE_INVENTORY_ITEM := (
+	APP_URL + "/api/v1/inventory/{game_save_id}/items/{client_id}"
+)
 const GENERATE_GAME_SAVE := APP_URL + "/api/v1/game_save/generate"
 const UPDATE_GAME_SAVE_CHARACTERISTICS := APP_URL + "/api/v1/characteristics/{game_save_id}"
 const UPDATE_GAME_SAVE_CURRENCIES := APP_URL + "/api/v1/currency/{game_save_id}"
