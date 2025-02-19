@@ -34,6 +34,18 @@ func _log_error(url: String, response: HTTPResult) -> void:
 		push_error(error)
 
 
+func delete(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
+	var headers := _generate_headers(upsert_headers, auth, HTTPClient.METHOD_DELETE)
+
+	var response: HTTPResult = await Http.http_client.http.async_request(
+		url, headers, HTTPClient.METHOD_DELETE
+	)
+
+	_log_error(url, response)
+
+	return response
+
+
 func fetch(url: String, auth: bool, upsert_headers: Dictionary = {}) -> HTTPResult:
 	var headers := _generate_headers(upsert_headers, auth)
 
