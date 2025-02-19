@@ -1,6 +1,7 @@
 class_name InventoryService
 
 var _inventory_data: InventoryData
+var _item_pools: ItemPools = preload("res://src/resources/items/item_pools/item_pools.tres")
 
 
 func _init(inventory_data: InventoryData) -> void:
@@ -86,12 +87,21 @@ func set_inventory_from_fetch_inventory_dto(fetch_inventory_dto: FetchInventoryD
 
 	for inventory_item_dto in fetch_inventory_dto.items:
 		var item := Item.new()
+		item.client_id = inventory_item_dto.client_id
+		item.blueprint_id = inventory_item_dto.blueprint_id
 		item.main_stat = inventory_item_dto.main_stat
 		item.additional_stats = inventory_item_dto.additional_stats
 		item.rarity = inventory_item_dto.rarity
 		item.level = inventory_item_dto.level
 		item.type = inventory_item_dto.type
 		item.is_equipped = inventory_item_dto.is_equipped
+
+		# Set the texture from the blueprint
+		var item_blueprint := _item_pools.get_blueprint_from_id(item.blueprint_id)
+		if item_blueprint:
+			item.texture = item_blueprint.texture
+			item.name = item_blueprint.name
+
 		_inventory_data.items.append(item)
 
 

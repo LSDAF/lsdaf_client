@@ -14,3 +14,4 @@ level = 0
 type = 4
 name = "Shield 2"
 texture = SubResource("AtlasTexture_mr4og")
+id = ""
