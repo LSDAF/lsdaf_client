@@ -153,6 +153,7 @@ func _save_inventory() -> bool:
 	for item in items:
 		var item_dto := InventoryItemDto.new({
 			"client_id": item.client_id,
+			"blueprint_id": item.blueprint_id,
 			"main_stat": {
 				"statistic": ItemStatistics.ItemStatistics.keys()[item.main_stat.statistic],
 				"base_value": item.main_stat.base_value
