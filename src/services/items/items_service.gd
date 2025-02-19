@@ -37,6 +37,7 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 	var item_blueprint: ItemBlueprint = _get_random_blueprint_from_pools(item_type, item_rarity)
 	item.name = item_blueprint.name
 	item.texture = item_blueprint.texture
+	item.blueprint_id = item_blueprint.id
 
 	return item
 
