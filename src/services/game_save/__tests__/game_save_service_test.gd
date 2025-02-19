@@ -73,20 +73,17 @@ func before_each() -> void:
 	)
 	game_save_data_partial_double = partial_double(game_save_data).new()
 
-	sut = (
-		preload("res://src/services/game_save/game_save_service.gd")
-		. new(
-			characteristics_api_partial_double,
-			currencies_api_partial_double,
-			inventory_api_partial_double,
-			stage_api_partial_double,
-			clock_service_partial_double,
-			characteristics_service_partial_double,
-			currencies_service_partial_double,
-			inventory_service_partial_double,
-			stage_service_partial_double,
-			game_save_data_partial_double,
-		)
+	sut = preload("res://src/services/game_save/game_save_service.gd").new(
+		characteristics_api_partial_double,
+		currencies_api_partial_double,
+		inventory_api_partial_double,
+		stage_api_partial_double,
+		clock_service_partial_double,
+		characteristics_service_partial_double,
+		currencies_service_partial_double,
+		inventory_service_partial_double,
+		stage_service_partial_double,
+		game_save_data_partial_double
 	)
 
 
@@ -103,38 +100,13 @@ func test_get_game_save_id() -> void:
 
 func test_load_game_save() -> void:
 	# Arrange
-	var fetched_characteristics: FetchCharacteristicsDto = (
-		FetchCharacteristicsDto
-		. new(
-			{
-				"attack": 100,
-				"crit_chance": 100,
-				"crit_damage": 100,
-				"health": 100,
-				"resistance": 100,
-			}
-		)
+	var fetched_characteristics: FetchCharacteristicsDto = FetchCharacteristicsDto.new(
+		{"attack": 100, "crit_chance": 100, "crit_damage": 100, "health": 100, "resistance": 100}
 	)
-	var fetched_currencies: CurrenciesDto = (
-		CurrenciesDto
-		. new(
-			{
-				"gold": 1000,
-				"diamond": 2000,
-				"emerald": 3000,
-				"amethyst": 4000,
-			}
-		)
+	var fetched_currencies: CurrenciesDto = CurrenciesDto.new(
+		{"gold": 1000, "diamond": 2000, "emerald": 3000, "amethyst": 4000}
 	)
-	var fetched_stage: FetchStageDto = (
-		FetchStageDto
-		. new(
-			{
-				"current_stage": 100,
-				"max_stage": 200,
-			}
-		)
-	)
+	var fetched_stage: FetchStageDto = FetchStageDto.new({"current_stage": 100, "max_stage": 200})
 
 	var fetched_inventory: FetchInventoryDto = FetchInventoryDto.new({"items": []})
 
@@ -196,7 +168,7 @@ func test_save_game_partial_failure() -> void:
 	stub(characteristics_api_partial_double, "update_game_save_characteristics").to_return(true)
 	stub(currencies_api_partial_double, "update_game_save_currencies").to_return(false)
 	stub(stage_api_partial_double, "update_game_save_stage").to_return(true)
-	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(true)
+	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(false)
 	var items: Array[Item] = []
 	stub(inventory_service_partial_double, "get_items").to_return(items)
 	stub(inventory_api_partial_double, "fetch_game_save_inventory").to_return(

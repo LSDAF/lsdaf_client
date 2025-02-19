@@ -5,6 +5,9 @@ default: help
 format:
 	gdformat .
 
+find-format-error:
+	find . -name "*.gd" -not -path "./addons/*" -exec sh -c 'echo "Formatting {}" && gdformat {}' \;
+
 install-pre-commit:
 	pre-commit clean
 	pre-commit install

@@ -11,8 +11,9 @@
 
 # Gdscript
 
-# Gdlint
+# Gdlint & Gdformat
 - You can check @https://github.com/Scony/godot-gdscript-toolkit/wiki/3.-Linter#class-checks for more infos on the class-definitions-order warnings
+- If you have trouble using `make lint` or `make format`, take a look at `make install-venv-help`
 
 # Tests
 - When running a single test file, you can leverage the make test command. Pass the TEST_FILE parameter to specify the test to run.
