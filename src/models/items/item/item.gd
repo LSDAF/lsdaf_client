@@ -1,6 +1,7 @@
 class_name Item
 
 var client_id: String
+var blueprint_id: String
 var main_stat: ItemStat
 var additional_stats: Array[ItemStat]
 var rarity: ItemRarity.ItemRarity

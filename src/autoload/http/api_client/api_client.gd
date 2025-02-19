@@ -12,7 +12,7 @@ func _generate_headers(
 			[Services.user_local_data.get_access_token()]
 		)
 
-	if method == HTTPClient.METHOD_POST:
+	if method == HTTPClient.METHOD_POST or method == HTTPClient.METHOD_PUT:
 		building_headers["Content-Type"] = "application/json"
 
 	var headers: PackedStringArray = []
@@ -54,6 +54,21 @@ func post(
 
 	var response: HTTPResult = await Http.http_client.http.async_request(
 		url, headers, HTTPClient.METHOD_POST, request_data
+	)
+
+	_log_error(url, response)
+
+	return response
+
+
+func put(
+	url: String, auth: bool, body: Dictionary = {}, upsert_headers: Dictionary = {}
+) -> HTTPResult:
+	var headers := _generate_headers(upsert_headers, auth, HTTPClient.METHOD_PUT)
+	var request_data := JSON.stringify(body)
+
+	var response: HTTPResult = await Http.http_client.http.async_request(
+		url, headers, HTTPClient.METHOD_PUT, request_data
 	)
 
 	_log_error(url, response)
