@@ -98,7 +98,7 @@ func test_get_main_stat() -> void:
 
 # Parameters
 # [item_type, item_rarity]
-var test_get_blueprint_from_pools_parameters := [
+var test_get_random_blueprint_from_pools_parameters := [
 	[ItemType.ItemType.BOOTS, ItemRarity.ItemRarity.NORMAL],
 	[ItemType.ItemType.CHESTPLATE, ItemRarity.ItemRarity.NORMAL],
 	[ItemType.ItemType.GLOVES, ItemRarity.ItemRarity.NORMAL],
@@ -108,17 +108,19 @@ var test_get_blueprint_from_pools_parameters := [
 ]
 
 
-func test_get_blueprint_from_pools(
-	params: Array = use_parameters(test_get_blueprint_from_pools_parameters)
+func test_get_random_blueprint_from_pools(
+	params: Array = use_parameters(test_get_random_blueprint_from_pools_parameters)
 ) -> void:
 	# Arrange
 	var item_type: ItemType.ItemType = params[0]
 	var item_rarity: ItemRarity.ItemRarity = params[1]
 
 	# Act
-	var item_blueprint: ItemBlueprint = sut._get_blueprint_from_pools(item_type, item_rarity)
+	var item_blueprint: ItemBlueprint = sut._get_random_blueprint_from_pools(item_type, item_rarity)
 
 	# Assert
+	assert_not_null(item_blueprint)
+	assert_true(item_blueprint is ItemBlueprint)
 	assert_eq(item_blueprint.rarity, item_rarity)
 	assert_eq(item_blueprint.type, item_type)
 
@@ -148,12 +150,12 @@ func test_get_stats_pool_from_pools(
 	# Assert
 	assert_eq(item_stats_pool.main_stat.statistic is ItemStatistics.ItemStatistics, true)
 
-	var unique_stats_blueprint: Array[ItemStatBlueprint] = []
+	var unique_stats: Array[int] = []
 	for stat in item_stats_pool.potential_stats:
 		assert_true(stat is ItemStatBlueprint)
 		assert_true(stat.statistic is ItemStatistics.ItemStatistics)
-		assert_does_not_have(unique_stats_blueprint, stat.statistic)
-		unique_stats_blueprint.push_back(stat)
+		assert_false(unique_stats.has(stat.statistic))
+		unique_stats.push_back(stat.statistic)
 
 
 # Parameters

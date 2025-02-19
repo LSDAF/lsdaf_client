@@ -14,3 +14,4 @@ level = 0
 type = 3
 name = "Helmet 1"
 texture = SubResource("AtlasTexture_nl5oq")
+id = ""

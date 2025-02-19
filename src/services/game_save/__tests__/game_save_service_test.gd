@@ -457,6 +457,107 @@ func test_save_stage_failure() -> void:
 	assert_false(success)
 
 
+func test_save_inventory_create_failure() -> void:
+	# Arrange
+	var main_stat := ItemStat.new()
+	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
+	main_stat.base_value = 100
+
+	var additional_stat := ItemStat.new()
+	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
+	additional_stat.base_value = 50
+
+	var item1 := Item.new()
+	item1.client_id = "item1"
+	item1.blueprint_id = "sword_normal_1"
+	item1.main_stat = main_stat
+	item1.additional_stats = [additional_stat]
+	item1.rarity = ItemRarity.ItemRarity.NORMAL
+	item1.level = 1
+	item1.type = ItemType.ItemType.SWORD
+	item1.is_equipped = false
+
+	var items: Array[Item] = [item1]
+
+	var fetch_inventory_dto: Dictionary = {"items": []}
+
+	stub(inventory_service_partial_double, "get_items").to_return(items)
+	stub(inventory_api_partial_double, "fetch_game_save_inventory").to_return(
+		FetchInventoryDto.new(fetch_inventory_dto)
+	)
+	stub(inventory_api_partial_double, "create_game_save_inventory_item").to_return(false)
+
+	# Act
+	var result := await sut._save_inventory()
+
+	# Assert
+	assert_false(result)
+	assert_call_count(inventory_api_partial_double, "update_game_save_inventory_item", 0)
+	assert_call_count(inventory_api_partial_double, "create_game_save_inventory_item", 1)
+	assert_call_count(inventory_api_partial_double, "delete_game_save_inventory_item", 0)
+
+
+func test_save_inventory_update_failure() -> void:
+	# Arrange
+	var main_stat := ItemStat.new()
+	main_stat.statistic = ItemStatistics.ItemStatistics.ATTACK_ADD
+	main_stat.base_value = 100
+
+	var additional_stat := ItemStat.new()
+	additional_stat.statistic = ItemStatistics.ItemStatistics.HEALTH_ADD
+	additional_stat.base_value = 50
+
+	var item1 := Item.new()
+	item1.client_id = "item1"
+	item1.blueprint_id = "sword_normal_1"
+	item1.main_stat = main_stat
+	item1.additional_stats = [additional_stat]
+	item1.rarity = ItemRarity.ItemRarity.NORMAL
+	item1.level = 1
+	item1.type = ItemType.ItemType.SWORD
+	item1.is_equipped = false
+
+	var items: Array[Item] = [item1]
+
+	var item1_dict: Dictionary = {
+		"client_id": "item1",
+		"blueprint_id": "sword_normal_1",
+		"main_stat":
+		{
+			"statistic": ItemStatistics.ItemStatistics.keys()[main_stat.statistic],
+			"base_value": main_stat.base_value
+		},
+		"additional_stats":
+		[
+			{
+				"statistic": ItemStatistics.ItemStatistics.keys()[additional_stat.statistic],
+				"base_value": additional_stat.base_value
+			}
+		],
+		"rarity": ItemRarity.ItemRarity.keys()[item1.rarity],
+		"level": 1,
+		"type": ItemType.ItemType.keys()[item1.type],
+		"is_equipped": false
+	}
+
+	var fetch_inventory_dto: Dictionary = {"items": [item1_dict]}
+
+	stub(inventory_service_partial_double, "get_items").to_return(items)
+	stub(inventory_api_partial_double, "fetch_game_save_inventory").to_return(
+		FetchInventoryDto.new(fetch_inventory_dto)
+	)
+	stub(inventory_api_partial_double, "update_game_save_inventory_item").to_return(false)
+
+	# Act
+	var result := await sut._save_inventory()
+
+	# Assert
+	assert_false(result)
+	assert_call_count(inventory_api_partial_double, "update_game_save_inventory_item", 1)
+	assert_call_count(inventory_api_partial_double, "create_game_save_inventory_item", 0)
+	assert_call_count(inventory_api_partial_double, "delete_game_save_inventory_item", 0)
+
+
 func test_save_inventory_success() -> void:
 	# Arrange
 	var main_stat := ItemStat.new()

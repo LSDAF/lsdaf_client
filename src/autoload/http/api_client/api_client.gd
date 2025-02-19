@@ -7,10 +7,10 @@ func _generate_headers(
 ) -> PackedStringArray:
 	var building_headers: Dictionary
 
-	if auth:
-		building_headers["Authorization"] = "Bearer {0}".format(
-			[Services.user_local_data.get_access_token()]
-		)
+	if auth and Services.user_local_data != null:
+		var token := Services.user_local_data.get_access_token()
+		if token:
+			building_headers["Authorization"] = "Bearer {0}".format([token])
 
 	if method == HTTPClient.METHOD_POST or method == HTTPClient.METHOD_PUT:
 		building_headers["Content-Type"] = "application/json"

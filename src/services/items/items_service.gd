@@ -34,7 +34,7 @@ func create_item(item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarit
 	item.main_stat = _get_main_stat(item_stats_pool)
 	item.additional_stats = _get_additionnal_stats(item_stats_pool)
 
-	var item_blueprint: ItemBlueprint = _get_blueprint_from_pools(item_type, item_rarity)
+	var item_blueprint: ItemBlueprint = _get_random_blueprint_from_pools(item_type, item_rarity)
 	item.name = item_blueprint.name
 	item.texture = item_blueprint.texture
 
@@ -68,7 +68,7 @@ func _get_main_stat(item_stats_pool: ItemStatsPool) -> ItemStat:
 	return _roll_stat_value(item_stats_pool.main_stat)
 
 
-func _get_blueprint_from_pools(
+func _get_random_blueprint_from_pools(
 	item_type: ItemType.ItemType, item_rarity: ItemRarity.ItemRarity
 ) -> ItemBlueprint:
 	match item_type:

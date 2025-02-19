@@ -14,3 +14,4 @@ level = 0
 type = 5
 name = "Normal 2"
 texture = SubResource("AtlasTexture_an83e")
+id = ""

@@ -3,7 +3,6 @@ extends GutTest
 var sut: InventoryService
 
 var inventory_data := preload("res://src/data/inventory/inventory_data.gd")
-
 var inventory_data_partial_double: Variant
 
 
@@ -178,6 +177,26 @@ func test_level_up_item() -> void:
 
 func test_set_inventory_from_fetch_inventory_dto() -> void:
 	# Arrange
+	var test_blueprint_1 := ItemBlueprint.new()
+	test_blueprint_1.id = "sword_normal_1"
+	test_blueprint_1.name = "Test Sword"
+	test_blueprint_1.texture = null
+
+	var test_blueprint_2 := ItemBlueprint.new()
+	test_blueprint_2.id = "sword_normal_2"
+	test_blueprint_2.name = "Test Chestplate"
+	test_blueprint_2.texture = null
+
+	# Mock get_blueprint_from_id to return our test blueprints
+	var item_pools_double: ItemPools = double(ItemPools).new()
+	stub(item_pools_double, "get_blueprint_from_id").to_return(test_blueprint_1).when_passed(
+		"sword_normal_1"
+	)
+	stub(item_pools_double, "get_blueprint_from_id").to_return(test_blueprint_2).when_passed(
+		"sword_normal_2"
+	)
+	sut._item_pools = item_pools_double
+
 	var fetch_inventory_dto := (
 		FetchInventoryDto
 		. new(
@@ -216,34 +235,40 @@ func test_set_inventory_from_fetch_inventory_dto() -> void:
 
 	# Assert
 	assert_eq(inventory_data_partial_double.items.size(), 2)
+
+	# Verify first item
+	var item: Item = inventory_data_partial_double.items[0]
 	assert_eq(
-		inventory_data_partial_double.items[0].main_stat.statistic,
-		ItemStatistics.ItemStatistics.ATTACK_ADD
+		item.client_id, "36f27c2a-06e8-4bdb-bf59-56999116f5ef__11111111-1111-1111-1111-111111111111"
 	)
-	assert_eq(inventory_data_partial_double.items[0].main_stat.base_value, 1.0)
+	assert_eq(item.main_stat.statistic, ItemStatistics.ItemStatistics.ATTACK_ADD)
+	assert_eq(item.main_stat.base_value, 1.0)
+	assert_eq(item.additional_stats[0].statistic, ItemStatistics.ItemStatistics.CRIT_DAMAGE)
+	assert_eq(item.additional_stats[0].base_value, 3.0)
+	assert_eq(item.rarity, ItemRarity.ItemRarity.NORMAL)
+	assert_eq(item.level, 1)
+	assert_eq(item.type, ItemType.ItemType.SWORD)
+	assert_eq(item.is_equipped, false)
+	# Verify texture and name are set from the blueprint
+	assert_eq(item.texture, test_blueprint_1.texture)
+	assert_eq(item.name, test_blueprint_1.name)
+
+	# Verify second item
+	item = inventory_data_partial_double.items[1]
 	assert_eq(
-		inventory_data_partial_double.items[0].additional_stats[0].statistic,
-		ItemStatistics.ItemStatistics.CRIT_DAMAGE
+		item.client_id, "36f27c2a-06e8-4bdb-bf59-56999116f5ef__22222222-2222-2222-2222-222222222222"
 	)
-	assert_eq(inventory_data_partial_double.items[0].additional_stats[0].base_value, 3.0)
-	assert_eq(inventory_data_partial_double.items[0].rarity, ItemRarity.ItemRarity.NORMAL)
-	assert_eq(inventory_data_partial_double.items[0].level, 1)
-	assert_eq(inventory_data_partial_double.items[0].type, ItemType.ItemType.SWORD)
-	assert_eq(inventory_data_partial_double.items[0].is_equipped, false)
-	assert_eq(
-		inventory_data_partial_double.items[1].main_stat.statistic,
-		ItemStatistics.ItemStatistics.CRIT_CHANCE
-	)
-	assert_eq(inventory_data_partial_double.items[1].main_stat.base_value, 2.0)
-	assert_eq(
-		inventory_data_partial_double.items[1].additional_stats[0].statistic,
-		ItemStatistics.ItemStatistics.HEALTH_ADD
-	)
-	assert_eq(inventory_data_partial_double.items[1].additional_stats[0].base_value, 4.0)
-	assert_eq(inventory_data_partial_double.items[1].rarity, ItemRarity.ItemRarity.NORMAL)
-	assert_eq(inventory_data_partial_double.items[1].level, 10)
-	assert_eq(inventory_data_partial_double.items[1].type, ItemType.ItemType.CHESTPLATE)
-	assert_eq(inventory_data_partial_double.items[1].is_equipped, true)
+	assert_eq(item.main_stat.statistic, ItemStatistics.ItemStatistics.CRIT_CHANCE)
+	assert_eq(item.main_stat.base_value, 2.0)
+	assert_eq(item.additional_stats[0].statistic, ItemStatistics.ItemStatistics.HEALTH_ADD)
+	assert_eq(item.additional_stats[0].base_value, 4.0)
+	assert_eq(item.rarity, ItemRarity.ItemRarity.NORMAL)
+	assert_eq(item.level, 10)
+	assert_eq(item.type, ItemType.ItemType.CHESTPLATE)
+	assert_eq(item.is_equipped, true)
+	# Verify texture and name are set from the blueprint
+	assert_eq(item.texture, test_blueprint_2.texture)
+	assert_eq(item.name, test_blueprint_2.name)
 
 
 func test_unequip_item() -> void:
