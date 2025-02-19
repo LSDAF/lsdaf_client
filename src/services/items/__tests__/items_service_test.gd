@@ -97,14 +97,86 @@ func test_get_main_stat() -> void:
 
 
 # Parameters
-# [item_type, item_rarity]
+# [item_type, item_rarity, expected_type, expected_rarity]
 var test_get_random_blueprint_from_pools_parameters := [
-	[ItemType.ItemType.BOOTS, ItemRarity.ItemRarity.NORMAL],
-	[ItemType.ItemType.CHESTPLATE, ItemRarity.ItemRarity.NORMAL],
-	[ItemType.ItemType.GLOVES, ItemRarity.ItemRarity.NORMAL],
-	[ItemType.ItemType.HELMET, ItemRarity.ItemRarity.NORMAL],
-	[ItemType.ItemType.SHIELD, ItemRarity.ItemRarity.NORMAL],
-	[ItemType.ItemType.SWORD, ItemRarity.ItemRarity.NORMAL],
+	# Normal rarity cases
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.NORMAL,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.NORMAL,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.GLOVES,
+		ItemRarity.ItemRarity.NORMAL,
+		ItemType.ItemType.GLOVES,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.HELMET,
+		ItemRarity.ItemRarity.NORMAL,
+		ItemType.ItemType.HELMET,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.NORMAL,
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Rare rarity cases (should fall back to normal sword since rare pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.GLOVES,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.HELMET,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Invalid type case (should fall back to normal sword)
+	[99, ItemRarity.ItemRarity.NORMAL, ItemType.ItemType.SWORD, ItemRarity.ItemRarity.NORMAL],
+	# Invalid rarity case (should fall back to normal sword)
+	[ItemType.ItemType.BOOTS, 99, ItemType.ItemType.SWORD, ItemRarity.ItemRarity.NORMAL],
 ]
 
 
@@ -114,6 +186,8 @@ func test_get_random_blueprint_from_pools(
 	# Arrange
 	var item_type: ItemType.ItemType = params[0]
 	var item_rarity: ItemRarity.ItemRarity = params[1]
+	var expected_type: ItemType.ItemType = params[2]
+	var expected_rarity: ItemRarity.ItemRarity = params[3]
 
 	# Act
 	var item_blueprint: ItemBlueprint = sut._get_random_blueprint_from_pools(item_type, item_rarity)
@@ -121,8 +195,8 @@ func test_get_random_blueprint_from_pools(
 	# Assert
 	assert_not_null(item_blueprint)
 	assert_true(item_blueprint is ItemBlueprint)
-	assert_eq(item_blueprint.rarity, item_rarity)
-	assert_eq(item_blueprint.type, item_type)
+	assert_eq(item_blueprint.type, expected_type)
+	assert_eq(item_blueprint.rarity, expected_rarity)
 
 
 # Parameters
