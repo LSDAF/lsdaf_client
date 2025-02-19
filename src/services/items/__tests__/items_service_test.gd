@@ -53,6 +53,8 @@ func test_create_item() -> void:
 	assert_eq(item.type, item_type)
 	assert_eq(item.rarity, item_rarity)
 	assert_not_null(item.client_id)
+	assert_not_null(item.blueprint_id)
+	assert_ne(item.blueprint_id, "")
 
 
 func test_get_additional_stats() -> void:

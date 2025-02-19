@@ -14,4 +14,4 @@ level = 0
 type = 5
 name = "Normal 1"
 texture = SubResource("AtlasTexture_o134b")
-id = ""
+id = "sword_normal_1"
