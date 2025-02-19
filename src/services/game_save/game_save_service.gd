@@ -146,37 +146,127 @@ func _save_stage() -> bool:
 	)
 
 
-func _save_inventory() -> bool:
-	var success := true
-	var items := _inventory_service.get_items()
+func _convert_item_to_dto(item: Item) -> InventoryItemDto:
+	return InventoryItemDto.new({
+		"client_id": item.client_id,
+		"blueprint_id": item.blueprint_id,
+		"main_stat": {
+			"statistic": ItemStatistics.ItemStatistics.keys()[item.main_stat.statistic],
+			"base_value": item.main_stat.base_value
+		},
+		"additional_stats": item.additional_stats.map(func(stat: ItemStat) -> Dictionary: return {
+			"statistic": ItemStatistics.ItemStatistics.keys()[stat.statistic],
+			"base_value": stat.base_value
+		}),
+		"rarity": ItemRarity.ItemRarity.keys()[item.rarity],
+		"level": item.level,
+		"type": ItemType.ItemType.keys()[item.type],
+		"is_equipped": item.is_equipped
+	})
 
-	for item in items:
-		var item_dto := InventoryItemDto.new({
-			"client_id": item.client_id,
-			"blueprint_id": item.blueprint_id,
-			"main_stat": {
-				"statistic": ItemStatistics.ItemStatistics.keys()[item.main_stat.statistic],
-				"base_value": item.main_stat.base_value
-			},
-			"additional_stats": item.additional_stats.map(func(stat: ItemStat) -> Dictionary: return {
-				"statistic": ItemStatistics.ItemStatistics.keys()[stat.statistic],
-				"base_value": stat.base_value
-			}),
-			"rarity": ItemRarity.ItemRarity.keys()[item.rarity],
-			"level": item.level,
-			"type": ItemType.ItemType.keys()[item.type],
-			"is_equipped": item.is_equipped
-		})
 
-		var update_success := await _inventory_api.update_game_save_inventory_item(
+func _get_local_items_dto() -> Array[InventoryItemDto]:
+	var local_items := _inventory_service.get_items()
+	var local_items_dto: Array[InventoryItemDto] = []
+
+	for item in local_items:
+		local_items_dto.append(_convert_item_to_dto(item))
+
+	return local_items_dto
+
+
+func _organize_items(
+	db_inventory: FetchInventoryDto, local_items_dto: Array[InventoryItemDto]
+) -> Dictionary:
+	var db_items_by_client_id: Dictionary = {}
+	for db_item: InventoryItemDto in db_inventory.items:
+		db_items_by_client_id[db_item.client_id] = db_item
+
+	var local_items_by_client_id: Dictionary = {}
+	for local_item: InventoryItemDto in local_items_dto:
+		local_items_by_client_id[local_item.client_id] = local_item
+
+	var items_to_delete: Array[String] = []
+	var items_to_update: Array[InventoryItemDto] = []
+	var items_to_create: Array[InventoryItemDto] = []
+
+	# Find items to delete and update
+	for db_client_id: String in db_items_by_client_id.keys():
+		if not local_items_by_client_id.has(db_client_id):
+			items_to_delete.append(db_client_id)
+		else:
+			items_to_update.append(local_items_by_client_id[db_client_id])
+
+	# Find items to create
+	for local_client_id: String in local_items_by_client_id.keys():
+		if not db_items_by_client_id.has(local_client_id):
+			items_to_create.append(local_items_by_client_id[local_client_id])
+
+	return {
+		"items_to_delete": items_to_delete,
+		"items_to_update": items_to_update,
+		"items_to_create": items_to_create
+	}
+
+
+func _execute_inventory_operations(
+	items_to_delete: Array[String],
+	items_to_create: Array[InventoryItemDto],
+	items_to_update: Array[InventoryItemDto]
+) -> bool:
+	var success: bool = true
+
+	# Delete items
+	for client_id in items_to_delete:
+		if not await _inventory_api.delete_game_save_inventory_item(
 			_game_save_data._game_save_id,
-			item_dto,
+			client_id,
 			_on_save_inventory_error
-		)
-		if not update_success:
+		):
+			success = false
+
+	# Create new items
+	for item in items_to_create:
+		if not await _inventory_api.create_game_save_inventory_item(
+			_game_save_data._game_save_id,
+			item,
+			_on_save_inventory_error
+		):
+			success = false
+
+	# Update existing items
+	for item in items_to_update:
+		if not await _inventory_api.update_game_save_inventory_item(
+			_game_save_data._game_save_id,
+			item,
+			_on_save_inventory_error
+		):
 			success = false
 
 	return success
+
+
+func _save_inventory() -> bool:
+	# 1. Get current inventory from DB
+	var db_inventory: FetchInventoryDto = await _inventory_api.fetch_game_save_inventory(
+		_game_save_data._game_save_id,
+		_on_fetch_inventory_error
+	)
+	if not db_inventory:
+		return false
+
+	# 2. Convert local items to DTOs
+	var local_items_dto := _get_local_items_dto()
+
+	# 3. Compare and organize items
+	var organized_items := _organize_items(db_inventory, local_items_dto)
+
+	# 4. Execute operations
+	return await _execute_inventory_operations(
+		organized_items["items_to_delete"],
+		organized_items["items_to_create"],
+		organized_items["items_to_update"]
+	)
 
 
 func _on_fetch_characteristics_error(response: Variant) -> void:
