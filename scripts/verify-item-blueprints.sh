@@ -53,8 +53,6 @@ for type in "${types[@]}"; do
             if [ -f "$file" ]; then
                 # Get the full file content
                 content=$(cat "$file")
-                echo "$content"
-                echo ""
                 
                 # Extract ID and name from [resource] section
                 resource_content=$(echo "$content" | sed -n '/\[resource\]/,/^$/p')
@@ -97,8 +95,10 @@ for type in "${types[@]}"; do
 done
 
 echo ""
+echo "${total_files} files to be checked."
+
+echo ""
 echo "Checking for duplicate IDs..."
-duplicates=0
 for i in "${!all_ids[@]}"; do
     for j in "${!all_ids[@]}"; do
         if [ $i -ne $j ] && [ "${all_ids[i]}" = "${all_ids[j]}" ]; then
@@ -107,13 +107,9 @@ for i in "${!all_ids[@]}"; do
         fi
     done
 done
-if [ $duplicates -eq 0 ]; then
-    echo "✅ No duplicate IDs found"
-fi
 
 echo ""
 echo "Checking for duplicate names..."
-duplicates=0
 for i in "${!all_names[@]}"; do
     for j in "${!all_names[@]}"; do
         if [ $i -ne $j ] && [ "${all_names[i]}" = "${all_names[j]}" ]; then
@@ -122,13 +118,9 @@ for i in "${!all_names[@]}"; do
         fi
     done
 done
-if [ $duplicates -eq 0 ]; then
-    echo "✅ No duplicate names found"
-fi
 
 echo ""
 echo "Checking for duplicate texture rectangles..."
-duplicates=0
 for i in "${!all_rects[@]}"; do
     for j in "${!all_rects[@]}"; do
         if [ $i -ne $j ] && [ "${all_rects[i]}" = "${all_rects[j]}" ]; then
@@ -139,9 +131,6 @@ for i in "${!all_rects[@]}"; do
         fi
     done
 done
-if [ $duplicates -eq 0 ]; then
-    echo "✅ No duplicate texture rectangles found"
-fi
 
 # Print errors if any exist
 if [ ${#error_messages[@]} -gt 0 ]; then
