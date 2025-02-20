@@ -212,6 +212,80 @@ var test_get_random_blueprint_from_pools_parameters := [
 		ItemType.ItemType.SWORD,
 		ItemRarity.ItemRarity.RARE
 	],
+	# Magic rarity cases (when magic pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.GLOVES,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.HELMET,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Magic rarity cases (when magic pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	[
+		ItemType.ItemType.GLOVES,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.GLOVES,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	[
+		ItemType.ItemType.HELMET,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.HELMET,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	[
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	[
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.MAGIC
+	],
 	# Invalid type case (should fall back to normal sword)
 	[99, ItemRarity.ItemRarity.NORMAL, ItemType.ItemType.SWORD, ItemRarity.ItemRarity.NORMAL],
 	# Invalid rarity case (should fall back to normal sword)
@@ -238,17 +312,17 @@ func test_get_random_blueprint_from_pools(
 	# When the rare pools are empty, we expect a fallback to normal sword
 	# When the rare pools have items, we expect the correct rare item type
 	if (
-		item_rarity == ItemRarity.ItemRarity.RARE
-		and item_blueprint.rarity == ItemRarity.ItemRarity.RARE
+		(item_rarity == ItemRarity.ItemRarity.RARE or item_rarity == ItemRarity.ItemRarity.MAGIC)
+		and item_blueprint.rarity == item_rarity
 	):
-		# If we got a rare item, its type should match the requested type
+		# If we got a rare/magic item, its type should match the requested type
 		assert_eq(item_blueprint.type, item_type)
-		assert_eq(item_blueprint.rarity, ItemRarity.ItemRarity.RARE)
+		assert_eq(item_blueprint.rarity, item_rarity)
 	elif (
-		item_rarity == ItemRarity.ItemRarity.RARE
+		(item_rarity == ItemRarity.ItemRarity.RARE or item_rarity == ItemRarity.ItemRarity.MAGIC)
 		and item_blueprint.rarity == ItemRarity.ItemRarity.NORMAL
 	):
-		# If we got a normal item when requesting rare, it should be a normal sword (fallback)
+		# If we got a normal item when requesting rare/magic, it should be a normal sword (fallback)
 		assert_eq(item_blueprint.type, ItemType.ItemType.SWORD)
 		assert_eq(item_blueprint.rarity, ItemRarity.ItemRarity.NORMAL)
 	else:

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=4 format=3 uid="uid://cak2q5j6m3n5i"]
+
+[ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="2_dkkfm"]
+[ext_resource type="Texture2D" uid="uid://cfaljyycvagbd" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="3_xkkyj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o134b"]
+atlas = ExtResource("3_xkkyj")
+region = Rect2(91, 91, 21, 21)
+
+[resource]
+script = ExtResource("2_dkkfm")
+rarity = 2
+level = 0
+type = 2
+name = "Magic Gloves 2"
+texture = SubResource("AtlasTexture_o134b")
+id = "gloves_magic_2"
