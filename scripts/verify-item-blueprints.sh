@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Track failures
+has_failures=0
+
 # Item types
 types=("boots" "chestplates" "gloves" "helmets" "shields" "swords")
 rarities=("epic" "legendary" "mythic")
@@ -59,6 +62,7 @@ for i in "${!all_ids[@]}"; do
         if [ $i -ne $j ] && [ "${all_ids[i]}" = "${all_ids[j]}" ]; then
             echo "DUPLICATE ID FOUND: ${all_ids[i]}"
             duplicates=1
+            has_failures=1
         fi
     done
 done
@@ -74,6 +78,7 @@ for i in "${!all_names[@]}"; do
         if [ $i -ne $j ] && [ "${all_names[i]}" = "${all_names[j]}" ]; then
             echo "DUPLICATE NAME FOUND: ${all_names[i]}"
             duplicates=1
+            has_failures=1
         fi
     done
 done
@@ -92,9 +97,13 @@ for i in "${!all_rects[@]}"; do
             echo "  - ${rect_files[i]}"
             echo "  - ${rect_files[j]}"
             duplicates=1
+            has_failures=1
         fi
     done
 done
 if [ $duplicates -eq 0 ]; then
     echo "✅ No duplicate texture rectangles found"
 fi
+
+# Exit with failure if any issues were found
+exit $has_failures
