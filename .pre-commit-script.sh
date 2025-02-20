@@ -18,6 +18,11 @@ pip install --quiet -r requirements.txt
 # Get a list of staged files
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
 
+# Exit early if no files are staged
+if [ -z "$STAGED_FILES" ]; then
+    exit 0
+fi
+
 # Run the checks
 echo -e "${GREEN}Running GDToolkit checks...${NC}"
 if ! ./scripts/gdtoolkit.sh $STAGED_FILES; then
