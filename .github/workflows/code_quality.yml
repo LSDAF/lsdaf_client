@@ -77,3 +77,25 @@ jobs:
                 run: |
                     chmod +x ./scripts/strict-layers.sh
                     ./scripts/strict-layers.sh --directory src
+
+    blueprints:
+        name: "🎨 Check Item Blueprints"
+        runs-on: 'ubuntu-22.04'
+        timeout-minutes: 10
+        permissions:
+            actions: write
+            checks: write
+            contents: write
+            pull-requests: write
+            statuses: write
+        steps:
+            -   name: 📥 Checkout
+                uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            -   name: 🎨 Run blueprint verification
+                shell: bash
+                run: |
+                    chmod +x ./scripts/verify-item-blueprints.sh
+                    ./scripts/verify-item-blueprints.sh
