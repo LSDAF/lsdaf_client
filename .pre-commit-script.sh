@@ -34,6 +34,11 @@ if ! ./scripts/strict-layers.sh $STAGED_FILES; then
     exit 1
 fi
 
+echo -e "${GREEN}Running item blueprint verification...${NC}"
+if ! ./scripts/verify-item-blueprints.sh; then
+    exit 1
+fi
+
 # All checks passed, add the files back to staging
 for file in $STAGED_FILES; do
     git add "$file"
