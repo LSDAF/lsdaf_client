@@ -1,13 +1,16 @@
-[gd_resource type="Resource" script_class="ItemPool" load_steps=7 format=3 uid="uid://csjgdgh03df5v"]
+[gd_resource type="Resource" script_class="ItemPool" load_steps=9 format=3 uid="uid://csjgdgh03df5v"]
 
 [ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="1_r5i66"]
 [ext_resource type="Resource" uid="uid://dao5ux4wpgx2l" path="res://src/resources/items/blueprints/shields/normal/normal_shield_1.tres" id="2_2e3qu"]
 [ext_resource type="Resource" uid="uid://c0sx5wlgjqqc6" path="res://src/resources/items/blueprints/shields/normal/normal_shield_2.tres" id="3_ge1nt"]
 [ext_resource type="Resource" uid="uid://c8k2q5j6m3n5d" path="res://src/resources/items/blueprints/shields/rare/rare_shield_1.tres" id="4_rshield"]
 [ext_resource type="Resource" uid="uid://d1k2q5j6m3n5e" path="res://src/resources/items/blueprints/shields/rare/rare_shield_2.tres" id="5_rshield"]
-[ext_resource type="Script" path="res://src/models/items/item_blueprint/pools/item_pool.gd" id="6_oqtmb"]
+[ext_resource type="Resource" uid="uid://bck2q5j6m3n5h" path="res://src/resources/items/blueprints/shields/magic/magic_shield_1.tres" id="6_mshield"]
+[ext_resource type="Resource" uid="uid://cck2q5j6m3n5i" path="res://src/resources/items/blueprints/shields/magic/magic_shield_2.tres" id="7_mshield"]
+[ext_resource type="Script" path="res://src/models/items/item_blueprint/pools/item_pool.gd" id="8_oqtmb"]
 
 [resource]
-script = ExtResource("6_oqtmb")
+script = ExtResource("8_oqtmb")
 normal = Array[ExtResource("1_r5i66")]([ExtResource("2_2e3qu"), ExtResource("3_ge1nt")])
 rare = Array[ExtResource("1_r5i66")]([ExtResource("4_rshield"), ExtResource("5_rshield")])
+magic = Array[ExtResource("1_r5i66")]([ExtResource("6_mshield"), ExtResource("7_mshield")])

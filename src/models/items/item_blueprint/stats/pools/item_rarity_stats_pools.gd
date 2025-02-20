@@ -3,3 +3,4 @@ extends Resource
 
 @export var normal: ItemStatsPool
 @export var rare: ItemStatsPool
+@export var magic: ItemStatsPool
