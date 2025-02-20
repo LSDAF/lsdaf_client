@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=4 format=3 uid="uid://c8k2q5j6m3n5b"]
+
+[ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="1_gciky"]
+[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="3_5g8bi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8u0o"]
+atlas = ExtResource("3_5g8bi")
+region = Rect2(28, 7, 16, 16)
+
+[resource]
+script = ExtResource("1_gciky")
+rarity = 1
+level = 0
+type = 3
+name = "Rare Helmet 1"
+texture = SubResource("AtlasTexture_v8u0o")
+id = "helmet_rare_1"
