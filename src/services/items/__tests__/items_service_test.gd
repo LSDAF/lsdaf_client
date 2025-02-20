@@ -225,6 +225,200 @@ var test_get_random_blueprint_from_pools_parameters := [
 		ItemType.ItemType.SWORD,
 		ItemRarity.ItemRarity.NORMAL
 	],
+	# Magic rarity cases (when magic pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MAGIC
+	],
+	# Epic rarity cases (when epic pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Epic rarity cases (when epic pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.EPIC
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.EPIC
+	],
+	# Legendary rarity cases (when legendary pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Legendary rarity cases (when legendary pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.LEGENDARY
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.LEGENDARY
+	],
+	# Mythic rarity cases (when mythic pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Mythic rarity cases (when mythic pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MYTHIC
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MYTHIC
+	],
+	# Epic rarity cases (when epic pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Epic rarity cases (when epic pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.EPIC
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.EPIC,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.EPIC
+	],
+	# Legendary rarity cases (when legendary pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Legendary rarity cases (when legendary pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.LEGENDARY
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.LEGENDARY,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.LEGENDARY
+	],
+	# Mythic rarity cases (when mythic pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	# Mythic rarity cases (when mythic pools have items)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MYTHIC
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MYTHIC,
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MYTHIC
+	],
+	[
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SHIELD,
+		ItemRarity.ItemRarity.RARE
+	],
+	[
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.RARE,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.RARE
+	],
+	# Magic rarity cases (when magic pools are empty)
+	[
+		ItemType.ItemType.BOOTS,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
+	[
+		ItemType.ItemType.CHESTPLATE,
+		ItemRarity.ItemRarity.MAGIC,
+		ItemType.ItemType.SWORD,
+		ItemRarity.ItemRarity.NORMAL
+	],
 	[
 		ItemType.ItemType.GLOVES,
 		ItemRarity.ItemRarity.MAGIC,
@@ -309,20 +503,32 @@ func test_get_random_blueprint_from_pools(
 	assert_not_null(item_blueprint)
 	assert_true(item_blueprint is ItemBlueprint)
 
-	# When the rare pools are empty, we expect a fallback to normal sword
-	# When the rare pools have items, we expect the correct rare item type
+	# When pools are empty, we expect a fallback to normal sword
+	# When pools have items, we expect the correct item type and rarity
 	if (
-		(item_rarity == ItemRarity.ItemRarity.RARE or item_rarity == ItemRarity.ItemRarity.MAGIC)
+		(
+			item_rarity == ItemRarity.ItemRarity.RARE
+			or item_rarity == ItemRarity.ItemRarity.MAGIC
+			or item_rarity == ItemRarity.ItemRarity.EPIC
+			or item_rarity == ItemRarity.ItemRarity.LEGENDARY
+			or item_rarity == ItemRarity.ItemRarity.MYTHIC
+		)
 		and item_blueprint.rarity == item_rarity
 	):
-		# If we got a rare/magic item, its type should match the requested type
+		# If we got a matching rarity item, its type should match the requested type
 		assert_eq(item_blueprint.type, item_type)
 		assert_eq(item_blueprint.rarity, item_rarity)
 	elif (
-		(item_rarity == ItemRarity.ItemRarity.RARE or item_rarity == ItemRarity.ItemRarity.MAGIC)
+		(
+			item_rarity == ItemRarity.ItemRarity.RARE
+			or item_rarity == ItemRarity.ItemRarity.MAGIC
+			or item_rarity == ItemRarity.ItemRarity.EPIC
+			or item_rarity == ItemRarity.ItemRarity.LEGENDARY
+			or item_rarity == ItemRarity.ItemRarity.MYTHIC
+		)
 		and item_blueprint.rarity == ItemRarity.ItemRarity.NORMAL
 	):
-		# If we got a normal item when requesting rare/magic, it should be a normal sword (fallback)
+		# If we got a normal item when requesting higher rarity, it should be a normal sword (fallback)
 		assert_eq(item_blueprint.type, ItemType.ItemType.SWORD)
 		assert_eq(item_blueprint.rarity, ItemRarity.ItemRarity.NORMAL)
 	else:

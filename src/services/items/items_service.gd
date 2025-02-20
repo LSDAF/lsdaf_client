@@ -101,6 +101,21 @@ func _get_random_blueprint_from_pools(
 				push_error("No rare items in pool for type: %s" % item_type)
 				return item_pools.swords.normal[0]
 			return pool.rare.pick_random()
+		ItemRarity.ItemRarity.EPIC:
+			if pool.epic.is_empty():
+				push_error("No epic items in pool for type: %s" % item_type)
+				return item_pools.swords.normal[0]
+			return pool.epic.pick_random()
+		ItemRarity.ItemRarity.LEGENDARY:
+			if pool.legendary.is_empty():
+				push_error("No legendary items in pool for type: %s" % item_type)
+				return item_pools.swords.normal[0]
+			return pool.legendary.pick_random()
+		ItemRarity.ItemRarity.MYTHIC:
+			if pool.mythic.is_empty():
+				push_error("No mythic items in pool for type: %s" % item_type)
+				return item_pools.swords.normal[0]
+			return pool.mythic.pick_random()
 		_:
 			push_error("Unknown rarity: %s" % item_rarity)
 			return item_pools.swords.normal[0]
