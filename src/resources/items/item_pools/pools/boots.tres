@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="ItemPool" load_steps=5 format=3 uid="uid://ydwwgb42h6tw"]
+[gd_resource type="Resource" script_class="ItemPool" load_steps=7 format=3 uid="uid://ydwwgb42h6tw"]
 
 [ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="1_geplt"]
 [ext_resource type="Resource" uid="uid://b7iuepc1s4s81" path="res://src/resources/items/blueprints/boots/normal/normal_boots_1.tres" id="2_uu5mg"]
 [ext_resource type="Resource" uid="uid://cnh38nfo1yxty" path="res://src/resources/items/blueprints/boots/normal/normal_boots_2.tres" id="3_a1tg0"]
-[ext_resource type="Script" path="res://src/models/items/item_blueprint/pools/item_pool.gd" id="4_31ap2"]
+[ext_resource type="Resource" uid="uid://c8k2q5j6m3n4v" path="res://src/resources/items/blueprints/boots/rare/rare_boots_1.tres" id="4_rboot"]
+[ext_resource type="Resource" uid="uid://d1k2q5j6m3n4w" path="res://src/resources/items/blueprints/boots/rare/rare_boots_2.tres" id="5_rboot"]
+[ext_resource type="Script" path="res://src/models/items/item_blueprint/pools/item_pool.gd" id="6_31ap2"]
 
 [resource]
-script = ExtResource("4_31ap2")
+script = ExtResource("6_31ap2")
 normal = Array[ExtResource("1_geplt")]([ExtResource("2_uu5mg"), ExtResource("3_a1tg0")])
-rare = Array[ExtResource("1_geplt")]([])
+rare = Array[ExtResource("1_geplt")]([ExtResource("4_rboot"), ExtResource("5_rboot")])
