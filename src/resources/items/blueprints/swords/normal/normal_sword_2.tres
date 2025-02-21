@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=4 format=3 uid="uid://bwkxuy7k5og4q"]
+[gd_resource type="Resource" script_class="ItemBlueprint" load_steps=3 format=3 uid="uid://cag6siiv80huh"]
 
+[ext_resource type="Texture2D" path="res://asset/items/items/Weapon_Singles/Copper/Copper_Weapon2.png" id="2_3aggy"]
 [ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="2_wnq25"]
-[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="res://asset/items/items/Armor_Singles/Copper/Copper_Swords7.png" id="2_3aggy"][resource]
+
+[resource]
 script = ExtResource("2_wnq25")
 rarity = 0
 level = 0

@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dilg0e5h66qys"]
+[gd_scene load_steps=4 format=3 uid="uid://dilg0e5h66qys"]
 
 [ext_resource type="Script" path="res://src/elements/hud/inventory_menu/item_details_menu/item_details_menu.gd" id="1_jvtpm"]
 [ext_resource type="Texture2D" uid="uid://dl0fyacx1bv8i" path="res://asset/items/currencies/amethyst.png" id="2_w28rc"]
-[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="res://asset/items/items/Armor_Singles/Copper/Copper_Boots2.png" id="2_yq722"
+[ext_resource type="Texture2D" uid="uid://dsmvolo2qgwu" path="res://asset/items/items/Weapon_Singles/Copper/Copper_Weapon2.png" id="2_yq722"]
 
 [node name="ItemDetailsMenu" type="Control"]
 layout_mode = 3
@@ -34,7 +34,7 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("AtlasTexture_jikcy")
+texture = ExtResource("2_yq722")
 stretch_mode = 5
 
 [node name="ItemRarityLabel" type="Label" parent="ItemsDetailVBoxContainer"]
