@@ -1,0 +1,61 @@
+name: 🎨 Asset Checks
+
+on:
+    pull_request:
+    workflow_dispatch:
+
+concurrency:
+    group: asset-checks-${{ github.event.number }}
+    cancel-in-progress: true
+
+jobs:
+    blueprints:
+        name: "🖼️ Check Item Blueprints"
+        runs-on: 'ubuntu-22.04'
+        timeout-minutes: 10
+        permissions:
+            actions: write
+            checks: write
+            contents: write
+            pull-requests: write
+            statuses: write
+        steps:
+            -   name: 📥 Checkout
+                uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            -   name: 🖼️ Run blueprint verification
+                shell: bash
+                run: |
+                    chmod +x ./scripts/verify-item-blueprints.sh
+                    ./scripts/verify-item-blueprints.sh
+
+    unused-assets:
+        name: "🔍 Check Unused Assets"
+        runs-on: 'ubuntu-22.04'
+        timeout-minutes: 10
+        permissions:
+            actions: write
+            checks: write
+            contents: write
+            pull-requests: write
+            statuses: write
+        steps:
+            -   name: 📥 Checkout
+                uses: actions/checkout@v4
+                with:
+                    lfs: true
+
+            -   name: 🌱 Setup Python and venv
+                uses: ./.github/actions/setup-venv
+
+            -   name: 🔍 Check for unused assets
+                shell: bash
+                run: |
+                    chmod +x ./scripts/one_shot/find_unused_assets.py
+                    ./scripts/one_shot/find_unused_assets.py > unused_assets_report.txt
+                    if [ -s unused_assets_report.txt ]; then
+                        echo "::warning::Found unused assets. Check unused_assets_report.txt for details."
+                        cat unused_assets_report.txt
+                    fi
