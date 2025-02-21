@@ -3,15 +3,11 @@
 [ext_resource type="Script" path="res://src/elements/hud/inventory_menu/inventory_item/inventory_item.gd" id="1_pftji"]
 [ext_resource type="Texture2D" uid="uid://dtc5j5acibygw" path="res://asset/ui/wood/Shadow/UI_Wood_A_NoBorder.png" id="2_hm3w1"]
 [ext_resource type="Texture2D" uid="uid://2ba3docwbyc4" path="res://asset/ui/selection_box_item.png" id="3_234bb"]
-[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="4_w5ilh"]
+[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="res://asset/items/items/Armor_Singles/Copper/Copper_Boots2.png" id="4_w5ilh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kdlx"]
 atlas = ExtResource("2_hm3w1")
 region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pe8o1"]
-atlas = ExtResource("4_w5ilh")
-region = Rect2(291, 43, 25, 15)
 
 [node name="InventoryItem" type="Button"]
 custom_minimum_size = Vector2(64, 64)
