@@ -1,31 +1,30 @@
 #!/bin/bash
 
 # Track failures and counters
-texture_failures=0
 missing_files=0
 id_duplicates=0
 name_duplicates=0
-rect_duplicates=0
+sprite_duplicates=0
 
 # Store errors for summary
 declare -a error_messages
 
 # Initialize counters
 total_files=0
-texture_rect_count=0
 total_ids=0
 total_names=0
-total_rects=0
+total_sprites=0
 
-# Atlas texture constants
-TEXTURE_WIDTH=32      # Width of each chunk in the atlas
-TEXTURE_HEIGHT=32     # Height of each chunk in the atlas
-TEXTURE_PADDING_LEFT=0  # Left padding within each chunk
-TEXTURE_PADDING_TOP=0   # Top padding within each chunk
+# Arrays to store all IDs, names, and sprite paths for uniqueness check
+declare -a all_ids
+declare -a all_names
+declare -a all_sprites
+declare -a sprite_files
+declare -a unique_sprite_paths
 
 # Item types
 types=("boots" "chestplates" "gloves" "helmets" "shields" "swords")
-rarities=("epic" "legendary" "mythic")
+rarities=("normal" "magic" "rare" "epic" "legendary" "mythic")
 
 # Arrays to store all IDs, names, and texture rects for uniqueness check
 declare -a all_ids
@@ -41,11 +40,11 @@ for type in "${types[@]}"; do
     for rarity in "${rarities[@]}"; do
         echo "  $rarity:"
         for num in 1 2; do
-            # Remove 's' from type if it's not 'gloves'
-            if [ "$type" != "gloves" ]; then
-                singular_type=${type%s}
-            else
+            # Keep plural for boots and gloves, singular for others
+            if [ "$type" = "boots" ] || [ "$type" = "gloves" ]; then
                 singular_type=$type
+            else
+                singular_type=${type%s}
             fi
             file="src/resources/items/blueprints/$type/$rarity/${rarity}_${singular_type}_${num}.tres"
             total_files=$((total_files + 1))
@@ -59,33 +58,31 @@ for type in "${types[@]}"; do
                 id=$(echo "$resource_content" | grep 'id = ' | cut -d'"' -f2)
                 name=$(echo "$resource_content" | grep 'name = ' | cut -d'"' -f2)
                 
-                # Extract texture rect from [sub_resource] section
-                rect=$(echo "$content" | grep 'region = Rect2' | sed -E 's/.*region = Rect2\(([^)]*)\).*/\1/')
-                
-                # Parse rect coordinates
-                IFS=', ' read -r x y width height <<< "$rect"
-                
-                # Check texture rect alignment
-                if ! [[ $x =~ ^[0-9]+$ ]] || ! [[ $y =~ ^[0-9]+$ ]] || ! [[ $width =~ ^[0-9]+$ ]] || ! [[ $height =~ ^[0-9]+$ ]]; then
-                    error_messages+=("    ❌ Invalid texture rect format in $file: $rect")
+                # Check for Texture2D line and extract path
+                if ! echo "$content" | grep -q 'Texture2D.*path='; then
+                    error_messages+=("    ❌ No Texture2D found in: $file")
+                    ((sprite_duplicates++))
                 else
-                    # Calculate which chunk this region starts in
-                    chunk_start_x=$(( x / TEXTURE_WIDTH * TEXTURE_WIDTH ))
-                    chunk_start_y=$(( y / TEXTURE_HEIGHT * TEXTURE_HEIGHT ))
+                    sprite_path=$(echo "$content" | grep 'Texture2D.*path=' | grep -o 'path="[^"]*"' | cut -d'"' -f2)
                     
-                    # Check if the region extends beyond its chunk
-                    if (( x + width > chunk_start_x + TEXTURE_WIDTH )) || (( y + height > chunk_start_y + TEXTURE_HEIGHT )); then
-                        error_messages+=("    ❌ Texture rect crosses chunk boundaries in $file. Region: $rect, Chunk: ($chunk_start_x, $chunk_start_y)")
-                        texture_failures=1
+                    # Store values
+                    all_ids+=("$id")
+                    all_names+=("$name")
+                    all_sprites+=("$sprite_path")
+                    sprite_files+=("$file")
+                    
+                    # Check if sprite_path is already in unique_sprite_paths
+                    is_unique=1
+                    for unique_path in "${unique_sprite_paths[@]}"; do
+                        if [ "$unique_path" = "$sprite_path" ]; then
+                            is_unique=0
+                            break
+                        fi
+                    done
+                    if [ $is_unique -eq 1 ]; then
+                        unique_sprite_paths+=("$sprite_path")
                     fi
-                    texture_rect_count=$((texture_rect_count + 1))
                 fi
-                
-                # Store values
-                all_ids+=("$id")
-                all_names+=("$name")
-                all_rects+=("$rect")
-                rect_files+=("$file")
             else
                 error_messages+=("    ❌ Missing file: $file")
                 missing_files=1
@@ -110,24 +107,35 @@ done
 
 echo ""
 echo "Checking for duplicate names..."
+
+# Debug: Print all names
+echo "All names:"
 for i in "${!all_names[@]}"; do
-    for j in "${!all_names[@]}"; do
-        if [ $i -ne $j ] && [ "${all_names[i]}" = "${all_names[j]}" ]; then
-            error_messages+=("    ❌ Duplicate name found: ${all_names[i]}")
+    echo "${sprite_files[i]} -> ${all_names[i]}"
+done
+
+for i in "${!all_names[@]}"; do
+    # Only check against higher indices to avoid showing duplicates twice
+    for j in $(seq $((i + 1)) $((${#all_names[@]} - 1))); do
+        if [ "${all_names[i]}" = "${all_names[j]}" ]; then
+            error_messages+=("    ❌ Duplicate name found in:")
+            error_messages+=("      - ${sprite_files[i]} -> ${all_names[i]}")
+            error_messages+=("      - ${sprite_files[j]} -> ${all_names[j]}")
             name_duplicates=1
         fi
     done
 done
 
 echo ""
-echo "Checking for duplicate texture rectangles..."
-for i in "${!all_rects[@]}"; do
-    for j in "${!all_rects[@]}"; do
-        if [ $i -ne $j ] && [ "${all_rects[i]}" = "${all_rects[j]}" ]; then
-            error_messages+=("    ❌ Duplicate texture rect found in:")
-            error_messages+=("      - ${rect_files[i]}")
-            error_messages+=("      - ${rect_files[j]}")
-            rect_duplicates=1
+echo "Checking for duplicate sprite paths..."
+for i in "${!all_sprites[@]}"; do
+    # Only check against higher indices to avoid counting duplicates twice
+    for j in $(seq $((i + 1)) $((${#all_sprites[@]} - 1))); do
+        if [ "${all_sprites[i]}" = "${all_sprites[j]}" ]; then
+            error_messages+=("    ❌ Duplicate sprite path found in:")
+            error_messages+=("      - ${sprite_files[i]} -> ${all_sprites[i]}")
+            error_messages+=("      - ${sprite_files[j]} -> ${all_sprites[j]}")
+            ((sprite_duplicates++))
         fi
     done
 done
@@ -136,14 +144,22 @@ done
 if [ ${#error_messages[@]} -gt 0 ]; then
     echo "=== Errors ==="
     echo ""
+    # Print name duplicates first
     for msg in "${error_messages[@]}"; do
-        echo "$msg"
+        if [[ $msg == *"Duplicate name found"* ]]; then
+            echo "$msg"
+        fi
+    done
+    # Then print other errors
+    for msg in "${error_messages[@]}"; do
+        if [[ $msg != *"Duplicate name found"* ]]; then
+            echo "$msg"
+        fi
     done
 fi
 
 # Calculate success counts
 successful_files=$((total_files - missing_files))
-successful_rects=$((texture_rect_count - texture_failures))
 
 # Print summary
 echo ""
@@ -154,37 +170,30 @@ echo ""
 if [ $missing_files -eq 0 ]; then
     echo "✅ All required files exist [$total_files/$total_files]"
 else
-    echo "❌ $missing_files missing files - [$successful_files/$total_files]"
-fi
-
-# Texture rect check
-if [ $texture_failures -eq 0 ]; then
-    echo "✅ All texture rects are properly contained [$texture_rect_count/$texture_rect_count]"
-else
-    echo "❌ $texture_failures texture rect issues - [$successful_rects/$texture_rect_count]"
+    echo "❌ Found files - [$successful_files/$total_files]"
 fi
 
 # Duplicate checks
 if [ $id_duplicates -eq 0 ]; then
     echo "✅ No duplicate IDs found [${#all_ids[@]}/${#all_ids[@]}]"
 else
-    echo "❌ Found duplicate IDs - [$(( ${#all_ids[@]} - id_duplicates ))/${#all_ids[@]}]"
+    echo "❌ Unique IDs - [$(( ${#all_ids[@]} - id_duplicates ))/${#all_ids[@]}]"
 fi
 
 if [ $name_duplicates -eq 0 ]; then
     echo "✅ No duplicate names found [${#all_names[@]}/${#all_names[@]}]"
 else
-    echo "❌ Found duplicate names - [$(( ${#all_names[@]} - name_duplicates ))/${#all_names[@]}]"
+    echo "❌ Unique names - [$(( ${#all_names[@]} - name_duplicates ))/${#all_names[@]}]"
 fi
 
-if [ $rect_duplicates -eq 0 ]; then
-    echo "✅ No duplicate texture rectangles found [${#all_rects[@]}/${#all_rects[@]}]"
+if [ $sprite_duplicates -eq 0 ]; then
+    echo "✅ No duplicate sprite paths found [${#all_sprites[@]}/${#all_sprites[@]}]"
 else
-    echo "❌ Found duplicate texture rectangles - [$(( ${#all_rects[@]} - rect_duplicates ))/${#all_rects[@]}]"
+    echo "❌ Unique sprites - [${#unique_sprite_paths[@]}/${#all_sprites[@]}]"
 fi
 
 # Compute final status
-if [ $missing_files -gt 0 ] || [ $texture_failures -gt 0 ] || [ $id_duplicates -gt 0 ] || [ $name_duplicates -gt 0 ] || [ $rect_duplicates -gt 0 ]; then
+if [ $missing_files -gt 0 ] || [ $id_duplicates -gt 0 ] || [ $name_duplicates -gt 0 ] || [ $sprite_duplicates -gt 0 ]; then
     exit 1
 else
     exit 0
