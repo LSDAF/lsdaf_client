@@ -32,6 +32,9 @@ tests:
 test:
 	godot --headless -s addons/gut/gut_cmdln.gd -gexit -gtest=$(TEST_FILE)
 
+clean-unused-assets:
+	@python3 scripts/find_unused_assets.py --fix --no-interactive
+
 help:
 	@echo "> format               |----------------------------------|  Apply gdformat to all files"
 	@echo "> install-pre-commit   |----------------------------------|  Install pre-commit hooks"
@@ -40,3 +43,4 @@ help:
 	@echo "> tests-github-actions |----------------------------------|  Run all tests (for github actions)"
 	@echo "> tests                |----------------------------------|  Run all tests"
 	@echo "> test                 |----------------------------------|  Run a test file (suffix with the test script location)"
+	@echo "> clean-unused-assets  |----------------------------------|  Find and delete unused assets"
