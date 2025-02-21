@@ -53,5 +53,5 @@ jobs:
             -   name: 🔍 Check for unused assets
                 shell: bash
                 run: |
-                    chmod +x ./scripts/one_shot/find_unused_assets.py
-                    ./scripts/one_shot/find_unused_assets.py
+                    chmod +x ./scripts/find_unused_assets.py
+                    ./scripts/find_unused_assets.py
