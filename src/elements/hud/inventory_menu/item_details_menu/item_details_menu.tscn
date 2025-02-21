@@ -2,11 +2,7 @@
 
 [ext_resource type="Script" path="res://src/elements/hud/inventory_menu/item_details_menu/item_details_menu.gd" id="1_jvtpm"]
 [ext_resource type="Texture2D" uid="uid://dl0fyacx1bv8i" path="res://asset/items/currencies/amethyst.png" id="2_w28rc"]
-[ext_resource type="Texture2D" uid="uid://pi5nl50km3qy" path="res://asset/items/items/32x32_PixelArmor_Premium_2.png" id="2_yq722"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jikcy"]
-atlas = ExtResource("2_yq722")
-region = Rect2(291, 43, 25, 15)
+[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="res://asset/items/items/Armor_Singles/Copper/Copper_Boots2.png" id="2_yq722"
 
 [node name="ItemDetailsMenu" type="Control"]
 layout_mode = 3
