@@ -105,18 +105,24 @@ def main():
     # Find unused assets
     unused_assets = all_assets - references
     
+    # Group and display unused assets if any
+    if unused_assets:
+        print(f"\nFound {len(unused_assets)} unused assets:")
+        grouped = group_unused_assets(unused_assets)
+        
+        for group, assets in sorted(grouped.items()):
+            print(f"\n{group}/ ({len(assets)} files):")
+            for asset in sorted(assets):
+                print(f"  {asset}")
+    
+    # Print final status
+    print("\n" + "=" * 60)
     if not unused_assets:
-        print("\nNo unused assets found! 🎉")
-        return
-    
-    # Group and display unused assets
-    print(f"\nFound {len(unused_assets)} unused assets:")
-    grouped = group_unused_assets(unused_assets)
-    
-    for group, assets in sorted(grouped.items()):
-        print(f"\n{group}/ ({len(assets)} files):")
-        for asset in sorted(assets):
-            print(f"  {asset}")
+        print("✅ SUCCESS: No unused assets found!")
+        return 0
+    else:
+        print(f"❌ FAILURE: Found {len(unused_assets)} unused assets")
+        return 1
 
 if __name__ == '__main__':
-    main()
+    exit(main())
