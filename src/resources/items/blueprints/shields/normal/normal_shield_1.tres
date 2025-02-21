@@ -1,17 +1,11 @@
 [gd_resource type="Resource" script_class="ItemBlueprint" load_steps=4 format=3 uid="uid://dao5ux4wpgx2l"]
 
 [ext_resource type="Script" path="res://src/models/items/item_blueprint/item_blueprint.gd" id="1_r6wuy"]
-[ext_resource type="Texture2D" path="res://asset/items/items/32x32_PixelWeapons_Premium.png" id="3_l4ou1"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vlpsy"]
-atlas = ExtResource("3_l4ou1")
-region = Rect2(5, 515, 21, 26)
-
-[resource]
+[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="res://asset/items/items/Armor_Singles/Copper/Copper_Shields2.png" id="2_3aggy"][resource]
 script = ExtResource("1_r6wuy")
 rarity = 0
 level = 0
 type = 4
 name = "Shield 1"
-texture = SubResource("AtlasTexture_vlpsy")
+texture = ExtResource("2_3aggy")
 id = "shield_normal_1"
