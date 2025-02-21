@@ -5,18 +5,15 @@ def update_texture_in_file(file_path, new_texture_path):
     with open(file_path, 'r') as f:
         content = f.read()
     
-    # Remove atlas texture if present
+    # Remove atlas texture if present and update to direct texture reference
     content = re.sub(r'\[ext_resource type="Texture2D"[^\]]*\][^\[]*\[sub_resource type="AtlasTexture"[^\]]*\][^\[]*atlas[^\[]*region[^\[]*', 
-                    f'[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="{new_texture_path}" id="2_3aggy"]', 
+                    f'[ext_resource type="Texture2D" path="{new_texture_path}"]', 
                     content)
     
     # Update direct texture references
     content = re.sub(r'\[ext_resource type="Texture2D"[^\]]*\]', 
-                    f'[ext_resource type="Texture2D" uid="uid://br1l5u58r8u28" path="{new_texture_path}" id="2_3aggy"]', 
+                    f'[ext_resource type="Texture2D" path="{new_texture_path}"]', 
                     content)
-    
-    # Update texture reference in resource section
-    content = re.sub(r'texture = SubResource\("[^"]*"\)', 'texture = ExtResource("2_3aggy")', content)
     
     with open(file_path, 'w') as f:
         f.write(content)
@@ -30,36 +27,59 @@ def process_directory(base_dir):
             file_path = os.path.join(root, file)
             item_type = os.path.basename(os.path.dirname(os.path.dirname(file_path)))
             
+            # Determine if it's a weapon (sword or shield)
+            is_shield = item_type.lower() == 'shield'
+            is_sword = item_type.lower() == 'sword'
+            is_weapon = is_shield or is_sword
+            base_path = "Weapon_Singles" if is_weapon else "Armor_Singles"
+            
+            # For swords, we use 'Weapon' instead of 'Sword' in the filename
+            item_type_in_path = "Weapon" if is_sword else item_type
+            
             if 'normal_' in file:
                 if '_1.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Copper/Copper_{item_type.capitalize()}2.png"
+                    number = "1" if is_shield else "2"
+                    texture_path = f"res://asset/items/items/{base_path}/Copper/Copper_{item_type_in_path.capitalize()}{number}.png"
                 elif '_2.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Copper/Copper_{item_type.capitalize()}7.png"
+                    number = "3" if is_shield else "7"
+                    texture_path = f"res://asset/items/items/{base_path}/Copper/Copper_{item_type_in_path.capitalize()}{number}.png"
             elif 'rare_' in file:
                 if '_1.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Iron/Iron_{item_type.capitalize()}5.png"
+                    number = "2" if is_shield else "5"
+                    texture_path = f"res://asset/items/items/{base_path}/Iron/Iron_{item_type_in_path.capitalize()}{number}.png"
                 elif '_2.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Iron/Iron_{item_type.capitalize()}6.png"
+                    number = "4" if is_shield else "6"
+                    texture_path = f"res://asset/items/items/{base_path}/Iron/Iron_{item_type_in_path.capitalize()}{number}.png"
             elif 'magic_' in file:
                 if '_1.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Cobalt/Cobalt_{item_type.capitalize()}5.png"
+                    number = "1" if is_shield else "5"
+                    texture_path = f"res://asset/items/items/{base_path}/Cobalt/Cobalt_{item_type_in_path.capitalize()}{number}.png"
                 elif '_2.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Cobalt/Cobalt_{item_type.capitalize()}9.png"
+                    number = "3" if is_shield else "9"
+                    texture_path = f"res://asset/items/items/{base_path}/Cobalt/Cobalt_{item_type_in_path.capitalize()}{number}.png"
             elif 'epic_' in file:
                 if '_1.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Nova/Nova_{item_type.capitalize()}14.png"
+                    number = "2" if is_shield else "14"
+                    material = "Silver" if is_weapon else "Nova"
+                    texture_path = f"res://asset/items/items/{base_path}/{material}/{material}_{item_type_in_path.capitalize()}{number}.png"
                 elif '_2.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Nova/Nova_{item_type.capitalize()}16.png"
+                    number = "4" if is_shield else "16"
+                    material = "Silver" if is_weapon else "Nova"
+                    texture_path = f"res://asset/items/items/{base_path}/{material}/{material}_{item_type_in_path.capitalize()}{number}.png"
             elif 'legendary_' in file:
                 if '_1.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Platinum/Platinum_{item_type.capitalize()}11.png"
+                    number = "1" if is_shield else "11"
+                    texture_path = f"res://asset/items/items/{base_path}/Platinum/Platinum_{item_type_in_path.capitalize()}{number}.png"
                 elif '_2.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Platinum/Platinum_{item_type.capitalize()}17.png"
+                    number = "3" if is_shield else "17"
+                    texture_path = f"res://asset/items/items/{base_path}/Platinum/Platinum_{item_type_in_path.capitalize()}{number}.png"
             elif 'mythic_' in file:
                 if '_1.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Angelic/Angelic_{item_type.capitalize()}16.png"
+                    number = "2" if is_shield else "16"
+                    texture_path = f"res://asset/items/items/{base_path}/Angelic/Angelic_{item_type_in_path.capitalize()}{number}.png"
                 elif '_2.' in file:
-                    texture_path = f"res://asset/items/items/Armor_Singles/Angelic/Angelic_{item_type.capitalize()}17.png"
+                    number = "4" if is_shield else "17"
+                    texture_path = f"res://asset/items/items/{base_path}/Angelic/Angelic_{item_type_in_path.capitalize()}{number}.png"
             else:
                 continue
                 
