@@ -54,8 +54,4 @@ jobs:
                 shell: bash
                 run: |
                     chmod +x ./scripts/one_shot/find_unused_assets.py
-                    ./scripts/one_shot/find_unused_assets.py > unused_assets_report.txt
-                    if [ -s unused_assets_report.txt ]; then
-                        echo "::warning::Found unused assets. Check unused_assets_report.txt for details."
-                        cat unused_assets_report.txt
-                    fi
+                    ./scripts/one_shot/find_unused_assets.py
