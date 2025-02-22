@@ -24,13 +24,16 @@ declare -a unique_sprite_paths
 
 # Item types
 types=("boots" "chestplates" "gloves" "helmets" "shields" "swords")
-rarities=("normal" "magic" "rare" "epic" "legendary" "mythic")
+rarities=('normal' 'common' 'uncommon' 'magic' 'rare' 'legendary' 'unique')
 
 # Arrays to store all IDs, names, and texture rects for uniqueness check
 declare -a all_ids
 declare -a all_names
 declare -a all_rects
 declare -a rect_files
+
+# Debug: Add processed files array to track duplicates
+declare -a processed_files
 
 echo "Checking all blueprints..."
 echo ""
@@ -52,25 +55,25 @@ for type in "${types[@]}"; do
             if [ -f "$file" ]; then
                 # Get the full file content
                 content=$(cat "$file")
-                
+
                 # Extract ID and name from [resource] section
                 resource_content=$(echo "$content" | sed -n '/\[resource\]/,/^$/p')
                 id=$(echo "$resource_content" | grep 'id = ' | cut -d'"' -f2)
                 name=$(echo "$resource_content" | grep 'name = ' | cut -d'"' -f2)
-                
+
                 # Check for Texture2D line and extract path
                 if ! echo "$content" | grep -q 'Texture2D.*path='; then
                     error_messages+=("    ❌ No Texture2D found in: $file")
                     ((sprite_duplicates++))
                 else
                     sprite_path=$(echo "$content" | grep 'Texture2D.*path=' | grep -o 'path="[^"]*"' | cut -d'"' -f2)
-                    
+
                     # Store values
                     all_ids+=("$id")
                     all_names+=("$name")
                     all_sprites+=("$sprite_path")
                     sprite_files+=("$file")
-                    
+
                     # Check if sprite_path is already in unique_sprite_paths
                     is_unique=1
                     for unique_path in "${unique_sprite_paths[@]}"; do
@@ -108,19 +111,20 @@ done
 echo ""
 echo "Checking for duplicate names..."
 
-# Debug: Print all names
-echo "All names:"
+# Debug: Print all names with indices
+echo "All names with indices:"
 for i in "${!all_names[@]}"; do
-    echo "${sprite_files[i]} -> ${all_names[i]}"
+    echo "[$i] ${sprite_files[i]} -> ${all_names[i]}"
 done
 
+# Create associative array to track unique names
+declare -a name_to_file
 for i in "${!all_names[@]}"; do
-    # Only check against higher indices to avoid showing duplicates twice
-    for j in $(seq $((i + 1)) $((${#all_names[@]} - 1))); do
-        if [ "${all_names[i]}" = "${all_names[j]}" ]; then
+    for j in "${!all_names[@]}"; do
+        if [ "$i" != "$j" ] && [ "${all_names[$i]}" = "${all_names[$j]}" ]; then
             error_messages+=("    ❌ Duplicate name found in:")
-            error_messages+=("      - ${sprite_files[i]} -> ${all_names[i]}")
-            error_messages+=("      - ${sprite_files[j]} -> ${all_names[j]}")
+            error_messages+=("      - ${sprite_files[$i]} -> ${all_names[$i]}")
+            error_messages+=("      - ${sprite_files[$j]} -> ${all_names[$j]}")
             name_duplicates=1
         fi
     done
@@ -131,7 +135,8 @@ echo "Checking for duplicate sprite paths..."
 for i in "${!all_sprites[@]}"; do
     # Only check against higher indices to avoid counting duplicates twice
     for j in $(seq $((i + 1)) $((${#all_sprites[@]} - 1))); do
-        if [ "${all_sprites[i]}" = "${all_sprites[j]}" ]; then
+        # Only compare if both sprites are non-empty and from different files
+        if [ -n "${all_sprites[i]}" ] && [ -n "${all_sprites[j]}" ] && [ "${sprite_files[i]}" != "${sprite_files[j]}" ] && [ "${all_sprites[i]}" = "${all_sprites[j]}" ]; then
             error_messages+=("    ❌ Duplicate sprite path found in:")
             error_messages+=("      - ${sprite_files[i]} -> ${all_sprites[i]}")
             error_messages+=("      - ${sprite_files[j]} -> ${all_sprites[j]}")
