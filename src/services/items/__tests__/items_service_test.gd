@@ -38,7 +38,12 @@ func before_each() -> void:
 		)
 	)
 
-	sut = preload("res://src/services/items/items_service.gd").new(game_save_service_partial_double)
+	var affix_registry := AffixRegistry.new()
+	var affix_pool := AffixPool.new()
+
+	sut = preload("res://src/services/items/items_service.gd").new(
+		game_save_service_partial_double, affix_registry, affix_pool
+	)
 
 
 func test_create_item() -> void:
@@ -55,6 +60,12 @@ func test_create_item() -> void:
 	assert_not_null(item.client_id)
 	assert_not_null(item.blueprint_id)
 	assert_ne(item.blueprint_id, "")
+
+	# Verify affixes
+	var rarity_spec := sut.rarity_specs.get_rarity_spec(item_rarity)
+	var affix_counts := sut._get_affix_counts(rarity_spec)
+	assert_eq(item.prefixes.size(), affix_counts.prefix_count)
+	assert_eq(item.suffixes.size(), affix_counts.suffix_count)
 
 
 func test_get_additional_stats() -> void:
@@ -398,6 +409,52 @@ func test_get_random_blueprint_from_pools(
 	assert_eq(item_blueprint.rarity, expected_rarity)
 
 
+func test_get_affix_counts() -> void:
+	# Arrange
+	var rarity_spec := RaritySpec.new()
+	rarity_spec.min_prefix_number = 1
+	rarity_spec.min_suffix_number = 2
+	rarity_spec.total_affix_number = 5
+
+	# Act
+	var counts := sut._get_affix_counts(rarity_spec)
+
+	# Assert
+	assert_eq(counts.prefix_count + counts.suffix_count, rarity_spec.total_affix_number)
+	assert_true(counts.prefix_count >= rarity_spec.min_prefix_number)
+	assert_true(counts.suffix_count >= rarity_spec.min_suffix_number)
+
+
+func test_get_affix_counts_with_no_remaining_slots() -> void:
+	# Arrange
+	var rarity_spec := RaritySpec.new()
+	rarity_spec.min_prefix_number = 2
+	rarity_spec.min_suffix_number = 3
+	rarity_spec.total_affix_number = 5
+
+	# Act
+	var counts := sut._get_affix_counts(rarity_spec)
+
+	# Assert
+	assert_eq(counts.prefix_count, rarity_spec.min_prefix_number)
+	assert_eq(counts.suffix_count, rarity_spec.min_suffix_number)
+	assert_eq(counts.prefix_count + counts.suffix_count, rarity_spec.total_affix_number)
+
+
+func test_get_affix_counts_with_all_remaining_slots() -> void:
+	# Arrange
+	var rarity_spec := RaritySpec.new()
+	rarity_spec.min_prefix_number = 0
+	rarity_spec.min_suffix_number = 0
+	rarity_spec.total_affix_number = 5
+
+	# Act
+	var counts := sut._get_affix_counts(rarity_spec)
+
+	# Assert
+	assert_eq(counts.prefix_count + counts.suffix_count, rarity_spec.total_affix_number)
+
+
 # Parameters
 # [item_type, item_rarity]
 var test_get_stats_pool_from_pools_parameters := [
@@ -468,3 +525,74 @@ func test_roll_stat_value(params: Array = use_parameters(test_roll_stat_value_pa
 
 	if rolled_stat_value.base_value < item_stat_blueprint.base_value_max:
 		assert_eq(fmod(rolled_stat_value.base_value, item_stat_blueprint.base_value_step), 0.0)
+
+
+func test_create_affix_prefix() -> void:
+	# Arrange
+	var item_type := ItemType.ItemType.SWORD
+	var item_rarity := ItemRarity.ItemRarity.NORMAL
+
+	# Create a test affix
+	var test_affix := ItemAffix.new(
+		ItemStatistics.ItemStatistics.ATTACK_ADD,
+		10.0,
+		AffixType.AffixType.PREFIX,
+		AffixType.AffixRole.OFFENSIVE,
+		AffixScaling.ScalingType.LINEAR,
+		[item_type]
+	)
+
+	# Create affix pool with test affix
+	var affix_pool := AffixPool.new()
+	affix_pool.add_affix(test_affix)
+
+	# Act
+	var affix := sut._create_affix(true, item_type, item_rarity, affix_pool)
+
+	# Assert
+	assert_not_null(affix)
+	assert_eq(affix.affix_type, AffixType.AffixType.PREFIX)
+	assert_true(affix.can_roll_on_item_type(item_type))
+
+
+func test_create_affix_suffix() -> void:
+	# Arrange
+	var item_type := ItemType.ItemType.SWORD
+	var item_rarity := ItemRarity.ItemRarity.NORMAL
+
+	# Create a test affix
+	var test_affix := ItemAffix.new(
+		ItemStatistics.ItemStatistics.ATTACK_ADD,
+		10.0,
+		AffixType.AffixType.SUFFIX,
+		AffixType.AffixRole.OFFENSIVE,
+		AffixScaling.ScalingType.LINEAR,
+		[item_type]
+	)
+
+	# Create affix pool with test affix
+	var affix_pool := AffixPool.new()
+	affix_pool.add_affix(test_affix)
+
+	# Act
+	var affix := sut._create_affix(false, item_type, item_rarity, affix_pool)
+
+	# Assert
+	assert_not_null(affix)
+	assert_eq(affix.affix_type, AffixType.AffixType.SUFFIX)
+	assert_true(affix.can_roll_on_item_type(item_type))
+
+
+func test_create_affix_with_empty_pool_returns_null() -> void:
+	# Arrange
+	var item_type := ItemType.ItemType.SWORD
+	var item_rarity := ItemRarity.ItemRarity.NORMAL
+
+	# Create empty affix pool
+	var affix_pool := AffixPool.new()
+
+	# Act
+	var affix := sut._create_affix(true, item_type, item_rarity, affix_pool)
+
+	# Assert
+	assert_null(affix)
